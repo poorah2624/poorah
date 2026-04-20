@@ -39,7 +39,8 @@ public class GalleryService {
                 .orElseThrow(() -> new RuntimeException("Gallery not found"));
 
         // delete image file
-        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads/";
+        /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
+        String uploadDir = "uploads/";
         File file = new File(uploadDir + gallery.getGalleryName());
 
         if (file.exists()) {

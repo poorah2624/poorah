@@ -37,7 +37,9 @@ public class TeamService {
 
     public void save(Team team, MultipartFile file) throws IOException {
 
-        String uploadDir = System.getProperty("user.dir") + "/uploads";
+       /* String uploadDir = System.getProperty("user.dir") + "/uploads";*/
+        /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
+        String uploadDir = "uploads/";
         File dir = new File(uploadDir);
         if (!dir.exists()) dir.mkdirs();
         

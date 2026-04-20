@@ -38,7 +38,8 @@ public class BannerController {
 	    }
 
 	    // upload folder
-	    String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
+	    /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
+        String uploadDir = "uploads/";
 
 	    File dir = new File(uploadDir);
 	    if(!dir.exists()) dir.mkdirs();
@@ -91,7 +92,8 @@ public class BannerController {
 	    //  Image Update Logic
 	    if (file != null && !file.isEmpty()) {
 
-	        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
+	    	 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
+	        String uploadDir = "uploads/";
 	        File dir = new File(uploadDir);
 	        if (!dir.exists()) dir.mkdirs();
 

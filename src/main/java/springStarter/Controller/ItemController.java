@@ -67,7 +67,8 @@ public class ItemController {
 	                        Model model) throws IOException {
 		
 		 // upload folder
-	    String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads/";
+		 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
+        String uploadDir = "uploads/";
 
 	    File dir = new File(uploadDir);
 	    if(!dir.exists()) dir.mkdirs();
@@ -166,7 +167,8 @@ public class ItemController {
 	public String updateItem(@ModelAttribute Item item,
 	                         @RequestParam("file") MultipartFile[] files) {
 
-		String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads/";
+		 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
+        String uploadDir = "uploads/";
 
 	    StringBuilder imageNames = new StringBuilder();
 

@@ -29,7 +29,7 @@ public class EmailService {
 
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setTo("poojakri2496@gmail.com"); // admin mail
+        message.setTo("rahul@poorah.com"); // admin mail
         message.setSubject("New Order Received - " + order.getOrderNumber());
         String amount = order.getTotalAmount()
                 .setScale(0, RoundingMode.HALF_UP)
@@ -64,7 +64,7 @@ public class EmailService {
 
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setTo("poojakri2496@gmail.com"); 
+        message.setTo("rahul@poorah.com"); 
         message.setSubject(subject);
         message.setText(body);
 

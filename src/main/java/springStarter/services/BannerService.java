@@ -46,7 +46,9 @@ public class BannerService {
                 .orElseThrow(() -> new RuntimeException("Banner not found"));
 
         // delete image file
-        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads/";
+        /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
+        String uploadDir = "uploads/";
+        
         File file = new File(uploadDir + banner.getBannerName());
 
         if (file.exists()) {

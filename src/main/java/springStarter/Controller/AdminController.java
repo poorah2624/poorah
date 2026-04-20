@@ -65,7 +65,8 @@ public class AdminController {
 
 		if (!file.isEmpty()) {
 
-			String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
+			/*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
+			String uploadDir = "uploads/";
 
 			File directory = new File(uploadDir);
 			if (!directory.exists())
@@ -175,7 +176,8 @@ public class AdminController {
 	   
 	    if (file != null && !file.isEmpty()) {
 
-	        String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";
+	        /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
+	        String uploadDir = "uploads/";
 
 	        File dir = new File(uploadDir);
 	        if (!dir.exists()) dir.mkdirs();
