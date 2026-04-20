@@ -40,7 +40,7 @@ public class GalleryService {
 
         // delete image file
         /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-        String uploadDir = "uploads/";
+        String uploadDir = "/app/uploads/";
         File file = new File(uploadDir + gallery.getGalleryName());
 
         if (file.exists()) {

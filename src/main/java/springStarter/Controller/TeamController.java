@@ -67,7 +67,7 @@ public class TeamController {
 		    if (file != null && !file.isEmpty()) {
 
 		    	 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-		        String uploadDir = "uploads/";
+		    	String uploadDir = "/app/uploads/";
 		        File dir = new File(uploadDir);
 		        if (!dir.exists()) dir.mkdirs();
 

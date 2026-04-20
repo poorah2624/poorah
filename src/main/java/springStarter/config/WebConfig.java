@@ -20,6 +20,6 @@ public class WebConfig implements WebMvcConfigurer {
         .addResourceLocations("classpath:/static/");
         
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:uploads/");
+                .addResourceLocations("file:/app/uploads/");
     }
 }

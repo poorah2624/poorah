@@ -376,7 +376,7 @@ public class HomeController {
 	        String fileName = file.getOriginalFilename();
 
 	        // save file
-	        String uploadDir = "uploads/";
+	        String uploadDir = "/app/uploads/";
 	        Path path = Paths.get(uploadDir + fileName);
 	        Files.write(path, file.getBytes());
 

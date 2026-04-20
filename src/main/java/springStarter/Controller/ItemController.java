@@ -68,7 +68,7 @@ public class ItemController {
 		
 		 // upload folder
 		 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-        String uploadDir = "uploads/";
+		String uploadDir = "/app/uploads/";
 
 	    File dir = new File(uploadDir);
 	    if(!dir.exists()) dir.mkdirs();
@@ -168,7 +168,7 @@ public class ItemController {
 	                         @RequestParam("file") MultipartFile[] files) {
 
 		 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-        String uploadDir = "uploads/";
+		String uploadDir = "/app/uploads/";
 
 	    StringBuilder imageNames = new StringBuilder();
 
