@@ -15,14 +15,19 @@ public class SecurityConfig {
 
         http
             .csrf().disable()
-            .authorizeHttpRequests(auth -> auth
+            .authorizeRequests(auth -> auth
+            		.antMatchers("/css/**", "/js/**", "/images/**", "/assets/**", "/uploads/**").permitAll()
                 .anyRequest().permitAll()
             )
             .formLogin().disable()
             .httpBasic().disable();
+        
+        
 
         return http.build();
     }
+    
+    
     
     
 }
