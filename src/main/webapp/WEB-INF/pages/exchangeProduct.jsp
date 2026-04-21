@@ -37,7 +37,7 @@
 	<div class="user-profile">
 		<div class="container">
 			<h2 style="text-align: center; margin-bottom: 30px;">Exchange Product</h2>
-            <form method="post" action="order/exchange">
+            <form method="post" action="/order/exchange">
 
             <input type="hidden" id="exchangeOrderId" name="orderId" />
 

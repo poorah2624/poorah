@@ -19,24 +19,24 @@
 
 	<!-- Bootstrap core CSS -->
 
-	<link href="admin/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-	<link href="admin/css/animate.min.css" rel="stylesheet">
+	<link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/admin/css/animate.min.css" rel="stylesheet">
 
 	<!-- Custom styling plus plugins -->
 
-  <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-  <link href="admin/css/animate.min.css" rel="stylesheet">
+  <link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/admin/css/animate.min.css" rel="stylesheet">
 
   <!-- Custom styling plus plugins -->
-  <link href="admin/css/custom.css" rel="stylesheet">
-  <link href="admin/css/icheck/flat/green.css" rel="stylesheet">
+  <link href="/admin/css/custom.css" rel="stylesheet">
+  <link href="/admin/css/icheck/flat/green.css" rel="stylesheet">
 
 
-  <script src="admin/js/jquery.min.js"></script>
+  <script src="/admin/js/jquery.min.js"></script>
 	<!--[if lt IE 9]>
 	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
 	<![endif]-->
@@ -105,7 +105,7 @@ function fileValidation(){
 
 							<div class="row x_title">
 								<div class="col-md-6">
-                                                                    <h3>Admin Panel <small><a href="dashboard"><button class="btn-lg btn btn-outline btn-success">Go To DashBoard</button></a></small></h3>
+                                                                    <h3>Admin Panel <small><a href="/dashboard"><button class="btn-lg btn btn-outline btn-success">Go To DashBoard</button></a></small></h3>
 								</div>
 								<div class="col-md-6">
 
@@ -126,7 +126,7 @@ function fileValidation(){
                 </div>
                 <div class="x_content">
 
-                  <form action="change_Password" method="post" class="form-horizontal form-label-left" novalidate>
+                  <form action="/change_Password" method="post" class="form-horizontal form-label-left" novalidate>
                      
                     <span class="section">Personal Info</span>
                      <input type="hidden" name="adminId" value="${sessionScope.LoggedInAdmin.adminId}"/>
@@ -201,18 +201,18 @@ function fileValidation(){
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	 <script src="admin/js/bootstrap.min.js"></script>
+	 <script src="/admin/js/bootstrap.min.js"></script>
 
   <!-- bootstrap progress js -->
-  <script src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-  <script src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+  <script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
   <!-- icheck -->
-  <script src="admin/js/icheck/icheck.min.js"></script>
+  <script src="/admin/js/icheck/icheck.min.js"></script>
   <!-- pace -->
-  <script src="admin/js/pace/pace.min.js"></script>
-  <script src="admin/js/custom.js"></script>
+  <script src="/admin/js/pace/pace.min.js"></script>
+  <script src="/admin/js/custom.js"></script>
   <!-- form validation -->
-  <script src="admin/js/validator/validator.js"></script>
+  <script src="/admin/js/validator/validator.js"></script>
   <script>
     // initialize the validator function
     validator.message['date'] = 'not a real date';
@@ -257,11 +257,11 @@ function fileValidation(){
   </script>
 	<!-- /datepicker -->
 	<!-- /footer content -->
-         <script src="admin/js/bootstrap.min.js"></script>
+         <script src="/admin/js/bootstrap.min.js"></script>
 
 	<!-- gauge js -->
 	
-	<script type="text/javascript" src="admin/js/datepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="/admin/js/datepicker/daterangepicker.js"></script>
 
 </body>
 

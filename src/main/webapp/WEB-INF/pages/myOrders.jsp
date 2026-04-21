@@ -74,7 +74,7 @@
 
 									<!-- PRODUCT IMAGE -->
 									<img
-										src="uploads/${fn:split(item.item.itemImage, ',')[0]}"
+										src="/uploads/${fn:split(item.item.itemImage, ',')[0]}"
 										style="width: 80px; height: 100px; border-radius: 8px; margin-right: 15px;" />
 
 									<!-- DETAILS -->
@@ -100,7 +100,7 @@
 									</div>
 									<div style="margin-bottom: 15px;">
 										<a
-											href="order/details?orderItemId=${item.id}">
+											href="/order/details?orderItemId=${item.id}">
 											<button>View Details</button>
 										</a>
 										<br><br>
@@ -111,7 +111,7 @@
 						<c:if
 							test="${item.status == 'Pending' || item.status == 'Processing' || item.status == 'Packed'}">
 							<form method="post"
-								action="order/cancel-item">
+								action="/order/cancel-item">
 								<input type="hidden" name="orderItemId" value="${item.id}">
 								<button
 									style="background: red; color: white; padding: 8px 15px; border: none; border-radius: 5px;">
@@ -121,7 +121,7 @@
 						
 						<c:if
 							test="${item.status == 'Cancelled' && item.refundStatus != 'Processed'}">
-							<form action="order/revert-cancel" method="post">
+							<form action="/order/revert-cancel" method="post">
 								<input type="hidden" name="orderItemId" value="${item.id}">
 								<button style="background: #007bff; color: white; padding: 8px 15px; border: none; border-radius: 5px;">Undo Cancel</button>
 							</form>
@@ -137,7 +137,7 @@
 						</c:if>
 						<c:if
 							test="${item.returnStatus == 'Requested' || item.returnStatus == 'Approved'}">
-							<form action="order/revert-return" method="post">
+							<form action="/order/revert-return" method="post">
 								<input type="hidden" name="orderItemId" value="${item.id}">
 								<button style="background: #f0ad4e; color: white; padding: 8px 15px; border: none; border-radius: 5px;">Cancel Return Request</button>
 							</form>
@@ -153,7 +153,7 @@
 						</c:if>
 						<c:if
 							test="${item.exchangeStatus == 'Requested' || item.exchangeStatus == 'Approved'}">
-							<form action="order/revert-exchange" method="post">
+							<form action="/order/revert-exchange" method="post">
 								<input type="hidden" name="orderItemId" value="${item.id}">
 								<button style="background: #007bff; color: white; padding: 8px 15px; border: none; border-radius: 5px;">Cancel Exchange</button>
 							</form>
@@ -205,7 +205,7 @@
 
 
 					<form method="post"
-						action="order/return">
+						action="/order/return">
 
 						<input type="hidden" id="returnOrderItemId" name="orderItemId" />
 
@@ -232,7 +232,7 @@
 
 
 					<form method="post"
-						action="order/exchange">
+						action="/order/exchange">
 
 						<input type="hidden" id="exchangeOrderItemId" name="orderItemId" />
 

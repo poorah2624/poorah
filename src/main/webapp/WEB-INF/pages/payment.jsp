@@ -30,7 +30,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="home"><span
+				<li><a href="/home"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Checkout</li>
 			</ul>
@@ -46,7 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" />
 		</h4>
 
-		<!-- <form action="orderPlaced" method="post"> -->
+		<!-- <form action="/orderPlaced" method="post"> -->
 		<form id="paymentForm">
 
 			<input type="hidden" name="addressId" value="${selectedAddressId}">
@@ -107,7 +107,7 @@ function handlePayment(){
     var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
 
     if(paymentMethod === "COD"){
-        document.getElementById("paymentForm").action = "orderPlaced";
+        document.getElementById("paymentForm").action = "/orderPlaced";
         document.getElementById("paymentForm").method = "post";
         document.getElementById("paymentForm").submit();
     } 
@@ -120,7 +120,7 @@ function handlePayment(){
 // ✅ Separate function
 function payNow() {
 
-    fetch("create-order", {
+    fetch("/create-order", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -164,7 +164,7 @@ function payNow() {
                 form.appendChild(paymentIdInput);
                 form.appendChild(orderIdInput);
 
-                form.action = "orderPlaced";
+                form.action = "/orderPlaced";
                 form.method = "post";
                 form.submit();
             },

@@ -29,7 +29,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Mail Us</li>
 			</ul>
 		</div>
@@ -55,7 +55,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				<div class="col-md-7 contact-left">
 					<h4>Contact Form</h4>
-					<form action="contact" method="post">
+					<form action="/contact" method="post">
 						<input type="text" name="userName" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
 						<input type="email" name="userEmail" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
 						<input type="text" name="userMobile" value="Mobile" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Mobile';}" required="">

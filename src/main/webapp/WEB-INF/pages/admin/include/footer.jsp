@@ -20,16 +20,16 @@
 					<div class="clearfix"></div>
 				</footer>    
         	<div class="sidebar-footer hidden-small">
-						<a href="edit_profile" data-toggle="tooltip" data-placement="top" title="Settings">
+						<a href="/edit_profile" data-toggle="tooltip" data-placement="top" title="Settings">
 							<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 						</a>
 						<a data-toggle="tooltip" data-placement="top" title="Contact_Developer">
 							<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
 						</a>
-						<a href="calender" data-toggle="tooltip" data-placement="top" title="Calender">
+						<a href="/calender" data-toggle="tooltip" data-placement="top" title="Calender">
 							<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
 						</a>
-                         <a href="Logout" data-toggle="tooltip" data-placement="top" title="Logout">
+                         <a href="/Logout" data-toggle="tooltip" data-placement="top" title="Logout">
 							<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 						</a>
 					</div>

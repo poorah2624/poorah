@@ -28,15 +28,15 @@
                   </a>
                     
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="dashboard">Destination</a></li>
+                    <li><a href="/dashboard">Destination</a></li>
                     <li>
-                      <a href="edit_profile">
+                      <a href="/edit_profile">
                         
                         <span>Settings</span>
                       </a>
                     </li>
                 
-                    <li><a href="Logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="/Logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                   
                 </li>

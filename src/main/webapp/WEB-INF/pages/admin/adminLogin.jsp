@@ -21,17 +21,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<link href="admin/css/bootstrap.css"
+<link href="/admin/css/bootstrap.css"
 	rel="stylesheet" type="text/css" media="all">
 <!-- Custom Theme files -->
-<link href="admin/css/style.css"
+<link href="/admin/css/style.css"
 	rel="stylesheet" type="text/css" media="all" />
 <!--js-->
 <script
-	src="admin/js/jquery-2.1.1.min.js"></script>
+	src="/admin/js/jquery-2.1.1.min.js"></script>
 <!--icons-css-->
 <link
-	href="admin/css/font-awesome.css"
+	href="/admin/css/font-awesome.css"
 	rel="stylesheet">
 <!--Google Fonts-->
 <link href='//fonts.googleapis.com/css?family=Carrois+Gothic'
@@ -54,7 +54,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p style="color: green">${msg }</p>
 			</c:if>
 			<div class="login-block">
-				<form action="login"
+				<form action="/login"
 					method="post">
 					<input type="text"
 						pattern="[a-z][a-zA-Z0-9.+@]+@[a-zA-Z.]+\.[a-z]{2,3}"
@@ -72,7 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</ul>
 						</div>
 						<div class="forgot">
-							<a href="forgot">Forgot
+							<a href="/forgot">Forgot
 								password?</a>
 						</div>
 						<div class="clearfix"></div>
@@ -80,7 +80,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<input type="submit" name="Sign In" value="Login">
 					<h3>
 						Not a member?<a
-							href="registerAdmin"> Sign
+							href="/registerAdmin"> Sign
 							up now</a>
 					</h3>
 					<h2>or login with</h2>
@@ -110,10 +110,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	<!--scrolling js-->
 	<script
-		src="admin/js/jquery.nicescroll.js"></script>
-	<script src="admin/js/scripts.js"></script>
+		src="/admin/js/jquery.nicescroll.js"></script>
+	<script src="/admin/js/scripts.js"></script>
 	<!--//scrolling js-->
-	<script src="admin/js/bootstrap.js">
+	<script src="/admin/js/bootstrap.js">
 		
 	</script>
 	<!-- mother grid end here-->

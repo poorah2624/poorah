@@ -21,41 +21,41 @@
 <!-- Bootstrap core CSS -->
 
 <link
-	href="admin/css/bootstrap.min.css"
+	href="/admin/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <link
-	href="admin/fonts/css/font-awesome.min.css"
+	href="/admin/fonts/css/font-awesome.min.css"
 	rel="stylesheet">
 <link
-	href="admin/css/animate.min.css"
+	href="/admin/css/animate.min.css"
 	rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<link href="admin/css/custom.css"
+<link href="/admin/css/custom.css"
 	rel="stylesheet">
 <link
-	href="admin/css/icheck/flat/green.css"
+	href="/admin/css/icheck/flat/green.css"
 	rel="stylesheet">
 <!-- editor -->
 <link
 	href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"
 	rel="stylesheet">
 <link
-	href="admin/css/editor/external/google-code-prettify/prettify.css"
+	href="/admin/css/editor/external/google-code-prettify/prettify.css"
 	rel="stylesheet">
 <link
-	href="admin/css/editor/index.css"
+	href="/admin/css/editor/index.css"
 	rel="stylesheet">
 <!-- select2 -->
 <link
-	href="admin/css/select/select2.min.css"
+	href="/admin/css/select/select2.min.css"
 	rel="stylesheet">
 <!-- switchery -->
 <link rel="stylesheet"
-	href="admin/css/switchery/switchery.min.css" />
+	href="/admin/css/switchery/switchery.min.css" />
 
-<script src="admin/js/jquery.min.js"></script>
+<script src="/admin/js/jquery.min.js"></script>
 
 <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -192,11 +192,11 @@
 															<!-- APPROVE BUTTON --> <c:if
 																test="${t.status != 'approved'}">
 																<a
-																	href="activateTestimonial?reviewId=${t.reviewId}">
+																	href="/activateTestimonial?reviewId=${t.reviewId}">
 																	<button class="btn btn-primary btn-xs">Approve</button>
 																</a>
 															</c:if> <!-- DELETE --> <a
-															href="deleteReview?reviewId=${t.reviewId}"
+															href="/deleteReview?reviewId=${t.reviewId}"
 															onclick="return confirm('Sure Want?');">
 																<button class="btn btn-danger btn-xs">Delete</button>
 														</a>
@@ -258,54 +258,54 @@
 	</div>
 
 	<script
-		src="admin/js/bootstrap.min.js"></script>
+		src="/admin/js/bootstrap.min.js"></script>
 
 	<!-- bootstrap progress js -->
 	<script
-		src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+		src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
 	<script
-		src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+		src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
 	<script
-		src="admin/js/icheck/icheck.min.js"></script>
+		src="/admin/js/icheck/icheck.min.js"></script>
 	<!-- tags -->
 	<script
-		src="admin/js/tags/jquery.tagsinput.min.js"></script>
+		src="/admin/js/tags/jquery.tagsinput.min.js"></script>
 	<!-- switchery -->
 	<script
-		src="admin/js/switchery/switchery.min.js"></script>
+		src="/admin/js/switchery/switchery.min.js"></script>
 	<!-- daterangepicker -->
 	<script type="text/javascript"
-		src="admin/js/moment/moment.min.js"></script>
+		src="/admin/js/moment/moment.min.js"></script>
 	<script type="text/javascript"
-		src="admin/js/datepicker/daterangepicker.js"></script>
+		src="/admin/js/datepicker/daterangepicker.js"></script>
 	<!-- richtext editor -->
 	<script
-		src="admin/js/editor/bootstrap-wysiwyg.js"></script>
+		src="/admin/js/editor/bootstrap-wysiwyg.js"></script>
 	<script
-		src="admin/js/editor/external/jquery.hotkeys.js"></script>
+		src="/admin/js/editor/external/jquery.hotkeys.js"></script>
 	<script
-		src="admin/js/editor/external/google-code-prettify/prettify.js"></script>
+		src="/admin/js/editor/external/google-code-prettify/prettify.js"></script>
 	<!-- select2 -->
 	<script
-		src="admin/js/select/select2.full.js"></script>
+		src="/admin/js/select/select2.full.js"></script>
 	<!-- form validation -->
 	<script type="text/javascript"
-		src="admin/js/parsley/parsley.min.js"></script>
+		src="/admin/js/parsley/parsley.min.js"></script>
 	<!-- textarea resize -->
 	<script
-		src="admin/js/textarea/autosize.min.js"></script>
+		src="/admin/js/textarea/autosize.min.js"></script>
 	<script>
 		autosize($('.resizable_textarea'));
 	</script>
 	<!-- Autocomplete -->
 	<script type="text/javascript"
-		src="admin/js/autocomplete/countries.js"></script>
+		src="/admin/js/autocomplete/countries.js"></script>
 	<script
-		src="admin/js/autocomplete/jquery.autocomplete.js"></script>
+		src="/admin/js/autocomplete/jquery.autocomplete.js"></script>
 	<!-- pace -->
 	<script
-		src="admin/js/pace/pace.min.js"></script>
+		src="/admin/js/pace/pace.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			'use strict';
@@ -322,7 +322,7 @@
 			});
 		});
 	</script>
-	<script src="admin/js/custom.js"></script>
+	<script src="/admin/js/custom.js"></script>
 
 
 	<!-- select2 -->

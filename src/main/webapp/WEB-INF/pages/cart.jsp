@@ -31,11 +31,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 
 <!-- //for-mobile-apps -->
-<link href="css/bootstrap.css"
+<link href="/css/bootstrap.css"
 	rel="stylesheet" type="text/css" media="all" />
-<link href="css/style.css"
+<link href="/css/style.css"
 	rel="stylesheet" type="text/css" media="all" />
-<link href="css/fasthover.css"
+<link href="/css/fasthover.css"
 	rel="stylesheet" type="text/css" media="all" />
 
 
@@ -65,7 +65,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="home"><span
+				<li><a href="/home"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Cart</li>
 			</ul>
@@ -90,7 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<!-- IMAGE -->
 								<div class="custom-img">
 									<img
-										src="uploads/${c.customImage}" />
+										src="/uploads/${c.customImage}" />
 									<span class="custom-badge">Your Design 🎨</span>
 								</div>
 
@@ -134,7 +134,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<!-- ACTION -->
 									<div class="custom-actions">
 										<a
-											href="DeleteCart/${c.cartId}"
+											href="/DeleteCart/${c.cartId}"
 											class="btn btn-danger btn-sm">Remove</a>
 									</div>
 
@@ -148,7 +148,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<!-- IMAGE -->
 								<div class="cart-img">
 									<img
-										src="uploads/${fn:split(c.item.itemImage, ',')[0]}" />
+										src="/uploads/${fn:split(c.item.itemImage, ',')[0]}" />
 
 								</div>
 
@@ -192,7 +192,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<!-- QUANTITY -->
 									<div class="qty-box">
 										<form
-											action="UpdateQuantity"
+											action="/UpdateQuantity"
 											method="post">
 
 											<input type="hidden" name="itemId" value="${c.item.itemId}">
@@ -213,7 +213,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 										<!-- DELETE -->
 										<a
-											href="DeleteCart/${c.cartId}"
+											href="/DeleteCart/${c.cartId}"
 											class="delete-btn"> 🗑 </a>
 									</div>
 
@@ -265,9 +265,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="checkout-left">
 
 				<div class="checkout-right-basket">
-					<a href="checkout"
+					<a href="/checkout"
 						class="btn btn-warning">Order Now</a> <a
-						href="products2"><span
+						href="/products2"><span
 						class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue
 						Shopping</a>
 				</div>

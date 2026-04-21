@@ -52,9 +52,9 @@
 					<tr>
 						<th></th>
 						<td><a
-							href="editUser"
+							href="/editUser"
 							class="btn btn-success">Edit Profile</a> <a
-							href="changeUserPass"
+							href="/changeUserPass"
 							class="btn btn-primary">Change Password</a></td>
 					</tr>
 					

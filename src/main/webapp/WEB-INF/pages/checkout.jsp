@@ -30,7 +30,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="home"><span
+				<li><a href="/home"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Checkout</li>
 			</ul>
@@ -38,7 +38,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 	<!-- //breadcrumbs -->
 	
-	<form action="payment"
+	<form action="/payment"
 					method="post">
 
 	<div class="container" style="margin-top: 30px;">
@@ -70,7 +70,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</div>
 					</c:forEach>
 
-					<a href="addAddress"
+					<a href="/addAddress"
 						class="btn btn-link">+ Add New Address</a>
 			</div>
 

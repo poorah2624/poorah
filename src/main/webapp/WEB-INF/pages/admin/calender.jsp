@@ -20,19 +20,19 @@
 
   <!-- Bootstrap core CSS -->
 
-  <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-  <link href="admin/css/animate.min.css" rel="stylesheet">
+  <link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/admin/css/animate.min.css" rel="stylesheet">
 
   <!-- Custom styling plus plugins -->
-  <link href="admin/css/custom.css" rel="stylesheet">
-  <link href="admin/css/icheck/flat/green.css" rel="stylesheet">
+  <link href="/admin/css/custom.css" rel="stylesheet">
+  <link href="/admin/css/icheck/flat/green.css" rel="stylesheet">
 
-  <link href="admin/css/calendar/fullcalendar.css" rel="stylesheet">
-  <link href="admin/css/calendar/fullcalendar.print.css" rel="stylesheet" media="print">
+  <link href="/admin/css/calendar/fullcalendar.css" rel="stylesheet">
+  <link href="/admin/css/calendar/fullcalendar.print.css" rel="stylesheet" media="print">
 
-  <script src="admin/js/jquery.min.js"></script>
+  <script src="/admin/js/jquery.min.js"></script>
 </head>
 
 
@@ -71,7 +71,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-                                                                    <h3>Calander <small><a href="dashboard"><button class="btn-lg btn btn-outline btn-success"> Go Back</button></a></small></h3>
+                                                                    <h3>Calander <small><a href="/dashboard"><button class="btn-lg btn btn-outline btn-success"> Go Back</button></a></small></h3>
 								</div>
 								<div class="col-md-6">
 
@@ -190,22 +190,22 @@
     <div id="notif-group" class="tabbed_notifications"></div>
   </div>
 
-  <script src="admin/js/bootstrap.min.js"></script>
+  <script src="/admin/js/bootstrap.min.js"></script>
 
-  <script src="admin/js/nprogress.js"></script>
+  <script src="/admin/js/nprogress.js"></script>
   
   <!-- bootstrap progress js -->
-  <script src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-  <script src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+  <script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
   <!-- icheck -->
-  <script src="admin/js/icheck/icheck.min.js"></script>
+  <script src="/admin/js/icheck/icheck.min.js"></script>
 
-  <script src="admin/js/custom.js"></script>
+  <script src="/admin/js/custom.js"></script>
 
-  <script src="admin/js/moment/moment.min.js"></script>
-  <script src="admin/js/calendar/fullcalendar.min.js"></script>
+  <script src="/admin/js/moment/moment.min.js"></script>
+  <script src="/admin/js/calendar/fullcalendar.min.js"></script>
   <!-- pace -->
-  <script src="admin/js/pace/pace.min.js"></script>
+  <script src="/admin/js/pace/pace.min.js"></script>
   <script>
     $(window).load(function() {
 

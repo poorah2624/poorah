@@ -17,17 +17,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<link href="admin/css/bootstrap.css"
+<link href="/admin/css/bootstrap.css"
 	rel="stylesheet" type="text/css" media="all">
 <!-- Custom Theme files -->
-<link href="admin/css/style.css"
+<link href="/admin/css/style.css"
 	rel="stylesheet" type="text/css" media="all" />
 <!--js-->
 <script
-	src="admin/js/jquery-2.1.1.min.js"></script>
+	src="/admin/js/jquery-2.1.1.min.js"></script>
 <!--icons-css-->
 <link
-	href="admin/css/font-awesome.css"
+	href="/admin/css/font-awesome.css"
 	rel="stylesheet">
 <!--Google Fonts-->
 <link href='//fonts.googleapis.com/css?family=Carrois+Gothic'
@@ -49,7 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p style="color: green">${msg }</p>
 			</c:if>
 			<div class="login-block">
-				<form action="resetAdminPassword"
+				<form action="/resetAdminPassword"
 					method="post">
 					<input type="hidden" name="token" value="${token}" />
 													 <input
@@ -72,7 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<input type="submit" name="Sign In" value="Submit">
 					<h3>
-						Not a member?<a href="registerAdmin"> Sign up now</a>
+						Not a member?<a href="/registerAdmin"> Sign up now</a>
 					</h3>
 					<h2>or login with</h2>
 					<div class="login-icons">
@@ -103,10 +103,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	<!--scrolling js-->
 	<script
-		src="admin/js/jquery.nicescroll.js"></script>
-	<script src="admin/js/scripts.js"></script>
+		src="/admin/js/jquery.nicescroll.js"></script>
+	<script src="/admin/js/scripts.js"></script>
 	<!--//scrolling js-->
-	<script src="admin/js/bootstrap.js">
+	<script src="/admin/js/bootstrap.js">
 		
 	</script>
 	<!-- mother grid end here-->

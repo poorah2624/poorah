@@ -22,19 +22,19 @@
 
 	<!-- Bootstrap core CSS -->
 
-	<link href="admin/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-	<link href="admin/css/animate.min.css" rel="stylesheet">
+	<link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/admin/css/animate.min.css" rel="stylesheet">
 
 	<!-- Custom styling plus plugins -->
-	<link href="admin/css/custom.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="admin/css/maps/jquery-jvectormap-2.0.3.css" />
-	<link href="admin/css/icheck/flat/green.css" rel="stylesheet" />
-	<link href="admin/css/floatexamples.css" rel="stylesheet" type="text/css" />
+	<link href="/admin/css/custom.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/admin/css/maps/jquery-jvectormap-2.0.3.css" />
+	<link href="/admin/css/icheck/flat/green.css" rel="stylesheet" />
+	<link href="/admin/css/floatexamples.css" rel="stylesheet" type="text/css" />
 
-	<script src="admin/js/jquery.min.js"></script>
-	<script src="admin/js/nprogress.js"></script>
+	<script src="/admin/js/jquery.min.js"></script>
+	<script src="/admin/js/nprogress.js"></script>
 
 	<!--[if lt IE 9]>
 	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -134,7 +134,7 @@ function fileValidation(){
                           <div class="col-md-8">
                               
                             <div class="compose-btn">
-                              <a class="btn btn-sm btn-primary" href="ReplyQuery/${contact.contactId}"><i class="fa fa-reply"></i> Reply</a>
+                              <a class="btn btn-sm btn-primary" href="/ReplyQuery/${contact.contactId}"><i class="fa fa-reply"></i> Reply</a>
                               <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="Print" onclick="window.print();" class="btn  btn-sm tooltips"><i class="fa fa-print"></i> </button>
                               <button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" class="btn btn-sm tooltips" onclick="if(confirm('Sure Want?')){return true;} else{return false;};"><i class="fa fa-trash-o"></i>
                               </button>
@@ -165,7 +165,7 @@ function fileValidation(){
                        
                         <div class="compose-btn pull-left">
                             
-                          <a class="btn btn-sm btn-primary" href="ReplyQuery/${contact.contactId}"><i class="fa fa-reply"></i> Reply</a>
+                          <a class="btn btn-sm btn-primary" href="/ReplyQuery/${contact.contactId}"><i class="fa fa-reply"></i> Reply</a>
                          
                           <button title="" data-placement="top" data-toggle="tooltip" onclick="window.print()" type="button" data-original-title="Print" class="btn  btn-sm tooltips"><i class="fa fa-print"></i> </button>
                           <button title="" data-placement="top" data-toggle="tooltip" data-original-title="Trash" onclick="if(confirm('Sure Want?')){return true;} else{return false;};" class="btn btn-sm tooltips"><i class="fa fa-trash-o"></i>
@@ -215,35 +215,35 @@ function fileValidation(){
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	<script src="admin/js/bootstrap.min.js"></script>
+	<script src="/admin/js/bootstrap.min.js"></script>
 
 	<!-- gauge js -->
-	<script type="text/javascript" src="admin/js/gauge/gauge.min.js"></script>
-	<script type="text/javascript" src="admin/js/gauge/gauge_demo.js"></script>
+	<script type="text/javascript" src="/admin/js/gauge/gauge.min.js"></script>
+	<script type="text/javascript" src="/admin/js/gauge/gauge_demo.js"></script>
 	<!-- chart js -->
-	<script src="admin/js/chartjs/chart.min.js"></script>
+	<script src="/admin/js/chartjs/chart.min.js"></script>
 	<!-- bootstrap progress js -->
-	<script src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-	<script src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+	<script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+	<script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
-	<script src="admin/js/icheck/icheck.min.js"></script>
+	<script src="/admin/js/icheck/icheck.min.js"></script>
 	<!-- daterangepicker -->
-	<script type="text/javascript" src="admin/js/moment/moment.min.js"></script>
-	<script type="text/javascript" src="admin/js/datepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="/admin/js/moment/moment.min.js"></script>
+	<script type="text/javascript" src="/admin/js/datepicker/daterangepicker.js"></script>
 
-	<script src="admin/js/custom.js"></script>
+	<script src="/admin/js/custom.js"></script>
 
 	<!-- flot js -->
 	<!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
-	<script type="text/javascript" src="admin/js/flot/jquery.flot.js"></script>
-	<script type="text/javascript" src="admin/js/flot/jquery.flot.pie.js"></script>
-	<script type="text/javascript" src="admin/js/flot/jquery.flot.orderBars.js"></script>
-	<script type="text/javascript" src="admin/js/flot/jquery.flot.time.min.js"></script>
-	<script type="text/javascript" src="admin/js/flot/date.js"></script>
-	<script type="text/javascript" src="admin/js/flot/jquery.flot.spline.js"></script>
-	<script type="text/javascript" src="admin/js/flot/jquery.flot.stack.js"></script>
-	<script type="text/javascript" src="admin/js/flot/curvedLines.js"></script>
-	<script type="text/javascript" src="admin/js/flot/jquery.flot.resize.js"></script>
+	<script type="text/javascript" src="/admin/js/flot/jquery.flot.js"></script>
+	<script type="text/javascript" src="/admin/js/flot/jquery.flot.pie.js"></script>
+	<script type="text/javascript" src="/admin/js/flot/jquery.flot.orderBars.js"></script>
+	<script type="text/javascript" src="/admin/js/flot/jquery.flot.time.min.js"></script>
+	<script type="text/javascript" src="/admin/js/flot/date.js"></script>
+	<script type="text/javascript" src="/admin/js/flot/jquery.flot.spline.js"></script>
+	<script type="text/javascript" src="/admin/js/flot/jquery.flot.stack.js"></script>
+	<script type="text/javascript" src="/admin/js/flot/curvedLines.js"></script>
+	<script type="text/javascript" src="/admin/js/flot/jquery.flot.resize.js"></script>
 	<script>
 		$(document).ready(function() {
 			// [17, 74, 6, 39, 20, 85, 7]
@@ -322,12 +322,12 @@ function fileValidation(){
 	</script>
 
 	<!-- worldmap -->
-	<script type="text/javascript" src="admin/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
-	<script type="text/javascript" src="admin/js/maps/gdp-data.js"></script>
-	<script type="text/javascript" src="admin/js/maps/jquery-jvectormap-world-mill-en.js"></script>
-	<script type="text/javascript" src="admin/js/maps/jquery-jvectormap-us-aea-en.js"></script>
+	<script type="text/javascript" src="/admin/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
+	<script type="text/javascript" src="/admin/js/maps/gdp-data.js"></script>
+	<script type="text/javascript" src="/admin/js/maps/jquery-jvectormap-world-mill-en.js"></script>
+	<script type="text/javascript" src="/admin/js/maps/jquery-jvectormap-us-aea-en.js"></script>
 	<!-- pace -->
-	<script src="admin/js/pace/pace.min.js"></script>
+	<script src="/admin/js/pace/pace.min.js"></script>
 	<script>
 		$(function() {
 			$('#world-map-gdp').vectorMap({
@@ -348,7 +348,7 @@ function fileValidation(){
 		});
 	</script>
 	<!-- skycons -->
-	<script src="admin/js/skycons/skycons.min.js"></script>
+	<script src="/admin/js/skycons/skycons.min.js"></script>
 	<script>
 		var icons = new Skycons({
 				"color": "#73879C"

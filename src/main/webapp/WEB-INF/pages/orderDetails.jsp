@@ -47,7 +47,7 @@
 					<!-- LEFT SIDE IMAGE -->
 					<div style="flex: 1;">
 						<img
-							src="uploads/${fn:split(item.item.itemImage, ',')[0]}"
+							src="/uploads/${fn:split(item.item.itemImage, ',')[0]}"
 							style="width: 100%; max-width: 300px; border-radius: 10px;">
 					</div>
 
@@ -105,7 +105,7 @@
 						<c:if
 							test="${item.status == 'Pending' || item.status == 'Processing' || item.status == 'Packed'}">
 							<form method="post"
-								action="order/cancel-item">
+								action="/order/cancel-item">
 								<input type="hidden" name="orderItemId" value="${item.id}">
 								<button
 									style="background: red; color: white; padding: 8px 15px; border: none; border-radius: 5px;">
@@ -116,7 +116,7 @@
 						<c:if
 							test="${item.status == 'Cancelled' && item.refundStatus != 'Processed'}">
 							<form
-								action="order/revert-cancel"
+								action="/order/revert-cancel"
 								method="post">
 								<input type="hidden" name="orderItemId" value="${item.id}">
 								<button
@@ -136,7 +136,7 @@
 						<c:if
 							test="${item.returnStatus == 'Requested' || item.returnStatus == 'Approved'}">
 							<form
-								action="order/revert-return"
+								action="/order/revert-return"
 								method="post">
 								<input type="hidden" name="orderItemId" value="${item.id}">
 								<button
@@ -156,7 +156,7 @@
 						<c:if
 							test="${item.exchangeStatus == 'Requested' || item.exchangeStatus == 'Approved'}">
 							<form
-								action="order/revert-exchange"
+								action="/order/revert-exchange"
 								method="post">
 								<input type="hidden" name="orderItemId" value="${item.id}">
 								<button
@@ -211,7 +211,7 @@
 					<!-- INVOICE BUTTON -->
 					<div style="margin-top: 15px;">
 						<a
-							href="order/invoice/${item.id}"
+							href="/order/invoice/${item.id}"
 							class="btn btn-success" target="_blank"> 📄 Download Invoice
 						</a>
 					</div>
@@ -343,7 +343,7 @@
 					<h3>Return Product</h3>
 
 					<form method="post"
-						action="order/return">
+						action="/order/return">
 
 						<input type="hidden" id="returnItemId" name="orderItemId">
 
@@ -369,7 +369,7 @@
 					<h3>Exchange Product</h3>
 
 					<form method="post"
-						action="order/exchange">
+						action="/order/exchange">
 
 						<input type="hidden" id="exchangeItemId" name="orderItemId">
 

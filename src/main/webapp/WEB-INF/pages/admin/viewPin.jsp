@@ -20,24 +20,24 @@
 
 	<!-- Bootstrap core CSS -->
 
-	<link href="admin/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-	<link href="admin/css/animate.min.css" rel="stylesheet">
+	<link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/admin/css/animate.min.css" rel="stylesheet">
 
 	<!-- Custom styling plus plugins -->
 
-  <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-  <link href="admin/css/animate.min.css" rel="stylesheet">
+  <link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/admin/css/animate.min.css" rel="stylesheet">
 
   <!-- Custom styling plus plugins -->
-  <link href="admin/css/custom.css" rel="stylesheet">
-  <link href="admin/css/icheck/flat/green.css" rel="stylesheet">
+  <link href="/admin/css/custom.css" rel="stylesheet">
+  <link href="/admin/css/icheck/flat/green.css" rel="stylesheet">
 
 
-  <script src="admin/js/jquery.min.js"></script>
+  <script src="/admin/js/jquery.min.js"></script>
 	<!--[if lt IE 9]>
 	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
 	<![endif]-->
@@ -106,7 +106,7 @@ function fileValidation(){
 
 							<div class="row x_title">
 								<div class="col-md-6">
-                                                                    <h3>Admin Panel <small><a href="AddPin"><button class="btn-lg btn btn-outline btn-success">Add Pin</button></a></small></h3>
+                                                                    <h3>Admin Panel <small><a href="/AddPin"><button class="btn-lg btn btn-outline btn-success">Add Pin</button></a></small></h3>
 								</div>
 								<div class="col-md-6">
 
@@ -139,8 +139,8 @@ function fileValidation(){
                         <c:forEach var="p" items="${pin }">
                         <tr>
                             <td>${p.pincode }</td>
-                            <td><a href="editPin/${p.pinId }" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a></td>
-                            <td><a href="DeletePin/${p.pinId }" class="btn btn-danger btn-xs" onclick="if(confirm('Sure Want?')){return true;} else{return false;};"><i class="fa  fa-trash-o"></i> Delete </a></td>
+                            <td><a href="/editPin/${p.pinId }" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a></td>
+                            <td><a href="/DeletePin/${p.pinId }" class="btn btn-danger btn-xs" onclick="if(confirm('Sure Want?')){return true;} else{return false;};"><i class="fa  fa-trash-o"></i> Delete </a></td>
                         </tr>
                        </c:forEach>
                        
@@ -193,18 +193,18 @@ function fileValidation(){
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	 <script src="admin/js/bootstrap.min.js"></script>
+	 <script src="/admin/js/bootstrap.min.js"></script>
 
   <!-- bootstrap progress js -->
-  <script src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-  <script src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+  <script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
   <!-- icheck -->
-  <script src="admin/js/icheck/icheck.min.js"></script>
+  <script src="/admin/js/icheck/icheck.min.js"></script>
   <!-- pace -->
-  <script src="admin/js/pace/pace.min.js"></script>
-  <script src="admin/js/custom.js"></script>
+  <script src="/admin/js/pace/pace.min.js"></script>
+  <script src="/admin/js/custom.js"></script>
   <!-- form validation -->
-  <script src="admin/js/validator/validator.js"></script>
+  <script src="/admin/js/validator/validator.js"></script>
   <script>
     // initialize the validator function
     validator.message['date'] = 'not a real date';
@@ -253,7 +253,7 @@ function fileValidation(){
 
 	<!-- gauge js -->
 	
-	<script type="text/javascript" src="admin/js/datepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="/admin/js/datepicker/daterangepicker.js"></script>
 
 </body>
 

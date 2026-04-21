@@ -40,7 +40,7 @@
 					<p class="profile-description">Welcome to Womens Fashion!</p>
 					<div class="buttons">
 						<ul>
-							<li><a href="userProfile"><i
+							<li><a href="/userProfile"><i
 									class="ti-user"></i><span> Profile</span></a></li>
 							<li><a href=""><i class="ti-thumb-up"></i><span>Review</span></a>
 							</li>

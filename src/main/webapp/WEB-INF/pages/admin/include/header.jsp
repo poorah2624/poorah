@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="navbar nav_title" style="border: 0;">
-		<a href="dashboard" class="site_title"><i class="fa fa-paw"></i>
+		<a href="/dashboard" class="site_title"><i class="fa fa-paw"></i>
 			<span>Admin Panel</span></a>
 	</div>
 	<div class="clearfix"></div>
@@ -23,7 +23,7 @@
 	<div class="profile">
 		
 			<div class="profile_pic">
-				<img src="uploads/${sessionScope.LoggedInAdmin.image}" alt="..."
+				<img src="/uploads/${sessionScope.LoggedInAdmin.image}" alt="..."
 					class="img-circle profile_img">
 			</div>
 

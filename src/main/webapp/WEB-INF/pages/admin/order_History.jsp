@@ -22,22 +22,22 @@
 
   <!-- Bootstrap core CSS -->
 
-  <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-  <link href="admin/css/animate.min.css" rel="stylesheet">
+  <link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/admin/css/animate.min.css" rel="stylesheet">
 
   <!-- Custom styling plus plugins -->
-  <link href="admin/css/custom.css" rel="stylesheet">
-  <link href="admin/css/icheck/flat/green.css" rel="stylesheet">
+  <link href="/admin/css/custom.css" rel="stylesheet">
+  <link href="/admin/css/icheck/flat/green.css" rel="stylesheet">
 
-  <link href="admin/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-  <link href="admin/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="admin/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="admin/js/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="admin/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-  <script src="admin/js/jquery.min.js"></script>
+  <script src="/admin/js/jquery.min.js"></script>
 
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -86,7 +86,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-                                                                    <h3>Order Management<small><a href="order_History"><button class="btn-lg btn btn-outline btn-success">Order History</button></a></small></h3>
+                                                                    <h3>Order Management<small><a href="/order_History"><button class="btn-lg btn btn-outline btn-success">Order History</button></a></small></h3>
 								</div>
 								<div class="col-md-6">
 
@@ -139,7 +139,7 @@
                         <td>${o.user.userEmail }</td>
                          <td>${o.orderDate }</td>
                       <td><img 
-                      src="uploads/${fn:split(item.item.itemImage, ',')[0]}"
+                      src="/uploads/${fn:split(item.item.itemImage, ',')[0]}"
                            style="width:60px; height:70px; border-radius:5px;" />
                       </td>
                          <td>${item.item.itemName }</td>
@@ -153,8 +153,8 @@
                         <td>${o.paymentMethod }</td>
                         <td>${o.status }</td>
                        
-                          <td><a href="updateOrder?id=${o.id}" class="btn btn-primary">Update</a></td>
-                          <td><a href="invoice" class="btn btn-xs btn-info fa fa-book"> View</a></td>
+                          <td><a href="/updateOrder?id=${o.id}" class="btn btn-primary">Update</a></td>
+                          <td><a href="/invoice" class="btn btn-xs btn-info fa fa-book"> View</a></td>
                       </tr>
                       </c:forEach>
                       </c:forEach>
@@ -188,15 +188,15 @@
           <div id="notif-group" class="tabbed_notifications"></div>
         </div>
 
-        <script src="admin/js/bootstrap.min.js"></script>
+        <script src="/admin/js/bootstrap.min.js"></script>
 
         <!-- bootstrap progress js -->
-        <script src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-        <script src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+        <script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+        <script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
         <!-- icheck -->
-        <script src="admin/js/icheck/icheck.min.js"></script>
+        <script src="/admin/js/icheck/icheck.min.js"></script>
 
-        <script src="admin/js/custom.js"></script>
+        <script src="/admin/js/custom.js"></script>
 
 
         <!-- Datatables -->
@@ -204,24 +204,24 @@
   <script src="js/datatables/tools/js/dataTables.tableTools.js"></script> -->
 
         <!-- Datatables-->
-        <script src="admin/js/datatables/jquery.dataTables.min.js"></script>
-        <script src="admin/js/datatables/dataTables.bootstrap.js"></script>
-        <script src="admin/js/datatables/dataTables.buttons.min.js"></script>
-        <script src="admin/js/datatables/buttons.bootstrap.min.js"></script>
-        <script src="admin/js/datatables/jszip.min.js"></script>
-        <script src="admin/js/datatables/pdfmake.min.js"></script>
-        <script src="admin/js/datatables/vfs_fonts.js"></script>
-        <script src="admin/js/datatables/buttons.html5.min.js"></script>
-        <script src="admin/js/datatables/buttons.print.min.js"></script>
-        <script src="admin/js/datatables/dataTables.fixedHeader.min.js"></script>
-        <script src="admin/js/datatables/dataTables.keyTable.min.js"></script>
-        <script src="admin/js/datatables/dataTables.responsive.min.js"></script>
-        <script src="admin/js/datatables/responsive.bootstrap.min.js"></script>
-        <script src="admin/js/datatables/dataTables.scroller.min.js"></script>
+        <script src="/admin/js/datatables/jquery.dataTables.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.bootstrap.js"></script>
+        <script src="/admin/js/datatables/dataTables.buttons.min.js"></script>
+        <script src="/admin/js/datatables/buttons.bootstrap.min.js"></script>
+        <script src="/admin/js/datatables/jszip.min.js"></script>
+        <script src="/admin/js/datatables/pdfmake.min.js"></script>
+        <script src="/admin/js/datatables/vfs_fonts.js"></script>
+        <script src="/admin/js/datatables/buttons.html5.min.js"></script>
+        <script src="/admin/js/datatables/buttons.print.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.fixedHeader.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.keyTable.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.responsive.min.js"></script>
+        <script src="/admin/js/datatables/responsive.bootstrap.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.scroller.min.js"></script>
 
 
         <!-- pace -->
-        <script src="admin/js/pace/pace.min.js"></script>
+        <script src="/admin/js/pace/pace.min.js"></script>
         <script>
           var handleDataTableButtons = function() {
               "use strict";

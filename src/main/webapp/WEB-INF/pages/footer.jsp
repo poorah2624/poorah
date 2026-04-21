@@ -17,10 +17,10 @@
 				<div class="col-md-3 w3_footer_grid">
 					<h3>Information</h3>
 					<ul class="info">
-						<li><a href="about">About Us</a></li>
-						<li><a href="mail">Contact Us</a></li>
-						<li><a href="faq">FAQ's</a></li>
-						<li><a href="products2">Special Products</a></li>
+						<li><a href="/about">About Us</a></li>
+						<li><a href="/mail">Contact Us</a></li>
+						<li><a href="/faq">FAQ's</a></li>
+						<li><a href="/products2">Special Products</a></li>
 					</ul>
 				</div>
 				<div class="col-md-3 w3_footer_grid">
@@ -28,7 +28,7 @@
 					<ul class="info">
 					<c:forEach var="c" items="${categories}">
 						<li><a
-										href="products3/category/${c.categoryId}">${c.categoryName }</a></li>
+										href="/products3/category/${c.categoryId}">${c.categoryName }</a></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -36,7 +36,7 @@
 					<h3>Profile</h3>
 					<ul class="info">
 						
-						<li><a href="cart">My Cart</a></li>
+						<li><a href="/cart">My Cart</a></li>
 					</ul>
 					<h4>Follow Us</h4>
 					<div class="agileits_social_button">
@@ -55,7 +55,7 @@
 			<div class="footer-copy1">
 				<div class="footer-copy-pos">
 					<a href="#home1" class="scroll"><img
-						src="uploads/arrow.png" alt=" "
+						src="/uploads/arrow.png" alt=" "
 						class="img-responsive" /></a>
 				</div>
 			</div>
@@ -65,20 +65,20 @@
 		</div>
 	</div>
 	<!-- js -->
-	<script src="js/jquery.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
 	<!-- for bootstrap working -->
 	<script type="text/javascript"
-		src="js/bootstrap-3.1.1.min.js"></script>
+		src="/js/bootstrap-3.1.1.min.js"></script>
 	<script
-		src="js/jquery.magnific-popup.js"></script>
-	<script src="js/jquery.flexisel.js"></script>
-	<script src="js/jquery.countdown.js"></script>
-	<script src="js/jquery.wmuSlider.js"></script>
-	<script src="js/simpleCart.min.js"></script>
+		src="/js/jquery.magnific-popup.js"></script>
+	<script src="/js/jquery.flexisel.js"></script>
+	<script src="/js/jquery.countdown.js"></script>
+	<script src="/js/jquery.wmuSlider.js"></script>
+	<script src="/js/simpleCart.min.js"></script>
 	<script
-		src="js/easyResponsiveTabs.js"
+		src="/js/easyResponsiveTabs.js"
 		type="text/javascript"></script>
-	<script src="js/script.js"></script>
+	<script src="/js/script.js"></script>
 	
 	<script>
 $(document).ready(function(){

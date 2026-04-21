@@ -20,22 +20,22 @@
 
   <!-- Bootstrap core CSS -->
 
-  <link href="admin/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-  <link href="admin/css/animate.min.css" rel="stylesheet">
+  <link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/admin/css/animate.min.css" rel="stylesheet">
 
   <!-- Custom styling plus plugins -->
-  <link href="admin/css/custom.css" rel="stylesheet">
-  <link href="admin/css/icheck/flat/green.css" rel="stylesheet">
+  <link href="/admin/css/custom.css" rel="stylesheet">
+  <link href="/admin/css/icheck/flat/green.css" rel="stylesheet">
 
-  <link href="admin/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-  <link href="admin/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="admin/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="admin/js/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="admin/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/admin/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-  <script src="admin/js/jquery.min.js"></script>
+  <script src="/admin/js/jquery.min.js"></script>
 
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -124,7 +124,7 @@
                           <h3>Maninder Duhan <small>3.00 PM</small></h3>
                           <p> Regarding Product XYZ</p>
                         </div></td>
-                        <td><a href="${pageContext.request.contextPath}ViewContactQuery"><i class="fa fa-eye fa-2x"></i></a>
+                        <td><a href="ViewContactQuery"><i class="fa fa-eye fa-2x"></i></a>
                           </td>
                         <td> <a href="#"  onclick="if(confirm('Sure Want?')){return true;} else{return false;};"><i class="fa  fa-trash-o fa-2x"></i></a>
                           </td>
@@ -159,15 +159,15 @@
           <div id="notif-group" class="tabbed_notifications"></div>
         </div>
 
-        <script src="admin/js/bootstrap.min.js"></script>
+        <script src="/admin/js/bootstrap.min.js"></script>
 
         <!-- bootstrap progress js -->
-        <script src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-        <script src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+        <script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+        <script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
         <!-- icheck -->
-        <script src="admin/js/icheck/icheck.min.js"></script>
+        <script src="/admin/js/icheck/icheck.min.js"></script>
 
-        <script src="admin/js/custom.js"></script>
+        <script src="/admin/js/custom.js"></script>
 
 
         <!-- Datatables -->
@@ -175,24 +175,24 @@
   <script src="js/datatables/tools/js/dataTables.tableTools.js"></script> -->
 
         <!-- Datatables-->
-        <script src="admin/js/datatables/jquery.dataTables.min.js"></script>
-        <script src="admin/js/datatables/dataTables.bootstrap.js"></script>
-        <script src="admin/js/datatables/dataTables.buttons.min.js"></script>
-        <script src="admin/js/datatables/buttons.bootstrap.min.js"></script>
-        <script src="admin/js/datatables/jszip.min.js"></script>
-        <script src="admin/js/datatables/pdfmake.min.js"></script>
-        <script src="admin/js/datatables/vfs_fonts.js"></script>
-        <script src="admin/js/datatables/buttons.html5.min.js"></script>
-        <script src="admin/js/datatables/buttons.print.min.js"></script>
-        <script src="admin/js/datatables/dataTables.fixedHeader.min.js"></script>
-        <script src="admin/js/datatables/dataTables.keyTable.min.js"></script>
-        <script src="admin/js/datatables/dataTables.responsive.min.js"></script>
-        <script src="admin/js/datatables/responsive.bootstrap.min.js"></script>
-        <script src="admin/js/datatables/dataTables.scroller.min.js"></script>
+        <script src="/admin/js/datatables/jquery.dataTables.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.bootstrap.js"></script>
+        <script src="/admin/js/datatables/dataTables.buttons.min.js"></script>
+        <script src="/admin/js/datatables/buttons.bootstrap.min.js"></script>
+        <script src="/admin/js/datatables/jszip.min.js"></script>
+        <script src="/admin/js/datatables/pdfmake.min.js"></script>
+        <script src="/admin/js/datatables/vfs_fonts.js"></script>
+        <script src="/admin/js/datatables/buttons.html5.min.js"></script>
+        <script src="/admin/js/datatables/buttons.print.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.fixedHeader.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.keyTable.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.responsive.min.js"></script>
+        <script src="/admin/js/datatables/responsive.bootstrap.min.js"></script>
+        <script src="/admin/js/datatables/dataTables.scroller.min.js"></script>
 
 
         <!-- pace -->
-        <script src="admin/js/pace/pace.min.js"></script>
+        <script src="/admin/js/pace/pace.min.js"></script>
         <script>
           var handleDataTableButtons = function() {
               "use strict";

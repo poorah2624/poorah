@@ -48,14 +48,14 @@
         <p>Your order has been placed and will be delivered soon.</p>
 
       
-        <a href="myOrders" 
+        <a href="/myOrders" 
            class="btn btn-primary btn-custom">
            View My Orders
         </a>
 
         <br>
 
-        <a href="home" 
+        <a href="/home" 
            class="btn btn-default btn-custom">
            Continue Shopping
         </a>

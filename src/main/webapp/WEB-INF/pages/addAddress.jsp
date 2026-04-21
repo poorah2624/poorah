@@ -21,7 +21,7 @@
 
     <div class="col-md-6 col-md-offset-3">
 
-        <form action="saveAddress" method="post">
+        <form action="/saveAddress" method="post">
 
             <div class="form-group">
                 <label>Full Name</label>
@@ -87,7 +87,7 @@
             </div>
 
             <button type="submit" class="btn btn-success">Save Address</button>
-            <a href="address" class="btn btn-default">Cancel</a>
+            <a href="/address" class="btn btn-default">Cancel</a>
 
         </form>
 

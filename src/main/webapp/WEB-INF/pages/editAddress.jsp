@@ -21,7 +21,7 @@
 
     <div class="col-md-6 col-md-offset-3">
 
-        <form action="updateAddress" method="post">
+        <form action="/updateAddress" method="post">
         
         <input type="hidden" name="addressId" value="${address.addressId}"/>
 
@@ -89,7 +89,7 @@
             </div>
 
             <button type="submit" class="btn btn-success">Update Address</button>
-            <a href="address" class="btn btn-default">Cancel</a>
+            <a href="/address" class="btn btn-default">Cancel</a>
 
         </form>
 
