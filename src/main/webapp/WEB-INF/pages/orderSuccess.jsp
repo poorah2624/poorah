@@ -48,14 +48,14 @@
         <p>Your order has been placed and will be delivered soon.</p>
 
       
-        <a href="${pageContext.request.contextPath}/myOrders" 
+        <a href="myOrders" 
            class="btn btn-primary btn-custom">
            View My Orders
         </a>
 
         <br>
 
-        <a href="${pageContext.request.contextPath}/home" 
+        <a href="home" 
            class="btn btn-default btn-custom">
            Continue Shopping
         </a>

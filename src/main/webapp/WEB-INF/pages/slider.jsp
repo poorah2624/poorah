@@ -14,7 +14,7 @@
 
                         <!-- IMAGE -->
                         <div class="bg-box">
-                            <img src="${pageContext.request.contextPath}/uploads/${b.bannerName}" />
+                            <img src="uploads/${b.bannerName}" />
                         </div>
 
                         <!-- TEXT -->

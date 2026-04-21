@@ -46,7 +46,7 @@
 										aria-labelledby="tab_item-0">
 										<div class="facts">
 											<div class="register">
-												<form action="${pageContext.request.contextPath}/dologin"
+												<form action="dologin"
 													method="post">
 													<input name="userEmail"
 														pattern="[a-z][a-zA-Z0-9.+@]+@[a-zA-Z.]+\.[a-z]{2,3}"
@@ -65,7 +65,7 @@
 										aria-labelledby="tab_item-1">
 										<div class="facts">
 											<div class="register">
-												<form action="${pageContext.request.contextPath}/register"
+												<form action="register"
 													method="post" enctype="multipart/form-data">
 													<input placeholder="Name" pattern="([A-Za-z .])+"
 														name="userName" type="text" required=""> <input
@@ -89,7 +89,7 @@
 										<div class="facts">
 											<div class="register">
 												<form
-													action="${pageContext.request.contextPath}/forgotPassword"
+													action="forgotPassword"
 													method="post">
 													<input name="userEmail" placeholder="Email Address"
 														type="text" required="">

@@ -18,7 +18,7 @@
     <div class="container">
         <ul>
             <li>
-                <a href="${pageContext.request.contextPath}/home">
+                <a href="home">
                     <span class="glyphicon glyphicon-home"></span> Home
                 </a> 
                 <i>/</i>
@@ -37,7 +37,7 @@
 
         <!-- ADD NEW ADDRESS BUTTON -->
         <div style="text-align:right; margin-bottom:15px;">
-            <a href="${pageContext.request.contextPath}/addAddress"
+            <a href="addAddress"
                class="btn btn-primary">
                + Add New Address
             </a>
@@ -79,12 +79,12 @@
                     <tr>
                         <th></th>
                         <td>
-                            <a href="${pageContext.request.contextPath}/editAddress/${addr.addressId}"
+                            <a href="editAddress/${addr.addressId}"
                                class="btn btn-success">
                                Edit
                             </a>
 
-                            <a href="${pageContext.request.contextPath}/deleteAddress/${addr.addressId}"
+                            <a href="deleteAddress/${addr.addressId}"
                                class="btn btn-danger"
                                onclick="return confirm('Delete this address?')">
                                Delete

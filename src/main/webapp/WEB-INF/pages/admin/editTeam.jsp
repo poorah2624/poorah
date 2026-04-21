@@ -21,19 +21,19 @@
 
 	<!-- Bootstrap core CSS -->
 
-	<link href="${pageContext.request.contextPath}/admin/css/bootstrap.min.css" rel="stylesheet">
+	<link href="admin/css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="${pageContext.request.contextPath}/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-	<link href="${pageContext.request.contextPath}/admin/css/animate.min.css" rel="stylesheet">
+	<link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+	<link href="admin/css/animate.min.css" rel="stylesheet">
 
 	<!-- Custom styling plus plugins -->
-	<link href="${pageContext.request.contextPath}/admin/css/custom.css" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/admin/css/maps/jquery-jvectormap-2.0.3.css" />
-	<link href="${pageContext.request.contextPath}/admin/css/icheck/flat/green.css" rel="stylesheet" />
-	<link href="${pageContext.request.contextPath}/admin/css/floatexamples.css" rel="stylesheet" type="text/css" />
+	<link href="admin/css/custom.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="admin/css/maps/jquery-jvectormap-2.0.3.css" />
+	<link href="admin/css/icheck/flat/green.css" rel="stylesheet" />
+	<link href="admin/css/floatexamples.css" rel="stylesheet" type="text/css" />
 
-	<script src="${pageContext.request.contextPath}/admin/js/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/admin/js/nprogress.js"></script>
+	<script src="admin/js/jquery.min.js"></script>
+	<script src="admin/js/nprogress.js"></script>
 
 	<!--[if lt IE 9]>
 	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -104,7 +104,7 @@ function fileValidation(){
 
 							<div class="row x_title">
 								<div class="col-md-6">
-                                                                    <h3>Edit Team <small><a href="${pageContext.request.contextPath}/View_team"><button class="btn-lg btn btn-outline btn-success">View Team</button></a></small></h3>
+                                                                    <h3>Edit Team <small><a href="View_team"><button class="btn-lg btn btn-outline btn-success">View Team</button></a></small></h3>
 								</div>
 								<div class="col-md-6">
 
@@ -123,7 +123,7 @@ function fileValidation(){
                 </div>
                 <div class="x_content">
                   <br />
-                  <form action ="${pageContext.request.contextPath}/editTeam" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="Multipart/form-data">
+                  <form action ="editTeam" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" enctype="Multipart/form-data">
                      
                      <input type="hidden" name="teamId" value="${team.teamId }"/>
                     <div class="form-group">
@@ -152,7 +152,7 @@ function fileValidation(){
                       <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="last-name">Image <span class="required">*</span>
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                       <img src="${pageContext.request.contextPath}/uploads/${team.tImage }" name="tImage" style="width:100px;height:100px;"/>
+                       <img src="uploads/${team.tImage }" name="tImage" style="width:100px;height:100px;"/>
                       </div>
                     </div>
                     <div class="form-group">
@@ -223,35 +223,35 @@ function fileValidation(){
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	<script src="${pageContext.request.contextPath}/admin/js/bootstrap.min.js"></script>
+	<script src="admin/js/bootstrap.min.js"></script>
 
 	<!-- gauge js -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/gauge/gauge.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/gauge/gauge_demo.js"></script>
+	<script type="text/javascript" src="admin/js/gauge/gauge.min.js"></script>
+	<script type="text/javascript" src="admin/js/gauge/gauge_demo.js"></script>
 	<!-- chart js -->
-	<script src="${pageContext.request.contextPath}/admin/js/chartjs/chart.min.js"></script>
+	<script src="admin/js/chartjs/chart.min.js"></script>
 	<!-- bootstrap progress js -->
-	<script src="${pageContext.request.contextPath}/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-	<script src="${pageContext.request.contextPath}/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+	<script src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+	<script src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
-	<script src="${pageContext.request.contextPath}/admin/js/icheck/icheck.min.js"></script>
+	<script src="admin/js/icheck/icheck.min.js"></script>
 	<!-- daterangepicker -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/moment/moment.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/datepicker/daterangepicker.js"></script>
+	<script type="text/javascript" src="admin/js/moment/moment.min.js"></script>
+	<script type="text/javascript" src="admin/js/datepicker/daterangepicker.js"></script>
 
 	<script src="js/custom.js"></script>
 
 	<!-- flot js -->
 	<!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.pie.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.orderBars.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.time.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/flot/date.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.spline.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.stack.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/flot/curvedLines.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.resize.js"></script>
+	<script type="text/javascript" src="admin/js/flot/jquery.flot.js"></script>
+	<script type="text/javascript" src="admin/js/flot/jquery.flot.pie.js"></script>
+	<script type="text/javascript" src="admin/js/flot/jquery.flot.orderBars.js"></script>
+	<script type="text/javascript" src="admin/js/flot/jquery.flot.time.min.js"></script>
+	<script type="text/javascript" src="admin/js/flot/date.js"></script>
+	<script type="text/javascript" src="admin/js/flot/jquery.flot.spline.js"></script>
+	<script type="text/javascript" src="admin/js/flot/jquery.flot.stack.js"></script>
+	<script type="text/javascript" src="admin/js/flot/curvedLines.js"></script>
+	<script type="text/javascript" src="admin/js/flot/jquery.flot.resize.js"></script>
 	<script>
 		$(document).ready(function() {
 			// [17, 74, 6, 39, 20, 85, 7]
@@ -330,12 +330,12 @@ function fileValidation(){
 	</script>
 
 	<!-- worldmap -->
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/maps/gdp-data.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/maps/jquery-jvectormap-world-mill-en.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/maps/jquery-jvectormap-us-aea-en.js"></script>
+	<script type="text/javascript" src="admin/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
+	<script type="text/javascript" src="admin/js/maps/gdp-data.js"></script>
+	<script type="text/javascript" src="admin/js/maps/jquery-jvectormap-world-mill-en.js"></script>
+	<script type="text/javascript" src="admin/js/maps/jquery-jvectormap-us-aea-en.js"></script>
 	<!-- pace -->
-	<script src="${pageContext.request.contextPath}/admin/js/pace/pace.min.js"></script>
+	<script src="admin/js/pace/pace.min.js"></script>
 	<script>
 		$(function() {
 			$('#world-map-gdp').vectorMap({
@@ -356,7 +356,7 @@ function fileValidation(){
 		});
 	</script>
 	<!-- skycons -->
-	<script src="${pageContext.request.contextPath}/admin/js/skycons/skycons.min.js"></script>
+	<script src="admin/js/skycons/skycons.min.js"></script>
 	<script>
 		var icons = new Skycons({
 				"color": "#73879C"

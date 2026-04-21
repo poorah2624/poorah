@@ -25,15 +25,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </script>
 <!-- //for-mobile-apps -->
-<link href="${pageContext.request.contextPath}/css/bootstrap.css"
+<link href="css/bootstrap.css"
 	rel="stylesheet" type="text/css" media="all" />
-<link href="${pageContext.request.contextPath}/css/style.css"
+<link href="css/style.css"
 	rel="stylesheet" type="text/css" media="all" />
-<link href="${pageContext.request.contextPath}/css/fasthover.css"
+<link href="css/fasthover.css"
 	rel="stylesheet" type="text/css" media="all" />
 
 <!-- cart -->
-<script src="${pageContext.request.contextPath}/js/simpleCart.min.js"></script>
+<script src="js/simpleCart.min.js"></script>
 <!-- cart -->
 
 <link href='//fonts.googleapis.com/css?family=Glegoo:400,700'
@@ -75,7 +75,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 			<b>Deliver to:</b> ${defaultAddress.fullName},
 			${defaultAddress.pincode} <a
-				href="${pageContext.request.contextPath}/address"
+				href="address"
 				style="float: ;">Change</a>
 		</div>
 
@@ -85,7 +85,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/home"><span
+				<li><a href="home"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Products</li>
 			</ul>
@@ -119,11 +119,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 							</div>
 							<ul class="panel_bottom">
-								<li><a href="${pageContext.request.contextPath}/products2">Shop</a></li>
+								<li><a href="products2">Shop</a></li>
 								<c:forEach var="c" items="${categories}">
 
 									<li><a
-										href="${pageContext.request.contextPath}/products3/category/${c.categoryId}">${c.categoryName }</a></li>
+										href="products3/category/${c.categoryId}">${c.categoryName }</a></li>
 								</c:forEach>
 
 
@@ -171,14 +171,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 									<div class="hs-wrapper hs-wrapper2">
 										<img
-											src="${pageContext.request.contextPath}/uploads/${fn:split(p.itemImage, ',')[0]}"
+											src="uploads/${fn:split(p.itemImage, ',')[0]}"
 											alt=" " class="img-responsive"
 											style="width: 210px; height: 250px;" />
 
 										<div class="w3_hs_bottom w3_hs_bottom_sub1">
 											<ul>
 												<li><a
-													href="${pageContext.request.contextPath}/single/${p.itemId}"
+													href="single/${p.itemId}"
 													data-target="#myModal4"><span
 														class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 												</li>
@@ -188,7 +188,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 									<h5>
 										<a
-											href="${pageContext.request.contextPath}/single/${p.itemId}">${p.itemName }</a>
+											href="single/${p.itemId}">${p.itemName }</a>
 									</h5>
 									<div class="simpleCart_shelfItem" style="text-align:center;">
 									  <div style="display:flex; justify-content:center; gap:10px; align-items:center;">
@@ -229,7 +229,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 function addToCart(itemId, btn){
 
-    fetch('${pageContext.request.contextPath}/addToCart?itemId=' + itemId)
+    fetch('addToCart?itemId=' + itemId)
     .then(response => {
         if(response.ok){
 
@@ -246,7 +246,7 @@ function addToCart(itemId, btn){
 }
 
 function goToCart(){
-    window.location.href = '${pageContext.request.contextPath}/cart';
+    window.location.href = 'cart';
 }
 
 </script>

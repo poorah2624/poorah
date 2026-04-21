@@ -20,9 +20,9 @@
                                                             <li><a><i class="fa fa-user"></i> Admin Profile <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
                                                                        
-                                                                            <li><a href="${pageContext.request.contextPath}/edit_profile">Edit Profile</a>
+                                                                            <li><a href="edit_profile">Edit Profile</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath}/change_Password">Change Password</a>
+										<li><a href="change_Password">Change Password</a>
 										</li>
                                                                              
 									</ul>
@@ -30,49 +30,49 @@
                                                                 
 								<li><a><i class="fa fa-file-image-o"></i> Banner <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="${pageContext.request.contextPath}/Add_Banner">Add Banner</a>
+                                                                            <li><a href="Add_Banner">Add Banner</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath}/view_Banner">View Banner</a>
+										<li><a href="view_Banner">View Banner</a>
 										</li>
 									</ul>
 								</li>
                                                                 <li><a><i class="fa fa-file-image-o"></i> Gallery <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="${pageContext.request.contextPath}/Add_Gallery">Add Gallery</a>
+                                                                            <li><a href="Add_Gallery">Add Gallery</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath}/view_Gallery">View Gallery</a>
+										<li><a href="view_Gallery">View Gallery</a>
 										</li>
 									</ul>
 								</li>
                                                                 
                                                                 <li><a><i class="fa fa-bars"></i> Category <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="${pageContext.request.contextPath}/Add_Category">Add Category</a>
+                                                                            <li><a href="Add_Category">Add Category</a>
 										</li>
-										<li><a href="${pageContext.request.contextPath}/view_Category">View Category</a>
+										<li><a href="view_Category">View Category</a>
 										</li>
-                                                                                <li><a href="${pageContext.request.contextPath}/Add_SubCategory">Add Sub-Category</a>
+                                                                                <li><a href="Add_SubCategory">Add Sub-Category</a>
 										</li>
-                                                                                <li><a href="${pageContext.request.contextPath}/view_SubCategory">View Sub-Category</a>
+                                                                                <li><a href="view_SubCategory">View Sub-Category</a>
 										</li>
-                                                                                <li><a href="${pageContext.request.contextPath}/Add_Item">Add Item</a>
+                                                                                <li><a href="Add_Item">Add Item</a>
 										</li>
-                                                                                <li><a href="${pageContext.request.contextPath}/view_Item">View Item</a>
+                                                                                <li><a href="view_Item">View Item</a>
 										</li>
 									</ul>
 								</li>
 								<li><a><i class="glyphicon glyphicon-heart-empty"></i> Testimonial <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="${pageContext.request.contextPath}/Testimonial">View Testimonial</a>
+                                                                            <li><a href="Testimonial">View Testimonial</a>
 										</li>
 										
 									</ul>
 								</li>
                                                                 <li><a><i class="fa fa-question"></i> FAQ'S <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="${pageContext.request.contextPath}/ADD_FAQ">Add FAQ</a>
+                                                                            <li><a href="ADD_FAQ">Add FAQ</a>
 										</li>
-										 <li><a href="${pageContext.request.contextPath}/View_FAQ">View FAQ</a>
+										 <li><a href="View_FAQ">View FAQ</a>
 										</li>
 									</ul>
 								</li>
@@ -81,7 +81,7 @@
                                                                     
 									<ul class="nav child_menu" style="display: none">
                                                                           
-                                                                            <li><a href="${pageContext.request.contextPath}/contactdetails">Contact Details</a>
+                                                                            <li><a href="contactdetails">Contact Details</a>
 										</li>
                                                                               
 										 
@@ -91,58 +91,58 @@
                                                                 
                                                                 <li><a><i class="fa fa-edit"></i> Pages <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="${pageContext.request.contextPath}/Addaboutus">Update About Us</a></li>
-                                                                            <li><a href="${pageContext.request.contextPath}/PrivacyPolicy">Update Privacy Policy</a> </li>
-								            <li><a href="${pageContext.request.contextPath}/Term_Condition">Update Terms & Conditions</a>
+                                                                            <li><a href="Addaboutus">Update About Us</a></li>
+                                                                            <li><a href="PrivacyPolicy">Update Privacy Policy</a> </li>
+								            <li><a href="Term_Condition">Update Terms & Conditions</a>
 						                           </li>
-                                                                           <li><a href="${pageContext.request.contextPath}/Add_team">Add Team</a>
+                                                                           <li><a href="Add_team">Add Team</a>
 						                           </li>
-                                                                           <li><a href="${pageContext.request.contextPath}/View_team">View Team</a>
+                                                                           <li><a href="View_team">View Team</a>
 						                           </li>
                                                                            
                               					         </ul>
                                                                 </li>
                                                                  <li><a><i class="fa fa-question"></i>Query<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="${pageContext.request.contextPath}/contact_Query">Contact Query</a>
+                                                                            <li><a href="contact_Query">Contact Query</a>
 										</li>
-										 <li><a href="${pageContext.request.contextPath}/service_Query">Service Query</a>
+										 <li><a href="service_Query">Service Query</a>
 										</li>
 									</ul>
 								</li>
                                                                 <li><a><i class="fa fa-pin"></i> Pin <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="${pageContext.request.contextPath}/AddPin">Add Pin</a>
+                                                                            <li><a href="AddPin">Add Pin</a>
 										</li>
-										 <li><a href="${pageContext.request.contextPath}/viewPin">View Pin</a>
+										 <li><a href="viewPin">View Pin</a>
 										</li>
 									</ul>
 								</li>
                                                                 
                                                                  <li><a><i class="fa fa-cart-plus"></i>Orders<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="${pageContext.request.contextPath}/manage_order">Manage Orders</a>
-									 <li><a href="${pageContext.request.contextPath}/order_History">Order History</a>
-									 <li><a href="${pageContext.request.contextPath}/returns">Returns</a>
-										<li><a href="${pageContext.request.contextPath}/exchange">Exchange</a>
+                                                                            <li><a href="manage_order">Manage Orders</a>
+									 <li><a href="order_History">Order History</a>
+									 <li><a href="returns">Returns</a>
+										<li><a href="exchange">Exchange</a>
                                                                             </li>
 										
 									</ul>
 								</li>
 								 <li><a><i class="fa fa-instagram"></i>Instagram<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                      <li><a href="${pageContext.request.contextPath}/add_insta">Add Instagram</a>
-									 <li><a href="${pageContext.request.contextPath}/edit_insta">Edit Instagram</a>
-									 <li><a href="${pageContext.request.contextPath}/view_insta">View Instagram</a>
+                                      <li><a href="add_insta">Add Instagram</a>
+									 <li><a href="edit_insta">Edit Instagram</a>
+									 <li><a href="view_insta">View Instagram</a>
 									
 										
 									</ul>
 								</li>
                                                                  <li><a><i class="fa fa-user"></i>Manage Accounts<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                           <!--   <li><a href="${pageContext.request.contextPath}/add_subadmin">Add Sub-Admin</a> </li>
-                                                                             <li><a href="${pageContext.request.contextPath}/view_subadmin">View Sub-Admin</a> </li>  -->
-									   <li><a href="${pageContext.request.contextPath}/view_Vendor">View Vendor</a>
+                                                                           <!--   <li><a href="add_subadmin">Add Sub-Admin</a> </li>
+                                                                             <li><a href="view_subadmin">View Sub-Admin</a> </li>  -->
+									   <li><a href="view_Vendor">View Vendor</a>
 										
                                                                             </li>
 										

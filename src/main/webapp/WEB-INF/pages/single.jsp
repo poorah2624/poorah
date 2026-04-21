@@ -13,7 +13,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <head>
 <%@include file="head.jsp"%>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/flexslider.css"
+	href="css/flexslider.css"
 	type="text/css" media="screen" />
 </head>
 
@@ -36,7 +36,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 			<b>Deliver to:</b> ${defaultAddress.fullName},
 			${defaultAddress.pincode} <a
-				href="${pageContext.request.contextPath}/address" style="float:;">Change</a>
+				href="address" style="float:;">Change</a>
 		</div>
 
 	</c:if>
@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/home"><span
+				<li><a href="home"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Single Page</li>
 			</ul>
@@ -62,9 +62,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<c:forEach var="img" items="${fn:split(item.itemImage, ',')}">
 
 							<li
-								data-thumb="${pageContext.request.contextPath}/uploads/${img}">
+								data-thumb="uploads/${img}">
 								<div class="thumb-image">
-									<img src="${pageContext.request.contextPath}/uploads/${img}"
+									<img src="uploads/${img}"
 										data-imagezoom="true" class="img-responsive">
 								</div>
 							</li>
@@ -213,7 +213,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<p>
 								<a class="item_add"
 									onclick="return addToCart(${item.itemId}, this)"
-									href="${pageContext.request.contextPath}/addToCart?itemId=${item.itemId}">Add
+									href="addToCart?itemId=${item.itemId}">Add
 									to cart</a>
 							</p>
 
@@ -348,7 +348,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</div>
 						<div class="review_grids">
 							<h5>Add A Review</h5>
-							<form action="${pageContext.request.contextPath}/addReview"
+							<form action="addReview"
 								method="post">
 								<input type="hidden" name="itemId" value="${item.itemId}">
 								<c:choose>
@@ -413,19 +413,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<!-- flixslider -->
 	<script defer
-		src="${pageContext.request.contextPath}/js/jquery.flexslider.js"></script>
+		src="js/jquery.flexslider.js"></script>
 	<!-- zooming-effect -->
-	<script src="${pageContext.request.contextPath}/js/imagezoom.js"></script>
+	<script src="js/imagezoom.js"></script>
 	<!-- //zooming-effect -->
 	<!-- for bootstrap working -->
 
 	<script
-		src="${pageContext.request.contextPath}/js/jquery.magnific-popup.js"></script>
-	<script src="${pageContext.request.contextPath}/js/jquery.flexisel.js"></script>
-	<script src="${pageContext.request.contextPath}/js/simpleCart.min.js"></script>
+		src="js/jquery.magnific-popup.js"></script>
+	<script src="js/jquery.flexisel.js"></script>
+	<script src="js/simpleCart.min.js"></script>
 	<!-- //js -->
 	<script
-		src="${pageContext.request.contextPath}/js/easyResponsiveTabs.js"
+		src="js/easyResponsiveTabs.js"
 		type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -510,7 +510,7 @@ function addToCart(itemId, btn){
         }
     }
     
-    let url = '${pageContext.request.contextPath}/addToCart?itemId=' + itemId;
+    let url = 'addToCart?itemId=' + itemId;
     
     if(size){
         url += '&size=' + size;
@@ -536,7 +536,7 @@ function addToCart(itemId, btn){
 }
 
 function goToCart(){
-    window.location.href = '${pageContext.request.contextPath}/cart';
+    window.location.href = 'cart';
 }
 
 </script>
@@ -579,7 +579,7 @@ function buyNowOrder(itemId, btn){
         }
     }
     
-    window.location.href = '${pageContext.request.contextPath}/buyNow?itemId=' + itemId;
+    window.location.href = 'buyNow?itemId=' + itemId;
 
     return false;
 }
@@ -595,7 +595,7 @@ function checkDelivery(){
         return;
     }
 
-    fetch('${pageContext.request.contextPath}/checkDelivery?pincode=' + pincode)
+    fetch('checkDelivery?pincode=' + pincode)
     .then(res => res.text())
     .then(data => {
         document.getElementById("deliveryResult").innerText = data;

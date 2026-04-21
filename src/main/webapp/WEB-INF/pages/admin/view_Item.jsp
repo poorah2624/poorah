@@ -22,22 +22,22 @@
 
   <!-- Bootstrap core CSS -->
 
-  <link href="${pageContext.request.contextPath}/admin/css/bootstrap.min.css" rel="stylesheet">
+  <link href="admin/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="${pageContext.request.contextPath}/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/admin/css/animate.min.css" rel="stylesheet">
+  <link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+  <link href="admin/css/animate.min.css" rel="stylesheet">
 
   <!-- Custom styling plus plugins -->
-  <link href="${pageContext.request.contextPath}/admin/css/custom.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/admin/css/icheck/flat/green.css" rel="stylesheet">
+  <link href="admin/css/custom.css" rel="stylesheet">
+  <link href="admin/css/icheck/flat/green.css" rel="stylesheet">
 
-  <link href="${pageContext.request.contextPath}/admin/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
-  <link href="${pageContext.request.contextPath}/admin/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="${pageContext.request.contextPath}/admin/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="${pageContext.request.contextPath}/admin/js/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="${pageContext.request.contextPath}/admin/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="admin/js/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+  <link href="admin/js/datatables/buttons.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="admin/js/datatables/fixedHeader.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="admin/js/datatables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="admin/js/datatables/scroller.bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-  <script src="${pageContext.request.contextPath}/admin/js/jquery.min.js"></script>
+  <script src="admin/js/jquery.min.js"></script>
 
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -85,7 +85,7 @@
 
 							<div class="row x_title">
 								<div class="col-md-6">
-                                                                    <h3>View Items<small><a href="${pageContext.request.contextPath}/Add_Item"><button class="btn-lg btn btn-outline btn-success">Add Items</button></a></small></h3>
+                                                                    <h3>View Items<small><a href="Add_Item"><button class="btn-lg btn btn-outline btn-success">Add Items</button></a></small></h3>
 								</div>
 								<div class="col-md-6">
 
@@ -132,7 +132,7 @@
                         <td>${i.category.categoryName }</td>
                         <td>${i.subCategory.subCategoryName }</td>
                         <td>${i.skuId }</td>
-                        <td><img src="${pageContext.request.contextPath}/uploads/${fn:split(i.itemImage, ',')[0]}" 
+                        <td><img src="uploads/${fn:split(i.itemImage, ',')[0]}" 
          style="width:60px; height:60px; object-fit:cover;"></td>
                         <td>${i.itemName }</td>
                         <td>&#8377 ${i.itemPrice }/-</td>
@@ -142,9 +142,9 @@
                          <td>${i.weight } g</td>
                         <td>${i.fabric }</td>
                         <td><button type="button" class="btn btn-success btn-xs">${i.status }</button></td>
-                        <td><a href="${pageContext.request.contextPath}/edit_Item/${i.itemId}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                        <td><a href="edit_Item/${i.itemId}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                           </td>
-                        <td> <a href="${pageContext.request.contextPath}/Delete_Item/${i.itemId}" class="btn btn-danger btn-xs" onclick="if(confirm('Sure Want?')){return true;} else{return false;};"><i class="fa  fa-trash-o"></i> Delete </a>
+                        <td> <a href="Delete_Item/${i.itemId}" class="btn btn-danger btn-xs" onclick="if(confirm('Sure Want?')){return true;} else{return false;};"><i class="fa  fa-trash-o"></i> Delete </a>
                           </td>
                        
                       </tr>
@@ -176,15 +176,15 @@
           <div id="notif-group" class="tabbed_notifications"></div>
         </div>
 
-        <script src="${pageContext.request.contextPath}/admin/js/bootstrap.min.js"></script>
+        <script src="admin/js/bootstrap.min.js"></script>
 
         <!-- bootstrap progress js -->
-        <script src="${pageContext.request.contextPath}/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+        <script src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+        <script src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
         <!-- icheck -->
-        <script src="${pageContext.request.contextPath}/admin/js/icheck/icheck.min.js"></script>
+        <script src="admin/js/icheck/icheck.min.js"></script>
 
-        <script src="${pageContext.request.contextPath}/admin/js/custom.js"></script>
+        <script src="admin/js/custom.js"></script>
 
 
         <!-- Datatables -->
@@ -192,24 +192,24 @@
   <script src="js/datatables/tools/js/dataTables.tableTools.js"></script> -->
 
         <!-- Datatables-->
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/jquery.dataTables.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/dataTables.bootstrap.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/dataTables.buttons.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/buttons.bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/jszip.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/pdfmake.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/vfs_fonts.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/buttons.html5.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/buttons.print.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/dataTables.fixedHeader.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/dataTables.keyTable.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/dataTables.responsive.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/responsive.bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/admin/js/datatables/dataTables.scroller.min.js"></script>
+        <script src="admin/js/datatables/jquery.dataTables.min.js"></script>
+        <script src="admin/js/datatables/dataTables.bootstrap.js"></script>
+        <script src="admin/js/datatables/dataTables.buttons.min.js"></script>
+        <script src="admin/js/datatables/buttons.bootstrap.min.js"></script>
+        <script src="admin/js/datatables/jszip.min.js"></script>
+        <script src="admin/js/datatables/pdfmake.min.js"></script>
+        <script src="admin/js/datatables/vfs_fonts.js"></script>
+        <script src="admin/js/datatables/buttons.html5.min.js"></script>
+        <script src="admin/js/datatables/buttons.print.min.js"></script>
+        <script src="admin/js/datatables/dataTables.fixedHeader.min.js"></script>
+        <script src="admin/js/datatables/dataTables.keyTable.min.js"></script>
+        <script src="admin/js/datatables/dataTables.responsive.min.js"></script>
+        <script src="admin/js/datatables/responsive.bootstrap.min.js"></script>
+        <script src="admin/js/datatables/dataTables.scroller.min.js"></script>
 
 
         <!-- pace -->
-        <script src="${pageContext.request.contextPath}/admin/js/pace/pace.min.js"></script>
+        <script src="admin/js/pace/pace.min.js"></script>
         <script>
           var handleDataTableButtons = function() {
               "use strict";

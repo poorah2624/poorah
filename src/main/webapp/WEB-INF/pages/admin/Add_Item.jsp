@@ -23,41 +23,41 @@
 <!-- Bootstrap core CSS -->
 
 <link
-	href="${pageContext.request.contextPath}/admin/css/bootstrap.min.css"
+	href="admin/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <link
-	href="${pageContext.request.contextPath}/admin/fonts/css/font-awesome.min.css"
+	href="admin/fonts/css/font-awesome.min.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/admin/css/animate.min.css"
+	href="admin/css/animate.min.css"
 	rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<link href="${pageContext.request.contextPath}/admin/css/custom.css"
+<link href="admin/css/custom.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/admin/css/icheck/flat/green.css"
+	href="admin/css/icheck/flat/green.css"
 	rel="stylesheet">
 <!-- editor -->
 <link
 	href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/admin/css/editor/external/google-code-prettify/prettify.css"
+	href="admin/css/editor/external/google-code-prettify/prettify.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/admin/css/editor/index.css"
+	href="admin/css/editor/index.css"
 	rel="stylesheet">
 <!-- select2 -->
 <link
-	href="${pageContext.request.contextPath}/admin/css/select/select2.min.css"
+	href="admin/css/select/select2.min.css"
 	rel="stylesheet">
 <!-- switchery -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/admin/css/switchery/switchery.min.css" />
+	href="admin/css/switchery/switchery.min.css" />
 
-<script src="${pageContext.request.contextPath}/admin/js/jquery.min.js"></script>
+<script src="admin/js/jquery.min.js"></script>
 
 <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -155,7 +155,7 @@
 										<div class="clearfix"></div>
 									</div>
 									<div class="x_content">
-										<form action="${pageContext.request.contextPath}/Add_Item"
+										<form action="Add_Item"
 											method="post" name="my_form"
 											class="form-horizontal form-label-left"
 											enctype="multipart/form-data"
@@ -427,54 +427,54 @@
 	</div>
 
 	<script
-		src="${pageContext.request.contextPath}/admin/js/bootstrap.min.js"></script>
+		src="admin/js/bootstrap.min.js"></script>
 
 	<!-- bootstrap progress js -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+		src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+		src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/icheck/icheck.min.js"></script>
+		src="admin/js/icheck/icheck.min.js"></script>
 	<!-- tags -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/tags/jquery.tagsinput.min.js"></script>
+		src="admin/js/tags/jquery.tagsinput.min.js"></script>
 	<!-- switchery -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/switchery/switchery.min.js"></script>
+		src="admin/js/switchery/switchery.min.js"></script>
 	<!-- daterangepicker -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/moment/moment.min.js"></script>
+		src="admin/js/moment/moment.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/datepicker/daterangepicker.js"></script>
+		src="admin/js/datepicker/daterangepicker.js"></script>
 	<!-- richtext editor -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/editor/bootstrap-wysiwyg.js"></script>
+		src="admin/js/editor/bootstrap-wysiwyg.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/admin/js/editor/external/jquery.hotkeys.js"></script>
+		src="admin/js/editor/external/jquery.hotkeys.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/admin/js/editor/external/google-code-prettify/prettify.js"></script>
+		src="admin/js/editor/external/google-code-prettify/prettify.js"></script>
 	<!-- select2 -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/select/select2.full.js"></script>
+		src="admin/js/select/select2.full.js"></script>
 	<!-- form validation -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/parsley/parsley.min.js"></script>
+		src="admin/js/parsley/parsley.min.js"></script>
 	<!-- textarea resize -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/textarea/autosize.min.js"></script>
+		src="admin/js/textarea/autosize.min.js"></script>
 	<script>
 		autosize($('.resizable_textarea'));
 	</script>
 	<!-- Autocomplete -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/autocomplete/countries.js"></script>
+		src="admin/js/autocomplete/countries.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/admin/js/autocomplete/jquery.autocomplete.js"></script>
+		src="admin/js/autocomplete/jquery.autocomplete.js"></script>
 	<!-- pace -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/pace/pace.min.js"></script>
+		src="admin/js/pace/pace.min.js"></script>
 	<!--  <script type="text/javascript">
 		$(function() {
 			'use strict';
@@ -491,7 +491,7 @@
 			});
 		});
 	</script>-->
-	<script src="${pageContext.request.contextPath}/admin/js/custom.js"></script>
+	<script src="admin/js/custom.js"></script>
 
 
 	<!-- select2 -->

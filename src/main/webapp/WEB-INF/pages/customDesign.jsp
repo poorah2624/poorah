@@ -31,7 +31,7 @@
 
 			<b>Deliver to:</b> ${defaultAddress.fullName},
 			${defaultAddress.pincode} <a
-				href="${pageContext.request.contextPath}/address" style="float:;">Change</a>
+				href="address" style="float:;">Change</a>
 		</div>
 
 	</c:if>
@@ -57,10 +57,10 @@
 					</div>
 					<ul class="slides">
 						<li
-							data-thumb="${pageContext.request.contextPath}/uploads/male.png">
+							data-thumb="uploads/male.png">
 							<div class="thumb-image">
 								<div class="tshirt-container">
-									<img src="${pageContext.request.contextPath}/uploads/male.png"
+									<img src="uploads/male.png"
 										class="img-responsive tshirt-base" id="tshirtImage"> <img
 										id="designPreview" class="design-overlay" />
 								</div>
@@ -73,7 +73,7 @@
 
 			</div>
 			<div class="col-md-8 single-right">
-				<form action="${pageContext.request.contextPath}/addCustomToCart"
+				<form action="addCustomToCart"
 					method="post" enctype="multipart/form-data">
 					<div class="custom-form-box">
 
@@ -213,17 +213,17 @@
 
 	<!-- flixslider -->
 	<script defer
-		src="${pageContext.request.contextPath}/js/jquery.flexslider.js"></script>
+		src="js/jquery.flexslider.js"></script>
 
 	<!-- for bootstrap working -->
 
 	<script
-		src="${pageContext.request.contextPath}/js/jquery.magnific-popup.js"></script>
-	<script src="${pageContext.request.contextPath}/js/jquery.flexisel.js"></script>
-	<script src="${pageContext.request.contextPath}/js/simpleCart.min.js"></script>
+		src="js/jquery.magnific-popup.js"></script>
+	<script src="js/jquery.flexisel.js"></script>
+	<script src="js/simpleCart.min.js"></script>
 	<!-- //js -->
 	<script
-		src="${pageContext.request.contextPath}/js/easyResponsiveTabs.js"
+		src="js/easyResponsiveTabs.js"
 		type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -300,7 +300,7 @@ function addToCart(itemId, btn){
         }
     }
     
-    let url = '${pageContext.request.contextPath}/addToCart?itemId=' + itemId;
+    let url = 'addToCart?itemId=' + itemId;
     
     if(size){
         url += '&size=' + size;
@@ -326,7 +326,7 @@ function addToCart(itemId, btn){
 }
 
 function goToCart(){
-    window.location.href = '${pageContext.request.contextPath}/cart';
+    window.location.href = 'cart';
 }
 
 </script>
@@ -369,7 +369,7 @@ function buyNowOrder(itemId, btn){
         }
     }
     
-    window.location.href = '${pageContext.request.contextPath}/buyNow?itemId=' + itemId;
+    window.location.href = 'buyNow?itemId=' + itemId;
 
     return false;
 }
@@ -385,7 +385,7 @@ function checkDelivery(){
         return;
     }
 
-    fetch('${pageContext.request.contextPath}/checkDelivery?pincode=' + pincode)
+    fetch('checkDelivery?pincode=' + pincode)
     .then(res => res.text())
     .then(data => {
         document.getElementById("deliveryResult").innerText = data;

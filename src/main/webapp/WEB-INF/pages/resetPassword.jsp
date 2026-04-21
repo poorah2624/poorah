@@ -42,7 +42,7 @@
 										aria-labelledby="tab_item-1">
 										<div class="facts">
 											<div class="register">
-												<form action="${pageContext.request.contextPath}/resetPassword"
+												<form action="resetPassword"
 													method="post" enctype="multipart/form-data">
 													<input type="hidden" name="token" value="${token}" />
 													 <input

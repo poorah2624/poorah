@@ -43,7 +43,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="overlay-content">
 						
 
-						<a href="${pageContext.request.contextPath}/customDesign">
+						<a href="customDesign">
 							<button class="upload-btn">Upload Design</button>
 						</a>
 					</div>
@@ -80,12 +80,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											<div class="col-md-4 agile_ecommerce_tab_left">
 												<div class="hs-wrapper">
 													<img
-														src="${pageContext.request.contextPath}/uploads/${fn:split(item.itemImage, ',')[0]}"
+														src="uploads/${fn:split(item.itemImage, ',')[0]}"
 														alt="${item.itemName}" class="img-responsive" />
 													<div class="w3_hs_bottom">
 														<ul>
 															<li><a
-																href="${pageContext.request.contextPath}/single/${item.itemId}"
+																href="single/${item.itemId}"
 																data-target="#myModal"><span
 																	class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 															</li>
@@ -94,7 +94,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 												</div>
 												<div class="product-info">
 													<h5>
-														<a href="${pageContext.request.contextPath}/single">${item.itemName}</a>
+														<a href="single">${item.itemName}</a>
 													</h5>
 													<div class="simpleCart_shelfItem">
 														<p class="price">
@@ -130,8 +130,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		<!-- MEN -->
 		<div class="category-box">
-			<a href="${pageContext.request.contextPath}/products/gender/MEN">
-				<img src="${pageContext.request.contextPath}/uploads/11.jpg"
+			<a href="products/gender/MEN">
+				<img src="uploads/11.jpg"
 				alt="Men">
 				<div class="overlay">
 					<h2>Men Collection</h2>
@@ -141,8 +141,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		<!-- WOMEN -->
 		<div class="category-box">
-			<a href="${pageContext.request.contextPath}/products/gender/WOMEN">
-				<img src="${pageContext.request.contextPath}/uploads/22.jpg"
+			<a href="products/gender/WOMEN">
+				<img src="uploads/22.jpg"
 				alt="Women">
 				<div class="overlay">
 					<h2>Women Collection</h2>

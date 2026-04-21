@@ -21,24 +21,24 @@
 
   <!-- Bootstrap core CSS -->
 
-  <link href="${pageContext.request.contextPath}/admin/css/bootstrap.min.css" rel="stylesheet">
+  <link href="admin/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="${pageContext.request.contextPath}/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/admin/css/animate.min.css" rel="stylesheet">
+  <link href="admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+  <link href="admin/css/animate.min.css" rel="stylesheet">
 
   <!-- Custom styling plus plugins -->
-  <link href="${pageContext.request.contextPath}/admin/css/custom.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/admin/css/icheck/flat/green.css" rel="stylesheet">
+  <link href="admin/css/custom.css" rel="stylesheet">
+  <link href="admin/css/icheck/flat/green.css" rel="stylesheet">
   <!-- editor -->
   <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/admin/css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/admin/css/editor/index.css" rel="stylesheet">
+  <link href="admin/css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
+  <link href="admin/css/editor/index.css" rel="stylesheet">
   <!-- select2 -->
-  <link href="${pageContext.request.contextPath}/admin/css/select/select2.min.css" rel="stylesheet">
+  <link href="admin/css/select/select2.min.css" rel="stylesheet">
   <!-- switchery -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/css/switchery/switchery.min.css" />
+  <link rel="stylesheet" href="admin/css/switchery/switchery.min.css" />
 
-  <script src="${pageContext.request.contextPath}/admin/js/jquery.min.js"></script>
+  <script src="admin/js/jquery.min.js"></script>
 
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -131,7 +131,7 @@ function fileValidation(){
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
-                  <form action ="${pageContext.request.contextPath}/UpdateAboutUs" method="post" name="my_form" enctype="multipart/form-data" class="form-horizontal form-label-left" onSubmit="document.my_form.editor_contents.value = $('#editor').html()" >
+                  <form action ="UpdateAboutUs" method="post" name="my_form" enctype="multipart/form-data" class="form-horizontal form-label-left" onSubmit="document.my_form.editor_contents.value = $('#editor').html()" >
                     
                     <input type="hidden" name="aId" value="${aboutUs.aId != null ? aboutUs.aId : ''}"/>
                     <div class="form-group">
@@ -147,7 +147,7 @@ function fileValidation(){
                       </label>
                       <c:if test="${not empty aboutUs.aImage}">
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <img src="${pageContext.request.contextPath}/uploads/${aboutUs.aImage }" name="aImage" style="width:150px;height:150px;"/>
+                          <img src="uploads/${aboutUs.aImage }" name="aImage" style="width:150px;height:150px;"/>
                           <input type="file" id="title" name="aImage"  class="form-control col-md-7 col-xs-12">
                       </div>
                       </c:if>
@@ -211,38 +211,38 @@ function fileValidation(){
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-  <script src="${pageContext.request.contextPath}/admin/js/bootstrap.min.js"></script>
+  <script src="admin/js/bootstrap.min.js"></script>
 
   <!-- bootstrap progress js -->
-  <script src="${pageContext.request.contextPath}/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-  <script src="${pageContext.request.contextPath}/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+  <script src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
   <!-- icheck -->
-  <script src="${pageContext.request.contextPath}/admin/js/icheck/icheck.min.js"></script>
+  <script src="admin/js/icheck/icheck.min.js"></script>
   <!-- tags -->
-  <script src="${pageContext.request.contextPath}/admin/js/tags/jquery.tagsinput.min.js"></script>
+  <script src="admin/js/tags/jquery.tagsinput.min.js"></script>
   <!-- switchery -->
-  <script src="${pageContext.request.contextPath}/admin/js/switchery/switchery.min.js"></script>
+  <script src="admin/js/switchery/switchery.min.js"></script>
   <!-- daterangepicker -->
-  <script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/moment/moment.min.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/datepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="admin/js/moment/moment.min.js"></script>
+  <script type="text/javascript" src="admin/js/datepicker/daterangepicker.js"></script>
   <!-- richtext editor -->
-  <script src="${pageContext.request.contextPath}/admin/js/editor/bootstrap-wysiwyg.js"></script>
-  <script src="${pageContext.request.contextPath}/admin/js/editor/external/jquery.hotkeys.js"></script>
-  <script src="${pageContext.request.contextPath}/admin/js/editor/external/google-code-prettify/prettify.js"></script>
+  <script src="admin/js/editor/bootstrap-wysiwyg.js"></script>
+  <script src="admin/js/editor/external/jquery.hotkeys.js"></script>
+  <script src="admin/js/editor/external/google-code-prettify/prettify.js"></script>
   <!-- select2 -->
-  <script src="${pageContext.request.contextPath}/admin/js/select/select2.full.js"></script>
+  <script src="admin/js/select/select2.full.js"></script>
   <!-- form validation -->
-  <script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/parsley/parsley.min.js"></script>
+  <script type="text/javascript" src="admin/js/parsley/parsley.min.js"></script>
   <!-- textarea resize -->
-  <script src="${pageContext.request.contextPath}/admin/js/textarea/autosize.min.js"></script>
+  <script src="admin/js/textarea/autosize.min.js"></script>
   <script>
     autosize($('.resizable_textarea'));
   </script>
   <!-- Autocomplete -->
-  <script type="text/javascript" src="${pageContext.request.contextPath}/admin/js/autocomplete/countries.js"></script>
-  <script src="${pageContext.request.contextPath}/admin/js/autocomplete/jquery.autocomplete.js"></script>
+  <script type="text/javascript" src="admin/js/autocomplete/countries.js"></script>
+  <script src="admin/js/autocomplete/jquery.autocomplete.js"></script>
   <!-- pace -->
-  <script src="${pageContext.request.contextPath}/admin/js/pace/pace.min.js"></script>
+  <script src="admin/js/pace/pace.min.js"></script>
   <script type="text/javascript">
     $(function() {
       'use strict';
@@ -259,7 +259,7 @@ function fileValidation(){
       });
     });
   </script>
-  <script src="${pageContext.request.contextPath}/admin/js/custom.js"></script>
+  <script src="admin/js/custom.js"></script>
 
 
   <!-- select2 -->

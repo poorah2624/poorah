@@ -14,7 +14,7 @@
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/home"><span
+				<li><a href="home"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Change Password</li>
 			</ul>
@@ -26,7 +26,7 @@
 		<div class="container">
 			<h2 style="text-align: center;">Change Password</h2>
 			<div class="col-md-12">
-				<form action="${pageContext.request.contextPath}/changeUserPassword"
+				<form action="changeUserPassword"
 					method="post">
 
 					<table class="table table-bordered">

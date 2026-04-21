@@ -20,30 +20,30 @@
 <!-- Bootstrap core CSS -->
 
 <link
-	href="${pageContext.request.contextPath}/admin/css/bootstrap.min.css"
+	href="admin/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <link
-	href="${pageContext.request.contextPath}/admin/fonts/css/font-awesome.min.css"
+	href="admin/fonts/css/font-awesome.min.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/admin/css/animate.min.css"
+	href="admin/css/animate.min.css"
 	rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<link href="${pageContext.request.contextPath}/admin/css/custom.css"
+<link href="admin/css/custom.css"
 	rel="stylesheet">
 <link rel="stylesheet"
 	type="text/css" href="css/maps/jquery-jvectormap-2.0.3.css" />
 <link
-	href="${pageContext.request.contextPath}/admin/css/icheck/flat/green.css"
+	href="admin/css/icheck/flat/green.css"
 	rel="stylesheet" />
 <link
-	href="${pageContext.request.contextPath}/admin/css/floatexamples.css"
+	href="admin/css/floatexamples.css"
 	rel="stylesheet" type="text/css" />
 
-<script src="${pageContext.request.contextPath}/admin/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/admin/js/nprogress.js"></script>
+<script src="admin/js/jquery.min.js"></script>
+<script src="admin/js/nprogress.js"></script>
 
 <!--[if lt IE 9]>
 	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -129,7 +129,7 @@
 									<div class="left"></div>
 									<div class="right">
 
-										<a href="${pageContext.request.contextPath}/AllUsers" class="btn btn-success btn-round"><span
+										<a href="AllUsers" class="btn btn-success btn-round"><span
 											class="count_top"><i class="fa fa-user"></i> Total
 												Users</span></a>
 										<div class="count">${userCount}</div>
@@ -140,7 +140,7 @@
 									class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
 									<div class="left"></div>
 									<div class="right">
-										<a href="${pageContext.request.contextPath}/order_History" class="btn btn-info btn-round">
+										<a href="order_History" class="btn btn-info btn-round">
 											<span class="count_top"><i class="fa fa-clock-o"></i>
 												Orders History</span>
 										</a>
@@ -178,7 +178,7 @@
 									class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
 									<div class="left"></div>
 									<div class="right">
-										<a href="${pageContext.request.contextPath}/manage_order" class="btn btn-danger btn-round"><span
+										<a href="manage_order" class="btn btn-danger btn-round"><span
 											class="count_top"><i class="fa fa-user"></i> Order
 												Pending</span></a>
 										<div class="count red">2,315</div>
@@ -206,7 +206,7 @@
 
 								<div class="x_title">
 									<h2>Admin Dashboard</h2>
-									&nbsp; <a href="${pageContext.request.contextPath}/calender"
+									&nbsp; <a href="calender"
 										class="btn btn-round btn-success  btn-lg">Calender</a>
 									<ul class="nav navbar-right panel_toolbox">
 										<li><a class="collapse-link"><i
@@ -228,7 +228,7 @@
 												<!-- Current avatar -->
 												<div class="avatar-view" title="Change the avatar">
 													<img
-														src="${pageContext.request.contextPath}/uploads/${sessionScope.LoggedInAdmin.image}"
+														src="uploads/${sessionScope.LoggedInAdmin.image}"
 														alt="Avatar" style="width: 100%; height: 100%;">
 												</div>
 
@@ -260,7 +260,7 @@
                     </ul> -->
 
 											<a class="btn btn-success"
-												href="${pageContext.request.contextPath}/edit_profile"><i
+												href="edit_profile"><i
 												class="fa fa-edit m-right-xs"></i>Edit Profile</a>
 
 											<br />
@@ -329,52 +329,52 @@
 	</div>
 
 	<script
-		src="${pageContext.request.contextPath}/admin/js/bootstrap.min.js"></script>
+		src="admin/js/bootstrap.min.js"></script>
 
 	<!-- gauge js -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/gauge/gauge.min.js"></script>
+		src="admin/js/gauge/gauge.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/gauge/gauge_demo.js"></script>
+		src="admin/js/gauge/gauge_demo.js"></script>
 	<!-- chart js -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/chartjs/chart.min.js"></script>
+		src="admin/js/chartjs/chart.min.js"></script>
 	<!-- bootstrap progress js -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+		src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+		src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/icheck/icheck.min.js"></script>
+		src="admin/js/icheck/icheck.min.js"></script>
 	<!-- daterangepicker -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/moment/moment.min.js"></script>
+		src="admin/js/moment/moment.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/datepicker/daterangepicker.js"></script>
+		src="admin/js/datepicker/daterangepicker.js"></script>
 
-	<script src="${pageContext.request.contextPath}/admin/js/custom.js"></script>
+	<script src="admin/js/custom.js"></script>
 
 	<!-- flot js -->
 	<!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.js"></script>
+		src="admin/js/flot/jquery.flot.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.pie.js"></script>
+		src="admin/js/flot/jquery.flot.pie.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.orderBars.js"></script>
+		src="admin/js/flot/jquery.flot.orderBars.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.time.min.js"></script>
+		src="admin/js/flot/jquery.flot.time.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/date.js"></script>
+		src="admin/js/flot/date.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.spline.js"></script>
+		src="admin/js/flot/jquery.flot.spline.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.stack.js"></script>
+		src="admin/js/flot/jquery.flot.stack.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/curvedLines.js"></script>
+		src="admin/js/flot/curvedLines.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.resize.js"></script>
+		src="admin/js/flot/jquery.flot.resize.js"></script>
 	<script>
 		$(document).ready(
 				function() {
@@ -445,13 +445,13 @@
 
 	<!-- worldmap -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
+		src="admin/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/maps/gdp-data.js"></script>
+		src="admin/js/maps/gdp-data.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/maps/jquery-jvectormap-world-mill-en.js"></script>
+		src="admin/js/maps/jquery-jvectormap-world-mill-en.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/maps/jquery-jvectormap-us-aea-en.js"></script>
+		src="admin/js/maps/jquery-jvectormap-us-aea-en.js"></script>
 	<!-- pace -->
 	<script src="js/pace/pace.min.js"></script>
 	<script>

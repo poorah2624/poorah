@@ -18,24 +18,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </script>
 <!-- //for-mobile-apps -->
-<link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" type="text/css"
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css"
 	media="all" />
-<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="${pageContext.request.contextPath}/css/fasthover.css" rel="stylesheet" type="text/css"
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/fasthover.css" rel="stylesheet" type="text/css"
 	media="all" />
 <!-- js -->
 <!--<script src="js/jquery.min.js"></script> -->
 <!-- //js -->
 <!-- countdown -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.countdown.css" />
+<link rel="stylesheet" href="css/jquery.countdown.css" />
 <!-- //countdown -->
 <!-- cart -->
 <!-- <script src="js/simpleCart.min.js"></script>-->
 <!-- cart -->
 <!-- for bootstrap working -->
 <!--  <script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.flexisel.js"></script>  -->
+<script src="js/jquery.magnific-popup.js"></script>
+<script src="js/jquery.flexisel.js"></script>  -->
 
 <!-- //for bootstrap working -->
 

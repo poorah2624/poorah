@@ -13,7 +13,7 @@
 		<%@include file="userlogin.jsp" %>
 			
 				<!--  <div class="w3l_login">
-					<a href="${pageContext.request.contextPath}/userlogin"
+					<a href="userlogin"
 						data-target="#myModal88"><span
 						class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
 
@@ -22,8 +22,8 @@
 
 				<!-- <div class="w3l_logo">
 					<h1>
-						<a href="${pageContext.request.contextPath}/home" class="logo-container"><img
-							src="${pageContext.request.contextPath}/uploads/brand_image.png"
+						<a href="home" class="logo-container"><img
+							src="uploads/brand_image.png"
 							alt="PooRah Logo" class="site-logo"> <span class="tagline">For
 								Fashion Lovers</span> 
 								</a>
@@ -43,9 +43,9 @@
 					</div>
 				</div>
 				<div class="cart box_1">
-					<a href="${pageContext.request.contextPath}/cart">
+					<a href="cart">
 						<div class="total"></div> <img
-						src="${pageContext.request.contextPath}/uploads/bag.png" alt="" />
+						src="uploads/bag.png" alt="" />
 					</a>
 					<p>
 						<a href="javascript:;" class="simpleCart_empty">Empty Cart</a>
@@ -74,10 +74,10 @@
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav" style="gap: 20px;">
 						<li><img
-							src="${pageContext.request.contextPath}/uploads/brand_image.png"
+							src="uploads/brand_image.png"
 							alt="PooRah Logo" class="site-logo"></li>
 							<li class="active"><a
-								href="${pageContext.request.contextPath}/home" class="act">Home</a></li>
+								href="home" class="act">Home</a></li>
 							<%--  Mega Menu --%>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown">Products <b class="caret"></b></a>
@@ -89,7 +89,7 @@
 													<h6>${cat.categoryName}</h6>
 													<c:forEach var="sub" items="${cat.subCategory}">
 														<li><a
-															href="${pageContext.request.contextPath}/products/${sub.subCategoryId}">${sub.subCategoryName }</a></li>
+															href="products/${sub.subCategoryId}">${sub.subCategoryName }</a></li>
 													</c:forEach>
 
 
@@ -109,18 +109,18 @@
 										</c:forEach>
 									</div>
 								</ul></li>
-							<li><a href="${pageContext.request.contextPath}/about">About
+							<li><a href="about">About
 									Us</a></li>
 
-							<li><a href="${pageContext.request.contextPath}/mail">Mail
+							<li><a href="mail">Mail
 									Us</a></li>
-							<li><a href="${pageContext.request.contextPath}/userlogin"
+							<li><a href="userlogin"
 								class="login-btn"><i class="fa fa-user"></i>Login</a></li>
 								
 								<li>
-					<a href="${pageContext.request.contextPath}/cart">
+					<a href="cart">
 						(${cartCount} Items) <img
-						src="${pageContext.request.contextPath}/uploads/bag.png" alt="" />
+						src="uploads/bag.png" alt="" />
 					</a>
 					
 					
@@ -157,8 +157,8 @@
 
 				<!-- <div class="w3l_logo">
 					<h1>
-						<a href="${pageContext.request.contextPath}/home" class="logo-container"><img
-							src="${pageContext.request.contextPath}/uploads/brand_image.png"
+						<a href="home" class="logo-container"><img
+							src="uploads/brand_image.png"
 							alt="PooRah Logo" class="site-logo"><!--  <span class="tagline">For
 								Fashion Lovers</span> 
 								</a>
@@ -177,12 +177,12 @@
 					</div>
 				</div>
 				<div class="cart box_1">
-					<a href="${pageContext.request.contextPath}/cart">
+					<a href="cart">
 						<div class="total">(${cartCount} items)</div> <img
-						src="${pageContext.request.contextPath}/uploads/bag.png" alt="" />
+						src="uploads/bag.png" alt="" />
 					</a>
 					<p>
-						<a href="${pageContext.request.contextPath}/emptyCart"
+						<a href="emptyCart"
 							class="simpleCart_empty">Empty Cart</a>
 					</p>
 					<div class="clearfix"></div>
@@ -206,10 +206,10 @@
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
 						<li><img
-							src="${pageContext.request.contextPath}/uploads/brand_image.png"
+							src="uploads/brand_image.png"
 							alt="PooRah Logo" class="site-logo"></li>
 							<li class="active"><a
-								href="${pageContext.request.contextPath}/home" class="act">Home</a></li>
+								href="home" class="act">Home</a></li>
 							<%-- Mega Menu --%>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown">Products <b class="caret"></b></a>
@@ -221,7 +221,7 @@
 													<h6>${cat.categoryName}</h6>
 													<c:forEach var="sub" items="${cat.subCategory}">
 														<li><a
-															href="${pageContext.request.contextPath}/products/${sub.subCategoryId}">${sub.subCategoryName }</a></li>
+															href="products/${sub.subCategoryId}">${sub.subCategoryName }</a></li>
 													</c:forEach>
 
 
@@ -230,10 +230,10 @@
 										</c:forEach>
 									</div>
 								</ul></li>
-							<li><a href="${pageContext.request.contextPath}/about">About
+							<li><a href="about">About
 									Us</a></li>
 
-							<li><a href="${pageContext.request.contextPath}/mail">Mail
+							<li><a href="mail">Mail
 									Us</a></li>
 
 							<li class="dropdown" style="position: relative;"><a href="#"
@@ -243,18 +243,18 @@
 
 								<ul class="dropdown-menu" style="left: 0; right: auto;">
 									<li><a
-										href="${pageContext.request.contextPath}/userProfile">Dashboard</a></li>
-									<li><a href="${pageContext.request.contextPath}/address">Addresses</a></li>
-									<li><a href="${pageContext.request.contextPath}/myOrders">My
+										href="userProfile">Dashboard</a></li>
+									<li><a href="address">Addresses</a></li>
+									<li><a href="myOrders">My
 											Orders</a></li>
-									<li><a href="${pageContext.request.contextPath}/userlogin">Logout</a></li>
+									<li><a href="userlogin">Logout</a></li>
 								</ul></li>
 								
 								
 								<li>
-					<a href="${pageContext.request.contextPath}/cart">
+					<a href="cart">
 						(${cartCount} Items) <img
-						src="${pageContext.request.contextPath}/uploads/bag.png" alt="" />
+						src="uploads/bag.png" alt="" />
 					</a>
 					
 					

@@ -16,7 +16,7 @@
         <div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Edit Profile</li>
 			</ul>
 		</div>
@@ -25,7 +25,7 @@
             <div class="container">
                 <h2 style="text-align: center;"> Edit Profile</h2>
                 <div class="col-md-12">
-                    <form action="${pageContext.request.contextPath}/updateProfile" method="post" enctype="multipart/form-data">
+                    <form action="updateProfile" method="post" enctype="multipart/form-data">
                     <table class="table table-bordered">
                         
                         <input type="hidden" name="userId" value="${user.id}"/>

@@ -22,30 +22,30 @@
 <!-- Bootstrap core CSS -->
 
 <link
-	href="${pageContext.request.contextPath}/admin/css/bootstrap.min.css"
+	href="admin/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <link
-	href="${pageContext.request.contextPath}/admin/fonts/css/font-awesome.min.css"
+	href="admin/fonts/css/font-awesome.min.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/admin/css/animate.min.css"
+	href="admin/css/animate.min.css"
 	rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<link href="${pageContext.request.contextPath}/admin/css/custom.css"
+<link href="admin/css/custom.css"
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/admin/css/maps/jquery-jvectormap-2.0.3.css" />
+	href="admin/css/maps/jquery-jvectormap-2.0.3.css" />
 <link
-	href="${pageContext.request.contextPath}/admin/css/icheck/flat/green.css"
+	href="admin/css/icheck/flat/green.css"
 	rel="stylesheet" />
 <link
-	href="${pageContext.request.contextPath}/admin/css/floatexamples.css"
+	href="admin/css/floatexamples.css"
 	rel="stylesheet" type="text/css" />
 
-<script src="${pageContext.request.contextPath}/admin/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/admin/js/nprogress.js"></script>
+<script src="admin/js/jquery.min.js"></script>
+<script src="admin/js/nprogress.js"></script>
 
 <!--[if lt IE 9]>
 	<script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -123,7 +123,7 @@
 								<div class="col-md-6">
 									<h3>
 										Gallery <small><a
-											href="${pageContext.request.contextPath}/Add_Gallery"><button
+											href="Add_Gallery"><button
 													class="btn-lg btn btn-outline btn-success">Add
 													Gallery</button></a></small>
 									</h3>
@@ -157,16 +157,16 @@
 
 														<div class="image view view-first">
 															<img style="width: 100%; display: block;"
-																src="${pageContext.request.contextPath}/uploads/${g.galleryName}"
+																src="uploads/${g.galleryName}"
 																alt="image" />
 															<div class="mask">
 																<p>${g.galleryStatus}</p>
 																<div class="tools tools-bottom">
 																	<a
-																		href="${pageContext.request.contextPath}/edit_Gallery/${g.galleryId}"
+																		href="edit_Gallery/${g.galleryId}"
 																		data-toggle="tooltip" title="Edit Gallery"><i
 																		class="fa fa-pencil"></i></a> <a
-																		href="${pageContext.request.contextPath}/delete_Gallery/${g.galleryId}"
+																		href="delete_Gallery/${g.galleryId}"
 																		onclick="if(confirm('Sure Want?')){return true;} else{return false;};"
 																		data-toggle="tooltip" title="Delete Image"
 																		onclick="if(confirm('Sure Want?')){return true;} else{return false;};"><i
@@ -222,52 +222,52 @@
 	</div>
 
 	<script
-		src="${pageContext.request.contextPath}/admin/js/bootstrap.min.js"></script>
+		src="admin/js/bootstrap.min.js"></script>
 
 	<!-- gauge js -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/gauge/gauge.min.js"></script>
+		src="admin/js/gauge/gauge.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/gauge/gauge_demo.js"></script>
+		src="admin/js/gauge/gauge_demo.js"></script>
 	<!-- chart js -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/chartjs/chart.min.js"></script>
+		src="admin/js/chartjs/chart.min.js"></script>
 	<!-- bootstrap progress js -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+		src="admin/js/progressbar/bootstrap-progressbar.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+		src="admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/icheck/icheck.min.js"></script>
+		src="admin/js/icheck/icheck.min.js"></script>
 	<!-- daterangepicker -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/moment/moment.min.js"></script>
+		src="admin/js/moment/moment.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/datepicker/daterangepicker.js"></script>
+		src="admin/js/datepicker/daterangepicker.js"></script>
 
-	<script src="${pageContext.request.contextPath}/admin/js/custom.js"></script>
+	<script src="admin/js/custom.js"></script>
 
 	<!-- flot js -->
 	<!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.js"></script>
+		src="admin/js/flot/jquery.flot.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.pie.js"></script>
+		src="admin/js/flot/jquery.flot.pie.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.orderBars.js"></script>
+		src="admin/js/flot/jquery.flot.orderBars.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.time.min.js"></script>
+		src="admin/js/flot/jquery.flot.time.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/date.js"></script>
+		src="admin/js/flot/date.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.spline.js"></script>
+		src="admin/js/flot/jquery.flot.spline.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.stack.js"></script>
+		src="admin/js/flot/jquery.flot.stack.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/curvedLines.js"></script>
+		src="admin/js/flot/curvedLines.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/flot/jquery.flot.resize.js"></script>
+		src="admin/js/flot/jquery.flot.resize.js"></script>
 	<script>
 		$(document).ready(
 				function() {
@@ -338,13 +338,13 @@
 
 	<!-- worldmap -->
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
+		src="admin/js/maps/jquery-jvectormap-2.0.3.min.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/maps/gdp-data.js"></script>
+		src="admin/js/maps/gdp-data.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/maps/jquery-jvectormap-world-mill-en.js"></script>
+		src="admin/js/maps/jquery-jvectormap-world-mill-en.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/admin/js/maps/jquery-jvectormap-us-aea-en.js"></script>
+		src="admin/js/maps/jquery-jvectormap-us-aea-en.js"></script>
 	<!-- pace -->
 	<script src="js/pace/pace.min.js"></script>
 	<script>
@@ -368,7 +368,7 @@
 	</script>
 	<!-- skycons -->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/skycons/skycons.min.js"></script>
+		src="admin/js/skycons/skycons.min.js"></script>
 	<script>
 		var icons = new Skycons({
 			"color" : "#73879C"

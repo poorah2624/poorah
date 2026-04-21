@@ -23,17 +23,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<link href="${pageContext.request.contextPath}/admin/css/bootstrap.css"
+<link href="admin/css/bootstrap.css"
 	rel="stylesheet" type="text/css" media="all">
 <!-- Custom Theme files -->
-<link href="${pageContext.request.contextPath}/admin/css/style.css"
+<link href="admin/css/style.css"
 	rel="stylesheet" type="text/css" media="all" />
 <!--js-->
 <script
-	src="${pageContext.request.contextPath}/admin/js/jquery-2.1.1.min.js"></script>
+	src="admin/js/jquery-2.1.1.min.js"></script>
 <!--icons-css-->
 <link
-	href="${pageContext.request.contextPath}/admin/css/font-awesome.css"
+	href="admin/css/font-awesome.css"
 	rel="stylesheet">
 <!--Google Fonts-->
 <link href='//fonts.googleapis.com/css?family=Carrois+Gothic'
@@ -61,7 +61,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p style="color: green">${msg }</p>
 			</c:if>
 			<div class="login-block">
-				<form action="${pageContext.request.contextPath}/registerAdmin"
+				<form action="registerAdmin"
 					method="post" enctype="multipart/form-data">
 					<input placeholder="Name" pattern="([A-Za-z .])+" name="name"
 						type="text" required=""> <input
@@ -101,10 +101,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	<!--scrolling js-->
 	<script
-		src="${pageContext.request.contextPath}/admin/js/jquery.nicescroll.js"></script>
-	<script src="${pageContext.request.contextPath}/admin/js/scripts.js"></script>
+		src="admin/js/jquery.nicescroll.js"></script>
+	<script src="admin/js/scripts.js"></script>
 	<!--//scrolling js-->
-	<script src="${pageContext.request.contextPath}/admin/js/bootstrap.js">
+	<script src="admin/js/bootstrap.js">
 		
 	</script>
 	<!-- mother grid end here-->

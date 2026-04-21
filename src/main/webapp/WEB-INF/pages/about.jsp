@@ -29,7 +29,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/home"><span
+				<li><a href="home"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>About Us</li>
 			</ul>
@@ -76,7 +76,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="clearfix"></div>
 				</div>
 				<div class="col-md-6 w3ls_about_grid_right">
-					<img src="${pageContext.request.contextPath}/uploads/${about.aImage }" alt=" " class="img-responsive" />
+					<img src="uploads/${about.aImage }" alt=" " class="img-responsive" />
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -92,7 +92,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="wthree_team_grids">
 			 <c:forEach var="t" items="${team }">
 				<div class="col-md-3 wthree_team_grid">
-					<img src="${pageContext.request.contextPath}/uploads/${t.tImage}" alt=" " class="img-responsive" style="width: 120px;height: 120px;object-fit: cover;border-radius: 50%;"/>
+					<img src="uploads/${t.tImage}" alt=" " class="img-responsive" style="width: 120px;height: 120px;object-fit: cover;border-radius: 50%;"/>
 					<h4>
 						${t.tName } <span>${t.tDesignation }</span>
 					</h4>

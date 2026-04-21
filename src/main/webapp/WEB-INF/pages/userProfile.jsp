@@ -52,9 +52,9 @@
 					<tr>
 						<th></th>
 						<td><a
-							href="${pageContext.request.contextPath}/editUser"
+							href="editUser"
 							class="btn btn-success">Edit Profile</a> <a
-							href="${pageContext.request.contextPath}/changeUserPass"
+							href="changeUserPass"
 							class="btn btn-primary">Change Password</a></td>
 					</tr>
 					

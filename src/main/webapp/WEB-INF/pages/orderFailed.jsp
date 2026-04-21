@@ -38,7 +38,7 @@
 
         <p>${errorMsg}</p>
 
-        <a href="${pageContext.request.contextPath}/checkout" 
+        <a href="checkout" 
            class="btn btn-danger">
            Try Again
         </a>
