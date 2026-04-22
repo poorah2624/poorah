@@ -2,6 +2,7 @@ package springStarter.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +18,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 import springStarter.models.Admin;
 import springStarter.services.AdminService;
 import springStarter.services.UserService;
 
 @Controller
 public class AdminController {
+	
+	@Autowired
+	private Cloudinary cloudinary;
 
 	@GetMapping("/adminLogin")
 	public String adminLogin() {
@@ -62,22 +69,24 @@ public class AdminController {
 		}
 
 		String fileName = "default.png";
+		
+		
+
+		String imageUrl = null;
 
 		if (!file.isEmpty()) {
+		    try {
+		        Map uploadResult = cloudinary.uploader().upload(
+		                file.getBytes(),
+		                ObjectUtils.asMap("folder", "poorah/admin")
+		        );
 
-			/*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-			String uploadDir = "uploads/";
+		        imageUrl = (String) uploadResult.get("secure_url");
 
-			File directory = new File(uploadDir);
-			if (!directory.exists())
-				directory.mkdirs();
-
-			fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-
-			File saveFile = new File(uploadDir + "/" + fileName);
-			file.transferTo(saveFile);
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
 		}
-
 		Admin admin = new Admin();
 		admin.setName(name);
 		admin.setEmail(email);
@@ -175,20 +184,22 @@ public class AdminController {
 
 	   
 	    if (file != null && !file.isEmpty()) {
+	        try {
+	            Map uploadResult = cloudinary.uploader().upload(
+	                    file.getBytes(),
+	                    ObjectUtils.asMap("folder", "poorah/admin")
+	            );
 
-	        /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-	        String uploadDir = "/app/uploads/";
+	            String imageUrl = (String) uploadResult.get("secure_url");
 
-	        File dir = new File(uploadDir);
-	        if (!dir.exists()) dir.mkdirs();
+	            admin.setImage(imageUrl);  
 
-	        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-	        file.transferTo(new File(uploadDir + "/" + fileName));
-
-	        admin.setImage(fileName);
-
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
 	    } else {
-	        admin.setImage(sessionAdmin.getImage()); // keep old image
+	        
+	        admin.setImage(sessionAdmin.getImage());
 	    }
 
 	    Admin updatedAdmin = adminService.updateAdmin(admin);

@@ -99,9 +99,25 @@
     <artifactId>jakarta.servlet.jsp.jstl</artifactId>
 </dependency>
 
+<dependency>
+    <groupId>com.cloudinary</groupId>
+    <artifactId>cloudinary-http44</artifactId>
+    <version>1.38.0</version>
+</dependency>
+
 
 	</dependencies>
 	<build>
+	
+	<resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </resource>
+    </resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

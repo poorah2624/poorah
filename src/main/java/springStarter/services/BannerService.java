@@ -8,6 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 import springStarter.models.Banner;
 import springStarter.repository.BannerRepo;
 
@@ -39,6 +42,9 @@ public class BannerService {
                 .orElseThrow(() -> new RuntimeException("Banner not found"));
     }
     
+    @Autowired
+	private Cloudinary cloudinary;
+    
 //  delete banner
     public void deleteBanner(Long bannerId) {
 
@@ -47,12 +53,23 @@ public class BannerService {
 
         // delete image file
         /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-        String uploadDir = "/app/uploads/";
-        
-        File file = new File(uploadDir + banner.getBannerName());
+        try {
+            String imageUrl = banner.getBannerName();
 
-        if (file.exists()) {
-            file.delete();
+            if (imageUrl != null && imageUrl.contains("/upload/")) {
+
+                String publicId = imageUrl
+                        .substring(imageUrl.indexOf("/upload/") + 8)
+                        .replaceAll("v[0-9]+/", "")   // remove version
+                        .replaceAll("\\.[^.]+$", ""); // remove extension
+
+                cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+
+                System.out.println("Deleted from Cloudinary: " + publicId);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         bannerRepo.deleteById(bannerId);

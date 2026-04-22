@@ -27,7 +27,7 @@ public class PolicyService {
     	if(list.isEmpty()) {
             Policy policy = new Policy();
             policy.setPolicyName("About Company");
-            policy.setPolicyDesc("45.png");
+            policy.setPolicyDesc("https://res.cloudinary.com/demo/image/upload/45.png");
             
             return policyRepo.save(policy);  // auto insert
         }

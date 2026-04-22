@@ -74,7 +74,7 @@
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav" style="gap: 20px;">
 						<li><img
-							src="/uploads/brand_image.png"
+							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
 							alt="PooRah Logo" class="site-logo"></li>
 							<li class="active"><a
 								href="/home" class="act">Home</a></li>
@@ -206,7 +206,7 @@
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
 						<li><img
-							src="/uploads/brand_image.png"
+							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
 							alt="PooRah Logo" class="site-logo"></li>
 							<li class="active"><a
 								href="/home" class="act">Home</a></li>

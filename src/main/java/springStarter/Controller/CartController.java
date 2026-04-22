@@ -3,6 +3,7 @@ package springStarter.Controller;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 import springStarter.models.Cart;
 import springStarter.models.Category;
@@ -154,6 +158,8 @@ public class CartController {
 	    return "redirect:/checkout";
 	}
 	
+	@Autowired
+	private Cloudinary cloudinary;
 	
 	@PostMapping("/addCustomToCart")
 	public String addCustomToCart(
@@ -177,22 +183,26 @@ public class CartController {
 	        }
 
 	        /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-	        String uploadDir = "/app/uploads/";
+	        String imageUrl = null;
 
-	        File dir = new File(uploadDir);
-	        if (!dir.exists()) {
-	            dir.mkdirs();
+	        try {
+	            Map uploadResult = cloudinary.uploader().upload(
+	                    file.getBytes(),
+	                    ObjectUtils.asMap("resource_type", "auto") // important for all file types
+	            );
+
+	            imageUrl = (String) uploadResult.get("secure_url");
+
+	            System.out.println("✅ Uploaded to Cloudinary: " + imageUrl);
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return "redirect:/customDesign";
 	        }
-	        
-	        String originalName = file.getOriginalFilename();
-	        String fileName = System.currentTimeMillis() + "_" + originalName.replaceAll("\\s+", "_");
 
-	        File destination = new File(dir, fileName);
-	        file.transferTo(destination);
+	        System.out.println("✅ File saved at: " + imageUrl);
 
-	        System.out.println("✅ File saved at: " + destination.getAbsolutePath());
-
-	        cartService.addCustomToCart(user, fileName, size, color, tshirtType, gender, customNote);
+	        cartService.addCustomToCart(user, imageUrl, size, color, tshirtType, gender, customNote);
 
 	    } catch (Exception e) {
 	        e.printStackTrace();

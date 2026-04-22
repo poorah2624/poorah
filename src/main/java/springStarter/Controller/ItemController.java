@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 import springStarter.models.Category;
 import springStarter.models.Item;
@@ -49,7 +53,12 @@ public class ItemController {
 	@ResponseBody
 	public List<SubCategory> getSubCategories(@RequestParam Long categoryId) {
 	    return subCategoryService.getSubCategoriesByCategoryId(categoryId);
+	    
+	    
 	}*/
+	
+	@Autowired
+	private Cloudinary cloudinary;
 	
 	@PostMapping("/Add_Item")
 	public String add_Item(@RequestParam Long categoryId, @RequestParam Long subCategoryId,
@@ -68,23 +77,25 @@ public class ItemController {
 		
 		 // upload folder
 		 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-		String uploadDir = "/app/uploads/";
+		StringBuilder imageUrls = new StringBuilder();
 
-	    File dir = new File(uploadDir);
-	    if(!dir.exists()) dir.mkdirs();
-	    
-	    StringBuilder imageNames = new StringBuilder();
-	    
-	    for(MultipartFile file : files){
-	    
-		if(!file.isEmpty()) {
-			 String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+		for (MultipartFile file : files) {
+		    if (!file.isEmpty()) {
+		        try {
+		            Map uploadResult = cloudinary.uploader().upload(
+		                    file.getBytes(),
+		                    ObjectUtils.asMap("folder", "poorah/products")
+		            );
 
-	            file.transferTo(new File(uploadDir + "/" + fileName));
+		            String imageUrl = (String) uploadResult.get("secure_url");
 
-	            imageNames.append(fileName).append(",");
-	    }
-	    }
+		            imageUrls.append(imageUrl).append(",");
+
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+		    }
+		}
 
 	   
 
@@ -93,7 +104,7 @@ public class ItemController {
 
 	   // file.transferTo(new File(uploadDir + "/" + fileName));
 	    
-	    String finalImages = imageNames.toString().replaceAll(",$", "");
+	    String finalImages = imageUrls.toString().replaceAll(",$", "");
 		
 		Item item = new Item();
 		
@@ -168,26 +179,28 @@ public class ItemController {
 	                         @RequestParam("file") MultipartFile[] files) {
 
 		 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-		String uploadDir = "/app/uploads/";
+		try {
 
-	    StringBuilder imageNames = new StringBuilder();
-
-	    try {
+	        StringBuilder imageUrls = new StringBuilder();
 
 	        for (MultipartFile file : files) {
 
 	            if (!file.isEmpty()) {
 
-	                String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+	                Map uploadResult = cloudinary.uploader().upload(
+	                        file.getBytes(),
+	                        ObjectUtils.asMap("folder", "poorah/products")
+	                );
 
-	                file.transferTo(new File(uploadDir + fileName));
+	                String imageUrl = (String) uploadResult.get("secure_url");
 
-	                imageNames.append(fileName).append(",");
+	                imageUrls.append(imageUrl).append(",");
 	            }
 	        }
 
-	        if (imageNames.length() > 0) {
-	            String finalImages = imageNames.toString().replaceAll(",$", "");
+	        
+	        if (imageUrls.length() > 0) {
+	            String finalImages = imageUrls.toString().replaceAll(",$", "");
 	            item.setItemImage(finalImages);
 	        }
 

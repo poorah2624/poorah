@@ -8,6 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 import springStarter.models.Gallery;
 import springStarter.repository.GalleryRepo;
 
@@ -32,6 +35,9 @@ public class GalleryService {
                 .orElseThrow(() -> new RuntimeException("Gallery not found"));
     }
     
+    @Autowired
+	private Cloudinary cloudinary;
+    
 //  delete banner
     public void deleteGallery(Long galleryId) {
 
@@ -40,11 +46,23 @@ public class GalleryService {
 
         // delete image file
         /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-        String uploadDir = "/app/uploads/";
-        File file = new File(uploadDir + gallery.getGalleryName());
+        try {
+            String imageUrl = gallery.getGalleryName();
 
-        if (file.exists()) {
-            file.delete();
+            if (imageUrl != null && imageUrl.contains("/upload/")) {
+
+                String publicId = imageUrl
+                        .substring(imageUrl.indexOf("/upload/") + 8)
+                        .replaceAll("v[0-9]+/", "")
+                        .replaceAll("\\.[^.]+$", "");
+
+                cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+
+                System.out.println("Deleted from Cloudinary: " + publicId);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         galleryRepo.deleteById(galleryId);

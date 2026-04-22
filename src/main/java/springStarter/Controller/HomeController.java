@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
+
 import springStarter.models.Banner;
 import springStarter.models.Category;
 import springStarter.models.ContactDetails;
@@ -363,6 +366,9 @@ public class HomeController {
 		return "customDesign";
 	}
 	
+	@Autowired
+	private Cloudinary cloudinary;
+	
 	@PostMapping("/custom-order")
 	public String customOrder(
 	        @RequestParam("designImage") MultipartFile file,
@@ -373,12 +379,14 @@ public class HomeController {
 	        RedirectAttributes redirectAttributes) {
 
 	    try {
-	        String fileName = file.getOriginalFilename();
+	    	String imageUrl = null;
 
-	        // save file
-	        String uploadDir = "/app/uploads/";
-	        Path path = Paths.get(uploadDir + fileName);
-	        Files.write(path, file.getBytes());
+	    	Map uploadResult = cloudinary.uploader().upload(
+	    	        file.getBytes(),
+	    	        ObjectUtils.asMap("folder", "poorah/custom-orders", "resource_type", "auto")
+	    	);
+
+	    	imageUrl = (String) uploadResult.get("secure_url");
 
 	        // TODO: save in DB (CustomOrder entity)
 
@@ -391,5 +399,7 @@ public class HomeController {
 
 	    return "redirect:/home";
 	}
+	
+	
 
 }

@@ -2,6 +2,7 @@ package springStarter.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 import springStarter.models.Team;
 import springStarter.services.TeamService;
@@ -50,6 +54,9 @@ public class TeamController {
 	        return "admin/editTeam";
 	    }
 	  
+	  @Autowired
+		private Cloudinary cloudinary;
+	  
 	  @PostMapping("/editTeam")
 		public String updateTeam(
 		        @RequestParam("teamId") Long teamId,
@@ -67,14 +74,19 @@ public class TeamController {
 		    if (file != null && !file.isEmpty()) {
 
 		    	 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-		    	String uploadDir = "/app/uploads/";
-		        File dir = new File(uploadDir);
-		        if (!dir.exists()) dir.mkdirs();
+		    	try {
+		    	    Map uploadResult = cloudinary.uploader().upload(
+		    	            file.getBytes(),
+		    	            ObjectUtils.asMap("folder", "poorah/team")
+		    	    );
 
-		        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-		        file.transferTo(new File(uploadDir + "/" + fileName));
+		    	    String imageUrl = (String) uploadResult.get("secure_url");
 
-		        existingTeam.settImage(fileName);
+		    	    existingTeam.settImage(imageUrl);   
+
+		    	} catch (Exception e) {
+		    	    e.printStackTrace();
+		    	}
 		    }
 
 		    // Status Update
