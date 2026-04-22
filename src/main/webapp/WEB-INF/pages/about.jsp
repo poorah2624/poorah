@@ -92,7 +92,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="wthree_team_grids">
 			 <c:forEach var="t" items="${team }">
 				<div class="col-md-3 wthree_team_grid">
-					<img src="/uploads/${t.tImage}" alt=" " class="img-responsive" style="width: 120px;height: 120px;object-fit: cover;border-radius: 50%;"/>
+					<img src="${t.tImage}" alt=" " class="img-responsive" style="width: 120px;height: 120px;object-fit: cover;border-radius: 50%;"/>
 					<h4>
 						${t.tName } <span>${t.tDesignation }</span>
 					</h4>

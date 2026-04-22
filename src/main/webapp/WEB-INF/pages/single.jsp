@@ -62,9 +62,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<c:forEach var="img" items="${fn:split(item.itemImage, ',')}">
 
 							<li
-								data-thumb="/uploads/${img}">
+								data-thumb="${img}">
 								<div class="thumb-image">
-									<img src="/uploads/${img}"
+									<img src="${img}"
 										data-imagezoom="true" class="img-responsive">
 								</div>
 							</li>

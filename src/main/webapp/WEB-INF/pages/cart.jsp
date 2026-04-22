@@ -90,7 +90,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<!-- IMAGE -->
 								<div class="custom-img">
 									<img
-										src="/uploads/${c.customImage}" />
+										src="${c.customImage}" />
 									<span class="custom-badge">Your Design 🎨</span>
 								</div>
 
@@ -148,7 +148,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<!-- IMAGE -->
 								<div class="cart-img">
 									<img
-										src="/uploads/${fn:split(c.item.itemImage, ',')[0]}" />
+										src="${fn:split(c.item.itemImage, ',')[0]}" />
 
 								</div>
 

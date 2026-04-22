@@ -57,10 +57,10 @@
 					</div>
 					<ul class="slides">
 						<li
-							data-thumb="/uploads/male.png">
+							data-thumb="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/male_wqzxj0.png">
 							<div class="thumb-image">
 								<div class="tshirt-container">
-									<img src="/uploads/male.png"
+									<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/male_wqzxj0.png"
 										class="img-responsive tshirt-base" id="tshirtImage"> <img
 										id="designPreview" class="design-overlay" />
 								</div>
@@ -417,9 +417,9 @@ document.querySelectorAll('input[name="gender"]').forEach(radio => {
         const tshirt = document.getElementById("tshirtImage");
 
         if (this.value === "male") {
-            tshirt.src = "<%=request.getContextPath()%>/uploads/male.png";
+            tshirt.src = "https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/male_wqzxj0.png";
         } else {
-            tshirt.src = "<%=request.getContextPath()%>/uploads/female.png";
+            tshirt.src = "https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880776/female_v4yclu.png";
         }
 
     });

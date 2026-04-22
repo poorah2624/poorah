@@ -74,7 +74,7 @@
 
 									<!-- PRODUCT IMAGE -->
 									<img
-										src="/uploads/${fn:split(item.item.itemImage, ',')[0]}"
+										src="${fn:split(item.item.itemImage, ',')[0]}"
 										style="width: 80px; height: 100px; border-radius: 8px; margin-right: 15px;" />
 
 									<!-- DETAILS -->

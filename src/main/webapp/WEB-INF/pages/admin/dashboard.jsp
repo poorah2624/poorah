@@ -228,7 +228,7 @@
 												<!-- Current avatar -->
 												<div class="avatar-view" title="Change the avatar">
 													<img
-														src="/uploads/${sessionScope.LoggedInAdmin.image}"
+														src="${sessionScope.LoggedInAdmin.image}"
 														alt="Avatar" style="width: 100%; height: 100%;">
 												</div>
 

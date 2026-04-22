@@ -47,7 +47,7 @@
 					<!-- LEFT SIDE IMAGE -->
 					<div style="flex: 1;">
 						<img
-							src="/uploads/${fn:split(item.item.itemImage, ',')[0]}"
+							src="${fn:split(item.item.itemImage, ',')[0]}"
 							style="width: 100%; max-width: 300px; border-radius: 10px;">
 					</div>
 

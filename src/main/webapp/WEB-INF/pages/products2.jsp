@@ -179,7 +179,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 									<div class="hs-wrapper hs-wrapper2">
 										<img
-											src="/uploads/${fn:split(p.itemImage, ',')[0]}"
+											src="${fn:split(p.itemImage, ',')[0]}"
 											alt=" " class="img-responsive"
 											style="width: 210px; height: 250px;" />
 
