@@ -10,7 +10,7 @@
 		</c:if>
 		<div class="header">
 		
-		<%@include file="userlogin.jsp" %>
+		
 			
 				<!--  <div class="w3l_login">
 					<a href="/userlogin"
