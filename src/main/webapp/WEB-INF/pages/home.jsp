@@ -141,8 +141,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		<!-- WOMEN -->
 		<div class="category-box">
-			<a href="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/22_bmq1op.jpg">
-				<img src="/uploads/22.jpg"
+			<a href="/products/gender/WOMEN">
+				<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/22_bmq1op.jpg"
 				alt="Women">
 				<div class="overlay">
 					<h2>Women Collection</h2>

@@ -76,7 +76,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="clearfix"></div>
 				</div>
 				<div class="col-md-6 w3ls_about_grid_right">
-					<img src="/uploads/${about.aImage }" alt=" " class="img-responsive" />
+					<img src="${about.aImage }" alt=" " class="img-responsive" />
 				</div>
 				<div class="clearfix"></div>
 			</div>
