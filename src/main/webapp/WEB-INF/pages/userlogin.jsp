@@ -4,6 +4,11 @@
     Author     : Cuteepoo_pc
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,16 +146,16 @@
 	</div>
 
 	<!-- js -->
-	<script src="/js/jquery.min.js"></script>
+	<script src="<c:url value='/js/jquery.min.js'/>"></script>
 	<!-- for bootstrap working -->
-	<script type="text/javascript" src="/js/bootstrap-3.1.1.min.js"></script>
-	<script src="/js/jquery.magnific-popup.js"></script>
-	<script src="/js/jquery.flexisel.js"></script>
-	<script src="/js/jquery.countdown.js"></script>
-	<script src="/js/jquery.wmuSlider.js"></script>
-	<script src="/js/simpleCart.min.js"></script>
-	<script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
-	<script src="/js/script.js"></script>
+	<script type="text/javascript" src="<c:url value='/js/bootstrap-3.1.1.min.js'/>"></script>
+	<script src="<c:url value='/js/jquery.magnific-popup.js'/>"></script>
+	<script src="<c:url value='/js/jquery.flexisel.js'/>"></script>
+	<script src="<c:url value='/js/jquery.countdown.js'/>"></script>
+	<script src="<c:url value='/js/jquery.wmuSlider.js'/>"></script>
+	<script src="<c:url value='/js/simpleCart.min.js'/>"></script>
+	<script src="<c:url value='/js/easyResponsiveTabs.js'/>" type="text/javascript"></script>
+	<script src="<c:url value='/js/script.js'/>"></script>
 
 	<script>
 		$(document).ready(function() {
