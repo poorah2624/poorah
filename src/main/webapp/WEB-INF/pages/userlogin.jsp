@@ -224,23 +224,9 @@
 			});
 		});
 	</script>
-	<script>
-		$('#myModal88').modal('show');
-	</script>
+	
 
 	<!-- //js -->
 	
-	<c:if test="${empty sessionScope.LoggedInUser}">
-    <script>
-        $(document).ready(function(){
-            $('#myModal88').modal({
-                backdrop: 'static', // outside click se close nahi hoga
-                keyboard: false     // ESC se close nahi hoga
-            });
-
-            $('#myModal88').modal('show');
-        });
-    </script>
-</c:if>
 </body>
 </html>

@@ -114,7 +114,7 @@
                            
                           </div>
                           <div class="right col-xs-5 text-center">
-                            <img src="/uploads/${t.tImage }" alt="" class="img-circle img-responsive team-img" style="width: 120px;height: 120px;object-fit: cover;border-radius: 50%;">
+                            <img src="${t.tImage }" alt="" class="img-circle img-responsive team-img" style="width: 120px;height: 120px;object-fit: cover;border-radius: 50%;">
                           </div>
                         </div>
                         <div class="col-xs-12 bottom text-center">

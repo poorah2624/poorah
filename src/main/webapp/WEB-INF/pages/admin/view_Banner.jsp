@@ -159,7 +159,7 @@
 
 
 															<img style="width: 100%; display: block;"
-																src="/uploads/${b.bannerName}"
+																src="${b.bannerName}"
 																alt="image" />
 															<div class="mask">
 																<p>${b.bannerStatus}</p>

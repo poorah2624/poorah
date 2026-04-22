@@ -132,7 +132,7 @@
                         <td>${i.category.categoryName }</td>
                         <td>${i.subCategory.subCategoryName }</td>
                         <td>${i.skuId }</td>
-                        <td><img src="/uploads/${fn:split(i.itemImage, ',')[0]}" 
+                        <td><img src="${fn:split(i.itemImage, ',')[0]}" 
          style="width:60px; height:60px; object-fit:cover;"></td>
                         <td>${i.itemName }</td>
                         <td>&#8377 ${i.itemPrice }/-</td>

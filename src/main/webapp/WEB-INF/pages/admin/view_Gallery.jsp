@@ -157,7 +157,7 @@
 
 														<div class="image view view-first">
 															<img style="width: 100%; display: block;"
-																src="/uploads/${g.galleryName}"
+																src="${g.galleryName}"
 																alt="image" />
 															<div class="mask">
 																<p>${g.galleryStatus}</p>
