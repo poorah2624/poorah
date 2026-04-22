@@ -141,16 +141,16 @@
 	</div>
 
 	<!-- js -->
-	<script src="js/jquery.min.js"></script>
+	<script src="/js/jquery.min.js"></script>
 	<!-- for bootstrap working -->
-	<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
-	<script src="js/jquery.magnific-popup.js"></script>
-	<script src="js/jquery.flexisel.js"></script>
-	<script src="js/jquery.countdown.js"></script>
-	<script src="js/jquery.wmuSlider.js"></script>
-	<script src="js/simpleCart.min.js"></script>
-	<script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
-	<script src="js/script.js"></script>
+	<script type="text/javascript" src="/js/bootstrap-3.1.1.min.js"></script>
+	<script src="/js/jquery.magnific-popup.js"></script>
+	<script src="/js/jquery.flexisel.js"></script>
+	<script src="/js/jquery.countdown.js"></script>
+	<script src="/js/jquery.wmuSlider.js"></script>
+	<script src="/js/simpleCart.min.js"></script>
+	<script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
+	<script src="/js/script.js"></script>
 
 	<script>
 		$(document).ready(function() {
