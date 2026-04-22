@@ -131,7 +131,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<!-- MEN -->
 		<div class="category-box">
 			<a href="/products/gender/MEN">
-				<img src="/uploads/11.jpg"
+				<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/11_o4fxd5.jpg"
 				alt="Men">
 				<div class="overlay">
 					<h2>Men Collection</h2>
@@ -141,7 +141,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		<!-- WOMEN -->
 		<div class="category-box">
-			<a href="/products/gender/WOMEN">
+			<a href="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/22_bmq1op.jpg">
 				<img src="/uploads/22.jpg"
 				alt="Women">
 				<div class="overlay">
