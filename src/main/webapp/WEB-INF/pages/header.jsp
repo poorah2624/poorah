@@ -120,7 +120,7 @@
 								<li>
 					<a href="/cart">
 						(${cartCount} Items) <img
-						src="/uploads/bag.png" alt="" />
+						src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" alt="" />
 					</a>
 					
 					

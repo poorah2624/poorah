@@ -80,7 +80,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											<div class="col-md-4 agile_ecommerce_tab_left">
 												<div class="hs-wrapper">
 													<img
-														src="/uploads/${fn:split(item.itemImage, ',')[0]}"
+														src="${fn:split(item.itemImage, ',')[0]}"
 														alt="${item.itemName}" class="img-responsive" />
 													<div class="w3_hs_bottom">
 														<ul>

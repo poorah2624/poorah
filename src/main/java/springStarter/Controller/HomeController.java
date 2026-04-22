@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -68,7 +69,13 @@ public class HomeController {
 	private SocialLinkService socialLinkService;
 
 	@GetMapping("/")
-	public String home(Model model, HttpServletResponse response) {
+	public String home(Model model, HttpServletResponse response, HttpServletRequest request) {
+		
+		String host = request.getHeader("host");
+	    if (host != null && host.startsWith("poorah.com")) {
+	        return "redirect:https://www.poorah.com/";
+	    }
+	    
 		List<Banner> banner = bannerService.getAllBanners();
 		model.addAttribute("banner", banner);
 
@@ -399,6 +406,8 @@ public class HomeController {
 
 	    return "redirect:/home";
 	}
+	
+	
 	
 	
 

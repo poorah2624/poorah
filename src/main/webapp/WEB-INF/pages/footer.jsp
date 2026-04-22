@@ -55,7 +55,7 @@
 			<div class="footer-copy1">
 				<div class="footer-copy-pos">
 					<a href="#home1" class="scroll"><img
-						src="/uploads/arrow.png" alt=" "
+						src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880816/arrow_ykqi4r.png" alt=" "
 						class="img-responsive" /></a>
 				</div>
 			</div>
