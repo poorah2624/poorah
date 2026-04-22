@@ -17,8 +17,8 @@
 </head>
 <body>
 
-	<div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88" aria-hidden="true" >
-		<div class="modal-dialog modal-lg">
+	<div class="modal show" id="myModal88" tabindex="-1" role="dialog" style="display:block; background: rgba(0,0,0,0.5);">
+		<div class="modal-dialog modal-lg" style="margin-top:80px;">
 			<div class="modal-content">
 				<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
