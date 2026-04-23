@@ -22,7 +22,7 @@
 		<div class="modal-dialog modal-lg" style="margin-top:80px;">
 			<div class="modal-content">
 				<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<!-- <button type="button" class="close" data-dismiss="modal">&times;</button>  -->
 					<c:if test="${not empty Error}">
 						<p style="color: red">${Error }</p>
 					</c:if>

@@ -126,11 +126,9 @@ public class HomeController {
 
 		model.addAttribute("categoryItems", categoryItems);
 
-		User user = (User) session.getAttribute("LoggedInUser");
+		
 
-		if (user == null) {
-			return "redirect:/userlogin";
-		}
+	
 		
 		List<Gallery> gallery = galleryService.getAllGallery();
 		model.addAttribute("gallery", gallery);
