@@ -129,6 +129,7 @@ button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
+	appearance: button;
   -webkit-appearance: button;
   cursor: pointer;
 }
@@ -159,6 +160,7 @@ input[type="search"] {
   -webkit-box-sizing: content-box;
      -moz-box-sizing: content-box;
           box-sizing: content-box;
+          appearance: textfield;
   -webkit-appearance: textfield;
 }
 input[type="search"]::-webkit-search-cancel-button,
@@ -2590,6 +2592,7 @@ textarea.form-control {
   height: auto;
 }
 input[type="search"] {
+	appearance: none;
   -webkit-appearance: none;
 }
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
@@ -5710,6 +5713,7 @@ a.list-group-item-danger.active:focus {
   opacity: .5;
 }
 button.close {
+	appearance: none;
   -webkit-appearance: none;
   padding: 0;
   cursor: pointer;

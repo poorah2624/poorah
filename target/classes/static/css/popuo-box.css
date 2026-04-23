@@ -117,6 +117,7 @@ opacity: 0;
   z-index: 1043;
   position: fixed;
   outline: none !important;
+  backface-visibility: hidden;
   -webkit-backface-visibility: hidden; }
 
 .mfp-container {
@@ -216,6 +217,7 @@ button.mfp-arrow {
   cursor: pointer;
   border: 0;
    background:#FFF;
+   appearance: none;
   -webkit-appearance: none;
   display: block;
   padding: 0;
@@ -263,7 +265,7 @@ button::-moz-focus-inner {
 .login input[type="text"],.login input[type="password"]{
 	width:90%;
 	padding:5px;
-	margin:3px 0;x
+	margin:3px 0;
 	border: 1px solid #a63d56;
 	outline: none !important;
 }
@@ -293,6 +295,7 @@ button::-moz-focus-inner {
 	color: #fff;
 	text-transform: uppercase;
 	width: 17%;	
+	appearance: none;
 	-webkit-appearance: none;
 }
 .login input[type="submit"]:hover,.signup input[type="submit"]:hover{
