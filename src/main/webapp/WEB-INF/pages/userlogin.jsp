@@ -40,7 +40,7 @@
 							<div class="sap_tabs">
 								<div id="horizontalTab"
 									style="display: block; width: 100%; margin: 0px;">
-									<ul>
+									<ul class="resp-tabs-list">
 										<li class="resp-tab-item" aria-controls="tab_item-0"><span>Sign
 												in</span></li>
 										<li class="resp-tab-item" aria-controls="tab_item-1"><span>Sign

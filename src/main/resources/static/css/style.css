@@ -1561,6 +1561,20 @@ h2.resp-accordion {
 .resp-content-active, .resp-accordion-active {
    display: block;
 }
+
+.resp-tabs-list {
+    display: flex !important;
+    border-bottom: 1px solid #ddd;
+}
+
+.resp-tabs-list li {
+    list-style: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+}
+
 /*-- //sap --*/
 .modal-body-sub {
     padding: 3em !important;
