@@ -1565,6 +1565,7 @@ h2.resp-accordion {
 .resp-tabs-list {
     display: flex !important;
     border-bottom: 1px solid #ddd;
+    width: 100%;
 }
 
 .resp-tabs-list li {
@@ -1573,6 +1574,8 @@ h2.resp-accordion {
     cursor: pointer;
     border: 1px solid #ddd;
     margin-right: 5px;
+    flex:1;
+    text-align: center;
 }
 
 /*-- //sap --*/
@@ -3149,7 +3152,7 @@ td.invert-image a img {
 	}
 	.modal_body_left1 {
 		float: left;
-		width: 65% !important;
+		width: 100% !important;
 	}
 	.modal_body_right1 {
 		float: right;
@@ -3176,7 +3179,7 @@ td.invert-image a img {
 	}
 	.modal_body_left {
 		float: left;
-		width: 40%;
+		width: 100%;
 	}
 	.modal_body_right {
 		float: right;
