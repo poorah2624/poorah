@@ -322,7 +322,7 @@ a.act {
 /*--search--*/
 .search{
 	position: relative;
-    display: inline-block;
+    
     float: right;
     margin:1.5em 0 0 9em;
     
@@ -1154,12 +1154,7 @@ ul.multi-column-dropdown h6 {
 	position: relative;
 	overflow: hidden;
 }
-.wmuSlider .wmuSliderWrapper article img {
-	/*--max-width: 100%;
-	width: auto;
-	height: auto;
-	display:block;--*/
-}
+
 /* Default Skin */
 .wmuSliderPagination {
 	z-index: 2;
@@ -1521,6 +1516,7 @@ ul.wmuSliderPagination {
 /*-- sap --*/
 .sap_tabs {
   margin: 0 auto;
+  appearance: none;
   -webkit-appearance: none;
 }
 .resp-tab-item{
@@ -1540,6 +1536,7 @@ ul.wmuSliderPagination {
 	-ms-transition: all 0.3s ease-out;
 	-o-transition: all 0.3s ease-out;
 	transition: all 0.3s ease-out;
+	appearance: none;
 	-webkit-appearance: none;
 }
 .resp-tab-item:hover {
@@ -2614,6 +2611,7 @@ h2.typoh2{
     font-size: 18px;
     color: #fff;
     text-align: center;
+    user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
 	border:1px solid #b2b2b2;
@@ -3687,9 +3685,7 @@ td.invert-image a img {
 	.nav-tabs > li > a {
 		font-size: .9em;
 	}
-	.header {
-		/* padding: 1em 0 0; */
-	}
+	
 	.dropdown-menu.columns-3 {
 		min-width: auto;
 	}
@@ -4653,6 +4649,7 @@ input[type="radio"]:invalid {
     display: -webkit-box;
     -webkit-line-clamp: 2;   /* max 2 lines */
     -webkit-box-orient: vertical;
+    line-clamp: 2;
     overflow: hidden;
 }
 

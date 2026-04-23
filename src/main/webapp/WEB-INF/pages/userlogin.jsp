@@ -216,16 +216,16 @@
 	</script>
 
 	<script type="text/javascript">
-	$(window).on('load', function() {
-	    if ($.fn.easyResponsiveTabs) {
-	        $('#horizontalTab').easyResponsiveTabs({
-	            type: 'default',
-	            width: 'auto',
-	            fit: true
-	        });
-	    } else {
-	        console.log("Tabs JS not loaded");
-	    }
+	$(document).ready(function () {
+	    setTimeout(function () {
+	        if ($.fn.easyResponsiveTabs) {
+	            $('#horizontalTab').easyResponsiveTabs({
+	                type: 'default',
+	                width: 'auto',
+	                fit: true
+	            });
+	        }
+	    }, 300);
 	});
 	</script>
 	
