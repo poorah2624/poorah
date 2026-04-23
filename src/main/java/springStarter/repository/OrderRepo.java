@@ -24,6 +24,8 @@ public interface OrderRepo extends JpaRepository<Orders, Long> {
 	
 	List<Orders> findByStatusOrderByOrderDateDesc(String status);
 	
+	List<Orders> findByCategoryOrderByOrderDateDesc(String category);
+	
 	
 
 }

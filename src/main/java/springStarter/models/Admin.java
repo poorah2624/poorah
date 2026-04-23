@@ -40,6 +40,10 @@ public class Admin {
 	@Column(name="image")
 	private String image;
 	
+	private String role;
+	
+	private String categoryAccess;
+	
 	
 	
 	// New fields for reset password

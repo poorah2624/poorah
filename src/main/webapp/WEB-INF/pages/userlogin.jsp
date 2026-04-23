@@ -44,7 +44,7 @@
 												in</span></li>
 										<li class="resp-tab-item" aria-controls="tab_item-1"><span>Sign
 												up</span></li>
-										<li class="resp-tab-item" aria-controls="tab-item-2"><span>Forgot
+										<li class="resp-tab-item" aria-controls="tab_item-2"><span>Forgot
 												Password</span></li>
 									</ul>
 									<div class="tab-1 resp-tab-content"
@@ -215,14 +215,17 @@
 	</script>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#horizontalTab').easyResponsiveTabs({
-				type : 'default', //Types: default, vertical, accordion           
-				width : 'auto', //auto or any width like 600px
-				fit : true
-			// 100% fit in a container
-			});
-		});
+	$(window).on('load', function() {
+	    if ($.fn.easyResponsiveTabs) {
+	        $('#horizontalTab').easyResponsiveTabs({
+	            type: 'default',
+	            width: 'auto',
+	            fit: true
+	        });
+	    } else {
+	        console.log("Tabs JS not loaded");
+	    }
+	});
 	</script>
 	
 

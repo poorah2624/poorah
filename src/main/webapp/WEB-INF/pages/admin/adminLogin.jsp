@@ -78,11 +78,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="clearfix"></div>
 					</div>
 					<input type="submit" name="Sign In" value="Login">
-					<h3>
+					<!--  <h3>
 						Not a member?<a
 							href="/registerAdmin"> Sign
 							up now</a>
-					</h3>
+					</h3> -->
 					<h2>or login with</h2>
 					<div class="login-icons">
 						<ul>

@@ -98,10 +98,26 @@ public class OrderService {
 	    List<Order_item> orderItems = new ArrayList<>();
 	    int totalQty = 0;
 
+	    String category = null;
 	    // ✅ ITEMS LOOP
 	    for (Cart cart : cartItems) {
+	    	
+	    	if (category == null) {
+
+	    	    if (cart.getItem() != null && cart.getItem().getCategory() != null) {
+
+	    	        category = cart.getItem()
+	    	                       .getCategory()
+	    	                       .getCategoryName();
+
+	    	    } else {
+	    	        category = "CUSTOM";
+	    	    }
+	    	}
+	    
 
 	        Order_item item = new Order_item();
+	        
 
 	        item.setOrder(order);
 	        //item.setItem(cart.getItem());
@@ -180,6 +196,9 @@ public class OrderService {
 	    order.setQuantity(totalQty);
 	    order.setTotalAmount(finalAmount);
 	    order.setDeliveryCharge(deliveryCharge);
+	    
+	    order.setCategory(category);
+
 
 	    // =========================
 	    // ✅ PAYMENT CREATE
@@ -807,5 +826,7 @@ public class OrderService {
 	        return false;
 	    }
 	}
+	
+	
 
 }

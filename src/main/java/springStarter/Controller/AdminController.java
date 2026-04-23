@@ -112,6 +112,9 @@ public class AdminController {
 		}
 
 		session.setAttribute("LoggedInAdmin", admin);
+		session.setAttribute("adminId", admin.getAdminId());
+		session.setAttribute("categoryAccess", admin.getCategoryAccess());
+		session.setAttribute("role", admin.getRole());
 
 		if (remember != null) {
 			Cookie cookie = new Cookie("adminEmail", email);

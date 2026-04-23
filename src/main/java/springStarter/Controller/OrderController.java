@@ -99,11 +99,26 @@ public class OrderController {
 	@GetMapping("/manage_order")
 	public String manage_order(HttpSession session, Model model) {
 		
+		
 		Admin admin = (Admin) session.getAttribute("LoggedInAdmin");
 	    if(admin == null){
 	        return "admin/adminLogin";
 	    }
-	    List<Orders> orders = orderRepo.findAllByOrderByOrderDateDesc();
+	    
+	    String category = (String) session.getAttribute("categoryAccess");
+	    List<Orders> orders;
+	    
+	    if(category.equals("CLOTHING")) {
+	        // Clothing admin = full access
+	        orders = orderRepo.findAllByOrderByOrderDateDesc();
+	    } 
+	    else if(category.equals("ACCESSORIES")) {
+	        // Accessories admin = restricted
+	        orders = orderRepo.findByCategoryOrderByOrderDateDesc("ACCESSORIES");
+	    } 
+	    else {
+	        return "error/403";
+	    }
 	    model.addAttribute("orders", orders);
 	    		
 		return "admin/manage_order";
