@@ -70,15 +70,13 @@
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="/home">
-						<img
-							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
-							alt="PooRah Logo" class="site-logo"><
-						</a>
+						
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav" style="gap: 20px;">
-						
+						<li><img
+							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
+							alt="PooRah Logo" class="site-logo"></li>
 							<li class="active"><a
 								href="/home" class="act">Home</a></li>
 							<%--  Mega Menu --%>
@@ -205,15 +203,12 @@
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="/home">
-						<img
-							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
-							alt="PooRah Logo" class="site-logo"><
-						</a>
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-						
+						<li><img
+							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
+							alt="PooRah Logo" class="site-logo"></li>
 							<li class="active"><a
 								href="/home" class="act">Home</a></li>
 							<%-- Mega Menu --%>

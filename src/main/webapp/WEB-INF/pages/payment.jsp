@@ -131,7 +131,7 @@ function payNow() {
     .then(data => {
 
         var options = {
-            key: "rzp_test_SXlvfKVfbzo45f",
+            key: "rzp_live_ShQOLUifv4q2NT",
             amount: data.amount,
             currency: "INR",
             name: "PooRah",
