@@ -23,7 +23,7 @@
                 <li class="">
                     
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="/uploads/${sessionScope.LoggedInAdmin.image}" alt="">${sessionScope.LoggedInAdmin.name}
+                    <img src="${sessionScope.LoggedInAdmin.image}" alt="">${sessionScope.LoggedInAdmin.name}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                     

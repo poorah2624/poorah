@@ -5399,3 +5399,17 @@ table th, table td {
     padding: 8px;
     text-align: center;
 }
+
+/*mobile view header nav*/
+@media (max-width: 768px) {
+
+    .navbar-collapse {
+        background: white;
+    }
+
+    .navbar-nav > li {
+        display: block;
+        width: 100%;
+    }
+
+}
