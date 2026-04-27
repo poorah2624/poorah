@@ -537,7 +537,17 @@ ul.multi-column-dropdown h6 {
     display: flex;
     align-items: center;
     float: none !important; 
+    width: 100%;
     
+}
+.cart-li {
+    margin-left: auto;
+}
+.right-section {
+    margin-left: auto;
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 .navbar-nav > li:nth-child(1) {
     margin-left: auto;
@@ -4830,7 +4840,7 @@ input[type="radio"]:invalid {
 
 .login-btn:hover {
     background-color: #ff9b05;
-    color: white !important;
+    color: #ff9b05 !important;
 }
 
 /* track */

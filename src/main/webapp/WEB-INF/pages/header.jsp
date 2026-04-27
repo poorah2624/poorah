@@ -118,14 +118,7 @@
 							<li><a href="/userlogin"
 								class="login-btn"><i class="fa fa-user"></i>Login</a></li>
 								
-								<li>
-					<a href="/cart">
-						(${cartCount} Items) <img
-						src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" alt="" />
-					</a>
-					
-					
-				</li>
+								
 				<li>
 				<div class="search">
 					<input class="search_box" type="checkbox" id="search_box">
@@ -139,6 +132,17 @@
 					</div>
 				</div>
 				</li>
+				
+				<li class="navbar-right cart-li">
+				<div class="right-section">
+					<a href="/cart">
+						(${cartCount} Items) <img
+						src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" alt="" />
+					</a>
+					
+					</div>
+				</li>
+				
 						</ul>
 					</div>
 				</nav>
@@ -252,14 +256,6 @@
 								</ul></li>
 								
 								
-								<li>
-					<a href="/cart">
-						(${cartCount} Items) <img
-						src="/uploads/bag.png" alt="" />
-					</a>
-					
-					
-				</li>
 				<li>
 				<div class="search">
 					<input class="search_box" type="checkbox" id="search_box">
@@ -273,6 +269,16 @@
 					</div>
 				</div>
 				</li>
+				<li class="navbar-right cart-li">
+				<div class="right-section">
+					<a href="/cart">
+						(${cartCount} Items) <img
+						src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" alt="" />
+					</a>
+					
+					</div>
+				</li>
+				
 						</ul>
 					</div>
 				</nav>
