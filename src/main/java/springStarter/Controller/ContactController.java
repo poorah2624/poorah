@@ -86,7 +86,7 @@ public class ContactController {
 
 	    emailService.sendToAdmin(
 	            "New Contact Query - Poorah",
-	            adminBody
+	            adminBody, userEmail
 	    );
 	    
 	    emailService.sendAutoReply(

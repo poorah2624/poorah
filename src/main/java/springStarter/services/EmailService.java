@@ -60,11 +60,12 @@ public class EmailService {
         }
     }
     
-    public void sendToAdmin(String subject, String body) {
+    public void sendToAdmin(String subject, String body, String userEmail) {
 
         SimpleMailMessage message = new SimpleMailMessage();
-
+        message.setFrom("rahul@poorah.com");
         message.setTo("rahul@poorah.com"); 
+        message.setReplyTo(userEmail);
         message.setSubject(subject);
         message.setText(body);
 
