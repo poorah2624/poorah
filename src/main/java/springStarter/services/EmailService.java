@@ -61,7 +61,8 @@ public class EmailService {
     }
     
     public void sendToAdmin(String subject, String body, String userEmail) {
-
+       
+    	 try {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("rahul@poorah.com");
         message.setTo("rahul@poorah.com"); 
@@ -70,6 +71,10 @@ public class EmailService {
         message.setText(body);
 
         mailSender.send(message);
+    	 }
+    	 catch (Exception e) {
+    	        e.printStackTrace(); 
+    	    }
     }
     
     public void sendAutoReply(String toEmail, String subject, String inbox)

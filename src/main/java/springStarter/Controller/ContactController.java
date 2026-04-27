@@ -83,6 +83,8 @@ public class ContactController {
 	            + "Email: " + userEmail + "\n"
 	            + "Mobile: " + userMobile + "\n"
 	            + "Message: " + message;
+		
+		try {
 
 	    emailService.sendToAdmin(
 	            "New Contact Query - Poorah",
@@ -94,6 +96,11 @@ public class ContactController {
 	            "We received your query",
 	            "Hello " + userName + ",\n\nThank you for reaching out to us. \n\nWe have received your query and our team will get back to you shortly.\n\nTeam Poorah"
 	    );
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		
         ContactDetails contactDetails = cDetailsService.getContactDetails();
 	    
