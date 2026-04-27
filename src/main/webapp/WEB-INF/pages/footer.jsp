@@ -182,3 +182,18 @@
 	});
 </script>
 
+<script>
+window.addEventListener("scroll", function () {
+    const elements = document.querySelectorAll(".reveal");
+
+    elements.forEach(el => {
+        const position = el.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (position < windowHeight - 100) {
+            el.classList.add("active");
+        }
+    });
+});
+</script>
+
