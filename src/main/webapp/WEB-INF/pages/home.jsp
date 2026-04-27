@@ -35,10 +35,36 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<!-- //banner -->
 	<!-- //banner -->
+	
+	<div class="category-section">
+
+		<!-- MEN -->
+		<div class="category-box">
+			<a href="/products/gender/MEN">
+				<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/11_o4fxd5.jpg"
+				alt="Men">
+				<div class="overlay">
+					<h2>Men Collection</h2>
+				</div>
+			</a>
+		</div>
+
+		<!-- WOMEN -->
+		<div class="category-box">
+			<a href="/products/gender/WOMEN">
+				<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/22_bmq1op.jpg"
+				alt="Women">
+				<div class="overlay">
+					<h2>Women Collection</h2>
+				</div>
+			</a>
+		</div>
+
+	</div>
 
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
-		<div class="container">
+		
 			<div class="col-md-12 wthree_banner_bottom_left">
 				<div class="video-img custom-upload-box">
                    <div class="overlay"></div>
@@ -124,35 +150,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 			</div>
 			<div class="clearfix"></div>
-		</div>
+		
 	</div>
 	<!-- //banner-bottom -->
 
-	<div class="category-section">
-
-		<!-- MEN -->
-		<div class="category-box">
-			<a href="/products/gender/MEN">
-				<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/11_o4fxd5.jpg"
-				alt="Men">
-				<div class="overlay">
-					<h2>Men Collection</h2>
-				</div>
-			</a>
-		</div>
-
-		<!-- WOMEN -->
-		<div class="category-box">
-			<a href="/products/gender/WOMEN">
-				<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/22_bmq1op.jpg"
-				alt="Women">
-				<div class="overlay">
-					<h2>Women Collection</h2>
-				</div>
-			</a>
-		</div>
-
-	</div>
+	
 
 
 	<div class="insta-section">
