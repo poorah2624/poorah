@@ -712,7 +712,7 @@ ul.multi-column-dropdown h6 {
     border: none;
 }
 .video-img {
-    background: url(https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/custom_txddpk.png)no-repeat center;
+    background: url(https://res.cloudinary.com/dqufjiuzx/image/upload/v1777320333/ChatGPT_Image_Apr_28_2026_01_34_21_AM_teciug.png)no-repeat center;
     -webkit-background-size: cover;
     background-size: cover;
     -moz-background-size: cover;
@@ -5456,9 +5456,11 @@ table th, table td {
     opacity: 0;
     transform: translateY(60px) scale(0.95);
     transition: all 0.8s ease;
+    visibility: hidden;
 }
 
 .reveal.active {
     opacity: 1;
     transform: translateY(0) scale(1);
+    visibility: visible;
 }

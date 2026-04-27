@@ -69,7 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- banner-bottom -->
 	<div class="banner-bottom">
 		
-			<div class="col-md-12 wthree_banner_bottom_left">
+			<div class="col-md-5 wthree_banner_bottom_left">
 				<div class="video-img custom-upload-box">
                    <div class="overlay"></div>
 					<div class="overlay-content">
