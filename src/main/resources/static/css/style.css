@@ -436,7 +436,7 @@ a.simpleCart_empty {
     border: none;
 }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-    color: #d8703f;
+    color: #ff9b05;
 }
 .navbar-default .navbar-nav > li > a:focus {
     color: #333 !important;
