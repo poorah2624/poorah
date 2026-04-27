@@ -13,11 +13,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <%@include file="head.jsp"%>
 </head>
 
 <body style="font-family: 'Poppins', sans-serif; background: #f8f9fa;">
 	<!-- header -->
+	
+	<div data-aos="zoom-in">
 
 	<%@include file="header.jsp"%>
 	<!-- //header -->
@@ -182,7 +186,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<%@include file="footer.jsp"%>
 	<!-- //footer -->
 
-
+</div>
 
 
 
