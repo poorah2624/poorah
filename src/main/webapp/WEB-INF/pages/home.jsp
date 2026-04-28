@@ -34,7 +34,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<jsp:include page="slider.jsp"></jsp:include>
 	</div>
 	<div class="clearfix"></div>
-	</br>
+	
 	</div>
 	</br>
 
@@ -85,10 +85,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 
 				</div>
-				<!-- pop-up-box -->
-				<link href="css/popuo-box.css" rel="stylesheet" type="text/css"
-					property="" media="all" />
-				<!--//pop-up-box -->
+				
 				<div id="small-dialog" class="mfp-hide">
 					<iframe
 						src="https://player.vimeo.com/video/23259282?title=0&byline=0&portrait=0"></iframe>

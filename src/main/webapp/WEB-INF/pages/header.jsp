@@ -66,10 +66,10 @@
 							<li><a href="/userlogin" class="login-btn"><i
 									class="fa fa-user"></i>Login</a></li>
 
-							<li class="push-right"></li>
+							
 
 
-							<li>
+							<li class="right-section">
 								<div class="search">
 									<input class="search_box" type="checkbox" id="search_box">
 									<label class="icon-search" for="search_box"> <span
@@ -161,10 +161,10 @@
 									<li><a href="/userlogin">Logout</a></li>
 								</ul></li>
 								
-							 <li class="push-right"></li>
+							
 
 
-							<li>
+							<li class="right-section">
 								<div class="search">
 									<input class="search_box" type="checkbox" id="search_box">
 									<label class="icon-search" for="search_box"> <span
