@@ -177,10 +177,10 @@
 										</form>
 									</div>
 								</div>
-							</li>
+							
 
 							<!-- CART -->
-							<li class="cart-li"><a href="/cart"> (${cartCount}
+							<a href="/cart"> (${cartCount}
 									Items) <img
 									src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" />
 							</a></li>

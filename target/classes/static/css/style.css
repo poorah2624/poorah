@@ -130,7 +130,7 @@ html, body{
 
 
 .insta-section {
-    padding:60px 0;
+    padding:0 0 60px 0;;
     text-align:center;
     background:#fff;
 }
@@ -705,7 +705,7 @@ ul.multi-column-dropdown h6 {
 /*-- //banner --*/
 /*-- banner-bottom --*/
 .banner-bottom,.team,.checkout,.additional_info,.team-bottom,.single,.mail,.special-deals,.about,.faq,.typo,.new-products,.banner-bottom1,.top-brands,.dresses,.w3l_related_products{
-	padding:5em 0;
+	padding:0 !important;
 }
 .modal-body iframe {
     width: 100%;

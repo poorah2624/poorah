@@ -86,10 +86,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 				</div>
 				
-				<div id="small-dialog" class="mfp-hide">
-					<iframe
-						src="https://player.vimeo.com/video/23259282?title=0&byline=0&portrait=0"></iframe>
-				</div>
+				
 				
 			</div>
 			
