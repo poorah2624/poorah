@@ -75,6 +75,7 @@
 <script src="<c:url value='/js/easyResponsiveTabs.js'/>"
 	type="text/javascript"></script>
 <script src="<c:url value='/js/script.js'/>"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
 <script>
 	$(document).ready(function() {

@@ -14,7 +14,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
 <%@include file="head.jsp"%>
 </head>
 
@@ -102,7 +102,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 	<!-- //banner-bottom -->
 	
-	<div class="reveal">
+	
 	<div class="banner-bottom">
 	<div class="col-md-12 wthree_banner_bottom_right">
 				<div class="bs-example bs-example-tabs" role="tabpanel"
@@ -167,7 +167,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 			</div>
 			</div>
-	</div>
+	
 
 	
 
