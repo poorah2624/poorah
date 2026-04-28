@@ -190,13 +190,14 @@ function revealOnScroll() {
         const rect = el.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-        if (rect.top < windowHeight - 100) {
-            el.classList.add("active");
+        if (rect.top < windowHeight - 100 && rect.bottom > 0) {
+            el.classList.add("active");   // show
+        } else {
+            el.classList.remove("active"); // hide again 
         }
     });
 }
 
-// run on scroll + on load
 window.addEventListener("scroll", revealOnScroll);
 window.addEventListener("load", revealOnScroll);
 </script>
