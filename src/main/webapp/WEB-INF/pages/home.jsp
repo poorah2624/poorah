@@ -103,6 +103,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- //banner-bottom -->
 	
 	<div class="reveal">
+	<div class="banner-bottom">
 	<div class="col-md-12 wthree_banner_bottom_right">
 				<div class="bs-example bs-example-tabs" role="tabpanel"
 					data-example-id="togglable-tabs">
@@ -164,6 +165,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				</div>
 
+			</div>
 			</div>
 	</div>
 
