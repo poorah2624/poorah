@@ -173,13 +173,18 @@ html, body{
 .insta-track {
     display: flex;
     gap: 20px;
-    transition: transform 0.7s ease;
+    transition: transform 0.5s ease;
 }
 
 /* 3 cards visible */
 .insta-card {
     flex: 0 0 calc(33.33% - 20px);
     min-width: 300px;
+    height: 200px;
+    background: lightgray;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 30px;
 }
 
 /* fix instagram width */
