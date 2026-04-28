@@ -28,18 +28,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- banner -->
 	<!-- banner -->
 
-
+    <div class="reveal">
 
 	<div class="col-md-12">
 		<jsp:include page="slider.jsp"></jsp:include>
 	</div>
 	<div class="clearfix"></div>
 	</br>
+	</div>
 	</br>
 
 	<!-- //banner -->
 	<!-- //banner -->
 	
+	<div class="reveal">
 	<div class="category-section">
 
 		<!-- MEN -->
@@ -65,8 +67,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 
 	</div>
+	</div>
 
 	<!-- banner-bottom -->
+	<div class="reveal">
 	<div class="banner-bottom">
 		
 			<div class="col-md-5 wthree_banner_bottom_left">
@@ -156,11 +160,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="clearfix"></div>
 		
 	</div>
+	</div>
 	<!-- //banner-bottom -->
 
 	
 
-
+     <div class="reveal">
 	<div class="insta-section">
 		<h3>Trending on Instagram</h3>
 
@@ -177,13 +182,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		</div>
 	</div>
+	</div>
 
 	<script async src="//www.instagram.com/embed.js"></script>
 
-
+     <div class="reveal">
 
 	<!-- footer -->
 	<%@include file="footer.jsp"%>
+	</div>
 	<!-- //footer -->
 
 </div>

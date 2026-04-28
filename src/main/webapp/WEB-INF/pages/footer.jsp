@@ -183,17 +183,20 @@
 </script>
 
 <script>
-window.addEventListener("scroll", function () {
+function revealOnScroll() {
     const elements = document.querySelectorAll(".reveal");
 
     elements.forEach(el => {
-        const position = el.getBoundingClientRect().top;
+        const rect = el.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-        if (position < windowHeight - 100) {
+        if (rect.top < windowHeight - 100) {
             el.classList.add("active");
         }
     });
-});
-</script>
+}
 
+// run on scroll + on load
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+</script>
