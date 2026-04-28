@@ -183,22 +183,4 @@
 	});
 </script>
 
-<script>
-function revealOnScroll() {
-    const elements = document.querySelectorAll(".reveal");
 
-    elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        if (rect.top < windowHeight - 100 && rect.bottom > 0) {
-            el.classList.add("active");   // show
-        } else {
-            el.classList.remove("active"); // hide again 
-        }
-    });
-}
-
-window.addEventListener("scroll", revealOnScroll);
-window.addEventListener("load", revealOnScroll);
-</script>
