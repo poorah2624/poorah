@@ -203,36 +203,29 @@ window.addEventListener("load", revealOnScroll);
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+window.onload = function () {
 
     const track = document.querySelector(".insta-track");
     const cards = document.querySelectorAll(".insta-card");
 
     let index = 0;
-    const visibleCards = 3;
+    const visible = 3;
 
     function slide() {
+
+        const cardWidth = cards[0].offsetWidth;
+
         index++;
 
-        if (index > cards.length - visibleCards) {
+        if (index > cards.length - visible) {
             index = 0;
         }
 
-        const slidePercent = 100 / visibleCards;
-        track.style.transform = `translateX(-${index * slidePercent}%)`;
+        track.style.transform = `translateX(-${index * cardWidth}px)`;
     }
 
-    // wait for instagram to render
-    setTimeout(() => {
-        if (window.instgrm) {
-            window.instgrm.Embeds.process();
-        }
-    }, 1000);
-
-    // auto slide
-    setInterval(slide, 3000);
-
-});
+    setInterval(slide, 2000);
+};
 
 let slider = document.querySelector(".insta-slider");
 let interval = setInterval(slide, 3000);

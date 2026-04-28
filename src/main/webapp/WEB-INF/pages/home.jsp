@@ -39,6 +39,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<jsp:include page="slider.jsp"></jsp:include>
 			</div>
 			<div class="clearfix"></div>
+			<br>
 
 		</div>
 
