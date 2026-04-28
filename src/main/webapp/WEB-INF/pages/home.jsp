@@ -95,8 +95,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				
 			</div>
-			
-			<div class="clearfix"></div>
 		
 	</div>
 	</div>
@@ -121,7 +119,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<div class="agile_ecommerce_tabs">
 									<c:set var="itemsList" value="${categoryItems[cat.categoryId]}" />
 									<div class="row">
-										<c:forEach var="item" items="${itemsList}" begin="0" end="2">
+										<c:forEach var="item" items="${itemsList}" begin="0" end="4">
 											<div class="col-md-4 agile_ecommerce_tab_left">
 												<div class="hs-wrapper">
 													<img
