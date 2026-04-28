@@ -15,9 +15,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <%@include file="head.jsp"%>
 </head>
 
@@ -125,7 +122,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<c:set var="itemsList"
 											value="${categoryItems[cat.categoryId]}" />
 										<div class="row">
-											<c:forEach var="item" items="${itemsList}" begin="0" end="2">
+											<c:forEach var="item" items="${itemsList}" begin="0" end="4">
 												<div class="col-md-4 agile_ecommerce_tab_left">
 													<div class="hs-wrapper">
 														<img src="${fn:split(item.itemImage, ',')[0]}"
