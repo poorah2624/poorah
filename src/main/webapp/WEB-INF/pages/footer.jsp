@@ -203,23 +203,42 @@ window.addEventListener("load", revealOnScroll);
 </script>
 
 <script>
-let index = 0;
-const track = document.querySelector(".insta-track");
-const cards = document.querySelectorAll(".insta-card");
+document.addEventListener("DOMContentLoaded", function () {
 
-function slideGrid() {
-    index++;
+    const track = document.querySelector(".insta-track");
+    const cards = document.querySelectorAll(".insta-card");
 
-    // kitne cards ek view me dikh rahe (3)
+    let index = 0;
     const visibleCards = 3;
 
-    if (index > cards.length - visibleCards) {
-        index = 0; // loop back
+    function slide() {
+        index++;
+
+        if (index > cards.length - visibleCards) {
+            index = 0;
+        }
+
+        const slidePercent = 100 / visibleCards;
+        track.style.transform = `translateX(-${index * slidePercent}%)`;
     }
 
-    track.style.transform = `translateX(-${index * 33.33}%)`;
-}
+    // wait for instagram to render
+    setTimeout(() => {
+        if (window.instgrm) {
+            window.instgrm.Embeds.process();
+        }
+    }, 1000);
 
-// auto slide every 3 sec
-setInterval(slideGrid, 3000);
+    // auto slide
+    setInterval(slide, 3000);
+
+});
+
+let slider = document.querySelector(".insta-slider");
+let interval = setInterval(slide, 3000);
+
+slider.addEventListener("mouseenter", () => clearInterval(interval));
+slider.addEventListener("mouseleave", () => {
+    interval = setInterval(slide, 3000);
+});
 </script>
