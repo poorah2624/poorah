@@ -116,7 +116,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<c:set var="itemsList" value="${categoryItems[cat.categoryId]}" />
 									<div class="row">
 										<c:forEach var="item" items="${itemsList}" begin="0" end="4">
-											<div class="col-md-4 agile_ecommerce_tab_left">
+											<div class="col-md-2 agile_ecommerce_tab_left">
 												<div class="hs-wrapper">
 													<img
 														src="${fn:split(item.itemImage, ',')[0]}"
