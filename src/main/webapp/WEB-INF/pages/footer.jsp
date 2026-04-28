@@ -202,36 +202,4 @@ window.addEventListener("scroll", revealOnScroll);
 window.addEventListener("load", revealOnScroll);
 </script>
 
-<script>
-window.onload = function () {
 
-    const track = document.querySelector(".insta-track");
-    const cards = document.querySelectorAll(".insta-card");
-
-    let index = 0;
-    const visible = 3;
-
-    function slide() {
-
-        const cardWidth = cards[0].offsetWidth;
-
-        index++;
-
-        if (index > cards.length - visible) {
-            index = 0;
-        }
-
-        track.style.transform = `translateX(-${index * cardWidth}px)`;
-    }
-
-    setInterval(slide, 2000);
-};
-
-let slider = document.querySelector(".insta-slider");
-let interval = setInterval(slide, 3000);
-
-slider.addEventListener("mouseenter", () => clearInterval(interval));
-slider.addEventListener("mouseleave", () => {
-    interval = setInterval(slide, 3000);
-});
-</script>
