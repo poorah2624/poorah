@@ -322,7 +322,7 @@ a.act {
 /*--search--*/
 .search{
     position: relative;
-    margin: 0;
+   
 }
 label.icon-search {
     color: #212121;
@@ -332,7 +332,7 @@ label.icon-search {
 	position:absolute;
 	z-index:9999;
 	right:0;
-	top:15px;
+	top:40px;
 	overflow: hidden;
 	width: 20px;
 	height:0px;
@@ -553,6 +553,7 @@ ul.multi-column-dropdown h6 {
     display: flex;
     gap: 20px;
     align-items: center;
+    white-space: nowrap;
 }
 
 .dropdown-menu {
@@ -3010,7 +3011,8 @@ td.invert-image a img {
 		margin-left: 13em;
 	}
 	.search {
-		margin: 1.5em 0 0 7em;
+		float: none;
+    margin: 0;
 	}
 	.navbar-nav > li:nth-child(1) {
 		margin-left: 6em;
