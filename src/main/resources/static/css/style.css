@@ -536,13 +536,20 @@ ul.multi-column-dropdown h6 {
     /*float: left;*/
     display: flex;
     align-items: center;
-    float: none !important; 
     width: 100%;
     
+}
+.push-right {
+    margin-left: auto;
 }
 .cart-li {
     margin-left: auto;
     padding-left: 200px;
+}
+
+.cart-li img {
+    width: 20px;
+    margin-left: 5px;
 }
 .right-section {
     margin-left: auto;
