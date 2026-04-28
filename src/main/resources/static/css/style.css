@@ -160,6 +160,20 @@ html, body{
     transform:translateY(-5px);
 }
 
+.swiper {
+    width: 100%;
+    padding: 20px 0;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.insta-card {
+    width: 100%;
+}
+
 
 p{
 	margin:0;
@@ -542,7 +556,7 @@ ul.multi-column-dropdown h6 {
 }
 .cart-li {
     margin-left: auto;
-    padding-left: 100px;
+    padding-left: 200px;
 }
 .right-section {
     margin-left: auto;
