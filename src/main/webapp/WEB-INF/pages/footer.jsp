@@ -203,18 +203,23 @@ window.addEventListener("load", revealOnScroll);
 </script>
 
 <script>
-var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 3,
-    spaceBetween: 20,
-    loop: true,
-    autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-    },
-    breakpoints: {
-        0: { slidesPerView: 1 },
-        768: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 }
+let index = 0;
+const track = document.querySelector(".insta-track");
+const cards = document.querySelectorAll(".insta-card");
+
+function slideGrid() {
+    index++;
+
+    // kitne cards ek view me dikh rahe (3)
+    const visibleCards = 3;
+
+    if (index > cards.length - visibleCards) {
+        index = 0; // loop back
     }
-});
+
+    track.style.transform = `translateX(-${index * 33.33}%)`;
+}
+
+// auto slide every 3 sec
+setInterval(slideGrid, 3000);
 </script>

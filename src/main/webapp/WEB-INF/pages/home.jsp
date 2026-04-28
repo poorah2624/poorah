@@ -175,23 +175,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 
 
-
 		<div class="reveal">
-			<div class="col-md-12 insta-section">
-				<h3>Trending on Instagram</h3>
+			<div class="insta-slider">
 
-				<div class="swiper mySwiper">
-					<div class="swiper-wrapper">
-
-						<c:forEach var="s" items="${social}">
-							<div class="swiper-slide">
-								<blockquote class="instagram-media"
-									data-instgrm-permalink="${s.url}" data-instgrm-version="14">
-								</blockquote>
-							</div>
-						</c:forEach>
-
-					</div>
+				<div class="insta-track">
+					<c:forEach var="s" items="${social}">
+						<div class="insta-card">
+							<blockquote class="instagram-media"
+								data-instgrm-permalink="${s.url}" data-instgrm-version="14">
+							</blockquote>
+						</div>
+					</c:forEach>
 				</div>
 
 			</div>
