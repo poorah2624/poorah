@@ -72,9 +72,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		<!-- banner-bottom -->
 
-		<div class="category-section">
+		<div class="category-section1">
 
-			<div class="category-box">
+			<div class="category-box1">
 				<div class="video-img custom-upload-box">
 					<div class="overlay"></div>
 					<div class="overlay-content">

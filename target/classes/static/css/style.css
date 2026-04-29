@@ -5223,6 +5223,30 @@ input[type="radio"]:invalid {
     }
 }
 
+.category-section1 {
+		display: flex;
+		width: 100%;
+		height: 400px;
+	}
+	.category-box1 {
+		position: relative;
+		width: 50%;
+		overflow: hidden;
+	}
+	
+
+	@media (max-width: 384px) {
+    .category-section1 {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .category-box1 {
+        width: 100%;
+        height: 150px;
+    }
+}
+
 /* custom design select */
 .custom-upload-box {
     position: relative;
