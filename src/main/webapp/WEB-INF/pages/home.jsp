@@ -91,7 +91,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 			</div>
 
-			<div class="clearfix"></div>
+			
 
 		</div>
 
