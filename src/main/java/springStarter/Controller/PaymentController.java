@@ -46,15 +46,9 @@ public class PaymentController {
 	private ContactDetailsService cDetailsService;
 	
 	@GetMapping("/payment")
-	public String paymentPage(@RequestParam Long addressId,HttpSession session, Model model){
-		
-		 List<Category> categories = categoryService.getAllCategories();
-         model.addAttribute("categories", categories);
-         
-         ContactDetails cDetails = cDetailsService.getContactDetails();
- 		model.addAttribute("cDetails", cDetails);
-		
-		model.addAttribute("selectedAddressId", addressId);
+	public String paymentPage(@RequestParam(required = false) Long addressId,
+	                          HttpSession session,
+	                          Model model){
 
 	    User user = (User) session.getAttribute("LoggedInUser");
 
@@ -62,41 +56,62 @@ public class PaymentController {
 	        return "redirect:/userlogin";
 	    }
 
+	    // ❗ address validation (IMPORTANT)
+	    Long sessionAddressId = (Long) session.getAttribute("selectedAddressId");
+
+	    if(addressId == null && sessionAddressId == null){
+	        return "redirect:/checkout";
+	    }
+
+	    if(addressId == null){
+	        addressId = sessionAddressId;
+	    }
+
+	    model.addAttribute("selectedAddressId", addressId);
+
+	    // categories
+	    List<Category> categories = categoryService.getAllCategories();
+	    model.addAttribute("categories", categories);
+
+	    // contact details
+	    ContactDetails cDetails = cDetailsService.getContactDetails();
+	    model.addAttribute("cDetails", cDetails);
+
 	    // cart items
-	    List<Cart> cartItems= new ArrayList<>();
-	    
+	    List<Cart> cartItems = new ArrayList<>();
+
 	    Long buyNowItemId = (Long) session.getAttribute("buyNowItemId");
-	    
+
 	    if(buyNowItemId != null){
-	        //  SINGLE PRODUCT checkout
+
 	        Cart temp = cartService.getTempCartItem(buyNowItemId, user);
-	        if (temp != null) {
+
+	        if(temp != null){
 	            cartItems.add(temp);
 	        } else {
 	            throw new RuntimeException("Buy Now item not found");
 	        }
 
-	        
 	    } else {
-	        // normal cart
+
 	        cartItems = cartService.getCartByUser(user);
-	        
+
 	        if(cartItems.isEmpty()){
 	            throw new RuntimeException("Cart is empty");
 	        }
 	    }
-	    
+
 	    model.addAttribute("cartItems", cartItems);
 
-	    // total (BigDecimal)
+	    // total calculation
 	    BigDecimal grandTotal = BigDecimal.ZERO;
 
 	    for(Cart cart : cartItems){
-	    	if(cart.getTotalPrice() != null){
+	        if(cart.getTotalPrice() != null){
 	            grandTotal = grandTotal.add(cart.getTotalPrice());
 	        }
 	    }
-	    
+
 	    BigDecimal deliveryCharge = new BigDecimal("50");
 
 	    if(grandTotal.compareTo(new BigDecimal("500")) > 0){
@@ -109,9 +124,7 @@ public class PaymentController {
 	    model.addAttribute("deliveryCharge", deliveryCharge);
 	    model.addAttribute("finalAmount", finalAmount);
 
-	    
-
-	    return "payment"; 
+	    return "payment";
 	}
 	
 	@PostMapping("/orderPlaced")

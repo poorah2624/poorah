@@ -129,7 +129,7 @@ public class CheckoutController {
 	    session.setAttribute("grandTotal", grandTotal);
 	    session.setAttribute("selectedAddressId", addressId);
 
-	    return "payment?addressId=" + addressId;
+	    return "redirect:/payment";
 	}
 
 }
