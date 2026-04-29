@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -37,10 +38,10 @@ public class BannerController {
 	@PostMapping("/Add_Banner")
 	public String addBanner(@RequestParam("bannerName") MultipartFile file,
 	                        @RequestParam("bannerStatus") String status,
-	                        Model model) throws IOException {
+	                        RedirectAttributes redirectAttributes) throws IOException {
 
 	    if(file.isEmpty()) {
-	        model.addAttribute("Error","Please select image");
+	    	redirectAttributes.addAttribute("Error","Please select image");
 	        return "admin/Add_Banner";
 	    }
 
@@ -58,6 +59,8 @@ public class BannerController {
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	        redirectAttributes.addFlashAttribute("Error","Upload failed");
+	        return "redirect:/Add_Banner";
 	    }
 	    // save in DB
 	    Banner banner = new Banner();
@@ -66,7 +69,7 @@ public class BannerController {
 
 	    bannerService.saveBanner(banner);
 
-	    model.addAttribute("msg","Banner added successfully");
+	    redirectAttributes.addFlashAttribute("msg","Banner added successfully");
 	    return "redirect:/view_Banner";
 	}
 	

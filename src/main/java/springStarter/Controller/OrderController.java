@@ -108,11 +108,11 @@ public class OrderController {
 	    String category = (String) session.getAttribute("categoryAccess");
 	    List<Orders> orders;
 	    
-	    if(category.equals("CLOTHING")) {
+	    if("CLOTHING".equals(category)) {
 	        // Clothing admin = full access
 	        orders = orderRepo.findAllByOrderByOrderDateDesc();
 	    } 
-	    else if(category.equals("ACCESSORIES")) {
+	    else if("ACCESSORIES".equals(category)) {
 	        // Accessories admin = restricted
 	        orders = orderRepo.findByCategoryOrderByOrderDateDesc("ACCESSORIES");
 	    } 
