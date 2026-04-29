@@ -38,39 +38,39 @@ public class BannerController {
 	@PostMapping("/Add_Banner")
 	public String addBanner(@RequestParam("bannerName") MultipartFile file,
 	                        @RequestParam("bannerStatus") String status,
-	                        RedirectAttributes redirectAttributes) throws IOException {
+	                        Model model) {
 
 	    if(file.isEmpty()) {
-	    	redirectAttributes.addAttribute("Error","Please select image");
+	        model.addAttribute("Error","Please select image");
 	        return "admin/Add_Banner";
 	    }
-
-	    // upload folder
-	    /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-	    String imageUrl = null;
 
 	    try {
 	        Map uploadResult = cloudinary.uploader().upload(
 	                file.getBytes(),
-	                ObjectUtils.asMap("folder", "poorah/banner") 
+	                ObjectUtils.asMap("folder", "poorah/banner")
 	        );
 
-	        imageUrl = (String) uploadResult.get("secure_url");
+	        String imageUrl = (String) uploadResult.get("secure_url");
+
+	        if(imageUrl == null){
+	            model.addAttribute("Error","Upload failed (no URL)");
+	            return "admin/Add_Banner";
+	        }
+
+	        Banner banner = new Banner();
+	        banner.setBannerName(imageUrl);
+	        banner.setBannerStatus(status);
+
+	        bannerService.saveBanner(banner);
+
+	        return "redirect:/view_Banner";
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        redirectAttributes.addFlashAttribute("Error","Upload failed");
-	        return "redirect:/Add_Banner";
+	        model.addAttribute("Error","Upload failed: " + e.getMessage());
+	        return "admin/Add_Banner";
 	    }
-	    // save in DB
-	    Banner banner = new Banner();
-	    banner.setBannerName(imageUrl);
-	    banner.setBannerStatus(status);
-
-	    bannerService.saveBanner(banner);
-
-	    redirectAttributes.addFlashAttribute("msg","Banner added successfully");
-	    return "redirect:/view_Banner";
 	}
 	
 	@GetMapping("/view_Banner")
