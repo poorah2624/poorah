@@ -47,7 +47,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</h4>
 
 		<!-- <form action="/orderPlaced" method="post"> -->
-		<form id="paymentForm">
+		<form action="/payment" method="post" id="paymentForm">
 
 			<input type="hidden" name="addressId" value="${selectedAddressId}">
 
