@@ -121,9 +121,9 @@
                                                                 
                                                                  <li><a><i class="fa fa-cart-plus"></i>Orders<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu" style="display: none">
-                                                                            <li><a href="/manage_order">Manage Orders</a>
-									 <li><a href="/order_History">Order History</a>
-									 <li><a href="/returns">Returns</a>
+                                                                            <li><a href="/manage_order">Manage Orders</a></li>
+									 <li><a href="/order_History">Order History</a></li>
+									 <li><a href="/returns">Returns</a></li>
 										<li><a href="/exchange">Exchange</a>
                                                                             </li>
 										
