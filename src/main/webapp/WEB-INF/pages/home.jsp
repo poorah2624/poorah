@@ -65,16 +65,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				</a>
 			</div>
-			<br> <br>
+			<div class="clearfix"></div>
 
 		</div>
 
 
 		<!-- banner-bottom -->
 
-		<div class="banner-bottom">
+		<div class="category-section">
 
-			<div class="col-md-5 wthree_banner_bottom_left">
+			<div class="category-box">
 				<div class="video-img custom-upload-box">
 					<div class="overlay"></div>
 					<div class="overlay-content">
