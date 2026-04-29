@@ -167,7 +167,7 @@ public class PaymentController {
 	public String createOrder(@RequestParam BigDecimal amount) {
 
 	    try {
-	        RazorpayClient client = new RazorpayClient("rzp_test_SXlvfKVfbzo45f", "dSXBfnLljl8vNuWK6KUnrBlO");
+	        RazorpayClient client = new RazorpayClient("rzp_live_SjF1cX3eDU1byW", "xkrdODrz7yDiFbYeczBOTHgl");
 
 	        JSONObject options = new JSONObject();
 
