@@ -121,7 +121,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<br>
 
 						
-							<button class="btn btn-success btn-block">Place Order</button>
+							<button type="submit" class="btn btn-success btn-block">Place Order</button>
 						
 
 					</div>
