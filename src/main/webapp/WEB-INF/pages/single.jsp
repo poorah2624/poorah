@@ -103,29 +103,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<h5>
 							<c:choose>
 								<c:when test="${item.category.categoryName == 'Kids'}">
-                                   Age :
-                                </c:when>
-								<c:otherwise>
+                                 
                                    Size :
-                                </c:otherwise>
+                                </c:when>
 							</c:choose>
 						</h5>
 
 						<c:choose>
 
 
-							<c:when test="${item.category.categoryName == 'Kids'}">
-
-								<c:forEach var="a" items="${fn:split(item.age, ',')}">
-									<label style="margin-right: 10px;"> <input type="radio"
-										name="age_${item.itemId}" value="${a}"> ${a}
-									</label>
-								</c:forEach>
-
-							</c:when>
+							
 
 
-							<c:otherwise>
+							<c:when test="${item.category.categoryName == 'Clothing'}">
 
 								<c:forEach var="s" items="${fn:split(item.size, ',')}">
 									<label style="margin-right: 10px;"> <input type="radio"
@@ -133,7 +123,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									</label>
 								</c:forEach>
 
-							</c:otherwise>
+							</c:when>
 
 						</c:choose>
 					</div>

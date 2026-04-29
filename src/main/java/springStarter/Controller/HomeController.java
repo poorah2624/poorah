@@ -126,10 +126,7 @@ public class HomeController {
 
 		model.addAttribute("categoryItems", categoryItems);
 
-		
-
 	
-		
 		List<Gallery> gallery = galleryService.getAllGallery();
 		model.addAttribute("gallery", gallery);
 		
