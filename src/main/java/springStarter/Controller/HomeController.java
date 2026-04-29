@@ -3,6 +3,7 @@ package springStarter.Controller;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,14 +83,14 @@ public class HomeController {
 		List<Category> categories = categoryService.getAllCategories();
 		model.addAttribute("categories", categories);
 
-		Map<Long, List<Item>> categoryItems = new HashMap<>();
+		List<Item> mixedItems = new ArrayList<>();
 
-		for (Category cat : categories) {
-			List<Item> items = itemService.getLatestItems(cat.getCategoryId());
-			categoryItems.put(cat.getCategoryId(), items);
+		for(Category cat : categories){
+		    List<Item> items = itemService.getTop2Items(cat.getCategoryId());
+		    mixedItems.addAll(items);
 		}
 
-		model.addAttribute("categoryItems", categoryItems);
+		model.addAttribute("mixedItems", mixedItems);
 		
 		List<Gallery> gallery = galleryService.getAllGallery();
 		model.addAttribute("gallery", gallery);
@@ -114,17 +115,16 @@ public class HomeController {
 		model.addAttribute("banner", banner);
 
 		List<Category> categories = categoryService.getAllCategories();
-
 		model.addAttribute("categories", categories);
 
-		Map<Long, List<Item>> categoryItems = new HashMap<>();
+		List<Item> mixedItems = new ArrayList<>();
 
-		for (Category cat : categories) {
-			List<Item> items = itemService.getLatestItems(cat.getCategoryId());
-			categoryItems.put(cat.getCategoryId(), items);
+		for(Category cat : categories){
+		    List<Item> items = itemService.getTop2Items(cat.getCategoryId());
+		    mixedItems.addAll(items);
 		}
 
-		model.addAttribute("categoryItems", categoryItems);
+		model.addAttribute("mixedItems", mixedItems);
 
 	
 		List<Gallery> gallery = galleryService.getAllGallery();
@@ -185,8 +185,6 @@ public class HomeController {
 		List<Banner> banner = bannerService.getAllBanners();
 		model.addAttribute("banner", banner);
 		
-		List<Category> categories = categoryService.getAllCategories();
-		model.addAttribute("categories", categories);
 		
 		List<SocialLinks> social = socialLinkService.getAllSocialLinks();
 		model.addAttribute("social", social);
@@ -194,14 +192,17 @@ public class HomeController {
 		ContactDetails cDetails = cDetailsService.getContactDetails();
 		model.addAttribute("cDetails", cDetails);
 
-		Map<Long, List<Item>> categoryItems = new HashMap<>();
+		List<Category> categories = categoryService.getAllCategories();
+		model.addAttribute("categories", categories);
 
-		for (Category cat : categories) {
-			List<Item> items = itemService.getLatestItems(cat.getCategoryId());
-			categoryItems.put(cat.getCategoryId(), items);
+		List<Item> mixedItems = new ArrayList<>();
+
+		for(Category cat : categories){
+		    List<Item> items = itemService.getTop2Items(cat.getCategoryId());
+		    mixedItems.addAll(items);
 		}
 
-		model.addAttribute("categoryItems", categoryItems);
+		model.addAttribute("mixedItems", mixedItems);
 
 		User user = userService.login(userEmail, userPassword);
 		if (user == null) {

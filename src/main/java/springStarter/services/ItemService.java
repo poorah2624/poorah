@@ -118,10 +118,11 @@ public class ItemService {
 	    return itemRepo.findByCategoryCategoryIdAndStatus(categoryId, "active");
 	}
 	
-	public List<Item> getLatestItems(Long categoryId){
-		List<Item> items = itemRepo.findByCategoryCategoryIdAndStatus(categoryId, "active");
-		if(items.size() > 3) {
-	        return items.subList(0, 3);
+	public List<Item> getTop2Items(Long categoryId){
+	    List<Item> items = itemRepo.findByCategoryCategoryIdAndStatus(categoryId, "active");
+
+	    if(items.size() > 2){
+	        return items.subList(0, 2);
 	    }
 	    return items;
 	}

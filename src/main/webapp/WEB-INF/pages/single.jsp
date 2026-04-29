@@ -488,17 +488,12 @@ function addToCart(itemId, btn){
     let category = "${item.category.categoryName}";
 
     // Kids product
-    if(category.toLowerCase() === "kids"){
+    if(category.toLowerCase() === "Clothing"){
         if(!age){
-            errorDiv.innerHTML = "Please select age";
+            errorDiv.innerHTML = "Please select size.";
             return; // STOP API CALL
         }
-    } else {
-        if(!size){
-            errorDiv.innerHTML = "Please select size";
-            return; // STOP API CALL
-        }
-    }
+    } 
     
     let url = '/addToCart?itemId=' + itemId;
     
@@ -557,14 +552,9 @@ function buyNowOrder(itemId, btn){
     let category = "${item.category.categoryName}";
 
     // Kids product
-    if(category.toLowerCase() === "kids"){
+    if(category.toLowerCase() === "Clothing"){
         if(!age){
-            errorDiv.innerHTML = "Please select age";
-            return; // STOP API CALL
-        }
-    } else {
-        if(!size){
-            errorDiv.innerHTML = "Please select size";
+            errorDiv.innerHTML = "Please select size.";
             return; // STOP API CALL
         }
     }

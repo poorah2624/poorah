@@ -20,66 +20,65 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <body style="font-family: 'Poppins', sans-serif; background: #f8f9fa;">
 	<!-- header -->
-	
+
 	<div data-aos="zoom-in">
 
-	<%@include file="header.jsp"%>
-	<!-- //header -->
-	<!-- banner -->
-	<!-- banner -->
+		<%@include file="header.jsp"%>
+		<!-- //header -->
+		<!-- banner -->
+		<!-- banner -->
 
-    
 
-	<div class="col-md-12">
-		<jsp:include page="slider.jsp"></jsp:include>
-	</div>
-	<div class="clearfix"></div>
-	
-	
-	</br>
 
-	<!-- //banner -->
-	<!-- //banner -->
-	
-	
-	<div class="category-section">
+		<div class="col-md-12">
+			<jsp:include page="slider.jsp"></jsp:include>
+		</div>
+		<div class="clearfix"></div>
 
-		<!-- MEN -->
-		<div class="category-box">
-			<a href="/products/gender/MEN">
-				<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/11_o4fxd5.jpg"
-				alt="Men">
-				<div class="overlay">
-					<h2>Men Collection</h2>
-				</div>
-			</a>
+
+		</br>
+
+		<!-- //banner -->
+		<!-- //banner -->
+
+
+		<div class="category-section">
+
+			<!-- MEN -->
+			<div class="category-box">
+				<a href="/products/gender/MEN"> <img
+					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/11_o4fxd5.jpg"
+					alt="Men">
+					<div class="overlay">
+						<h2>Men Collection</h2>
+					</div>
+				</a>
+			</div>
+
+			<!-- WOMEN -->
+			<div class="category-box">
+				<a href="/products/gender/WOMEN"> <img
+					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/22_bmq1op.jpg"
+					alt="Women">
+					<div class="overlay">
+						<h2>Women Collection</h2>
+					</div>
+				</a>
+			</div>
+			<br> <br>
+
 		</div>
 
-		<!-- WOMEN -->
-		<div class="category-box">
-			<a href="/products/gender/WOMEN">
-				<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/22_bmq1op.jpg"
-				alt="Women">
-				<div class="overlay">
-					<h2>Women Collection</h2>
-				</div>
-			</a>
-		</div>
-		<br>
-		<br>
 
-	</div>
-	
+		<!-- banner-bottom -->
 
-	<!-- banner-bottom -->
-	
-	<div class="banner-bottom">
-		
+		<div class="banner-bottom">
+
 			<div class="col-md-5 wthree_banner_bottom_left">
 				<div class="video-img custom-upload-box">
-                   <div class="overlay"></div>
+					<div class="overlay"></div>
 					<div class="overlay-content">
-						
+
 
 						<a href="/customDesign">
 							<button class="upload-btn">Upload Design</button>
@@ -87,20 +86,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 
 				</div>
-				
-				
-				
+
+
+
 			</div>
-			
+
 			<div class="clearfix"></div>
-		
-	</div>
-	
-	<!-- //banner-bottom -->
-	
-	
-	<div class="banner-bottom">
-	<div class="col-md-12 wthree_banner_bottom_right">
+
+		</div>
+
+		<!-- //banner-bottom -->
+
+
+		<div class="banner-bottom">
+			<div class="col-md-12 wthree_banner_bottom_right">
 				<div class="bs-example bs-example-tabs" role="tabpanel"
 					data-example-id="togglable-tabs">
 					<ul id="categoryTabs" class="nav nav-tabs" role="tablist">
@@ -117,42 +116,41 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<div class="agile_ecommerce_tabs">
 									<c:set var="itemsList" value="${categoryItems[cat.categoryId]}" />
 									<div class="row">
-										<c:forEach var="item" items="${itemsList}" begin="0" end="4">
+										<c:forEach var="item" items="${mixedItems}">
+
 											<div class="col-md-2 agile_ecommerce_tab_left">
+
 												<div class="hs-wrapper">
-													<img
-														src="${fn:split(item.itemImage, ',')[0]}"
+													<img src="${fn:split(item.itemImage, ',')[0]}"
 														alt="${item.itemName}" class="img-responsive" />
+
 													<div class="w3_hs_bottom">
 														<ul>
-															<li><a
-																href="/single/${item.itemId}"
-																data-target="#myModal"><span
-																	class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-															</li>
+															<li><a href="/single/${item.itemId}"> <span
+																	class="glyphicon glyphicon-eye-open"></span>
+															</a></li>
 														</ul>
 													</div>
 												</div>
+
 												<div class="product-info">
 													<h5>
-														<a href="/single">${item.itemName}</a>
+														<a href="/single/${item.itemId}"> ${item.itemName} </a>
 													</h5>
-													<div class="simpleCart_shelfItem">
-														<p class="price">
-															₹
-															<fmt:formatNumber value="${item.discountedPrice}"
-																maxFractionDigits="0" />
-															<span>₹ <fmt:formatNumber
-																	value="${item.itemPrice}" maxFractionDigits="0" /></span>
-														</p>
 
-													</div>
+													<p class="price">
+														₹
+														<fmt:formatNumber value="${item.discountedPrice}"
+															maxFractionDigits="0" />
+														<span>₹<fmt:formatNumber value="${item.itemPrice}"
+																maxFractionDigits="0" /></span>
+													</p>
 												</div>
+
 											</div>
 
-
-
 										</c:forEach>
+
 										<div class="clearfix"></div>
 									</div>
 								</div>
@@ -162,36 +160,36 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 
 			</div>
-			</div>
-	
-
-	
-
-    
-	<div class="insta-section">
-		<h3>Trending on Instagram</h3>
-
-		<div class="insta-grid">
-			<c:forEach var="s" items="${social}" varStatus="status">
-
-				<!-- POST 1 -->
-				<div class="insta-card">
-					<blockquote class="instagram-media"
-						data-instgrm-permalink="${s.url }" data-instgrm-version="14"></blockquote>
-				</div>
-
-			</c:forEach>
-
 		</div>
-	</div>
-	
 
-	<script async src="//www.instagram.com/embed.js"></script>
 
-    
 
-	<!-- footer -->
-	<%@include file="footer.jsp"%>
+
+
+		<div class="insta-section">
+			<h3>Trending on Instagram</h3>
+
+			<div class="insta-grid">
+				<c:forEach var="s" items="${social}" varStatus="status">
+
+					<!-- POST 1 -->
+					<div class="insta-card">
+						<blockquote class="instagram-media"
+							data-instgrm-permalink="${s.url }" data-instgrm-version="14"></blockquote>
+					</div>
+
+				</c:forEach>
+
+			</div>
+		</div>
+
+
+		<script async src="//www.instagram.com/embed.js"></script>
+
+
+
+		<!-- footer -->
+		<%@include file="footer.jsp"%>
 	</div>
 	<!-- //footer -->
 
