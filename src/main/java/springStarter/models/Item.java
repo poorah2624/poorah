@@ -90,11 +90,11 @@ public class Item {
 	@Transient
 	private boolean inCart;
 	
-	@Transient
-	private BigDecimal discountedPrice;
+	
+	
 
 	
-	
+	@Transient
 	public BigDecimal getDiscountedPrice() {
 	    try {
 	        BigDecimal price = this.itemPrice;
