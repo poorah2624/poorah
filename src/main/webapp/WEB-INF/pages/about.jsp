@@ -88,7 +88,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- //about -->
 
 	<!-- team -->
-	<div class="team">
+	<!-- <div class="team">
 		<div class="container">
 			<h3>Meet Our Team</h3>
 			<div class="wthree_team_grids">
@@ -112,7 +112,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<p>Behind every product, there’s a team that believes in quality, creativity, and customer satisfaction.</p>
 			</div>
 		</div>
-	</div>
+	</div>    -->
 	<!-- //team -->
 	<!-- team-bottom -->
 	<!--  <div class="team-bottom">

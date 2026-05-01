@@ -59,7 +59,7 @@ html, body{
 }
 
 #categoryTabs li a:hover {
-    color:#ff3f6c;
+    font-weight:bold;
 }
 
 
@@ -77,7 +77,7 @@ html, body{
 
 .price {
     font-weight:600;
-    color:#ff3f6c;
+    color: black;
 }
 
 .price span {
@@ -803,7 +803,7 @@ ul.multi-column-dropdown h6 {
 }
 .agile_ecommerce_tab_left h5 a{
 	font-size: 1.2em;
-    color: #ff9b05;
+    color: black;
     text-decoration: none;
 }
 .agile_ecommerce_tab_left h5 a:hover{
