@@ -9,13 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
 @Table(name="social_links")
-@Getter
-@Setter
 public class SocialLinks {
 	
 	@Id
@@ -26,5 +23,40 @@ public class SocialLinks {
     private String url;
     
     private String SocialStatus;
+
+	public Long getInstaId() {
+		return instaId;
+	}
+
+	public void setInstaId(Long instaId) {
+		this.instaId = instaId;
+	}
+
+	public String getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(String platform) {
+		this.platform = platform;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getSocialStatus() {
+		return SocialStatus;
+	}
+
+	public void setSocialStatus(String socialStatus) {
+		SocialStatus = socialStatus;
+	}
+    
+    
+    
 
 }

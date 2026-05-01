@@ -14,13 +14,10 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
 @Table(name="item")
-@Getter
-@Setter
 public class Item {
 	
 	@Id
@@ -108,6 +105,329 @@ public class Item {
 	        return this.itemPrice;
 	    }
 	}
+
+
+
+
+
+	public Long getItemId() {
+		return itemId;
+	}
+
+
+
+
+
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
+	}
+
+
+
+
+
+	public String getItemName() {
+		return itemName;
+	}
+
+
+
+
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+
+
+
+
+	public String getItemImage() {
+		return itemImage;
+	}
+
+
+
+
+
+	public void setItemImage(String itemImage) {
+		this.itemImage = itemImage;
+	}
+
+
+
+
+
+	public BigDecimal getItemPrice() {
+		return itemPrice;
+	}
+
+
+
+
+
+	public void setItemPrice(BigDecimal itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+
+
+
+
+
+	public String getStock() {
+		return stock;
+	}
+
+
+
+
+
+	public void setStock(String stock) {
+		this.stock = stock;
+	}
+
+
+
+
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+
+
+
+
+
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+
+
+
+
+	public String getFeaturedProduct() {
+		return featuredProduct;
+	}
+
+
+
+
+
+	public void setFeaturedProduct(String featuredProduct) {
+		this.featuredProduct = featuredProduct;
+	}
+
+
+
+
+
+	public String getItemDesc() {
+		return itemDesc;
+	}
+
+
+
+
+
+	public void setItemDesc(String itemDesc) {
+		this.itemDesc = itemDesc;
+	}
+
+
+
+
+
+	public String getKeyFeatures() {
+		return KeyFeatures;
+	}
+
+
+
+
+
+	public void setKeyFeatures(String keyFeatures) {
+		KeyFeatures = keyFeatures;
+	}
+
+
+
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+
+
+	public String getSize() {
+		return size;
+	}
+
+
+
+
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+
+
+
+
+	public String getAge() {
+		return age;
+	}
+
+
+
+
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+
+
+
+
+	public String getWeight() {
+		return weight;
+	}
+
+
+
+
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
+
+
+
+
+	public String getFabric() {
+		return fabric;
+	}
+
+
+
+
+
+	public void setFabric(String fabric) {
+		this.fabric = fabric;
+	}
+
+
+
+
+
+	public String getSkuId() {
+		return skuId;
+	}
+
+
+
+
+
+	public void setSkuId(String skuId) {
+		this.skuId = skuId;
+	}
+
+
+
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+
+
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+
+
+
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+
+
+
+	public Category getCategory() {
+		return category;
+	}
+
+
+
+
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+
+
+
+
+	public SubCategory getSubCategory() {
+		return subCategory;
+	}
+
+
+
+
+
+	public void setSubCategory(SubCategory subCategory) {
+		this.subCategory = subCategory;
+	}
+
+
+
+
+
+	public boolean isInCart() {
+		return inCart;
+	}
+
+
+
+
+
+	public void setInCart(boolean inCart) {
+		this.inCart = inCart;
+	}
+	
+	
+	
 	
 	
 

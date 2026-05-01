@@ -7,13 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name="exchangeRequest")
-@Getter
-@Setter
 public class ExchangeRequest {
 	
 	@Id
@@ -27,6 +23,48 @@ public class ExchangeRequest {
 
     private String reason;
 
-    private String status; 
+    private String status;
+
+	public Long getExchangeId() {
+		return exchangeId;
+	}
+
+	public void setExchangeId(Long exchangeId) {
+		this.exchangeId = exchangeId;
+	}
+
+	public Order_item getOrderItem() {
+		return orderItem;
+	}
+
+	public void setOrderItem(Order_item orderItem) {
+		this.orderItem = orderItem;
+	}
+
+	public String getNewSize() {
+		return newSize;
+	}
+
+	public void setNewSize(String newSize) {
+		this.newSize = newSize;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	} 
+    
+    
 
 }

@@ -18,14 +18,10 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import lombok.Getter;
-import lombok.Setter;
 
 
 @Entity
 @Table(name="orders")
-@Getter
-@Setter
 public class Orders {
 	
 	@Id
@@ -106,5 +102,146 @@ public class Orders {
 	
 	public String getCategory() { return category; }
 	public void setCategory(String category) { this.category = category; }
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	public BigDecimal getDiscountedPrice() {
+		return discountedPrice;
+	}
+	public void setDiscountedPrice(BigDecimal discountedPrice) {
+		this.discountedPrice = discountedPrice;
+	}
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public BigDecimal getRefundAmount() {
+		return refundAmount;
+	}
+	public void setRefundAmount(BigDecimal refundAmount) {
+		this.refundAmount = refundAmount;
+	}
+	public String getRefundStatus() {
+		return refundStatus;
+	}
+	public void setRefundStatus(String refundStatus) {
+		this.refundStatus = refundStatus;
+	}
+	public String getPaymentStatus() {
+		return paymentStatus;
+	}
+	public void setPaymentStatus(String paymentStatus) {
+		this.paymentStatus = paymentStatus;
+	}
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+	public boolean isCanCancel() {
+		return canCancel;
+	}
+	public void setCanCancel(boolean canCancel) {
+		this.canCancel = canCancel;
+	}
+	public boolean isCanReturn() {
+		return canReturn;
+	}
+	public void setCanReturn(boolean canReturn) {
+		this.canReturn = canReturn;
+	}
+	public boolean isCanExchange() {
+		return canExchange;
+	}
+	public void setCanExchange(boolean canExchange) {
+		this.canExchange = canExchange;
+	}
+	public LocalDateTime getOrderDate() {
+		return orderDate;
+	}
+	public void setOrderDate(LocalDateTime orderDate) {
+		this.orderDate = orderDate;
+	}
+	public LocalDateTime getPackedDate() {
+		return packedDate;
+	}
+	public void setPackedDate(LocalDateTime packedDate) {
+		this.packedDate = packedDate;
+	}
+	public LocalDateTime getShippedDate() {
+		return shippedDate;
+	}
+	public void setShippedDate(LocalDateTime shippedDate) {
+		this.shippedDate = shippedDate;
+	}
+	public LocalDateTime getDeliveredDate() {
+		return deliveredDate;
+	}
+	public void setDeliveredDate(LocalDateTime deliveredDate) {
+		this.deliveredDate = deliveredDate;
+	}
+	public String getEstimatedDeliveryDate() {
+		return estimatedDeliveryDate;
+	}
+	public void setEstimatedDeliveryDate(String estimatedDeliveryDate) {
+		this.estimatedDeliveryDate = estimatedDeliveryDate;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+	public List<Order_item> getItems() {
+		return items;
+	}
+	public void setItems(List<Order_item> items) {
+		this.items = items;
+	}
+	public Payment getPayment() {
+		return payment;
+	}
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+	public BigDecimal getDeliveryCharge() {
+		return deliveryCharge;
+	}
+	public void setDeliveryCharge(BigDecimal deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
+	}
+	
+	
+	
 
 }

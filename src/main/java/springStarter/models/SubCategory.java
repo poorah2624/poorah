@@ -15,13 +15,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name="subCategory")
-@Getter
-@Setter
 public class SubCategory {
 	
 	@Id
@@ -41,5 +37,48 @@ public class SubCategory {
 	
 	@OneToMany(mappedBy = "subCategory", cascade = CascadeType.ALL)
 	private List<Item> items;
+
+	public Long getSubCategoryId() {
+		return subCategoryId;
+	}
+
+	public void setSubCategoryId(Long subCategoryId) {
+		this.subCategoryId = subCategoryId;
+	}
+
+	public String getSubCategoryName() {
+		return subCategoryName;
+	}
+
+	public void setSubCategoryName(String subCategoryName) {
+		this.subCategoryName = subCategoryName;
+	}
+
+	public String getSubCategoryStatus() {
+		return subCategoryStatus;
+	}
+
+	public void setSubCategoryStatus(String subCategoryStatus) {
+		this.subCategoryStatus = subCategoryStatus;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	
+	
+	
 
 }

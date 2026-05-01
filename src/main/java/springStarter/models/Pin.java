@@ -7,13 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
 @Table(name="pin")
-@Getter
-@Setter
 public class Pin {
 	
 	@Id
@@ -22,5 +19,24 @@ public class Pin {
 	
 	@Column(name="pincode", nullable=false)
 	private String pincode;
+
+	public Long getPinId() {
+		return pinId;
+	}
+
+	public void setPinId(Long pinId) {
+		this.pinId = pinId;
+	}
+
+	public String getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
+	
+	
+	
 
 }

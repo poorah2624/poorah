@@ -7,13 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
 @Table(name="returnRequest")
-@Getter
-@Setter
 public class ReturnRequest {
 	
 
@@ -30,5 +27,48 @@ public class ReturnRequest {
     private String status; 
     
     private String returnPickupDate;
+
+	public Long getReturnId() {
+		return returnId;
+	}
+
+	public void setReturnId(Long returnId) {
+		this.returnId = returnId;
+	}
+
+	public Order_item getOrderItem() {
+		return orderItem;
+	}
+
+	public void setOrderItem(Order_item orderItem) {
+		this.orderItem = orderItem;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getReturnPickupDate() {
+		return returnPickupDate;
+	}
+
+	public void setReturnPickupDate(String returnPickupDate) {
+		this.returnPickupDate = returnPickupDate;
+	}
+    
+    
+    
 
 }

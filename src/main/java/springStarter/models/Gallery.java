@@ -7,13 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name="gallery")
-@Getter
-@Setter
 public class Gallery {
 
 	@Id
@@ -26,4 +22,30 @@ public class Gallery {
 	@Column(name="galleryStatus", nullable=false)
 	private String galleryStatus;
 
+	public Long getGalleryId() {
+		return galleryId;
+	}
+
+	public void setGalleryId(Long galleryId) {
+		this.galleryId = galleryId;
+	}
+
+	public String getGalleryName() {
+		return galleryName;
+	}
+
+	public void setGalleryName(String galleryName) {
+		this.galleryName = galleryName;
+	}
+
+	public String getGalleryStatus() {
+		return galleryStatus;
+	}
+
+	public void setGalleryStatus(String galleryStatus) {
+		this.galleryStatus = galleryStatus;
+	}
+
+	
+	
 }

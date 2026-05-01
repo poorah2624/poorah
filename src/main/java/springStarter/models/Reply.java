@@ -11,13 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name="reply")
-@Getter
-@Setter
 public class Reply {
 	
 	@Id
@@ -42,5 +38,64 @@ public class Reply {
 	@ManyToOne
 	@JoinColumn(name = "contact_id")
 	private Contact contact;
+
+	public Long getQueryId() {
+		return queryId;
+	}
+
+	public void setQueryId(Long queryId) {
+		this.queryId = queryId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getInbox() {
+		return inbox;
+	}
+
+	public void setInbox(String inbox) {
+		this.inbox = inbox;
+	}
+
+	public LocalDateTime getRepliedAt() {
+		return repliedAt;
+	}
+
+	public void setRepliedAt(LocalDateTime repliedAt) {
+		this.repliedAt = repliedAt;
+	}
+
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+	
+	
+	
 
 }

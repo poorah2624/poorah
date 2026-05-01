@@ -9,13 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name="faq")
-@Getter
-@Setter
 public class FAQ {
 	
 	@Id
@@ -27,5 +23,32 @@ public class FAQ {
 	
 	@Column(name="answer", length = 5000)
 	private String answer;
+
+	public Long getFaqId() {
+		return faqId;
+	}
+
+	public void setFaqId(Long faqId) {
+		this.faqId = faqId;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+	
+	
+	
 
 }

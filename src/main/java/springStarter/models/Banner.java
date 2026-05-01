@@ -9,13 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 @Entity
 @Table(name="banner")
-@Getter
-@Setter
 public class Banner {
 	
 	@Id
@@ -27,5 +24,31 @@ public class Banner {
 	
 	@Column(name="bannerStatus", nullable=false)
 	private String bannerStatus;
+
+	public Long getBannerId() {
+		return bannerId;
+	}
+
+	public void setBannerId(Long bannerId) {
+		this.bannerId = bannerId;
+	}
+
+	public String getBannerName() {
+		return bannerName;
+	}
+
+	public void setBannerName(String bannerName) {
+		this.bannerName = bannerName;
+	}
+
+	public String getBannerStatus() {
+		return bannerStatus;
+	}
+
+	public void setBannerStatus(String bannerStatus) {
+		this.bannerStatus = bannerStatus;
+	}
+	
+	
 
 }
