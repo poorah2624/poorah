@@ -32,7 +32,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 		<div class="col-md-12">
-			<jsp:include page="slider.jsp"></jsp:include>
+			<%@include file="slider.jsp"%>
 		</div>
 		<div class="clearfix"></div>
 
