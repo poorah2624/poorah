@@ -140,8 +140,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 													<p class="price">
 														₹
+														<c:if test="${not empty item.discountedPrice}">
 														<fmt:formatNumber value="${item.discountedPrice}" type="number"
 															maxFractionDigits="0" />
+															</c:if>
 														<span>₹<fmt:formatNumber value="${item.itemPrice}"
 																maxFractionDigits="0" /></span>
 													</p>
