@@ -193,7 +193,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</div>
 									</div>
 
-									<h5>
+									<h5 style="text-align:center;font-size:20px;">
 										<a
 											href="/single/${p.itemId}">${p.itemName }</a>
 									</h5>
