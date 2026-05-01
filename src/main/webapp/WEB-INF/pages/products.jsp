@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page isELIgnored="false" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -193,7 +194,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="simpleCart_shelfItem" style="text-align:center;">
 									  <div style="display:flex; justify-content:center; gap:10px; align-items:center;">
 									<p>
-									<b class="item_price">₹ <fmt:formatNumber value="${p.discountedPrice}" maxFractionDigits="0"/> /-</b>
+									<b class="item_price">₹ 
+									<c:if test="${not empty p.discountedPrice}">
+									<fmt:formatNumber value="${p.discountedPrice}" maxFractionDigits="0"/> /-
+									</c:if></b>
+									
 									
 								</p>
 										<p>
