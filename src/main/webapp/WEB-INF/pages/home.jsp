@@ -121,7 +121,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<div class="row">
 										<c:forEach var="item" items="${mixedItems}">
 
-											<div class="col-md-2 agile_ecommerce_tab_left">
+											<div class="col-md-2">
 
 												<div class="hs-wrapper">
 													<img src="${fn:split(item.itemImage, ',')[0]}"
