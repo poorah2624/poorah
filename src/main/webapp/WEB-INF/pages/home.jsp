@@ -129,8 +129,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 													<div class="w3_hs_bottom">
 														<ul>
-															<li><a href="/single/${item.itemId}"> <span
-																	class="glyphicon glyphicon-eye-open"></span>
+															<li><a href="/single/${item.itemId}">
 															</a></li>
 														</ul>
 													</div>

@@ -107,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="dresses">
 		<div class="container">
 			<div class="w3ls_dresses_grids">
-				<div class="col-md-4 w3ls_dresses_grid_left">
+				<!--  <div class="col-md-4 w3ls_dresses_grid_left">
 					<div class="w3ls_dresses_grid_left_grid">
 						<h3>Categories</h3>
 						<div class="w3ls_dresses_grid_left_grid_sub">
@@ -141,8 +141,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 
 
-				</div>
-				<div class="col-md-8 w3ls_dresses_grid_right">
+				</div>  -->
+				<div class="col-md-12 w3ls_dresses_grid_right">
 
 					<div class="clearfix"></div>
 
@@ -184,8 +184,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<ul>
 												<li><a
 													href="/single/${p.itemId}"
-													data-target="#myModal4"><span
-														class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+													data-target="#myModal4"></a>
 												</li>
 											</ul>
 										</div>
