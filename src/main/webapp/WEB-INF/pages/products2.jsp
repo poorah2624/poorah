@@ -174,7 +174,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								class="col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
 
 
-								<div class="agile_ecommerce_tab_left dresses_grid">
+								<div class="dresses_grid">
 
 
 
