@@ -72,10 +72,10 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model model, HttpServletResponse response, HttpServletRequest request) {
 		
-		String host = request.getHeader("host");
+		/* String host = request.getHeader("host");
 	    if (host != null && host.startsWith("poorah.com")) {
 	        return "redirect:https://www.poorah.com/";
-	    }
+	    }*/
 	    
 		List<Banner> banner = bannerService.getAllBanners();
 		model.addAttribute("banner", banner);
