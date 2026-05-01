@@ -4,6 +4,7 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<%@ page isELIgnored="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -141,7 +142,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 													<p class="price">
 														₹
 														<c:if test="${not empty item.discountedPrice}">
-														<fmt:formatNumber value="${item.discountedPrice}" type="number"
+														<fmt:formatNumber value="${item.discountedPrice}"
 															maxFractionDigits="0" />
 															</c:if>
 														<span>₹<fmt:formatNumber value="${item.itemPrice}"
