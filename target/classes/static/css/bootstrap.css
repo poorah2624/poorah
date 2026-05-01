@@ -1105,11 +1105,13 @@ textarea {
 a {
   color: #000;
   text-decoration: none;
+  text-align:center;
 }
 a:hover,
 a:focus {
-  color: #23527c;
+  color: #000;
   text-decoration: underline;
+  font-weight:bold;
 }
 a:focus {
   outline: thin dotted;
