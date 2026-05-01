@@ -8,6 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -168,7 +169,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="simpleCart_shelfItem">
 					<div class="price-section">
 
-								<div class="final-price">₹ <fmt:formatNumber value="${item.discountedPrice}" maxFractionDigits="0"/> /-</div>
+								<div class="final-price">₹ 
+								<c:if test="${not empty item.discountedPrice}">
+								<fmt:formatNumber value="${item.discountedPrice}" maxFractionDigits="0"/> /-
+								</c:if></div>
 
 								<div class="price-meta">
 									<span class="old-price"> ₹ <fmt:formatNumber value="${item.itemPrice}" maxFractionDigits="0"/> /-</span> <span
