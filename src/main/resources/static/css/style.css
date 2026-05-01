@@ -70,9 +70,10 @@ html, body{
 }
 
 .product-info h5 {
-    font-size:15px;
+    font-size:20px;
     font-weight:500;
     margin-bottom:8px;
+    color: black;
 }
 
 .price {
