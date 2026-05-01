@@ -124,7 +124,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											<div class="col-md-2">
 
 												<div class="hs-wrapper">
-													<a href="/single/${item.itemId}" style="color:black;"> <img src="${fn:split(item.itemImage, ',')[0]}"
+													<a href="/single/${item.itemId}" > <img src="${fn:split(item.itemImage, ',')[0]}"
 														alt="${item.itemName}" class="img-responsive" /> </a>
 
 													<div class="w3_hs_bottom">
