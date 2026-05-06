@@ -3538,6 +3538,7 @@ td.invert-image a img {
 	.navbar-toggle {
 		float: none;
 		margin-right: 0;
+		display: block;
 	}
 	.navbar-default .navbar-toggle .icon-bar {
 		background-color: #212121;
@@ -3556,7 +3557,7 @@ td.invert-image a img {
 		background: #f5f5f5;
 	}
 	.dropdown-menu.columns-3 {
-		min-width: 710px;
+		min-width: 100%;
 	}
 	ul.multi-column-dropdown {
 		text-align: center;
@@ -3590,7 +3591,7 @@ td.invert-image a img {
 		font-size: 1.5em;
 	}
 	.hidden-xs {
-		display: block !important;
+		display: none !important;
 	}
 	.row {
 		margin: 0;
@@ -5471,16 +5472,9 @@ table th, table td {
 @media (max-width: 768px) {
 
     .navbar-collapse {
-        background: white;
-        display: none;
-
+        display: none !important;
     }
 
-    .navbar-nav > li {
-        display: block;
-        width: 100%;
-    }
-    
     .navbar-collapse.in {
         display: block !important;
     }
