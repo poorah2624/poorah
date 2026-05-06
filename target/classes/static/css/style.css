@@ -3557,6 +3557,7 @@ td.invert-image a img {
 		background: #f5f5f5;
 		float: none !important;
         width: 100%;
+        display: block !important;
 	}
 	.dropdown-menu.columns-3 {
 		min-width: 100%;
