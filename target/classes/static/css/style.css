@@ -3550,12 +3550,13 @@ td.invert-image a img {
 		margin: 1em 0 0;
 	}
 	.navbar-nav > li:nth-child(1) {
-		margin-left: 0;
+		margin-left: 0 !important;
 	}
 	.navbar-nav {
 		margin: 0;
 		background: #f5f5f5;
 		float: none !important;
+        width: 100%;
 	}
 	.dropdown-menu.columns-3 {
 		min-width: 100%;
@@ -3582,19 +3583,19 @@ td.invert-image a img {
 	
 	.navbar-nav > li {
         float: none !important;
-        display: block;
-        width: 100%;
-        text-align: left;
+        display: block !important;
+        width: 100% !important;
+        border-bottom: 1px solid #ddd;
     }
 	
 	.navbar-nav > li > a {
 	
-		display: block;
+		display: block !important;
         width: 100%;
         padding: 12px 15px !important;
 	}
 	.dropdown-menu.columns-3 {
-		padding: 30px 0px;
+		min-width: 100% !important;
 	}
 	.w3ls_products_pos h4 {
 		padding-right: 3em;
@@ -3619,8 +3620,14 @@ td.invert-image a img {
         float: none !important;
         display: block;
         width: 100%;
-        text-align: left;
         margin-top: 10px;
+    }
+    
+     .dropdown-menu {
+        position: static !important;
+        float: none;
+        width: 100%;
+        box-shadow: none;
     }
 }
 @media (max-width:736px){
@@ -5499,6 +5506,7 @@ table th, table td {
 
     .navbar-collapse {
         display: none !important;
+        width: 100%;
     }
 
     .navbar-collapse.in {
