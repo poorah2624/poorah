@@ -49,6 +49,8 @@ public class User {
     //  one user → many orders
     @OneToMany(mappedBy = "user")
     private List<Orders> orders;
+    
+    private String authProvider;
 
 	public Long getId() {
 		return id;
@@ -128,6 +130,14 @@ public class User {
 
 	public void setOrders(List<Orders> orders) {
 		this.orders = orders;
+	}
+
+	public String getAuthProvider() {
+		return authProvider;
+	}
+
+	public void setAuthProvider(String authProvider) {
+		this.authProvider = authProvider;
 	}
     
     

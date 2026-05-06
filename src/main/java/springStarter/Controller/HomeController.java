@@ -59,24 +59,24 @@ public class HomeController {
 
 	@Autowired
 	private ItemService itemService;
-	
+
 	@Autowired
 	private GalleryService galleryService;
-	
+
 	@Autowired
 	private ContactDetailsService cDetailsService;
-	
+
 	@Autowired
 	private SocialLinkService socialLinkService;
 
 	@GetMapping("/")
 	public String home(Model model, HttpServletResponse response, HttpServletRequest request) {
-		
-		/* String host = request.getHeader("host");
-	    if (host != null && host.startsWith("poorah.com")) {
-	        return "redirect:https://www.poorah.com/";
-	    }*/
-	    
+
+		/*
+		 * String host = request.getHeader("host"); if (host != null &&
+		 * host.startsWith("poorah.com")) { return "redirect:https://www.poorah.com/"; }
+		 */
+
 		List<Banner> banner = bannerService.getAllBanners();
 		model.addAttribute("banner", banner);
 
@@ -85,26 +85,25 @@ public class HomeController {
 
 		List<Item> mixedItems = new ArrayList<>();
 
-		for(Category cat : categories){
-		    List<Item> items = itemService.getTop2Items(cat.getCategoryId());
-		    mixedItems.addAll(items);
+		for (Category cat : categories) {
+			List<Item> items = itemService.getTop2Items(cat.getCategoryId());
+			mixedItems.addAll(items);
 		}
 
 		model.addAttribute("mixedItems", mixedItems);
-		
+
 		List<Gallery> gallery = galleryService.getAllGallery();
 		model.addAttribute("gallery", gallery);
-		
+
 		ContactDetails cDetails = cDetailsService.getContactDetails();
 		model.addAttribute("cDetails", cDetails);
-		
+
 		List<SocialLinks> social = socialLinkService.getAllSocialLinks();
 		model.addAttribute("social", social);
-		
-		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-	    response.setHeader("Pragma", "no-cache");
-	    response.setDateHeader("Expires", 0);
 
+		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
 
 		return "home";
 	}
@@ -119,20 +118,19 @@ public class HomeController {
 
 		List<Item> mixedItems = new ArrayList<>();
 
-		for(Category cat : categories){
-		    List<Item> items = itemService.getTop2Items(cat.getCategoryId());
-		    mixedItems.addAll(items);
+		for (Category cat : categories) {
+			List<Item> items = itemService.getTop2Items(cat.getCategoryId());
+			mixedItems.addAll(items);
 		}
 
 		model.addAttribute("mixedItems", mixedItems);
 
-	
 		List<Gallery> gallery = galleryService.getAllGallery();
 		model.addAttribute("gallery", gallery);
-		
+
 		ContactDetails cDetails = cDetailsService.getContactDetails();
 		model.addAttribute("cDetails", cDetails);
-		
+
 		List<SocialLinks> social = socialLinkService.getAllSocialLinks();
 		model.addAttribute("social", social);
 
@@ -184,11 +182,10 @@ public class HomeController {
 			HttpSession session) {
 		List<Banner> banner = bannerService.getAllBanners();
 		model.addAttribute("banner", banner);
-		
-		
+
 		List<SocialLinks> social = socialLinkService.getAllSocialLinks();
 		model.addAttribute("social", social);
-		
+
 		ContactDetails cDetails = cDetailsService.getContactDetails();
 		model.addAttribute("cDetails", cDetails);
 
@@ -197,9 +194,9 @@ public class HomeController {
 
 		List<Item> mixedItems = new ArrayList<>();
 
-		for(Category cat : categories){
-		    List<Item> items = itemService.getTop2Items(cat.getCategoryId());
-		    mixedItems.addAll(items);
+		for (Category cat : categories) {
+			List<Item> items = itemService.getTop2Items(cat.getCategoryId());
+			mixedItems.addAll(items);
 		}
 
 		model.addAttribute("mixedItems", mixedItems);
@@ -363,48 +360,50 @@ public class HomeController {
 	public String calendar() {
 		return "admin/calendar";
 	}
-	
+
 	@GetMapping("/customDesign")
 	public String customDesign() {
 		return "customDesign";
 	}
-	
+
 	@Autowired
 	private Cloudinary cloudinary;
-	
+
 	@PostMapping("/custom-order")
-	public String customOrder(
-	        @RequestParam("designImage") MultipartFile file,
-	        @RequestParam String size,
-	        @RequestParam String type,
-	        @RequestParam String color,
-	        HttpSession session,
-	        RedirectAttributes redirectAttributes) {
+	public String customOrder(@RequestParam("designImage") MultipartFile file, @RequestParam String size,
+			@RequestParam String type, @RequestParam String color, HttpSession session,
+			RedirectAttributes redirectAttributes) {
 
-	    try {
-	    	String imageUrl = null;
+		try {
+			String imageUrl = null;
 
-	    	Map uploadResult = cloudinary.uploader().upload(
-	    	        file.getBytes(),
-	    	        ObjectUtils.asMap("folder", "poorah/custom-orders", "resource_type", "auto")
-	    	);
+			Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
+					ObjectUtils.asMap("folder", "poorah/custom-orders", "resource_type", "auto"));
 
-	    	imageUrl = (String) uploadResult.get("secure_url");
+			imageUrl = (String) uploadResult.get("secure_url");
 
-	        // TODO: save in DB (CustomOrder entity)
+			// TODO: save in DB (CustomOrder entity)
 
-	        redirectAttributes.addFlashAttribute("msg", "Design uploaded successfully!");
+			redirectAttributes.addFlashAttribute("msg", "Design uploaded successfully!");
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        redirectAttributes.addFlashAttribute("msg", "Upload failed!");
-	    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			redirectAttributes.addFlashAttribute("msg", "Upload failed!");
+		}
+
+		return "redirect:/home";
+	}
+
+	@GetMapping("/googleLogin")
+	public String googleLogin(@RequestParam String email,
+	                          @RequestParam String name,
+	                          HttpSession session){
+
+	    User user = userService.registerGoogleUser(email, name);
+
+	    session.setAttribute("LoggedInUser", user);
 
 	    return "redirect:/home";
 	}
-	
-	
-	
-	
 
 }

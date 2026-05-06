@@ -5472,11 +5472,17 @@ table th, table td {
 
     .navbar-collapse {
         background: white;
+        display: none;
+
     }
 
     .navbar-nav > li {
         display: block;
         width: 100%;
+    }
+    
+    .navbar-collapse.in {
+        display: block !important;
     }
 
 }

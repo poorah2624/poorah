@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -18,11 +18,12 @@
 </head>
 <body>
 
-	<div class="modal show" id="myModal88" tabindex="-1" role="dialog" style="display:block; background: rgba(0,0,0,0.5);">
-		<div class="modal-dialog modal-lg" style="margin-top:80px;">
+	<div class="modal show" id="myModal88" tabindex="-1" role="dialog"
+		style="display: block; background: rgba(0, 0, 0, 0.5);">
+		<div class="modal-dialog modal-lg" style="margin-top: 80px;">
 			<div class="modal-content">
 				<div class="modal-header">
-				<!-- <button type="button" class="close" data-dismiss="modal">&times;</button>  -->
+					<!-- <button type="button" class="close" data-dismiss="modal">&times;</button>  -->
 					<c:if test="${not empty Error}">
 						<p style="color: red">${Error }</p>
 					</c:if>
@@ -52,8 +53,7 @@
 										aria-labelledby="tab_item-0">
 										<div class="facts">
 											<div class="register">
-												<form action="/dologin"
-													method="post">
+												<form action="/dologin" method="post">
 													<input name="userEmail"
 														pattern="[a-z][a-zA-Z0-9.+@]+@[a-zA-Z.]+\.[a-z]{2,3}"
 														placeholder="Email Address" type="text" required="">
@@ -71,8 +71,8 @@
 										aria-labelledby="tab_item-1">
 										<div class="facts">
 											<div class="register">
-												<form action="/register"
-													method="post" enctype="multipart/form-data">
+												<form action="/register" method="post"
+													enctype="multipart/form-data">
 													<input placeholder="Name" pattern="([A-Za-z .])+"
 														name="userName" type="text" required=""> <input
 														placeholder="Email Address"
@@ -94,9 +94,7 @@
 										aria-labelledby="tab_item-2">
 										<div class="facts">
 											<div class="register">
-												<form
-													action="/forgotPassword"
-													method="post">
+												<form action="/forgotPassword" method="post">
 													<input name="userEmail" placeholder="Email Address"
 														type="text" required="">
 													<div class="sign-up">
@@ -128,14 +126,8 @@
 								</div>
 								<div class="col-md-12">
 									<ul class="social">
-										<li class="social_facebook"><a href="#"
-											class="entypo-facebook"></a></li>
-										<li class="social_dribbble"><a href="#"
-											class="entypo-dribbble"></a></li>
-										<li class="social_twitter"><a href="#"
-											class="entypo-twitter"></a></li>
-										<li class="social_behance"><a href="#"
-											class="entypo-behance"></a></li>
+										<li><a href="#" onclick="googleLogin()"
+											class="entypo-google"> </a></li>
 									</ul>
 								</div>
 							</div>
@@ -149,13 +141,15 @@
 	<!-- js -->
 	<script src="<c:url value='/js/jquery.min.js'/>"></script>
 	<!-- for bootstrap working -->
-	<script type="text/javascript" src="<c:url value='/js/bootstrap-3.1.1.min.js'/>"></script>
+	<script type="text/javascript"
+		src="<c:url value='/js/bootstrap-3.1.1.min.js'/>"></script>
 	<script src="<c:url value='/js/jquery.magnific-popup.js'/>"></script>
 	<script src="<c:url value='/js/jquery.flexisel.js'/>"></script>
 	<script src="<c:url value='/js/jquery.countdown.js'/>"></script>
 	<script src="<c:url value='/js/jquery.wmuSlider.js'/>"></script>
 	<script src="<c:url value='/js/simpleCart.min.js'/>"></script>
-	<script src="<c:url value='/js/easyResponsiveTabs.js'/>" type="text/javascript"></script>
+	<script src="<c:url value='/js/easyResponsiveTabs.js'/>"
+		type="text/javascript"></script>
 	<script src="<c:url value='/js/script.js'/>"></script>
 
 	<script>
@@ -216,21 +210,53 @@
 	</script>
 
 	<script type="text/javascript">
-	$(document).ready(function () {
-	    setTimeout(function () {
-	        if ($.fn.easyResponsiveTabs) {
-	            $('#horizontalTab').easyResponsiveTabs({
-	                type: 'default',
-	                width: 'auto',
-	                fit: true
-	            });
-	        }
-	    }, 300);
-	});
+		$(document).ready(function() {
+			setTimeout(function() {
+				if ($.fn.easyResponsiveTabs) {
+					$('#horizontalTab').easyResponsiveTabs({
+						type : 'default',
+						width : 'auto',
+						fit : true
+					});
+				}
+			}, 300);
+		});
 	</script>
-	
+
 
 	<!-- //js -->
-	
+
+	<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+	<script
+		src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+
+	<script>
+const firebaseConfig = {
+		apiKey: "AIzaSyCnHe0gVTmrBlK3Q5h1SIQmmFCJ1a0NoSI",
+		  authDomain: "poorah-30ac4.firebaseapp.com"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+function googleLogin(){
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+
+        const user = result.user;
+
+        const email = user.email;
+        const name = user.displayName;
+
+        
+        window.location.href = "googleLogin?email=" + email + "&name=" + name;
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+}
+</script>
+
 </body>
 </html>

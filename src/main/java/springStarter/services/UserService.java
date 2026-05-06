@@ -58,6 +58,10 @@ public class UserService {
 		if (userOpted == null) {
 			return null;
 		}
+		
+		if("GOOGLE".equals(userOpted.getAuthProvider())){
+		    return userOpted;
+		}
 
 		System.out.println("Input password: " + userPassword);
 		System.out.println(userOpted.getUserPassword());
@@ -150,6 +154,27 @@ public class UserService {
     
     public long getUserCount() {
         return userRepo.count();
+    }
+    
+    
+   
+    
+    public User registerGoogleUser(String userEmail, String userName){
+
+        User user = userRepo.findByUserEmail(userEmail);
+
+        if(user == null){
+            user = new User();
+            user.setUserEmail(userEmail);
+            user.setUserName(userName);
+
+            user.setAuthProvider("GOOGLE");   // ⭐ important
+            user.setUserPassword(null);       // ⭐ no password
+
+            userRepo.save(user);
+        }
+
+        return user;
     }
 
 
