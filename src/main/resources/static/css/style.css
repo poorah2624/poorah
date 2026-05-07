@@ -5306,6 +5306,19 @@ input[type="radio"]:invalid {
     object-fit: cover;
 }
 
+.custom-upload-box1 {
+    position: relative;
+   
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-upload-box1 img {
+    width: 100%;
+    
+    object-fit: cover;
+}
+
 .overlay {
     position: absolute;
     top: 0;
