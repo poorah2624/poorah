@@ -192,28 +192,6 @@ public class ProductController {
 	}
 	
 	
-	@GetMapping("/products3/category/Korean Jewellery")
-	public String productsByCategory1(@PathVariable Long categoryId, Model model, HttpSession session) {
-		
-		User user = (User) session.getAttribute("LoggedInUser");
-		
-		if(user != null){
-	        Address address = addressService.getDefaultAddress(user);
-	        model.addAttribute("defaultAddress", address);
-	        
-	    }
-
-		List<Item> items = itemService.getItemsByCategoryAndActiveStatus(categoryId);
-		model.addAttribute("items", items);
-		
-		ContactDetails cDetails = cDetailsService.getContactDetails();
-		model.addAttribute("cDetails", cDetails);
-		
-		List<Category> categories = categoryService.getAllCategories();
-
-	    model.addAttribute("categories", categories);
-
-		return "products3";
-	}
+	
 
 }
