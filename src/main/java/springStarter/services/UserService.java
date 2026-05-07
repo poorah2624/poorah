@@ -122,7 +122,7 @@ public class UserService {
         userRepo.save(user);
 
         // Send email with reset link
-        String resetLink = "http://localhost:8080/resetPassword?token=" + token;
+        String resetLink = "https://poorah.com/resetPassword?token=" + token;
         String subject = "Password Reset Request";
         String body = "Click the link to reset your password: " + resetLink;
 
