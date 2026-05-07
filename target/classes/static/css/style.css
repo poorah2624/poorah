@@ -724,6 +724,15 @@ ul.multi-column-dropdown h6 {
 	-ms-background-size: cover;
 	min-height: 455px;
 }
+.video-img1 {
+    
+    -webkit-background-size: cover;
+    background-size: cover;
+    -moz-background-size: cover;
+	-o-background-size: cover;
+	-ms-background-size: cover;
+	min-height: 455px;
+}
 .video-img a {
     display: inline-block;
     margin:11em 0em 0 12em;

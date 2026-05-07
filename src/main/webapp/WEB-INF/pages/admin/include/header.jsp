@@ -27,7 +27,7 @@
 	<div class="profile">
 		
 			<div class="profile_pic">
-				<img src="/uploads/${sessionScope.LoggedInAdmin.image}" alt="..."
+				<img src="${sessionScope.LoggedInAdmin.image}" alt="..."
 					class="img-circle profile_img">
 			</div>
 
