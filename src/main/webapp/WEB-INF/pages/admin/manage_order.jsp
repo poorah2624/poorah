@@ -170,10 +170,10 @@
 															<c:choose>
 																<c:when test="${item.isCustom}">
 																	<td><img
-																		src="/uploads/${fn:split(item.customImage, ',')[0]}"
+																		src="${fn:split(item.customImage, ',')[0]}"
 																		style="width: 60px; height: 70px; border-radius: 5px;" />
 																		<a
-																		href="/uploads/${item.customImage}"
+																		href="${item.customImage}"
 																		download class="btn btn-success btn-sm"
 																		style="margin-top: 5px;"> ⬇ Download </a></td>
 																</c:when>
