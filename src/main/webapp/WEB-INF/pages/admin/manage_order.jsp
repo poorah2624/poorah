@@ -179,7 +179,7 @@
 																</c:when>
 																<c:otherwise>
 																	<td><img
-																		src="/uploads/${fn:split(item.item.itemImage, ',')[0]}"
+																		src="${fn:split(item.item.itemImage, ',')[0]}"
 																		style="width: 60px; height: 70px; border-radius: 5px;" />
 																	</td>
 																</c:otherwise>
