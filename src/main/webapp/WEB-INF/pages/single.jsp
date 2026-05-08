@@ -462,7 +462,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	function addToCart(itemId, btn){
 
-		let size = document.querySelector('input[name="size_' + itemId + '"]:checked')?.value;
+	    let size = document.querySelector('input[name="size_' + itemId + '"]:checked')?.value;
 
 	    console.log("SIZE:", size);
 
@@ -481,7 +481,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	    let category = "${item.category.categoryName}";
 
-	    // only clothing needs size
 	    if(category.toLowerCase() === "clothing"){
 	        if(!size){
 	            errorDiv.innerHTML = "Please select size.";
@@ -495,7 +494,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        url += '&size=' + size;
 	    }
 
-	    fetch('https://www.poorah.com' + url)
+	    fetch(window.location.origin + url)
 	    .then(response => {
 	        if(response.ok){
 
