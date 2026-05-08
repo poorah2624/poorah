@@ -101,7 +101,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											Custom T-Shirt × ${c.quantity} <span style="float: right;">
 
 												<c:if test="${not empty c.totalPrice}">
-                        ₹$ {c.totalPrice} /-
+                        ₹ ${c.totalPrice} /-
                     </c:if>
 
 											</span>
