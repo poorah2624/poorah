@@ -100,8 +100,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											Custom T-Shirt × ${c.quantity} <span style="float: right;">
 
 												<c:if test="${not empty c.totalPrice}">
-                        ₹<fmt:formatNumber value="${c.totalPrice}"
-														maxFractionDigits="0" />/-
+                        ₹$ {c.totalPrice} /-
                     </c:if>
 
 											</span>
@@ -114,8 +113,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											${c.item.itemName} × ${c.quantity} <span
 												style="float: right;"> <c:if
 													test="${not empty c.totalPrice}">
-                        ₹<fmt:formatNumber value="${c.totalPrice}"
-														maxFractionDigits="0" />/-
+                        ₹ ${c.totalPrice} /-
                     </c:if>
 
 											</span>
@@ -130,8 +128,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<hr>
 
 							<p>
-								Subtotal <span style="float: right;">₹<fmt:formatNumber
-										value="${grandTotal}" maxFractionDigits="0" />/-
+								Subtotal <span style="float: right;">₹ ${grandTotal} /-
 								</span>
 							</p>
 
@@ -150,8 +147,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<hr>
 
 							<h4>
-								Total <span style="float: right;"><b>₹<fmt:formatNumber
-											value="${finalAmount}" maxFractionDigits="0" />/-
+								Total <span style="float: right;"><b>₹ ${finalAmount} /-
 								</b></span>
 							</h4>
 
