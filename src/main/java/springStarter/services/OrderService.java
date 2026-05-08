@@ -65,7 +65,7 @@ public class OrderService {
 	    List<Cart> cartItems = new ArrayList<>();
 
 	    if (buyNowItemId != null) {
-	        Cart temp = cartService.getTempCartItem(buyNowItemId, user);
+	        Cart temp = cartService.getTempCartItem(buyNowItemId, user, null);
 
 	        if (temp == null) {
 	            throw new RuntimeException("Buy Now item not found");

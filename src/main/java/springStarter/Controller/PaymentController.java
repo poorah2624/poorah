@@ -84,7 +84,7 @@ public class PaymentController {
 
 	    if(buyNowItemId != null){
 
-	        Cart temp = cartService.getTempCartItem(buyNowItemId, user);
+	        Cart temp = cartService.getTempCartItem(buyNowItemId, user, null);
 
 	        if(temp != null){
 	            cartItems.add(temp);
