@@ -8,14 +8,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page isELIgnored="false" %>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%@include file="head.jsp"%>
-<link rel="stylesheet"
-	href="/css/flexslider.css"
-	type="text/css" media="screen" />
+<link rel="stylesheet" href="/css/flexslider.css" type="text/css"
+	media="screen" />
 </head>
 
 <body>
@@ -36,8 +35,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			style="background: #f5f5f5; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
 
 			<b>Deliver to:</b> ${defaultAddress.fullName},
-			${defaultAddress.pincode} <a
-				href="/address" style="float:;">Change</a>
+			${defaultAddress.pincode} <a href="/address" style="float:;">Change</a>
 		</div>
 
 	</c:if>
@@ -46,8 +44,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span
-						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Single Page</li>
 			</ul>
 		</div>
@@ -62,14 +60,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<ul class="slides">
 						<c:forEach var="img" items="${fn:split(item.itemImage, ',')}">
 
-							<li
-								data-thumb="${img}">
+							<li data-thumb="${img}">
 								<div class="thumb-image">
-									<img src="${img}"
-										data-imagezoom="true" class="img-responsive">
+									<img src="${img}" data-imagezoom="true" class="img-responsive">
 								</div>
 							</li>
-							
+
 						</c:forEach>
 					</ul>
 				</div>
@@ -77,7 +73,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 			<div class="col-md-8 single-right">
 				<h3>${item.itemName }</h3>
-				
+
 				<div class="description">
 					<h5>
 						<i>Description</i>
@@ -113,7 +109,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<c:choose>
 
 
-							
+
 
 
 							<c:when test="${item.category.categoryName == 'Clothing'}">
@@ -169,17 +165,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="simpleCart_shelfItem">
 					<div class="price-section">
 
-								<div class="final-price">₹ 
-								<c:if test="${not empty item.discountedPrice}">
-								<fmt:formatNumber value="${item.discountedPrice}" maxFractionDigits="0"/> /-
-								</c:if></div>
+						<div class="final-price">
+							₹
+							<c:if test="${not empty item.discountedPrice}">
+								<fmt:formatNumber value="${item.discountedPrice}"
+									maxFractionDigits="0" /> /-
+								</c:if>
+						</div>
 
-								<div class="price-meta">
-									<span class="old-price"> ₹ <fmt:formatNumber value="${item.itemPrice}" maxFractionDigits="0"/> /-</span> <span
-										class="discount"> ${fn:split(item.discount, '.')[0]}% OFF </span>
-								</div>
+						<div class="price-meta">
+							<span class="old-price"> ₹ <fmt:formatNumber
+									value="${item.itemPrice}" maxFractionDigits="0" /> /-
+							</span> <span class="discount"> ${fn:split(item.discount, '.')[0]}%
+								OFF </span>
+						</div>
 
-							</div>
+					</div>
 					<c:choose>
 						<c:when test="${not empty sessionScope.LoggedInUser}">
 
@@ -193,9 +194,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<c:otherwise>
 									<button onclick="addToCart(${item.itemId}, this)"
 										class="btn btn-primary">Add to Cart</button>
-									<a onclick="return buyNowOrder(${item.itemId}, this)"
-										class="btn btn-primary" value="Buy Now"
-										style="background: orange;">Buy Now</a>
+									<a href="/buyNow?itemId=${item.itemId}" class="btn btn-primary"
+										style="background: orange;"> Buy Now </a>
 								</c:otherwise>
 
 							</c:choose>
@@ -207,28 +207,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<p>
 								<a class="item_add"
 									onclick="return addToCart(${item.itemId}, this)"
-									href="/addToCart?itemId=${item.itemId}">Add
-									to cart</a>
+									href="/addToCart?itemId=${item.itemId}">Add to cart</a>
 							</p>
 
-							
+
 						</c:otherwise>
 
 					</c:choose>
 					<div style="margin-top: 15px;">
 
-								<input type="text" id="pincode" placeholder="Enter Pincode"
-									class="form-control"
-									style="width: 200px; display: inline-block;" />
+						<input type="text" id="pincode" placeholder="Enter Pincode"
+							class="form-control" style="width: 200px; display: inline-block;" />
 
-								<button onclick="checkDelivery()" class="btn btn-primary">
-									Check</button>
-									<br>
+						<button onclick="checkDelivery()" class="btn btn-primary">
+							Check</button>
+						<br> <i id="deliveryResult"
+							style="margin-top: 10px; color: green;"></i>
 
-								<i id="deliveryResult" style="margin-top: 10px; color: green;"></i>
+					</div>
 
-							</div>
-					
 				</div>
 
 			</div>
@@ -342,8 +339,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</div>
 						<div class="review_grids">
 							<h5>Add A Review</h5>
-							<form action="/addReview"
-								method="post">
+							<form action="/addReview" method="post">
 								<input type="hidden" name="itemId" value="${item.itemId}">
 								<c:choose>
 									<c:when test="${not empty sessionScope.LoggedInUser}">
@@ -406,21 +402,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 	<!-- flixslider -->
-	<script defer
-		src="/js/jquery.flexslider.js"></script>
+	<script defer src="/js/jquery.flexslider.js"></script>
 	<!-- zooming-effect -->
 	<script src="/js/imagezoom.js"></script>
 	<!-- //zooming-effect -->
 	<!-- for bootstrap working -->
 
-	<script
-		src="/js/jquery.magnific-popup.js"></script>
+	<script src="/js/jquery.magnific-popup.js"></script>
 	<script src="/js/jquery.flexisel.js"></script>
 	<script src="/js/simpleCart.min.js"></script>
 	<!-- //js -->
-	<script
-		src="/js/easyResponsiveTabs.js"
-		type="text/javascript"></script>
+	<script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#horizontalTab1').easyResponsiveTabs({
@@ -569,7 +561,7 @@ function buyNowOrder(itemId, btn){
 }
 </script>
 
-<script>
+	<script>
 function checkDelivery(){
 
     let pincode = document.getElementById("pincode").value;

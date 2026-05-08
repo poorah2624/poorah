@@ -2,6 +2,7 @@ package springStarter.Controller;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -61,12 +62,19 @@ public class CartController {
 	    }
 	    
 	    List<Cart> cartItems = cartService.getCartByUser(user);
+	    
+	    if(cartItems == null){
+	        cartItems = new ArrayList<>();
+	    }
+	    
 	    model.addAttribute("cartItems", cartItems);
 	    
 	    BigDecimal grandTotal = BigDecimal.ZERO;
 
 	    for(Cart cart : cartItems){
+	    	if(cart.getTotalPrice() != null){
 	        grandTotal = grandTotal.add(cart.getTotalPrice());
+	    	}
 	    }
 
 	    BigDecimal deliveryCharge = new BigDecimal("50");
