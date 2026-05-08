@@ -495,7 +495,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        url += '&size=' + size;
 	    }
 
-	    fetch(window.location.origin + url)
+	    fetch('https://www.poorah.com' + url)
 	    .then(response => {
 	        if(response.ok){
 
@@ -569,7 +569,7 @@ function checkDelivery(){
         return;
     }
 
-    fetch(window.location.origin + '/checkDelivery?pincode=' + pincode)
+    fetch('https://www.poorah.com/checkDelivery?pincode=' + pincode)
     .then(res => res.text())
     .then(data => {
         document.getElementById("deliveryResult").innerText = data;
