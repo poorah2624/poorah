@@ -194,8 +194,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<c:otherwise>
 									<button onclick="addToCart(${item.itemId}, this)"
 										class="btn btn-primary">Add to Cart</button>
-									<a href="/buyNow?itemId=${item.itemId}" class="btn btn-primary"
-										style="background: orange;"> Buy Now </a>
+									<button onclick="buyNowOrder(${item.itemId}, this)"
+										class="btn btn-primary" style="background: orange;">
+										Buy Now</button>
 								</c:otherwise>
 
 							</c:choose>
@@ -494,7 +495,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        url += '&size=' + size;
 	    }
 
-	    fetch(url)
+	    fetch(window.location.origin + url)
 	    .then(response => {
 	        if(response.ok){
 
@@ -568,7 +569,7 @@ function checkDelivery(){
         return;
     }
 
-    fetch('/checkDelivery?pincode=' + pincode)
+    fetch(window.location.origin + '/checkDelivery?pincode=' + pincode)
     .then(res => res.text())
     .then(data => {
         document.getElementById("deliveryResult").innerText = data;

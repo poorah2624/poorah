@@ -100,7 +100,7 @@ public class CartService {
 		cartRepo.deleteByUser(user);
 	}
 
-	public Cart getTempCartItem(Long itemId, User user) {
+	public Cart getTempCartItem(Long itemId, User user, String size) {
 
 		Item item = itemRepo.findById(itemId).get();
 
@@ -112,6 +112,7 @@ public class CartService {
 		cart.setItem(item);
 		cart.setQuantity(1);
 		cart.setUser(user);
+		cart.setSize(size);
 
 		BigDecimal price = item.getDiscountedPrice();
 

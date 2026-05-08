@@ -153,6 +153,7 @@ public class CartController {
 	
 	@GetMapping("/buyNow")
 	public String buyNow(@RequestParam Long itemId,
+	                     @RequestParam(required = false) String size,
 	                     HttpSession session){
 
 	    User user = (User) session.getAttribute("LoggedInUser");
@@ -162,6 +163,7 @@ public class CartController {
 	    }
 
 	    session.setAttribute("buyNowItemId", itemId);
+	    session.setAttribute("buyNowSize", size);
 
 	    return "redirect:/checkout";
 	}

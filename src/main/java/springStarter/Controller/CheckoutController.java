@@ -57,7 +57,8 @@ public class CheckoutController {
 		
 		if(buyNowItemId != null){
 	        //  SINGLE PRODUCT checkout
-	        Cart temp = cartService.getTempCartItem(buyNowItemId, user);
+			String size = (String) session.getAttribute("buyNowSize");
+	        Cart temp = cartService.getTempCartItem(buyNowItemId, user, size);
 	        if(temp == null){
 	            return "redirect:/cart";
 	        }
