@@ -125,10 +125,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 									<!-- PRICE -->
 									<div class="custom-price">
+									<c:if test="${not empty c.totalPrice}">
 										₹
 										<fmt:formatNumber value="${c.totalPrice}"
 											maxFractionDigits="0" />
 										/-
+										</c:if>
 									</div>
 
 									<!-- ACTION -->

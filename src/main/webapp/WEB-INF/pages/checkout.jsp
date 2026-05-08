@@ -84,8 +84,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 						<c:forEach var="c" items="${cartItems}">
 							<p>
-								${c.item.itemName} × ${c.quantity} <span style="float: right;">₹<fmt:formatNumber
+								${c.item.itemName} × ${c.quantity} <span style="float: right;">
+								<c:if test="${not empty c.totalPrice}">
+								₹<fmt:formatNumber
 										value="${c.totalPrice}" maxFractionDigits="0" />/-
+										</c:if>
 								</span>
 							</p>
 						</c:forEach>
