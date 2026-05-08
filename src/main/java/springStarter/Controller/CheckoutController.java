@@ -58,6 +58,9 @@ public class CheckoutController {
 		if(buyNowItemId != null){
 	        //  SINGLE PRODUCT checkout
 	        Cart temp = cartService.getTempCartItem(buyNowItemId, user);
+	        if(temp == null){
+	            return "redirect:/cart";
+	        }
 	        cartItems = Arrays.asList(temp);
 	    } else {
 	        // normal cart

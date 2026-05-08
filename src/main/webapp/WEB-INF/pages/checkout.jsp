@@ -30,28 +30,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span
-						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Checkout</li>
 			</ul>
 		</div>
 	</div>
 	<!-- //breadcrumbs -->
-	
-	<form action="/payment"
-					method="post">
 
-	<div class="container" style="margin-top: 30px;">
+	<form action="/payment" method="post">
 
-		<div class="row">
+		<div class="container" style="margin-top: 30px;">
 
-			<!-- LEFT SIDE -->
-			<div class="col-md-8">
+			<div class="row">
 
-				<!-- ADDRESS SECTION -->
-				<h3>Select Delivery Address</h3>
+				<!-- LEFT SIDE -->
+				<div class="col-md-8">
 
-				
+					<!-- ADDRESS SECTION -->
+					<h3>Select Delivery Address</h3>
+
+
 
 					<c:forEach var="addr" items="${addresses}">
 						<div class="panel panel-default">
@@ -70,19 +69,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</div>
 					</c:forEach>
 
-					<a href="/addAddress"
-						class="btn btn-link">+ Add New Address</a>
-			</div>
+					<a href="/addAddress" class="btn btn-link">+ Add New Address</a>
+				</div>
 
-			<!-- RIGHT SIDE -->
-			<div class="col-md-4">
+				<!-- RIGHT SIDE -->
+				<div class="col-md-4">
 
-				<h3>Order Summary</h3>
+					<h3>Order Summary</h3>
 
-				<div class="panel panel-default">
-					<div class="panel-body">
+					<div class="panel panel-default">
+						<div class="panel-body">
 
-						<c:forEach var="c" items="${cartItems}">
+							<!--<c:forEach var="c" items="${cartItems}">
 							<p>
 								${c.item.itemName} × ${c.quantity} <span style="float: right;">
 								<c:if test="${not empty c.totalPrice}">
@@ -91,53 +89,90 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										</c:if>
 								</span>
 							</p>
-						</c:forEach>
+						</c:forEach> -->
 
-						<hr>
+							<c:forEach var="c" items="${cartItems}">
 
-						<p>
-							Subtotal <span style="float: right;">₹<fmt:formatNumber
-									value="${grandTotal}" maxFractionDigits="0" />/-
-							</span>
-						</p>
+								<c:choose>
 
-						<p>
-							Delivery <span style="float: right;"> <c:choose>
-									<c:when test="${deliveryCharge == 0}">
+									<c:when test="${c.isCustom}">
+										<p>
+											Custom T-Shirt × ${c.quantity} <span style="float: right;">
+
+												<c:if test="${not empty c.totalPrice}">
+                        ₹<fmt:formatNumber value="${c.totalPrice}"
+														maxFractionDigits="0" />/-
+                    </c:if>
+
+											</span>
+										</p>
+									</c:when>
+
+									<c:otherwise>
+
+										<p>
+											${c.item.itemName} × ${c.quantity} <span
+												style="float: right;"> <c:if
+													test="${not empty c.totalPrice}">
+                        ₹<fmt:formatNumber value="${c.totalPrice}"
+														maxFractionDigits="0" />/-
+                    </c:if>
+
+											</span>
+										</p>
+
+									</c:otherwise>
+
+								</c:choose>
+
+							</c:forEach>
+
+							<hr>
+
+							<p>
+								Subtotal <span style="float: right;">₹<fmt:formatNumber
+										value="${grandTotal}" maxFractionDigits="0" />/-
+								</span>
+							</p>
+
+							<p>
+								Delivery <span style="float: right;"> <c:choose>
+										<c:when test="${deliveryCharge == 0}">
                                     FREE
                                 </c:when>
-									<c:otherwise>
+										<c:otherwise>
                                     ₹${deliveryCharge}
                                 </c:otherwise>
-								</c:choose>
-							</span>
-						</p>
+									</c:choose>
+								</span>
+							</p>
 
-						<hr>
+							<hr>
 
-						<h4>
-							Total <span style="float: right;"><b>₹<fmt:formatNumber
-										value="${finalAmount}" maxFractionDigits="0" />/-
-							</b></span>
-						</h4>
+							<h4>
+								Total <span style="float: right;"><b>₹<fmt:formatNumber
+											value="${finalAmount}" maxFractionDigits="0" />/-
+								</b></span>
+							</h4>
 
-						<br>
+							<br>
 
-						
-							<button type="submit" class="btn btn-success btn-block">Place Order</button>
-						
 
+							<button type="submit" class="btn btn-success btn-block">Place
+								Order</button>
+
+
+						</div>
 					</div>
 				</div>
-				</div>
 
-			
 
-			
+
+
+
+			</div>
 
 		</div>
-
-	</div>
 	</form>
 
 	<!-- footer -->
