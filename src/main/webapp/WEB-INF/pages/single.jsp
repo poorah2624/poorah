@@ -494,7 +494,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        url += '&size=' + size;
 	    }
 
-	    fetch(window.location.origin + url)
+	    fetch('https://www.poorah.com'+url)
 	    .then(response => {
 	        if(response.ok){
 
