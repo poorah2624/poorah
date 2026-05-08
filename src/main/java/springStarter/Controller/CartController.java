@@ -119,7 +119,7 @@ public class CartController {
 	    
 	    
 
-	    return "redirect:/single/" + itemId;
+	    return "/single/" + itemId;
 	}
 	
 	@PostMapping("/UpdateQuantity")
@@ -135,7 +135,7 @@ public class CartController {
 
 	    cartService.updateQuantity(user, itemId, quantity);
 
-	    return "redirect:/cart";
+	    return "success";
 	}
 	
 	@GetMapping("/DeleteCart/{cartId}")
@@ -165,7 +165,7 @@ public class CartController {
 	    session.setAttribute("buyNowItemId", itemId);
 	    session.setAttribute("buyNowSize", size);
 
-	    return "redirect:/checkout";
+	    return "checkout";
 	}
 	
 	@Autowired
