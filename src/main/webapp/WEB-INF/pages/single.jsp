@@ -459,78 +459,69 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!--quantity-->
 	<script>
 
-function addToCart(itemId, btn){
+	function addToCart(itemId, btn){
 
-	let size = document.querySelector('input[name="size_' + itemId + '"]:checked')?.value;
-    let age = document.querySelector('input[name="age_' + itemId + '"]:checked')?.value;
-    
-    console.log("SIZE:", size);
-    console.log("AGE:", age);
-    
-    let errorId = "cartError_" + itemId;
-    let errorDiv = document.getElementById(errorId);
+		let size = document.querySelector('input[name="size_' + itemId + '"]:checked')?.value;
 
-    if(!errorDiv){
-        errorDiv = document.createElement("div");
-        errorDiv.id = errorId;
-        errorDiv.style.color = "red";
-        errorDiv.style.marginTop = "8px";
-        btn.parentElement.appendChild(errorDiv);
-    }
+	    console.log("SIZE:", size);
 
-    errorDiv.innerHTML = "";
+	    let errorId = "cartError_" + itemId;
+	    let errorDiv = document.getElementById(errorId);
 
-    //  CATEGORY CHECK (important)
-    let category = "${item.category.categoryName}";
+	    if(!errorDiv){
+	        errorDiv = document.createElement("div");
+	        errorDiv.id = errorId;
+	        errorDiv.style.color = "red";
+	        errorDiv.style.marginTop = "8px";
+	        btn.parentElement.appendChild(errorDiv);
+	    }
 
-    // Kids product
-    if(category.toLowerCase() === "Clothing"){
-        if(!age){
-            errorDiv.innerHTML = "Please select size.";
-            return; // STOP API CALL
-        }
-    } 
-    
-    let url = '/addToCart?itemId=' + itemId;
-    
-    if(size){
-        url += '&size=' + size;
-    }
-    if(age){
-        url += '&age=' + age;
-    }
+	    errorDiv.innerHTML = "";
 
-    fetch(url)
-    .then(response => {
-        if(response.ok){
+	    let category = "${item.category.categoryName}";
 
-            // button change
-            btn.innerText = "Go to Cart";
-            btn.classList.remove("btn-primary");
-            btn.classList.add("btn-success");
+	    // only clothing needs size
+	    if(category.toLowerCase() === "clothing"){
+	        if(!size){
+	            errorDiv.innerHTML = "Please select size.";
+	            return;
+	        }
+	    }
 
-            // click change
-            btn.onclick = goToCart;
-        }
-    })
-    .catch(error => console.log(error));
-}
+	    let url = '/addToCart?itemId=' + itemId;
 
-function goToCart(){
-    window.location.href = '/cart';
-}
+	    if(size){
+	        url += '&size=' + size;
+	    }
+
+	    fetch(url)
+	    .then(response => {
+	        if(response.ok){
+
+	            btn.innerText = "Go to Cart";
+	            btn.classList.remove("btn-primary");
+	            btn.classList.add("btn-success");
+
+	            btn.onclick = goToCart;
+	        }
+	    })
+	    .catch(error => console.log(error));
+	}
+
+	function goToCart(){
+	    window.location.href = '/cart';
+	}
 
 </script>
 
 	<script>
+
 function buyNowOrder(itemId, btn){
 
 	let size = document.querySelector('input[name="size_' + itemId + '"]:checked')?.value;
-    let age = document.querySelector('input[name="age_' + itemId + '"]:checked')?.value;
-    
+
     console.log("SIZE:", size);
-    console.log("AGE:", age);
-    
+
     let errorId = "cartError_" + itemId;
     let errorDiv = document.getElementById(errorId);
 
@@ -544,21 +535,27 @@ function buyNowOrder(itemId, btn){
 
     errorDiv.innerHTML = "";
 
-    //  CATEGORY CHECK (important)
     let category = "${item.category.categoryName}";
 
-    // Kids product
-    if(category.toLowerCase() === "Clothing"){
-        if(!age){
+    // only clothing needs size
+    if(category.toLowerCase() === "clothing"){
+        if(!size){
             errorDiv.innerHTML = "Please select size.";
-            return; // STOP API CALL
+            return;
         }
     }
-    
-    window.location.href = '/buyNow?itemId=' + itemId;
+
+    let url = '/buyNow?itemId=' + itemId;
+
+    if(size){
+        url += '&size=' + size;
+    }
+
+    window.location.href = url;
 
     return false;
 }
+
 </script>
 
 	<script>
