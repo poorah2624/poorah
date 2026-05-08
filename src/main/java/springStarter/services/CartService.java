@@ -113,7 +113,12 @@ public class CartService {
 		cart.setQuantity(1);
 		cart.setUser(user);
 
-		BigDecimal price = item.getItemPrice();
+		BigDecimal price = item.getDiscountedPrice();
+
+		if(price == null){
+		    price = item.getItemPrice();
+		}
+
 		cart.setTotalPrice(price);
 
 		return cart;

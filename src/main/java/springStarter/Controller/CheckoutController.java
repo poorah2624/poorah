@@ -72,7 +72,9 @@ public class CheckoutController {
 	    BigDecimal grandTotal = BigDecimal.ZERO;
 
 	    for(Cart cart : cartItems){
+	    	if(cart.getTotalPrice() != null){
 	        grandTotal = grandTotal.add(cart.getTotalPrice());
+	    	}
 	    }
 
 	    BigDecimal deliveryCharge = new BigDecimal("50");
