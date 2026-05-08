@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false" %>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -126,10 +127,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<!-- PRICE -->
 									<div class="custom-price">
 									<c:if test="${not empty c.totalPrice}">
-										₹
-										<fmt:formatNumber value="${c.totalPrice}"
-											maxFractionDigits="0" />
-										/-
+										₹ ${c.totalPrice} /-
 										</c:if>
 									</div>
 
@@ -165,16 +163,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 										<div class="final-price">
 										<c:if test="${not empty c.totalPrice}">
-											₹
-											<fmt:formatNumber value="${c.totalPrice}"
-												maxFractionDigits="0" />
-											/-
+											₹ ${c.totalPrice} /-
 											</c:if>
 										</div>
 
 										<div class="price-meta">
-											<span class="old-price"> ₹ <fmt:formatNumber
-													value="${c.item.itemPrice}" maxFractionDigits="0" /> /-
+											<span class="old-price"> ₹ ${c.item.itemPrice} /-
 											</span> <span class="discount"> ${c.item.discount}% OFF </span>
 										</div>
 
@@ -231,9 +225,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<!-- TOTAL SECTION -->
 				<div class="cart-summary">
 					<div>
-						Total: ₹
-						<fmt:formatNumber value="${grandTotal}" maxFractionDigits="0" />
-						/-
+						Total: ₹ ${grandTotal} /-
 					</div>
 
 					<div>
@@ -258,9 +250,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 
 					<div class="final-total">
-						Total Amount: ₹
-						<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" />
-						/-
+						Total Amount: ₹ ${finalAmount} /-
 					</div>
 				</div>
 
