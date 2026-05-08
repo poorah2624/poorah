@@ -494,16 +494,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        url += '&size=' + size;
 	    }
 
-	    fetch('https://www.poorah.com'+url)
-	    .then(response => {
-	        if(response.ok){
+	    fetch('https://www.poorah.com' + url)
+	    .then(() => {
 
-	            btn.innerText = "Go to Cart";
-	            btn.classList.remove("btn-primary");
-	            btn.classList.add("btn-success");
+	        btn.innerText = "Go to Cart";
+	        btn.classList.remove("btn-primary");
+	        btn.classList.add("btn-success");
 
-	            btn.onclick = goToCart;
-	        }
+	        btn.onclick = goToCart;
+
 	    })
 	    .catch(error => console.log(error));
 	}
