@@ -81,15 +81,20 @@ public class PaymentController {
 	    List<Cart> cartItems = new ArrayList<>();
 
 	    Long buyNowItemId = (Long) session.getAttribute("buyNowItemId");
-
 	    if(buyNowItemId != null){
 
-	        Cart temp = cartService.getTempCartItem(buyNowItemId, user, null);
+	        String size = (String) session.getAttribute("size");
+
+	        Cart temp = cartService.getTempCartItem(
+	                buyNowItemId,
+	                user,
+	                size
+	        );
 
 	        if(temp != null){
 	            cartItems.add(temp);
 	        } else {
-	            throw new RuntimeException("Buy Now item not found");
+	            return "redirect:/checkout";
 	        }
 
 	    } else {
