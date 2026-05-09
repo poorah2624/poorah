@@ -128,6 +128,9 @@
 									<ul class="social">
 										<li><a href="#" onclick="googleLogin()"
 											class="entypo-google"> </a></li>
+
+										<!--  <li><a href="#" onclick="facebookLogin()"
+											class="entypo-facebook"> </a></li> -->
 									</ul>
 								</div>
 							</div>
@@ -226,36 +229,70 @@
 
 	<!-- //js -->
 
-	<script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 	<script
-		src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+		src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 	<script>
+
 const firebaseConfig = {
 		apiKey: "AIzaSyCnHe0gVTmrBlK3Q5h1SIQmmFCJ1a0NoSI",
 		  authDomain: "poorah-30ac4.firebaseapp.com"
+
 };
 
 firebase.initializeApp(firebaseConfig);
 
 function googleLogin(){
-  const provider = new firebase.auth.GoogleAuthProvider();
 
-  firebase.auth().signInWithPopup(provider)
-    .then((result) => {
+    var provider = new firebase.auth.GoogleAuthProvider();
 
-        const user = result.user;
+    firebase.auth().signInWithPopup(provider)
+    .then(function(result){
 
-        const email = user.email;
-        const name = user.displayName;
+        var user = result.user;
 
-        
-        window.location.href = "googleLogin?email=" + email + "&name=" + name;
+        var email = user.email;
+        var name = user.displayName;
+
+        window.location.href =
+            "/googleLogin?email=" +
+            encodeURIComponent(email) +
+            "&name=" +
+            encodeURIComponent(name);
+
     })
-    .catch((error) => {
+    .catch(function(error){
         console.log(error);
+        alert("Google login failed");
     });
 }
+
+function facebookLogin(){
+
+    var provider = new firebase.auth.FacebookAuthProvider();
+
+    firebase.auth().signInWithPopup(provider)
+    .then(function(result){
+
+        var user = result.user;
+
+        var email = user.email;
+        var name = user.displayName;
+
+        window.location.href =
+            "/googleLogin?email=" +
+            encodeURIComponent(email) +
+            "&name=" +
+            encodeURIComponent(name);
+
+    })
+    .catch(function(error){
+        console.log(error);
+        alert("Facebook login failed");
+    });
+}
+
 </script>
 
 </body>
