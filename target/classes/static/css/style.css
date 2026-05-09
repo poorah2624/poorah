@@ -1603,6 +1603,17 @@ h2.resp-accordion {
 }
 
 /*-- //sap --*/
+
+.modal_body_right1{
+    display: flex;
+    justify-content: center;   /* left-right center */
+    align-items: center;       /* top-bottom center */
+    min-height: 300px;
+}
+.sign-with{
+    width: 100%;
+    text-align: center;
+}
 .modal-body-sub {
     padding: 3em !important;
 }
@@ -1668,28 +1679,25 @@ h3.other-nw {
 .social {
 	position: relative;
     height: 3em;
-    width: 13.5em;
     margin: 0 auto;
+     display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    padding: 0;
 }
 
 .social li {
 	display: block;
-    height: 3em;
-    line-height: 3em;
-    margin: 0.8em;
     position: absolute;
-    /*-webkit-transition: -webkit-transform .7s;
-    -moz-transition: -moz-transform .7s;
-    -ms-transition: -ms-transform .7s;
-    -o-transition: -o-transform .7s;
-    transition: transform .7s;
-    -webkit-transform: rotate(45deg);
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-  transform: rotate(45deg);*/
     text-align: center;
-    width: 3em;
+    list-style: none;
+    position: static;
+    margin: 0;
+    width: auto;
+    height: auto;
+    line-height: normal;
 }
 
 .social a {

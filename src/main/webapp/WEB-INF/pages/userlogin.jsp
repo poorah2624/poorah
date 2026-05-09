@@ -120,26 +120,22 @@
 							<div id="OR" class="hidden-xs">OR</div>
 						</div>
 						<div class="col-md-4 modal_body_right modal_body_right1">
-							<div class="row text-center sign-with">
-								<div class="col-md-12">
-									<h3 class="other-nw">Sign in with</h3>
-								</div>
-								<div class="col-md-12">
-									<ul class="social">
+							<div class="sign-with">
 
-										<li>
-											<button type="button" onclick="googleLogin()"
-												style="border: 1px solid #ddd; background: #fff; padding: 10px 18px; border-radius: 5px; cursor: pointer; font-size: 16px; display: flex; align-items: center; gap: 10px;">
+								<h3 class="other-nw">Sign in with</h3>
 
-												<img
-													src="https://developers.google.com/identity/images/g-logo.png"
-													width="20">
+								<ul class="social">
+									<li>
+										<button type="button" onclick="googleLogin()"
+											style="border: 1px solid #ddd; background: #fff; padding: 10px 18px; border-radius: 5px; cursor: pointer;">
 
-											</button>
-										</li>
+											<img
+												src="https://developers.google.com/identity/images/g-logo.png"
+												width="20">
+										</button>
+									</li>
+								</ul>
 
-									</ul>
-								</div>
 							</div>
 						</div>
 					</div>
