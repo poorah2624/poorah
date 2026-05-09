@@ -1707,7 +1707,13 @@ h3.other-nw {
     transform: rotate(-45deg);*/
     width: 3em;
 }
-
+.social button {
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
 
 /*.social li:hover {

@@ -129,9 +129,7 @@
 								<div class="col-md-12">
 									<ul class="social">
 										<li>
-											<button type="button" onclick="googleLogin()"
-												style="border: 1px solid #ddd; background: #fff; padding: 10px 18px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
-
+											<button type="button" onclick="googleLogin()">
 												<img
 													src="https://developers.google.com/identity/images/g-logo.png"
 													width="22">
