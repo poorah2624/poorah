@@ -6,6 +6,26 @@
 
 
 
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSP Page</title>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+
+<!------ Include the above in your HEAD tag ---------->
+
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+<link href="css/style1.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
 	
 	<div class="row">
 		<div class="col-md-12">
@@ -17,7 +37,7 @@
 					<p class="profile-description">Welcome to Womens Fashion!</p>
 					<div class="buttons">
 						<ul>
-							<li><a href="/userProfile"><i
+							<li><a href="${pageContext.request.contextPath}/userProfile"><i
 									class="ti-user"></i><span> Profile</span></a></li>
 							<li><a href=""><i class="ti-thumb-up"></i><span>Review</span></a>
 							</li>
@@ -40,4 +60,5 @@
 			</div>
 		</div>
 	</div>
-
+</body>
+</html>
