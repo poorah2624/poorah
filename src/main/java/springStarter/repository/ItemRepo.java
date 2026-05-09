@@ -20,7 +20,7 @@ public interface ItemRepo extends JpaRepository<Item, Long>  {
 	
 	List<Item> findByStatus(String status);
 	
-	List<Item> findByGender(String gender);
+	List<Item> findByGenderAndCategory_CategoryName(String gender, String categoryName);
 	
 
 }

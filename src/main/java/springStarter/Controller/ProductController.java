@@ -178,7 +178,10 @@ public class ProductController {
 	
 	@GetMapping("/products/gender/{gender}")
 	public String getByGender(@PathVariable String gender, Model model){
-	    List<Item> items = itemRepo.findByGender(gender);
+		
+		String categoryName = "Clothing";
+		
+	    List<Item> items = itemRepo.findByGenderAndCategory_CategoryName(gender, categoryName);
 	    model.addAttribute("items", items);
 	    
 	    ContactDetails cDetails = cDetailsService.getContactDetails();

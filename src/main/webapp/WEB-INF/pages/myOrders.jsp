@@ -88,16 +88,14 @@
 
 
 											<c:choose>
-												<c:when test="${c.item.category.categoryName == 'Kids'}">
-                                   <p style="margin: 5px 0;">Age : ${item.age}</p>
-                                </c:when>
-												<c:otherwise>
+												<c:when test="${c.item.category.categoryName == 'Clothing'}">
                                    <p style="margin: 5px 0;">Size : ${item.size}</p>
-                                </c:otherwise>
+                                </c:when>
+											
 											</c:choose>
 										</div>
 
-										<p style="margin: 0; color: #555;">₹ ${item.finalPrice} /-</p>
+										<p style="margin: 0; color: #555;">₹ <fmt:formatNumber value="${item.finalPrice}" maxFractionDigits="0"/> /-</p>
 									</div>
 									<div style="margin-bottom: 15px;">
 										<a
