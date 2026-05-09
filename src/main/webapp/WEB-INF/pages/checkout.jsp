@@ -8,7 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page isELIgnored="false" %>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,14 +110,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 									<c:otherwise>
 
+										<p>${c.item.itemName} × ${c.quantity}</p>
+
 										<p>
-											${c.item.itemName} × ${c.quantity} <span
-												style="float: right;"> <c:if
-													test="${not empty c.totalPrice}">
-                        ₹ ${c.totalPrice} /-
-                    </c:if>
+											Price <span style="float: right;"> <c:choose>
+
+													<c:when test="${not empty c.item.discountedPrice}">
+                    ₹ ${c.item.discountedPrice} /-
+                </c:when>
+
+													<c:otherwise>
+                    ₹ ${c.item.itemPrice} /-
+                </c:otherwise>
+
+												</c:choose>
 
 											</span>
+										</p>
+
+										<p>
+											Total <span style="float: right;"> ₹ ${c.totalPrice}
+												/- </span>
 										</p>
 
 									</c:otherwise>
@@ -129,8 +142,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<hr>
 
 							<p>
-								Subtotal <span style="float: right;">₹ ${grandTotal} /-
-								</span>
+								Subtotal <span style="float: right;">₹ ${grandTotal} /- </span>
 							</p>
 
 							<p>
@@ -148,8 +160,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<hr>
 
 							<h4>
-								Total <span style="float: right;"><b>₹ ${finalAmount} /-
-								</b></span>
+								Total <span style="float: right;"><b>₹ ${finalAmount}
+										/- </b></span>
 							</h4>
 
 							<br>
