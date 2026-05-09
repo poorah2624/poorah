@@ -47,6 +47,12 @@ public class UserService {
 
 		// save in db
 		userRepo.save(user);
+		
+		emailService.sendEmail(
+		        userEmail, 
+		        "Welcome", 
+		        "Thanks for registering " + userName
+		    );
 
 		// return "SUCCESS";
 
