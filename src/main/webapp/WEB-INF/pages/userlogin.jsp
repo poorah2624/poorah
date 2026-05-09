@@ -261,9 +261,8 @@ function googleLogin(){
         var name = user.displayName;
 
         window.location.href =
-            "/googleLogin?email=" +
-            encodeURIComponent(email) +
-            "&name=" +
+            window.location.origin + "/googleLogin?email=" +
+            encodeURIComponent(email) + "&name=" +
             encodeURIComponent(name);
 
     })

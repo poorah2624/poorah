@@ -399,6 +399,10 @@ public class HomeController {
 	                          @RequestParam String name,
 	                          HttpSession session){
 
+	    if(email == null || email.isEmpty()){
+	        return "redirect:/userlogin";
+	    }
+
 	    User user = userService.registerGoogleUser(email, name);
 
 	    session.setAttribute("LoggedInUser", user);
