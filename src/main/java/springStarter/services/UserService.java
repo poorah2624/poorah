@@ -169,7 +169,7 @@ public class UserService {
             user.setUserName(userName);
 
             user.setAuthProvider("GOOGLE");   // ⭐ important
-            user.setUserPassword(null);       // ⭐ no password
+            user.setUserPassword("GOOGLE_LOGIN");      // ⭐ no password
             user.setUserMobile("NA");
 
             userRepo.save(user);
