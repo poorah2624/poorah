@@ -111,8 +111,6 @@ public class CheckoutController {
 	        return "redirect:/userlogin";
 	    }
 	   
-	    session.removeAttribute("buyNowItemId");
-	    session.removeAttribute("isBuyNow");
 
 	 // selected address save
 	    model.addAttribute("selectedAddressId", addressId);
