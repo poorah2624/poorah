@@ -19,6 +19,7 @@ public class EmailService {
 
     public void sendEmail(String to, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setFrom("rahul@poorah.com");
         msg.setTo(to);
         msg.setSubject(subject);
         msg.setText(body);
@@ -28,7 +29,7 @@ public class EmailService {
     public void sendOrderMail(Orders order, String items){
 
         SimpleMailMessage message = new SimpleMailMessage();
-
+        message.setFrom("rahul@poorah.com");
         message.setTo("rahul@poorah.com"); // admin mail
         message.setSubject("New Order Received - " + order.getOrderNumber());
         String amount = order.getTotalAmount()
@@ -65,7 +66,7 @@ public class EmailService {
     	 try {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("rahul@poorah.com");
-        message.setTo("poojakri2496@gmail.com"); 
+        message.setTo(userEmail); 
         message.setReplyTo(userEmail);
         message.setSubject(subject);
         message.setText(body);
@@ -80,6 +81,7 @@ public class EmailService {
     public void sendAutoReply(String toEmail, String subject, String inbox)
     {
     	SimpleMailMessage message = new SimpleMailMessage();
+    	 message.setFrom("rahul@poorah.com");
     	message.setTo(toEmail);
     	message.setSubject(subject);
     	message.setText(inbox);
@@ -90,6 +92,7 @@ public class EmailService {
     public void sendReply(String toEmail, String subject, String inbox, String userName) {
 
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("rahul@poorah.com");
         message.setTo(toEmail);
         message.setSubject(subject);
         
