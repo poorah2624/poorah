@@ -133,7 +133,7 @@
 
 												<img
 													src="https://developers.google.com/identity/images/g-logo.png"
-													width="20"> <span>Sign in with Google</span>
+													width="20">
 
 											</button>
 										</li>

@@ -1678,12 +1678,12 @@ h3.other-nw {
     line-height: 3em;
     margin: 0.8em;
     position: absolute;
-    -webkit-transition: -webkit-transform .7s;
+    /*-webkit-transition: -webkit-transform .7s;
     -moz-transition: -moz-transform .7s;
     -ms-transition: -ms-transform .7s;
     -o-transition: -o-transform .7s;
     transition: transform .7s;
-    /*-webkit-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     -o-transform: rotate(45deg);
@@ -1698,23 +1698,23 @@ h3.other-nw {
     height: 3em;
     line-height: 3em;
     text-align: center;
-    -webkit-transform: rotate(-45deg);
+    /* -webkit-transform: rotate(-45deg);
     -moz-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     -o-transform: rotate(-45deg);
-    transform: rotate(-45deg);
+    transform: rotate(-45deg);*/
     width: 3em;
 }
 
 
 
-.social li:hover {
+/*.social li:hover {
   -webkit-transform: scale(1.3,1.3) rotate(45deg);
 	-moz-transform: scale(1.3,1.3) rotate(45deg);
   -ms-transform: scale(1.3,1.3) rotate(45deg);
 	-o-transform: scale(1.3,1.3) rotate(45deg);
   transform: scale(1.3,1.3) rotate(45deg);
-}
+}*/
 
 .social_facebook {
 	background: #3b5998;
