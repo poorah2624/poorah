@@ -200,7 +200,8 @@ public class OrderController {
 
 	    model.addAttribute("item", item);
 	    
-	    
+	    ContactDetails cDetails = cDetailsService.getContactDetails();
+		model.addAttribute("cDetails", cDetails);
 
 	    return "orderDetails";
 	}

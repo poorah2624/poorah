@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import springStarter.models.Address;
 import springStarter.models.Category;
+import springStarter.models.ContactDetails;
 import springStarter.models.User;
 import springStarter.services.AddressService;
 import springStarter.services.CategoryService;
+import springStarter.services.ContactDetailsService;
 
 @Controller
 public class AddressController {
@@ -27,6 +29,10 @@ public class AddressController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private ContactDetailsService cDetailsService;
+	
 	
 	@GetMapping("/address")
 	public String addressPage(Model model, HttpSession session){
@@ -44,6 +50,9 @@ public class AddressController {
 	    System.out.println("SIZE = " + list.size());
 
 	    model.addAttribute("addresses", list);
+	    
+	    ContactDetails cDetails = cDetailsService.getContactDetails();
+		model.addAttribute("cDetails", cDetails);
 
 	    return "address";
 	}
