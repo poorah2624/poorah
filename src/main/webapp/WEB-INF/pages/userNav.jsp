@@ -5,29 +5,7 @@
 --%>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JSP Page</title>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
-<link
-	href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
-	rel="stylesheet">
-
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-<link href="css/style1.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
 	
 	<div class="row">
 		<div class="col-md-12">
@@ -62,5 +40,4 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+
