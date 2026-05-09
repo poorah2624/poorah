@@ -134,7 +134,9 @@
 													src="https://developers.google.com/identity/images/g-logo.png"
 													width="20" style="margin-right: 8px;"> Sign in with
 												Google
-											</button> <!--  <li><a href="#" onclick="facebookLogin()"
+											</button> 
+											</li>
+											<!--  <li><a href="#" onclick="facebookLogin()"
 											class="entypo-facebook"> </a></li> -->
 									</ul>
 								</div>
