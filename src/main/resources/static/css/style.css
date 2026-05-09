@@ -1677,22 +1677,16 @@ h3.other-nw {
 /* ---------- SOCIAL ---------- */
 
 .social {
-	position: relative;
-    height: 3em;
-    margin: 0 auto;
-     display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+    justify-content: center;   /* horizontal center */
+    align-items: center;       /* vertical center */
     width: 100%;
-    margin-top: 20px;
+    margin-top: 25px;
     padding: 0;
 }
 
 .social li {
-	display: block;
-    position: absolute;
-    text-align: center;
-    list-style: none;
+	list-style: none;
     position: static;
     margin: 0;
     width: auto;
