@@ -81,29 +81,24 @@ public class PaymentController {
 	    List<Cart> cartItems = new ArrayList<>();
 
 	    Long buyNowItemId = (Long) session.getAttribute("buyNowItemId");
+
 	    if(buyNowItemId != null){
 
-	        String size = (String) session.getAttribute("size");
+	        String buyNowSize = (String) session.getAttribute("buyNowSize");
 
 	        Cart temp = cartService.getTempCartItem(
 	                buyNowItemId,
 	                user,
-	                size
+	                buyNowSize
 	        );
 
 	        if(temp != null){
 	            cartItems.add(temp);
-	        } else {
-	            return "redirect:/checkout";
 	        }
 
 	    } else {
 
 	        cartItems = cartService.getCartByUser(user);
-
-	        if(cartItems.isEmpty()){
-	            throw new RuntimeException("Cart is empty");
-	        }
 	    }
 
 	    model.addAttribute("cartItems", cartItems);
