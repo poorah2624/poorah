@@ -24,9 +24,9 @@ public class CartService {
 	@Autowired
 	private ItemRepo itemRepo;
 
-	public void addToCart(User user, Item item, String size, String age) {
+	public void addToCart(User user, Item item, String size) {
 
-		Cart cart = cartRepo.findByUserAndItemAndSizeAndAge(user, item, size, age);
+		Cart cart = cartRepo.findByUserAndItemAndSize(user, item, size);
 
 		BigDecimal price = new BigDecimal(String.valueOf(item.getItemPrice()));
 		BigDecimal discount = item.getDiscount();
@@ -48,7 +48,7 @@ public class CartService {
 			cart.setItem(item);
 			cart.setQuantity(1);
 			cart.setSize(size);
-			cart.setAge(age);
+		
 			cart.setTotalPrice(finalPrice);
 		}
 

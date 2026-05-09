@@ -95,7 +95,6 @@ public class CartController {
 	@GetMapping("/addToCart")
 	public String addToCart(@RequestParam Long itemId, 
 			@RequestParam(required = false) String size,
-            @RequestParam(required = false) String age,
             HttpSession session){
 
 	    User user = (User) session.getAttribute("LoggedInUser");
@@ -107,15 +106,12 @@ public class CartController {
 
 	    Item item = itemService.getItemById(itemId);
 	    
-	    if(item.getCategory().getCategoryName().equalsIgnoreCase("Kids") && age == null){
-	        return "redirect:/single/" + itemId;
+	    if(item.getCategory().getCategoryName().equalsIgnoreCase("Clothing") 
+	            && (size == null || size.isEmpty())){
+	        return "Size required";
 	    }
 
-	    if(!item.getCategory().getCategoryName().equalsIgnoreCase("Kids") && size == null){
-	        return "redirect:/single/" + itemId;
-	    }
-
-	    cartService.addToCart(user, item, size, age);
+	    cartService.addToCart(user, item, size);
 	    
 	    
 
