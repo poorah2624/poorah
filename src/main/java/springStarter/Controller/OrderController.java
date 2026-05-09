@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import springStarter.models.Admin;
 import springStarter.models.Category;
+import springStarter.models.ContactDetails;
 import springStarter.models.ExchangeRequest;
 import springStarter.models.Order_item;
 import springStarter.models.Orders;
@@ -26,6 +27,7 @@ import springStarter.repository.OrderItemRepo;
 import springStarter.repository.OrderRepo;
 import springStarter.repository.ReturnRequestRepo;
 import springStarter.services.CategoryService;
+import springStarter.services.ContactDetailsService;
 import springStarter.services.OrderService;
 
 @Controller
@@ -39,6 +41,9 @@ public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private ContactDetailsService cDetailsService;
 	
 	
 	
@@ -63,6 +68,9 @@ public class OrderController {
 	    List<Category> categories = categoryService.getAllCategories();
 
 	    model.addAttribute("categories", categories);
+	    
+	    ContactDetails cDetails = cDetailsService.getContactDetails();
+		model.addAttribute("cDetails", cDetails);
 
 	    return "myOrders";
 	}

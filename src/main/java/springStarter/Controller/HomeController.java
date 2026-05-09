@@ -225,13 +225,16 @@ public class HomeController {
 	}
 
 	@GetMapping("/userProfile")
-	public String userProfile(HttpSession session) {
+	public String userProfile(HttpSession session, Model model) {
 
 		User user = (User) session.getAttribute("LoggedInUser");
 
 		if (user == null) {
 			return "redirect:/userlogin";
 		}
+		
+		ContactDetails cDetails = cDetailsService.getContactDetails();
+		model.addAttribute("cDetails", cDetails);
 
 		return "userProfile";
 	}
@@ -252,6 +255,9 @@ public class HomeController {
 		}
 
 		model.addAttribute("user", loggedUser);
+		
+		ContactDetails cDetails = cDetailsService.getContactDetails();
+		model.addAttribute("cDetails", cDetails);
 
 		return "editUser";
 	}
