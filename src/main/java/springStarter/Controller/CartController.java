@@ -119,7 +119,7 @@ public class CartController {
 	    
 	    
 
-	    return "/single/" + itemId;
+	    return "Success";
 	}
 	
 	@PostMapping("/UpdateQuantity")
