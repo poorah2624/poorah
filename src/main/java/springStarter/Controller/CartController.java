@@ -157,11 +157,11 @@ public class CartController {
 	    if(user == null){
 	        return "redirect:/userlogin";
 	    }
-
+	  
 	    session.setAttribute("buyNowItemId", itemId);
 	    session.setAttribute("buyNowSize", size);
 
-	    return "checkout";
+	    return "redirect:/checkout";
 	}
 	
 	@Autowired
