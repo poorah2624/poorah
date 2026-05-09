@@ -126,20 +126,18 @@
 								</div>
 								<div class="col-md-12">
 									<ul class="social">
-										<li style="list-style: none;">
 
+										<li>
 											<button type="button" onclick="googleLogin()"
-												style="border: 1px solid #ddd; background: #fff; padding: 10px 18px; border-radius: 5px; cursor: pointer; font-size: 16px; display: flex; align-items: center; gap: 10px; margin: auto;">
+												style="border: 1px solid #ddd; background: #fff; padding: 10px 18px; border-radius: 5px; cursor: pointer; font-size: 16px; display: flex; align-items: center; gap: 10px;">
 
 												<img
 													src="https://developers.google.com/identity/images/g-logo.png"
 													width="20"> <span>Sign in with Google</span>
 
 											</button>
-
 										</li>
-										<!--  <li><a href="#" onclick="facebookLogin()"
-											class="entypo-facebook"> </a></li> -->
+
 									</ul>
 								</div>
 							</div>
