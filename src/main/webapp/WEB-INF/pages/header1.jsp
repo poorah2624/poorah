@@ -33,7 +33,7 @@
 							<%--  Mega Menu --%>
 
 							<c:forEach var="cat" items="${categories}">
-								<li><a href="#">
+								<li><a href="/products3/category/${cat.categoryId}">
 										${cat.categoryName}
 								</a></li>
 							</c:forEach>
