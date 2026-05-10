@@ -3272,7 +3272,7 @@ td.invert-image a img {
         width:50% !important;
         float:left !important;
         padding:6px !important;
-        margin:0 !important;
+         margin-bottom:10px !important;
         box-sizing:border-box !important;
     }
 	.w3_hs_bottom_sub ul {
@@ -3501,7 +3501,7 @@ td.invert-image a img {
     .hs-wrapper,
     .hs-wrapper2{
         width:100% !important;
-        height:220px !important;
+        height:190px !important;
         overflow:hidden;
         position:relative;
     }
@@ -3509,7 +3509,7 @@ td.invert-image a img {
     .hs-wrapper img,
     .hs-wrapper2 img{
         width:100% !important;
-        height:220px !important;
+        height:190px !important;
         object-fit:cover !important;
         display:block;
     }
@@ -3519,13 +3519,13 @@ td.invert-image a img {
         line-height:20px !important;
         height:40px !important;
         overflow:hidden;
-        margin-top:8px !important;
+        margin:6px 0 2px 0 !important;
         text-align:center;
     }
 
     .simpleCart_shelfItem{
         text-align:center;
-        min-height:55px;
+        
     }
 
     .simpleCart_shelfItem p{
