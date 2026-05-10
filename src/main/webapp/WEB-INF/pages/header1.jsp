@@ -31,29 +31,19 @@
 									alt="PooRah Logo" class="site-logo"></a></li>
 							<li class="active"><a href="/home" class="act">Home</a></li>
 							<%--  Mega Menu --%>
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">Products <b class="caret"></b></a>
-								<ul class="dropdown-menu multi-column columns-3">
-									<div class="row">
-										<c:forEach var="cat" items="${categories}">
-											<div class="col-sm-3">
-												<ul class="multi-column-dropdown">
-													<h6>${cat.categoryName}</h6>
-													<c:forEach var="sub" items="${cat.subCategory}">
-														<li><a href="/products/${sub.subCategoryId}">${sub.subCategoryName }</a></li>
-													</c:forEach>
-
-
-												</ul>
-											</div>
-
-
-										</c:forEach>
-									</div>
-								</ul></li>
-							<li><a href="/about">About Us</a></li>
-
-							<li><a href="/mail">Mail Us</a></li>
+							
+								
+								<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown">
+								<c:forEach var="cat" items="${categories}">
+								<h6>${cat.categoryName}</h6>
+								
+								</c:forEach>
+								 <b class="caret"></b></a>
+								
+								</li>
+								
+							
 							<li><a href="/userlogin" class="login-btn"><i
 									class="fa fa-user"></i>Login</a></li>
 
@@ -136,9 +126,7 @@
 										</c:forEach>
 									</div>
 								</ul></li>
-							<li><a href="/about">About Us</a></li>
-
-							<li><a href="/mail">Mail Us</a></li>
+							
 
 							<li class="dropdown" style="position: relative;"><a href="#"
 								class="dropdown-toggle" data-toggle="dropdown"> Hi,

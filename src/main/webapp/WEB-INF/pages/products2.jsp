@@ -200,24 +200,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<a
 											href="/single/${p.itemId}">${p.itemName }</a>
 									</h5>
-									<div class="simpleCart_shelfItem" style="text-align:center;">
-									  <div style="display:flex; justify-content:center; gap:10px; align-items:center;">
-									<p>
-									<b class="item_price">₹ 
-									<c:if test="${not empty p.discountedPrice}">
-									<fmt:formatNumber value="${p.discountedPrice}" maxFractionDigits="0"/> /-
+									<div class="simpleCart_shelfItem" style="text-align: center;">
+										<div
+											style="display: flex; justify-content: center; gap: 10px; align-items: center;">
+											<p>
+												<b class="item_price">₹ <c:if
+														test="${not empty p.discountedPrice}">
+														<fmt:formatNumber value="${p.discountedPrice}"
+															maxFractionDigits="0" /> /-
 									
-									</c:if></b>
-									
-								</p>
-										<p>
-											<!-- <span>&#8377 price/-</span>  -->
-											<b class="item_price"><span>&#8377 <fmt:formatNumber value="${p.itemPrice }" maxFractionDigits="0"/>/-</span></b>
-											<span class="discount"> ${fn:split(p.discount, '.')[0]}%
-															OFF </span>
-										</p>
-										
-                                     </div>
+														
+													</c:if></b>
+
+
+											</p>
+											<div class="price-meta">
+												<span class="old-price"> ₹ <fmt:formatNumber
+														value="${p.itemPrice}" maxFractionDigits="0" /> /-
+												</span> <span class="discount"> ${fn:split(p.discount, '.')[0]}%
+													OFF </span>
+											</div>
+
+										</div>
 									</div>
 
 

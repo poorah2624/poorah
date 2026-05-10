@@ -4852,6 +4852,7 @@ input[type="radio"]:invalid {
 .discount {
     color: green;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .final {
