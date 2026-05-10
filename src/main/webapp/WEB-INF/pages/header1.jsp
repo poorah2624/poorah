@@ -39,7 +39,7 @@
 										${cat.categoryName} </a>
 									<ul class="dropdown-menu">
 
-										<c:forEach var="sub" items="${cat.subCategories}">
+										<c:forEach var="sub" items="${cat.subCategory}">
 
 											<li><a
 												href="/products3/category/${cat.categoryId}?subCategory=${sub.subCategoryId}">
@@ -117,7 +117,7 @@
 										${cat.categoryName} </a>
 									<ul class="dropdown-menu">
 
-										<c:forEach var="sub" items="${cat.subCategories}">
+										<c:forEach var="sub" items="${cat.subCategory}">
 
 											<li><a
 												href="/products3/category/${cat.categoryId}?subCategory=${sub.subCategoryId}">
