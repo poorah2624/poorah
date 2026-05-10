@@ -172,10 +172,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="hs-wrapper hs-wrapper2">
 										<a
 											href="/single/${p.itemId}">
-											<img
+											<img class="img-responsive"
 											src="${fn:split(p.itemImage, ',')[0]}"
 											alt=" " class="img-responsive"
-											style="width: 210px; height: 250px;" />
+											/>
 											</a>
 
 										<div class="w3_hs_bottom w3_hs_bottom_sub1">
