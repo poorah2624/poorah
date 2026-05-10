@@ -91,32 +91,33 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 
 		</div>
+		<br>
+		<br>
 		
-
 		<div class="col-md-12">
 			<div class="category-section2">
+			
+			<div class="category-box2">
+				<div class="video-img custom-upload-box">
+					<div class="overlay"></div>
+					<div class="overlay-content">
 
-				<div class="category-box2">
-					<div class="video-img custom-upload-box">
-						<div class="overlay"></div>
-						<div class="overlay-content">
 
-
-							<a href="/customDesign">
-								<button class="upload-btn">Upload Design</button>
-							</a>
-						</div>
-
+						<a href="/customDesign">
+							<button class="upload-btn">Upload Design</button>
+						</a>
 					</div>
-
-
 
 				</div>
 
+
+
 			</div>
-		</div>
+			
+			</div>
+			</div>
 
-
+		
 		<!-- //banner-bottom -->
 
 
