@@ -3267,11 +3267,12 @@ td.invert-image a img {
 	.w3agile_special_deals_grid_right_pos {
 		left: 28%;
 	}
-	.agileinfo_new_products_grid,
+	 .agileinfo_new_products_grid,
     .agileinfo_new_products_grid_dresses{
         width:50% !important;
         float:left !important;
-        padding:8px !important;
+        padding:6px !important;
+        margin:0 !important;
         box-sizing:border-box !important;
     }
 	.w3_hs_bottom_sub ul {
@@ -3351,10 +3352,10 @@ td.invert-image a img {
 	.w3ls_dresses_grid_right_left:nth-child(2) {
 		margin: 2em auto 0;
 	}
-	  .dresses_grid{
+	   .dresses_grid{
+        width:100% !important;
         display:flex;
         flex-direction:column;
-        height:100%;
     }
 
 	.dropdown-menu.columns-3 {
@@ -3500,34 +3501,35 @@ td.invert-image a img {
     .hs-wrapper,
     .hs-wrapper2{
         width:100% !important;
-        aspect-ratio: 3 / 4;
+        height:220px !important;
         overflow:hidden;
+        position:relative;
     }
-    
+
     .hs-wrapper img,
     .hs-wrapper2 img{
         width:100% !important;
-        height:100% !important;
-        object-fit:cover;
+        height:220px !important;
+        object-fit:cover !important;
         display:block;
     }
-    
+
     .product-name{
-        font-size:16px !important;
-        line-height:22px;
-        height:44px;
+        font-size:15px !important;
+        line-height:20px !important;
+        height:40px !important;
         overflow:hidden;
-        margin-top:10px;
+        margin-top:8px !important;
         text-align:center;
     }
-    
+
     .simpleCart_shelfItem{
-        margin-top:auto;
-        min-height:60px;
+        text-align:center;
+        min-height:55px;
     }
 
     .simpleCart_shelfItem p{
-        margin:0;
+        margin:0 !important;
     }
 }
 @media (max-width:800px){
@@ -4096,16 +4098,16 @@ td.invert-image a img {
 	.w3agile_special_deals_grid_right {
 		width: 100%;
 	}
-	.agileinfo_new_products_grid {
+	/*.agileinfo_new_products_grid {
 		width: 100%;
 		float: none;
-	}
+	} */
 	.agile_ecommerce_tab_left h5 {
 		margin: 1.5em 0 0;
 	}
-	.agileinfo_new_products_grid:nth-child(2) {
+	/*.agileinfo_new_products_grid:nth-child(2) {
 		margin: 2em 0;
-	}
+	} */
 	.w3agile_newsletter_left h3 {
 		font-size: 1.5em;
 	}
