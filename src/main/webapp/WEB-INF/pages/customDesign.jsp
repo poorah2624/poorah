@@ -19,7 +19,7 @@
 
 </head>
 <body>
-	<%@include file="header.jsp"%>
+	<%@include file="header1.jsp"%>
 	<!--  <div class="banner10" id="home1">
 		<div class="container">
 			<h2>User Profile</h2>

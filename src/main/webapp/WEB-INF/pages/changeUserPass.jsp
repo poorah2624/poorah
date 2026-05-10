@@ -9,8 +9,8 @@
 <html>
 <%@include file="head.jsp"%>
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
-	<jsp:include page="userNav.jsp"></jsp:include>
+	<%@include file="header1.jsp"%>
+	<%@include file="userNav.jsp"%>
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
@@ -52,6 +52,6 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="footer.jsp"></jsp:include>
+	<%@include file="footer.jsp"%>
 </body>
 </html>

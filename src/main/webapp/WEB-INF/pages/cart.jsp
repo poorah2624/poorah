@@ -52,7 +52,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <body>
 	<!-- header -->
-	<%@include file="header.jsp"%>
+	<%@include file="header1.jsp"%>
 	<!-- //header -->
 	<!-- banner -->
 	<!--  <div class="banner10" id="home1">
