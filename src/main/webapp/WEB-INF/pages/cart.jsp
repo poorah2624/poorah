@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page isELIgnored="false" %>
+<%@ page isELIgnored="false"%>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -24,20 +24,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 	
 	
+	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } 
+
+
 
 
 
 </script>
 
 <!-- //for-mobile-apps -->
-<link href="/css/bootstrap.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="/css/style.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="/css/fasthover.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="/css/bootstrap.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/css/fasthover.css" rel="stylesheet" type="text/css"
+	media="all" />
 
 
 <link href='//fonts.googleapis.com/css?family=Glegoo:400,700'
@@ -66,8 +69,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span
-						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Cart</li>
 			</ul>
 		</div>
@@ -90,9 +93,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								<!-- IMAGE -->
 								<div class="custom-img">
-									<img
-										src="${c.customImage}" />
-									<span class="custom-badge">Your Design 🎨</span>
+									<img src="${c.customImage}" /> <span class="custom-badge">Your
+										Design 🎨</span>
 								</div>
 
 								<!-- DETAILS -->
@@ -126,15 +128,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 									<!-- PRICE -->
 									<div class="custom-price">
-									<c:if test="${not empty c.totalPrice}">
+										<c:if test="${not empty c.totalPrice}">
 										₹ ${c.totalPrice} /-
 										</c:if>
 									</div>
 
 									<!-- ACTION -->
 									<div class="custom-actions">
-										<a
-											href="/DeleteCart/${c.cartId}"
+										<a href="/DeleteCart/${c.cartId}"
 											class="btn btn-danger btn-sm">Remove</a>
 									</div>
 
@@ -147,8 +148,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 								<!-- IMAGE -->
 								<div class="cart-img">
-									<img
-										src="${fn:split(c.item.itemImage, ',')[0]}" />
+									<img src="${fn:split(c.item.itemImage, ',')[0]}" />
 
 								</div>
 
@@ -162,14 +162,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="price-section">
 
 										<div class="final-price">
-										<c:if test="${not empty c.totalPrice}">
+											<c:if test="${not empty c.totalPrice}">
 											₹ ${c.totalPrice} /-
 											</c:if>
 										</div>
 
 										<div class="price-meta">
-											<span class="old-price"> ₹ ${c.item.itemPrice} /-
-											</span> <span class="discount"> ${c.item.discount}% OFF </span>
+											<span class="old-price"> ₹ ${c.item.itemPrice} /- </span> <span
+												class="discount"> ${c.item.discount}% OFF </span>
 										</div>
 
 									</div>
@@ -177,21 +177,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="meta">
 
 
-										<c:choose>
-											<c:when test="${c.item.category.categoryName == 'Kids'}">
-                                   Age : ${c.age}
-                                </c:when>
-											<c:otherwise>
+										<c:if
+											test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women'}">
+                                   
                                    Size : ${c.size}
-                                </c:otherwise>
-										</c:choose>
+                                
+										</c:if>
 									</div>
 
 									<!-- QUANTITY -->
 									<div class="qty-box">
-										<form
-											action="/UpdateQuantity"
-											method="post">
+										<form action="/UpdateQuantity" method="post">
 
 											<input type="hidden" name="itemId" value="${c.item.itemId}">
 											<input type="hidden" name="userEmail"
@@ -206,13 +202,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<button type="button"
 												onclick="this.previousElementSibling.stepUp()">+</button>
 
-											<button class="btn btn-warning" style="">Update</button>
+											<button type="submit" class="btn btn-warning">Update</button>
 										</form>
 
 										<!-- DELETE -->
-										<a
-											href="/DeleteCart/${c.cartId}"
-											class="delete-btn"> 🗑 </a>
+										<a href="/DeleteCart/${c.cartId}" class="delete-btn"> 🗑 </a>
 									</div>
 
 								</div>
@@ -224,9 +218,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				<!-- TOTAL SECTION -->
 				<div class="cart-summary">
-					<div>
-						Total: ₹ ${grandTotal} /-
-					</div>
+					<div>Total: ₹ ${grandTotal} /-</div>
 
 					<div>
 						Delivery:
@@ -249,9 +241,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</c:if>
 					</div>
 
-					<div class="final-total">
-						Total Amount: ₹ ${finalAmount} /-
-					</div>
+					<div class="final-total">Total Amount: ₹ ${finalAmount} /-</div>
 				</div>
 
 			</div>
@@ -259,11 +249,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="checkout-left">
 
 				<div class="checkout-right-basket">
-					<a href="/checkout"
-						class="btn btn-warning">Order Now</a> <a
-						href="/products2"><span
-						class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue
-						Shopping</a>
+					<a href="/checkout" class="btn btn-warning">Order Now</a> <a
+						href="/products2"><span class="glyphicon glyphicon-menu-left"
+						aria-hidden="true"></span>Continue Shopping</a>
 				</div>
 				<div class="clearfix"></div>
 			</div>

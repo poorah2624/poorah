@@ -263,21 +263,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<td>${item.subCategory.subCategoryName}</td>
 							</tr>
 
-							<c:choose>
-								<c:when test="${item.category.categoryName == 'Kids'}">
-									<tr>
-										<th>Age</th>
-										<td>${item.age}</td>
-									</tr>
-								</c:when>
-								<c:otherwise>
-									<tr>
-										<th>Size</th>
-										<td>${item.size}</td>
-									</tr>
-								</c:otherwise>
+							<c:if
+								test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women'}">
 
-							</c:choose>
+								<tr>
+									<th>Size</th>
+									<td>${item.size}</td>
+								</tr>
+
+							</c:if>
 
 							<tr>
 								<th>Weight</th>
@@ -481,7 +475,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	    let category = "${item.category.categoryName}";
 
-	    if(category.toLowerCase() === "clothing"){
+	    if((category.toLowerCase() === "men") || (category.toLowerCase() === "women")){
 	        if(!size){
 	            errorDiv.innerHTML = "Please select size.";
 	            return;
