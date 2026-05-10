@@ -22,8 +22,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript">
 	
 	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } 
+
 
 
 </script>
@@ -201,14 +203,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 											</p>
-											<p>
-												<!-- <span>&#8377 price/-</span>  -->
-												<b class="item_price"><span>&#8377 <fmt:formatNumber
-															value="${p.itemPrice }" maxFractionDigits="0" />/-
-												</span></b>
-												<span class="discount"> ${fn:split(p.discount, '.')[0]}%
-															OFF </span>
-											</p>
+											<div class="price-meta">
+												<span class="old-price"> ₹ <fmt:formatNumber
+														value="${p.itemPrice}" maxFractionDigits="0" /> /-
+												</span> <span class="discount"> ${fn:split(p.discount, '.')[0]}%
+													OFF </span>
+											</div>
 
 										</div>
 									</div>
