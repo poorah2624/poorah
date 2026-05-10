@@ -575,5 +575,14 @@ function checkDelivery(){
     .catch(err => console.log(err));
 }
 </script>
+<script>
+function openSizeChart() {
+    document.getElementById("sizeChartModal").style.display = "block";
+}
+
+function closeSizeChart() {
+    document.getElementById("sizeChartModal").style.display = "none";
+}
+</script>
 </body>
 </html>
