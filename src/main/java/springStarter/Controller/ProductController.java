@@ -196,7 +196,7 @@ public class ProductController {
 		
 		String categoryName = "Clothing";
 		
-	    List<Item> items = itemRepo.findByGenderAndCategory_CategoryNameAndStatus(gender, categoryName, "active");
+	    List<Item> items = itemRepo.findByGenderAndCategory_CategoryNameAndStatus(gender, categoryName, "Active");
 	    model.addAttribute("items", items);
 	    
 	    ContactDetails cDetails = cDetailsService.getContactDetails();
