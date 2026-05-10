@@ -820,7 +820,7 @@ ul.multi-column-dropdown h6 {
 	color:#212121;
 }
 .simpleCart_shelfItem p{
-	font-size: 1.2em;
+	font-size: 1em;
     color: #212121;
     margin: 0.5em 0 1em;
     font-weight: 600;
@@ -3530,6 +3530,7 @@ td.invert-image a img {
 
     .simpleCart_shelfItem p{
         margin:0 !important;
+        font-size: 1em;
     }
 }
 @media (max-width:800px){
