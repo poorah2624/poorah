@@ -4,7 +4,7 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
-<%@ page isELIgnored="false" %>
+<%@ page isELIgnored="false"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -71,11 +71,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 		<!-- banner-bottom -->
-		<br>
-		<br>
+		<br> <br>
 
-		<div class="category-section1">
+		<div class="col-md-12">
+			<div class="category-section1">
+				<div class="category-box1">
+					<div class="video-img1 custom-upload-box1">
+						<a href="/products3/category/5"> <img
+							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1778178794/WhatsApp_Image_2026-05-07_at_23.23.06_oykhj5.jpg"
+							alt="Korean">
 
+						</a>
+
+					</div>
+
+
+
+				</div>
+			</div>
+
+		</div>
+		
+		<div class="col-md-12">
+			<div class="category-section1">
+			
 			<div class="category-box1">
 				<div class="video-img custom-upload-box">
 					<div class="overlay"></div>
@@ -92,23 +111,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 			</div>
-            <div class="category-box1">
-				<div class="video-img1 custom-upload-box1">
-					<a href="/products3/category/5"> <img
-					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1778178794/WhatsApp_Image_2026-05-07_at_23.23.06_oykhj5.jpg"
-					alt="Korean">
-					
-				</a>
-
-				</div>
-
-
-
-			</div>
 			
+			</div>
+			</div>
 
-		</div>
-
+		
 		<!-- //banner-bottom -->
 
 
@@ -135,13 +142,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											<div class="col-md-2">
 
 												<div class="hs-wrapper">
-													<a href="/single/${item.itemId}" > <img src="${fn:split(item.itemImage, ',')[0]}"
-														alt="${item.itemName}" class="img-responsive" /> </a>
+													<a href="/single/${item.itemId}"> <img
+														src="${fn:split(item.itemImage, ',')[0]}"
+														alt="${item.itemName}" class="img-responsive" />
+													</a>
 
 													<div class="w3_hs_bottom">
 														<ul>
-															<li><a href="/single/${item.itemId}">
-															</a></li>
+															<li><a href="/single/${item.itemId}"> </a></li>
 														</ul>
 													</div>
 												</div>
@@ -154,9 +162,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 													<p class="price">
 														₹
 														<c:if test="${not empty item.discountedPrice}">
-														<fmt:formatNumber value="${item.discountedPrice}"
-															maxFractionDigits="0" />
-															</c:if>
+															<fmt:formatNumber value="${item.discountedPrice}"
+																maxFractionDigits="0" />
+														</c:if>
 														<span>₹<fmt:formatNumber value="${item.itemPrice}"
 																maxFractionDigits="0" /></span>
 													</p>
