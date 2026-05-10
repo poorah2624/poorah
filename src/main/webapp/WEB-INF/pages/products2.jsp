@@ -206,6 +206,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<b class="item_price">₹ 
 									<c:if test="${not empty p.discountedPrice}">
 									<fmt:formatNumber value="${p.discountedPrice}" maxFractionDigits="0"/> /-
+									<span class="discount"> ${fn:split(p.discount, '.')[0]}%
+															OFF </span>
 									</c:if></b>
 									
 								</p>

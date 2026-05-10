@@ -1,8 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -21,17 +21,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript">
 	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } 
 
+
 </script>
 <!-- //for-mobile-apps -->
-<link href="/css/bootstrap.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="/css/style.css"
-	rel="stylesheet" type="text/css" media="all" />
-<link href="/css/fasthover.css"
-	rel="stylesheet" type="text/css" media="all" />
+<link href="/css/bootstrap.css" rel="stylesheet" type="text/css"
+	media="all" />
+<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/css/fasthover.css" rel="stylesheet" type="text/css"
+	media="all" />
 
 <!-- cart -->
 <script src="/js/simpleCart.min.js"></script>
@@ -61,23 +62,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<%@include file="header.jsp"%>
 	<!-- //header -->
 	<!-- banner -->
-	
+
 	<!-- //banner -->
 	<!--  <div class="banner10" id="home1">
 		<div class="container">
 			<h2>Products</h2>
 		</div>
 	</div> -->
-	
+
 	<c:if test="${not empty defaultAddress}">
 
 		<div
 			style="background: #f5f5f5; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
 
 			<b>Deliver to:</b> ${defaultAddress.fullName},
-			${defaultAddress.pincode} <a
-				href="/address"
-				style="float: ;">Change</a>
+			${defaultAddress.pincode} <a href="/address" style="float:;">Change</a>
 		</div>
 
 	</c:if>
@@ -86,8 +85,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span
-						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Products</li>
 			</ul>
 		</div>
@@ -158,7 +157,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="w3ls_dresses_grid_right_grid3">
 						<c:forEach var="p" items="${items}">
 
-							<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+							<div
+								class="col-xs-6 col-sm-6 col-md-3 col-lg-3 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
 
 
 								<div class="dresses_grid">
@@ -170,44 +170,46 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 									<div class="hs-wrapper hs-wrapper2">
-										<a
-											href="/single/${p.itemId}">
-											<img class="img-responsive"
-											src="${fn:split(p.itemImage, ',')[0]}"
-											alt=" " class="img-responsive"
-											/>
-											</a>
+										<a href="/single/${p.itemId}"> <img class="img-responsive"
+											src="${fn:split(p.itemImage, ',')[0]}" alt=" "
+											class="img-responsive" />
+										</a>
 
 										<div class="w3_hs_bottom w3_hs_bottom_sub1">
 											<ul>
-												<li><a
-													href="/single/${p.itemId}"
-													data-target="#myModal4"></a>
-												</li>
+												<li><a href="/single/${p.itemId}"
+													data-target="#myModal4"></a></li>
 											</ul>
 										</div>
 									</div>
 
-									<h5 class="product-name" style="text-align:center;font-size:20px;">
-										<a
-											href="/single/${p.itemId}">${p.itemName }</a>
+									<h5 class="product-name"
+										style="text-align: center; font-size: 20px;">
+										<a href="/single/${p.itemId}">${p.itemName }</a>
 									</h5>
-									<div class="simpleCart_shelfItem" style="text-align:center;">
-									  <div style="display:flex; justify-content:center; gap:10px; align-items:center;">
-									<p>
-									<b class="item_price">₹ 
-									<c:if test="${not empty p.discountedPrice}">
-									<fmt:formatNumber value="${p.discountedPrice}" maxFractionDigits="0"/> /-
-									</c:if></b>
+									<div class="simpleCart_shelfItem" style="text-align: center;">
+										<div
+											style="display: flex; justify-content: center; gap: 10px; align-items: center;">
+											<p>
+												<b class="item_price">₹ <c:if
+														test="${not empty p.discountedPrice}">
+														<fmt:formatNumber value="${p.discountedPrice}"
+															maxFractionDigits="0" /> /-
 									
-									
-								</p>
-										<p>
-											<!-- <span>&#8377 price/-</span>  -->
-											<b class="item_price"><span>&#8377 <fmt:formatNumber value="${p.itemPrice }" maxFractionDigits="0"/>/-</span></b>
-										</p>
-										
-                                     </div>
+														<span class="discount"> ${fn:split(p.discount, '.')[0]}%
+															OFF </span>
+													</c:if></b>
+
+
+											</p>
+											<p>
+												<!-- <span>&#8377 price/-</span>  -->
+												<b class="item_price"><span>&#8377 <fmt:formatNumber
+															value="${p.itemPrice }" maxFractionDigits="0" />/-
+												</span></b>
+											</p>
+
+										</div>
 									</div>
 
 
@@ -228,9 +230,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 	<!-- footer -->
-	<%@include file="footer.jsp" %>
+	<%@include file="footer.jsp"%>
 	<!-- //footer -->
-	
+
 	<script>
 
 function addToCart(itemId, btn){
