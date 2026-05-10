@@ -128,7 +128,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 					</div>
 
-					<div class="simpleCart_shelfItem">
+					<div class="simpleCart_shelfItem" style="clear:both; margin-top:20px;">
 						<div class="price-section">
 
 							<div class="final-price">
