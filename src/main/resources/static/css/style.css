@@ -4128,9 +4128,9 @@ td.invert-image a img {
 	.w3ls_dresses_grid_right_left {
 		width: 100%;
 	}
-	.agileinfo_new_products_grid_dresses {
+	/*.agileinfo_new_products_grid_dresses {
 		width: 100% !important;
-	}
+	}*/
 	.dresses_grid_pos {
 		right: 26%;
 	}
