@@ -192,7 +192,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<div class="simpleCart_shelfItem" style="text-align: center;">
 										<div
 											style="display: flex; justify-content: center; gap: 10px; align-items: center;">
-											<p style="font-size:30px;">
+											<p>
 												<b class="item_price">₹ <c:if
 														test="${not empty p.discountedPrice}">
 														<fmt:formatNumber value="${p.discountedPrice}"
