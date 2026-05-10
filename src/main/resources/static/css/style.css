@@ -5374,6 +5374,17 @@ input[type="radio"]:invalid {
 		overflow: hidden;
 	}
 	
+	.category-section2 {
+		display: flex;
+		width: 100%;
+		height: 500px;
+	}
+	.category-box2 {
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+	}
+	
 
 	@media (max-width: 400px) {
     .category-section1 {
@@ -5384,6 +5395,15 @@ input[type="radio"]:invalid {
     .category-box1 {
         width: 100%;
         height: 250px;
+    }
+    .category-section2 {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .category-box2 {
+        width: 100%;
+        height: 200px;
     }
 }
 
