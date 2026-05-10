@@ -39,7 +39,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 	<!-- //breadcrumbs -->
 
-	<form action="/payment" method="post">
+	<form action="/payment" method="post" id="checkoutForm">
 
 		<div class="container" style="margin-top: 30px;">
 
@@ -174,8 +174,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<br>
 
 
-							<button type="submit" class="btn btn-success btn-block"
-								id="checkoutForm">Place Order</button>
+							<button type="submit" class="btn btn-success btn-block">Place Order</button>
 
 
 						</div>

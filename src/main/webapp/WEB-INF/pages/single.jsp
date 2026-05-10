@@ -537,7 +537,7 @@ function buyNowOrder(itemId, btn){
     let category = "${item.category.categoryName}";
 
     // only clothing needs size
-    if(category.toLowerCase() === "clothing"){
+    if((category.toLowerCase() === "men") || (category.toLowerCase() === "women")){
         if(!size){
             errorDiv.innerHTML = "Please select size.";
             return;
