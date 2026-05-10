@@ -215,7 +215,7 @@ function toggleFieldsByCategory() {
 
 												</div>
 											</div>
-											<div class="form-group">
+											<div class="form-group" id="genderDiv">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="Gender">Gender <span
 													class="required"> *</span>
@@ -338,22 +338,7 @@ function toggleFieldsByCategory() {
 													XXL
 												</div>
 											</div>
-											<div class="form-group" id="ageDiv">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="size">Select Age<span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<input type="checkbox" name="age" value="0-1"
-														<c:if test="${fn:contains(item.age,'0-1')}">checked</c:if>>
-													0-1 <input type="checkbox" name="age" value="1-3"
-														<c:if test="${fn:contains(item.age,'1-3')}">checked</c:if>>
-													1-3 <input type="checkbox" name="age" value="3-5"
-														<c:if test="${fn:contains(item.age,'3-5')}">checked</c:if>>
-													3-5 <input type="checkbox" name="age" value="5-7"
-														<c:if test="${fn:contains(item.age,'5-7')}">checked</c:if>>
-													5-7
-												</div>
-											</div>
+											
 											
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
@@ -644,6 +629,30 @@ function toggleFieldsByCategory() {
 							}
 
 						});
+	</script>
+	
+	<script>
+		document.getElementById("category").addEventListener("change",
+				function() {
+
+					var categoryName = this.options[this.selectedIndex].text;
+
+					var sizeDiv = document.getElementById("sizeDiv");
+					var genderDiv = document.getElementById("genderDiv");
+
+					sizeDiv.style.display = "none";
+					
+
+					if (categoryName.toLowerCase().includes("men") || categoryName.toLowerCase().includes("women")) {
+						sizeDiv.style.display = "block";
+						genderDiv.style.display = "block";
+					}
+					
+					
+
+					
+
+				});
 	</script>
 	
 </body>

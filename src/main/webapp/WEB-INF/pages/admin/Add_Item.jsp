@@ -289,17 +289,7 @@
 														type="checkbox" name="size" value="XXL"> XXL
 												</div>
 											</div>
-											<div class="form-group" id="ageDiv" style="display: none;">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="size">Select Age<span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<input type="checkbox" name="age" value="0-1"> 0-1
-													<input type="checkbox" name="age" value="1-3"> 1-3
-													<input type="checkbox" name="age" value="3-5"> 3-5
-													<input type="checkbox" name="age" value="5-7"> 5-7
-												</div>
-											</div>
+											
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="weight">Weight<span class="required">*</span>
