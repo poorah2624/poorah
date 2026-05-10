@@ -3270,6 +3270,7 @@ td.invert-image a img {
 	.agileinfo_new_products_grid {
 		width: 50% !important;
         float: left;
+        box-sizing: border-box;
 	}
 	.w3_hs_bottom_sub ul {
 		padding:5em 0 0 !important;
@@ -3349,9 +3350,9 @@ td.invert-image a img {
 		margin: 2em auto 0;
 	}
 	.dresses_grid {
-		float: none !important;
-		width: 100% !important;
-	}
+        width: auto !important;
+    }
+
 	.dropdown-menu.columns-3 {
 		min-width: 800px;
 	}
@@ -3481,6 +3482,9 @@ td.invert-image a img {
 		width: 70%;
 		margin: 0 auto;
 	}
+	.w3ls_dresses_grid_right_grid3 {
+        display: block !important;
+    }
 }
 @media (max-width:800px){
 	.modal-dialog {
