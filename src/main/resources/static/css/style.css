@@ -3366,11 +3366,16 @@ td.invert-image a img {
 	.w3ls_dresses_grid_left_grid_sub {
 		width: 62%;
 	}
-	/* .agileinfo_new_products_grid_dresses {
-        width: 50% !important;
-        float: left !important;
-        box-sizing: border-box !important;
-    } */
+	 .agileinfo_new_products_grid_dresses{
+        padding-left:8px !important;
+        padding-right:8px !important;
+        margin-bottom:15px;
+    }
+
+    .w3ls_dresses_grid_right_grid3{
+        margin-left:-8px;
+        margin-right:-8px;
+    }
 	.w3_hs_bottom_sub1 ul {
 		padding: 7em 0 0 !important;
 	}
