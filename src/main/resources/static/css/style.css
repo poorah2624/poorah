@@ -820,7 +820,7 @@ ul.multi-column-dropdown h6 {
 	color:#212121;
 }
 .simpleCart_shelfItem p{
-	font-size: 1em;
+	font-size: 1.2em;
     color: #212121;
     margin: 0.5em 0 1em;
     font-weight: 600;
@@ -4821,6 +4821,9 @@ input[type="radio"]:invalid {
 }
 
 /* Price highlight */
+.item_price{
+        white-space: nowrap;
+    }
 .price {
     font-weight: bold;
 }
