@@ -114,7 +114,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/products3/category/{categoryId}")
-	public String productsByCategory(@PathVariable Long categoryId, Model model, HttpSession session) {
+	public String productsByCategory(@PathVariable Long categoryId, String gender, Model model, HttpSession session) {
 		
 		User user = (User) session.getAttribute("LoggedInUser");
 		
@@ -124,7 +124,7 @@ public class ProductController {
 	        
 	    }
 
-		List<Item> items = itemService.getItemsByCategoryAndActiveStatus(categoryId);
+		List<Item> items = itemService.getItemsByCategoryAndGenderAndActiveStatus(categoryId, gender);
 		model.addAttribute("items", items);
 		
 		ContactDetails cDetails = cDetailsService.getContactDetails();
@@ -181,7 +181,7 @@ public class ProductController {
 		
 		String categoryName = "Clothing";
 		
-	    List<Item> items = itemRepo.findByGenderAndCategory_CategoryName(gender, categoryName);
+	    List<Item> items = itemRepo.findByGenderAndCategory_CategoryNameAndStatus(gender, categoryName, "active");
 	    model.addAttribute("items", items);
 	    
 	    ContactDetails cDetails = cDetailsService.getContactDetails();
