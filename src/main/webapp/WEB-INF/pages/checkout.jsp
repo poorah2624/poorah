@@ -101,7 +101,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											Custom T-Shirt × ${c.quantity} <span style="float: right;">
 
 												<c:if test="${not empty c.totalPrice}">
-                        ₹ <fmt:formatNumber value="${c.totalPrice}" maxFractionDigits="0"/> /-
+                        ₹ <fmt:formatNumber value="${c.totalPrice}"
+														maxFractionDigits="0" /> /-
                     </c:if>
 
 											</span>
@@ -110,17 +111,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 									<c:otherwise>
 
-										<p>${c.item.itemName} × ${c.quantity}</p>
+										<p>${c.item.itemName}× ${c.quantity}</p>
 
 										<p>
 											Price <span style="float: right;"> <c:choose>
 
 													<c:when test="${not empty c.item.discountedPrice}">
-                    ₹ <fmt:formatNumber value="${c.item.discountedPrice}" maxFractionDigits="0"/> /-
+                    ₹ <fmt:formatNumber
+															value="${c.item.discountedPrice}" maxFractionDigits="0" /> /-
                 </c:when>
 
 													<c:otherwise>
-                    ₹ <fmt:formatNumber value="${c.item.itemPrice}" maxFractionDigits="0"/> /-
+                    ₹ <fmt:formatNumber value="${c.item.itemPrice}"
+															maxFractionDigits="0" /> /-
                 </c:otherwise>
 
 												</c:choose>
@@ -129,9 +132,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										</p>
 
 										<p>
-											Total <span style="float: right;"> 
-											₹ <fmt:formatNumber value="${c.totalPrice}" maxFractionDigits="0"/>
-												/- </span>
+											Total <span style="float: right;"> ₹ <fmt:formatNumber
+													value="${c.totalPrice}" maxFractionDigits="0" /> /-
+											</span>
 										</p>
 
 									</c:otherwise>
@@ -143,7 +146,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<hr>
 
 							<p>
-								Subtotal <span style="float: right;">₹ <fmt:formatNumber value="${grandTotal}" maxFractionDigits="0"/> /- </span>
+								Subtotal <span style="float: right;">₹ <fmt:formatNumber
+										value="${grandTotal}" maxFractionDigits="0" /> /-
+								</span>
 							</p>
 
 							<p>
@@ -161,15 +166,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<hr>
 
 							<h4>
-								Total <span style="float: right;"><b>₹ <fmt:formatNumber value="${finalAmount}" maxFractionDigits="0"/>
-										/- </b></span>
+								Total <span style="float: right;"><b>₹ <fmt:formatNumber
+											value="${finalAmount}" maxFractionDigits="0" /> /-
+								</b></span>
 							</h4>
 
 							<br>
 
 
-							<button type="submit" class="btn btn-success btn-block">Place
-								Order</button>
+							<button type="submit" class="btn btn-success btn-block"
+								id="checkoutForm">Place Order</button>
 
 
 						</div>
@@ -221,6 +227,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						});
 	</script>
 	<!--quantity-->
+
+	<script>
+		document.getElementById("checkoutForm").addEventListener(
+				"submit",
+				function(e) {
+
+					let selectedAddress = document
+							.querySelector('input[name="addressId"]:checked');
+
+					if (!selectedAddress) {
+
+						e.preventDefault();
+
+						alert("Please select or add a delivery address.");
+
+					}
+
+				});
+	</script>
 
 </body>
 </html>
