@@ -97,281 +97,285 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</ul>
 					</div> -->
 					<div class="color-quality-left">
-						<h5>
-							
-								<c:if
-								test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women'}">
-                                 
-                                   Size :
-                                </c:if>
-							
-						</h5>
-						<a
-								href="javascript:void(0);" class="size-chart-link"
-								onclick="openSizeChart()"> Size Chart </a>
 
-						
-							<c:if
-								test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women'}">
+						<c:if
+							test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women'}">
+
+							<div
+								style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+
+								<h5 style="margin: 0;">Size :</h5>
+
+								<a href="javascript:void(0);" class="size-chart-link"
+									onclick="openSizeChart()"> Size Chart </a>
+
+							</div>
+
+							<div class="size-options">
 
 								<c:forEach var="s" items="${fn:split(item.size, ',')}">
+
 									<label style="margin-right: 10px;"> <input type="radio"
 										name="size_${item.itemId}" value="${s}"> ${s}
+
 									</label>
+
 								</c:forEach>
 
-							</c:if>
+							</div>
 
-						
+						</c:if>
+
 					</div>
-					
-				<div class="simpleCart_shelfItem">
-					<div class="price-section">
 
-						<div class="final-price">
-							₹
-							<c:if test="${not empty item.discountedPrice}">
-								<fmt:formatNumber value="${item.discountedPrice}"
-									maxFractionDigits="0" /> /-
+					<div class="simpleCart_shelfItem">
+						<div class="price-section">
+
+							<div class="final-price">
+								₹
+								<c:if test="${not empty item.discountedPrice}">
+									<fmt:formatNumber value="${item.discountedPrice}"
+										maxFractionDigits="0" /> /-
 								</c:if>
+							</div>
+
+							<div class="price-meta">
+								<span class="old-price"> ₹ <fmt:formatNumber
+										value="${item.itemPrice}" maxFractionDigits="0" /> /-
+								</span> <span class="discount"> ${fn:split(item.discount, '.')[0]}%
+									OFF </span>
+							</div>
+
 						</div>
+						<c:choose>
+							<c:when test="${not empty sessionScope.LoggedInUser}">
 
-						<div class="price-meta">
-							<span class="old-price"> ₹ <fmt:formatNumber
-									value="${item.itemPrice}" maxFractionDigits="0" /> /-
-							</span> <span class="discount"> ${fn:split(item.discount, '.')[0]}%
-								OFF </span>
+								<c:choose>
+
+									<c:when test="${item.inCart}">
+										<button onclick="goToCart()" class="btn btn-success">
+											Go to Cart</button>
+									</c:when>
+
+									<c:otherwise>
+										<button onclick="addToCart(${item.itemId}, this)"
+											class="btn btn-primary">Add to Cart</button>
+										<button onclick="buyNowOrder(${item.itemId}, this)"
+											class="btn btn-primary" style="background: orange;">
+											Buy Now</button>
+									</c:otherwise>
+
+								</c:choose>
+
+							</c:when>
+							<c:otherwise>
+
+
+								<p>
+									<a class="item_add"
+										onclick="return addToCart(${item.itemId}, this)"
+										href="/addToCart?itemId=${item.itemId}">Add to cart</a>
+								</p>
+
+
+							</c:otherwise>
+
+						</c:choose>
+						<div style="margin-top: 15px;">
+
+							<input type="text" id="pincode" placeholder="Enter Pincode"
+								class="form-control"
+								style="width: 200px; display: inline-block;" />
+
+							<button onclick="checkDelivery()" class="btn btn-primary">
+								Check</button>
+							<br> <i id="deliveryResult"
+								style="margin-top: 10px; color: green;"></i>
+
 						</div>
-
-					</div>
-					<c:choose>
-						<c:when test="${not empty sessionScope.LoggedInUser}">
-
-							<c:choose>
-
-								<c:when test="${item.inCart}">
-									<button onclick="goToCart()" class="btn btn-success">
-										Go to Cart</button>
-								</c:when>
-
-								<c:otherwise>
-									<button onclick="addToCart(${item.itemId}, this)"
-										class="btn btn-primary">Add to Cart</button>
-									<button onclick="buyNowOrder(${item.itemId}, this)"
-										class="btn btn-primary" style="background: orange;">
-										Buy Now</button>
-								</c:otherwise>
-
-							</c:choose>
-
-						</c:when>
-						<c:otherwise>
-
-
-							<p>
-								<a class="item_add"
-									onclick="return addToCart(${item.itemId}, this)"
-									href="/addToCart?itemId=${item.itemId}">Add to cart</a>
-							</p>
-
-
-						</c:otherwise>
-
-					</c:choose>
-					<div style="margin-top: 15px;">
-
-						<input type="text" id="pincode" placeholder="Enter Pincode"
-							class="form-control" style="width: 200px; display: inline-block;" />
-
-						<button onclick="checkDelivery()" class="btn btn-primary">
-							Check</button>
-						<br> <i id="deliveryResult"
-							style="margin-top: 10px; color: green;"></i>
 
 					</div>
 
 				</div>
-
+				<div class="clearfix"></div>
 			</div>
-			<div class="clearfix"></div>
 		</div>
-	</div>
 
-	<div class="additional_info">
-		<div class="container">
-			<div class="sap_tabs">
-				<div id="horizontalTab1"
-					style="display: block; width: 100%; margin: 0px;">
-					<ul>
-						<li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Product
-								Specification</span></li>
-						<li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Reviews</span></li>
-					</ul>
-					<div class="tab-1 resp-tab-content additional_info_grid"
-						aria-labelledby="tab_item-0">
-						<h3>${item.itemName }</h3>
-						<table class="table table-bordered">
-							<tr>
-								<th>Price</th>
-								<td>₹ ${item.itemPrice}</td>
-							</tr>
-
-							<tr>
-								<th>Category</th>
-								<td>${item.category.categoryName}</td>
-							</tr>
-
-							<tr>
-								<th>Sub Category</th>
-								<td>${item.subCategory.subCategoryName}</td>
-							</tr>
-
-							<c:if
-								test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women'}">
-
+		<div class="additional_info">
+			<div class="container">
+				<div class="sap_tabs">
+					<div id="horizontalTab1"
+						style="display: block; width: 100%; margin: 0px;">
+						<ul>
+							<li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Product
+									Specification</span></li>
+							<li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Reviews</span></li>
+						</ul>
+						<div class="tab-1 resp-tab-content additional_info_grid"
+							aria-labelledby="tab_item-0">
+							<h3>${item.itemName }</h3>
+							<table class="table table-bordered">
 								<tr>
-									<th>Size</th>
-									<td>${item.size}</td>
+									<th>Price</th>
+									<td>₹ ${item.itemPrice}</td>
 								</tr>
 
-							</c:if>
+								<tr>
+									<th>Category</th>
+									<td>${item.category.categoryName}</td>
+								</tr>
 
-							<tr>
-								<th>Weight</th>
-								<td>${item.weight}</td>
-							</tr>
+								<tr>
+									<th>Sub Category</th>
+									<td>${item.subCategory.subCategoryName}</td>
+								</tr>
 
-							<tr>
-								<th>Fabric</th>
-								<td>${item.fabric}</td>
-							</tr>
+								<c:if
+									test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women'}">
 
-							<tr>
-								<th>Description</th>
-								<td>${item.itemDesc}</td>
-							</tr>
-						</table>
-					</div>
+									<tr>
+										<th>Size</th>
+										<td>${item.size}</td>
+									</tr>
 
-					<div class="tab-2 resp-tab-content additional_info_grid"
-						aria-labelledby="tab_item-1">
-						<h4>(${fn:length(reviews)}) Reviews</h4>
+								</c:if>
 
-						<div class="additional_info_sub_grids">
-							<c:forEach var="r" items="${reviews}">
-								<div class="col-xs-10 additional_info_sub_grid_right">
-									<div class="additional_info_sub_grid_rightl">
-										<c:choose>
-											<c:when test="${not empty r.user}">
+								<tr>
+									<th>Weight</th>
+									<td>${item.weight}</td>
+								</tr>
+
+								<tr>
+									<th>Fabric</th>
+									<td>${item.fabric}</td>
+								</tr>
+
+								<tr>
+									<th>Description</th>
+									<td>${item.itemDesc}</td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="tab-2 resp-tab-content additional_info_grid"
+							aria-labelledby="tab_item-1">
+							<h4>(${fn:length(reviews)}) Reviews</h4>
+
+							<div class="additional_info_sub_grids">
+								<c:forEach var="r" items="${reviews}">
+									<div class="col-xs-10 additional_info_sub_grid_right">
+										<div class="additional_info_sub_grid_rightl">
+											<c:choose>
+												<c:when test="${not empty r.user}">
                                               ${r.user.userName}
                                             </c:when>
-											<c:otherwise>
+												<c:otherwise>
                                               ${r.guestName}
                                             </c:otherwise>
-										</c:choose>
-										<h5>${r.createdAt }</h5>
-										<p>${r.message }</p>
-									</div>
-									<div class="additional_info_sub_grid_rightr">
-										<div class="rating">
-
-
-											<c:forEach begin="1" end="5" var="i">
-												<c:choose>
-													<c:when test="${i <= r.rating}">
-														<span style="color: gold; font-size: 20px;">★</span>
-													</c:when>
-													<c:otherwise>
-														<span style="color: lightgray; font-size: 20px;">★</span>
-													</c:otherwise>
-												</c:choose>
-											</c:forEach>
-
-											<div class="clearfix"></div>
+											</c:choose>
+											<h5>${r.createdAt }</h5>
+											<p>${r.message }</p>
 										</div>
+										<div class="additional_info_sub_grid_rightr">
+											<div class="rating">
+
+
+												<c:forEach begin="1" end="5" var="i">
+													<c:choose>
+														<c:when test="${i <= r.rating}">
+															<span style="color: gold; font-size: 20px;">★</span>
+														</c:when>
+														<c:otherwise>
+															<span style="color: lightgray; font-size: 20px;">★</span>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+
+												<div class="clearfix"></div>
+											</div>
+										</div>
+										<div class="clearfix"></div>
 									</div>
-									<div class="clearfix"></div>
-								</div>
-							</c:forEach>
-							<div class="clearfix"></div>
-						</div>
-						<div class="review_grids">
-							<h5>Add A Review</h5>
-							<form action="/addReview" method="post">
-								<input type="hidden" name="itemId" value="${item.itemId}">
-								<c:choose>
-									<c:when test="${not empty sessionScope.LoggedInUser}">
-										<input type="text" name="userName" value="Name"
-											onfocus="this.value = '';"
-											onblur="if (this.value == '') {this.value = 'Name';}"
-											required="">
-										<input type="email" name="userEmail" value="Email"
-											onfocus="this.value = '';"
-											onblur="if (this.value == '') {this.value = 'Email';}"
-											required="">
-									</c:when>
-									<c:otherwise>
-										<!-- guest form -->
-										<input type="text" name="guestName" value="Name"
-											onfocus="this.value = '';"
-											onblur="if (this.value == '') {this.value = 'Name';}"
-											required="">
-										<input type="email" name="guestEmail" value="Email"
-											onfocus="this.value = '';"
-											onblur="if (this.value == '') {this.value = 'Email';}"
-											required="">
-									</c:otherwise>
-								</c:choose>
-								<br>
-								<div class="star-rating">
+								</c:forEach>
+								<div class="clearfix"></div>
+							</div>
+							<div class="review_grids">
+								<h5>Add A Review</h5>
+								<form action="/addReview" method="post">
+									<input type="hidden" name="itemId" value="${item.itemId}">
+									<c:choose>
+										<c:when test="${not empty sessionScope.LoggedInUser}">
+											<input type="text" name="userName" value="Name"
+												onfocus="this.value = '';"
+												onblur="if (this.value == '') {this.value = 'Name';}"
+												required="">
+											<input type="email" name="userEmail" value="Email"
+												onfocus="this.value = '';"
+												onblur="if (this.value == '') {this.value = 'Email';}"
+												required="">
+										</c:when>
+										<c:otherwise>
+											<!-- guest form -->
+											<input type="text" name="guestName" value="Name"
+												onfocus="this.value = '';"
+												onblur="if (this.value == '') {this.value = 'Name';}"
+												required="">
+											<input type="email" name="guestEmail" value="Email"
+												onfocus="this.value = '';"
+												onblur="if (this.value == '') {this.value = 'Email';}"
+												required="">
+										</c:otherwise>
+									</c:choose>
+									<br>
+									<div class="star-rating">
 
-									<input type="radio" name="rating" id="star5" value="5" checked><label
-										for="star5">★</label> <input type="radio" name="rating"
-										id="star4" value="4"><label for="star4">★</label> <input
-										type="radio" name="rating" id="star3" value="3"><label
-										for="star3">★</label> <input type="radio" name="rating"
-										id="star2" value="2"><label for="star2">★</label> <input
-										type="radio" name="rating" id="star1" value="1"><label
-										for="star1">★</label>
+										<input type="radio" name="rating" id="star5" value="5" checked><label
+											for="star5">★</label> <input type="radio" name="rating"
+											id="star4" value="4"><label for="star4">★</label> <input
+											type="radio" name="rating" id="star3" value="3"><label
+											for="star3">★</label> <input type="radio" name="rating"
+											id="star2" value="2"><label for="star2">★</label> <input
+											type="radio" name="rating" id="star1" value="1"><label
+											for="star1">★</label>
 
-								</div>
+									</div>
 
-								<textarea name="message" onfocus="this.value = '';"
-									onblur="if (this.value == '') {this.value = 'Add Your Review';}"
-									required="">Add Your Review</textarea>
-								<input type="submit" value="Submit">
-							</form>
+									<textarea name="message" onfocus="this.value = '';"
+										onblur="if (this.value == '') {this.value = 'Add Your Review';}"
+										required="">Add Your Review</textarea>
+									<input type="submit" value="Submit">
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
+
 			</div>
-
 		</div>
-	</div>
 
 
-	<!-- //single -->
-	<!-- footer -->
-	<%@include file="footer.jsp"%>
-	<!-- //footer -->
+		<!-- //single -->
+		<!-- footer -->
+		<%@include file="footer.jsp"%>
+		<!-- //footer -->
 
-	<!-- js -->
+		<!-- js -->
 
 
 
-	<!-- flixslider -->
-	<script defer src="/js/jquery.flexslider.js"></script>
-	<!-- zooming-effect -->
-	<script src="/js/imagezoom.js"></script>
-	<!-- //zooming-effect -->
-	<!-- for bootstrap working -->
+		<!-- flixslider -->
+		<script defer src="/js/jquery.flexslider.js"></script>
+		<!-- zooming-effect -->
+		<script src="/js/imagezoom.js"></script>
+		<!-- //zooming-effect -->
+		<!-- for bootstrap working -->
 
-	<script src="/js/jquery.magnific-popup.js"></script>
-	<script src="/js/jquery.flexisel.js"></script>
-	<script src="/js/simpleCart.min.js"></script>
-	<!-- //js -->
-	<script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
-	<script type="text/javascript">
+		<script src="/js/jquery.magnific-popup.js"></script>
+		<script src="/js/jquery.flexisel.js"></script>
+		<script src="/js/simpleCart.min.js"></script>
+		<!-- //js -->
+		<script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
+		<script type="text/javascript">
 		$(document).ready(function() {
 			$('#horizontalTab1').easyResponsiveTabs({
 				type : 'default', //Types: default, vertical, accordion           
@@ -382,7 +386,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		});
 	</script>
 
-	<script>
+		<script>
 		// Can also be used with $(document).ready()
 		$(window).load(function() {
 			$('.flexslider').flexslider({
@@ -391,10 +395,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			});
 		});
 	</script>
-	<!-- flixslider --
+		<!-- flixslider --
 
 <!--quantity-->
-	<script>
+		<script>
 		$('.value-plus1')
 				.on(
 						'click',
@@ -414,8 +418,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								divUpd.text(newVal);
 						});
 	</script>
-	<!--quantity-->
-	<script>
+		<!--quantity-->
+		<script>
 
 	function addToCart(itemId, btn){
 
@@ -470,7 +474,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 </script>
 
-	<script>
+		<script>
 
 function buyNowOrder(itemId, btn){
 
@@ -514,7 +518,7 @@ function buyNowOrder(itemId, btn){
 
 </script>
 
-	<script>
+		<script>
 function checkDelivery(){
 
     let pincode = document.getElementById("pincode").value;
@@ -532,7 +536,5 @@ function checkDelivery(){
     .catch(err => console.log(err));
 }
 </script>
-
-
 </body>
 </html>
