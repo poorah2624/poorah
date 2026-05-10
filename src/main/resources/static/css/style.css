@@ -3364,8 +3364,10 @@ td.invert-image a img {
 		width: 62%;
 	}
 	.agileinfo_new_products_grid_dresses {
-		width: 33.33% !important;
-	}
+        width: 50% !important;
+        float: left !important;
+        box-sizing: border-box !important;
+    }
 	.w3_hs_bottom_sub1 ul {
 		padding: 7em 0 0 !important;
 	}
