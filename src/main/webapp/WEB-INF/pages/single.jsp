@@ -355,7 +355,46 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 		<!-- //single -->
+		<div id="sizeChartModal" class="modal">
+
+		<div class="modal-content">
+			<span class="close" onclick="closeSizeChart()">&times;</span>
+
+			<h3>Size Chart</h3>
+
+			<table>
+				<tr>
+					<th>Size</th>
+					<th>Chest (inch)</th>
+					<th>Length (inch)</th>
+				</tr>
+				<tr>
+					<td>S</td>
+					<td>36</td>
+					<td>26</td>
+				</tr>
+				<tr>
+					<td>M</td>
+					<td>38</td>
+					<td>27</td>
+				</tr>
+				<tr>
+					<td>L</td>
+					<td>40</td>
+					<td>28</td>
+				</tr>
+				<tr>
+					<td>XL</td>
+					<td>42</td>
+					<td>29</td>
+				</tr>
+			</table>
+
+		</div>
+
+	</div>
 		<!-- footer -->
+		
 		<%@include file="footer.jsp"%>
 		<!-- //footer -->
 
