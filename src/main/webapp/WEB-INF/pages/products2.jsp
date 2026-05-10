@@ -171,7 +171,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<c:forEach var="p" items="${items}">
 
 							<div
-								class="col-xs-6 col-sm-4 col-md-4 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+								class="col-xs-6 col-sm-6 col-md-3 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
 
 
 								<div class="dresses_grid">
@@ -197,7 +197,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</div>
 									</div>
 
-									<h5 style="text-align:center;font-size:20px;">
+									<h5 class="product-name" style="text-align:center;font-size:20px;">
 										<a
 											href="/single/${p.itemId}">${p.itemName }</a>
 									</h5>

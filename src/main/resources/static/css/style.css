@@ -2051,6 +2051,15 @@ select.select_item {
 .w3ls_dresses_grid_right_grid3:nth-child(6){
 	margin:2em 0;
 }
+
+.product-name a {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
 /*-- //dresses --*/
 /*-- related-products --*/
 .w3l_related_products h3:before {
