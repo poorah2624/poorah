@@ -159,7 +159,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<c:forEach var="p" items="${items}">
 
 							<div
-								class="col-xs-6 col-sm-6 col-md-3 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
+								class="col-xs-6 col-sm-6 col-md-3 col-lg-3 agileinfo_new_products_grid agileinfo_new_products_grid_dresses">
 
 
 								<div class="dresses_grid">

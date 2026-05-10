@@ -3168,7 +3168,7 @@ td.invert-image a img {
 		font-size: 1.1em;
 	}	
 }
-@media (max-width:991px){
+@media (max-width:768px){
 	.w3l_logo h1 a {
 		font-size: .9em;
 	}
@@ -3268,8 +3268,8 @@ td.invert-image a img {
 		left: 28%;
 	}
 	.agileinfo_new_products_grid {
-		float: left;
-		width: 25%;
+		width: 50% !important;
+        float: left;
 	}
 	.w3_hs_bottom_sub ul {
 		padding:5em 0 0 !important;
