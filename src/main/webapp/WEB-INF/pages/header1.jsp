@@ -33,7 +33,7 @@
 							<%--  Mega Menu --%>
 
 							<c:forEach var="cat" items="${categories}">
-								<li class="dropdown"><a href="#" class="dropdown-toggle"
+								<li class="active"><a href="#"
 									data-toggle="dropdown">
 
 										<h6>${cat.categoryName}</h6> <b class="caret"></b>
