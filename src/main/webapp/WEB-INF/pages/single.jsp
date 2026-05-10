@@ -98,21 +98,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div> -->
 					<div class="color-quality-left">
 						<h5>
-							<c:choose>
-								<c:when test="${item.category.categoryName == 'Kids'}">
+							
+								<c:if
+								test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women'}">
                                  
                                    Size :
-                                </c:when>
-							</c:choose>
+                                </c:if>
+							
 						</h5>
 
-						<c:choose>
-
-
-
-
-
-							<c:when test="${item.category.categoryName == 'Clothing'}">
+						
+							<c:if
+								test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women'}">
 
 								<c:forEach var="s" items="${fn:split(item.size, ',')}">
 									<label style="margin-right: 10px;"> <input type="radio"
@@ -120,9 +117,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									</label>
 								</c:forEach>
 
-							</c:when>
+							</c:if>
 
-						</c:choose>
+						
 					</div>
 					<!--  <div class="color-quality-right">
 						<h5>Quantity :</h5>
