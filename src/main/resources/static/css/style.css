@@ -3267,7 +3267,7 @@ td.invert-image a img {
 	.w3agile_special_deals_grid_right_pos {
 		left: 28%;
 	}
-	 .agileinfo_new_products_grid,
+	.agileinfo_new_products_grid,
     .agileinfo_new_products_grid_dresses{
         width:50% !important;
         float:left !important;
@@ -3351,9 +3351,10 @@ td.invert-image a img {
 	.w3ls_dresses_grid_right_left:nth-child(2) {
 		margin: 2em auto 0;
 	}
-	 .dresses_grid{
-        width:100% !important;
-        overflow:hidden;
+	  .dresses_grid{
+        display:flex;
+        flex-direction:column;
+        height:100%;
     }
 
 	.dropdown-menu.columns-3 {
@@ -3494,25 +3495,29 @@ td.invert-image a img {
     .hs-wrapper,
     .hs-wrapper2{
         width:100% !important;
-        height:auto !important;
+        aspect-ratio: 3 / 4;
+        overflow:hidden;
     }
     
     .hs-wrapper img,
     .hs-wrapper2 img{
         width:100% !important;
-        height:auto !important;
+        height:100% !important;
+        object-fit:cover;
         display:block;
     }
     
     .product-name{
         font-size:16px !important;
         line-height:22px;
-        min-height:44px;
-        margin-top:10px;
+        height:44px;
         overflow:hidden;
+        margin-top:10px;
+        text-align:center;
     }
     
     .simpleCart_shelfItem{
+        margin-top:auto;
         min-height:60px;
     }
 
