@@ -114,8 +114,19 @@ public class ItemService {
 		return itemRepo.findBySubCategorySubCategoryIdAndStatus(subCategoryId, "active");
 	}
 	
-	public List<Item> getItemsByCategoryAndGenderAndActiveStatus(Long categoryId, String gender){
-	    return itemRepo.findByCategoryCategoryIdAndGenderAndStatus(categoryId, gender, "active");
+	public List<Item> getItemsByCategoryAndActiveStatus(Long categoryId){
+	    return itemRepo.findByCategoryCategoryIdAndStatus(categoryId, "active");
+	}
+	
+	public List<Item> getItemsByCategoryGenderAndActiveStatus(
+	        Long categoryId,
+	        String gender){
+
+	    return itemRepo.findByCategoryCategoryIdAndGenderAndStatus(
+	            categoryId,
+	            gender,
+	            "active"
+	    );
 	}
 	
 	public List<Item> getTop2Items(Long categoryId){

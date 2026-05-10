@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import springStarter.models.Item;
 import springStarter.models.Review;
@@ -114,27 +115,41 @@ public class ProductController {
 	}
 
 	@GetMapping("/products3/category/{categoryId}")
-	public String productsByCategory(@PathVariable Long categoryId, String gender, Model model, HttpSession session) {
-		
-		User user = (User) session.getAttribute("LoggedInUser");
-		
-		if(user != null){
+	public String productsByCategory(
+	        @PathVariable Long categoryId,
+	        @RequestParam(required = false) String gender,
+	        Model model,
+	        HttpSession session) {
+
+	    User user = (User) session.getAttribute("LoggedInUser");
+
+	    if(user != null){
 	        Address address = addressService.getDefaultAddress(user);
 	        model.addAttribute("defaultAddress", address);
-	        
 	    }
 
-		List<Item> items = itemService.getItemsByCategoryAndGenderAndActiveStatus(categoryId, gender);
-		model.addAttribute("items", items);
-		
-		ContactDetails cDetails = cDetailsService.getContactDetails();
-		model.addAttribute("cDetails", cDetails);
-		
-		List<Category> categories = categoryService.getAllCategories();
+	    List<Item> items;
 
+	    if(gender != null && !gender.isEmpty()){
+	        items = itemService.getItemsByCategoryGenderAndActiveStatus(
+	                categoryId,
+	                gender
+	        );
+	    } else {
+	        items = itemService.getItemsByCategoryAndActiveStatus(
+	                categoryId
+	        );
+	    }
+
+	    model.addAttribute("items", items);
+
+	    ContactDetails cDetails = cDetailsService.getContactDetails();
+	    model.addAttribute("cDetails", cDetails);
+
+	    List<Category> categories = categoryService.getAllCategories();
 	    model.addAttribute("categories", categories);
 
-		return "products3";
+	    return "products3";
 	}
 
 	@GetMapping("/single/{itemId}")
