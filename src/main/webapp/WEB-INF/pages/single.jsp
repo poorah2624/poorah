@@ -106,6 +106,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 </c:if>
 							
 						</h5>
+						<a
+								href="javascript:void(0);" class="size-chart-link"
+								onclick="openSizeChart()"> Size Chart </a>
 
 						
 							<c:if
@@ -121,44 +124,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 						
 					</div>
-					<!--  <div class="color-quality-right">
-						<h5>Quantity :</h5>
-						<div class="quantity">
-							<div class="quantity-select">
-								<div class="entry value-minus1">&nbsp;</div>
-								<div class="entry value1">
-									<span>1</span>
-								</div>
-								<div class="entry value-plus1 active">&nbsp;</div>
-							</div>
-						</div>
-
-
-					</div>-->
-					<div class="clearfix"></div>
-				</div>
-				<!--  <div class="occasional">
-					<h5>Occasion :</h5>
-					<div class="colr ert">
-						<div class="check">
-							<label class="checkbox"><input type="checkbox"
-								name="checkbox" checked=""><i> </i>Occasion Wear</label>
-						</div>
-					</div>
-					<div class="colr">
-						<div class="check">
-							<label class="checkbox"><input type="checkbox"
-								name="checkbox"><i> </i>Party Wear</label>
-						</div>
-					</div>
-					<div class="colr">
-						<div class="check">
-							<label class="checkbox"><input type="checkbox"
-								name="checkbox"><i> </i>Formal Wear</label>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-				</div>  -->
+					
 				<div class="simpleCart_shelfItem">
 					<div class="price-section">
 
