@@ -172,5 +172,36 @@
 	<%--  //header --%>
 </c:choose>
 
+<script>
+
+if(window.innerWidth <= 768){
+
+    document.querySelectorAll('.mobile-category > .category-link')
+    .forEach(function(link){
+
+        link.addEventListener('click', function(e){
+
+            let parent = this.parentElement;
+
+            if(!parent.classList.contains('mobile-open')){
+
+                e.preventDefault();
+
+                document.querySelectorAll('.mobile-category')
+                .forEach(function(item){
+                    item.classList.remove('mobile-open');
+                });
+
+                parent.classList.add('mobile-open');
+            }
+
+        });
+
+    });
+
+}
+
+</script>
+
 
 
