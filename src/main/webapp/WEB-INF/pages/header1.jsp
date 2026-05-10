@@ -31,23 +31,19 @@
 									alt="PooRah Logo" class="site-logo"></a></li>
 							<li class="active"><a href="/home" class="act">Home</a></li>
 							<%--  Mega Menu --%>
-							
-								
+
+							<c:forEach var="cat" items="${categories}">
 								<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">
-								<c:forEach var="cat" items="${categories}">
-								<h6>${cat.categoryName}</h6>
-								
-								</c:forEach>
-								 <b class="caret"></b></a>
-								
-								</li>
-								
-							
+									data-toggle="dropdown">
+
+										<h6>${cat.categoryName}</h6> <b class="caret"></b>
+								</a></li>
+							</c:forEach>
+
 							<li><a href="/userlogin" class="login-btn"><i
 									class="fa fa-user"></i>Login</a></li>
 
-							
+
 
 
 							<li class="right-section">
@@ -62,20 +58,16 @@
 											<input type="submit" value="Send">
 										</form>
 									</div>
-								</div>
-							
-
-							<!-- CART -->
-							<a href="/cart"> (${cartCount}
-									Items) <img
+								</div> <!-- CART --> <a href="/cart"> (${cartCount} Items) <img
 									src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" />
-							</a></li>
+							</a>
+							</li>
 						</ul>
 					</div>
 				</nav>
 
 			</div>
-			</div>
+		</div>
 	</c:when>
 	<%--  if user logged in --%>
 	<c:otherwise>
@@ -126,7 +118,7 @@
 										</c:forEach>
 									</div>
 								</ul></li>
-							
+
 
 							<li class="dropdown" style="position: relative;"><a href="#"
 								class="dropdown-toggle" data-toggle="dropdown"> Hi,
@@ -139,8 +131,8 @@
 									<li><a href="/myOrders">My Orders</a></li>
 									<li><a href="/userlogin">Logout</a></li>
 								</ul></li>
-								
-							
+
+
 
 
 							<li class="right-section">
@@ -155,21 +147,17 @@
 											<input type="submit" value="Send">
 										</form>
 									</div>
-								</div>
-							
-
-							<!-- CART -->
-							<a href="/cart"> (${cartCount}
-									Items) <img
+								</div> <!-- CART --> <a href="/cart"> (${cartCount} Items) <img
 									src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" />
-							</a></li>
+							</a>
+							</li>
 
 						</ul>
 					</div>
 				</nav>
 
 			</div>
-			</div>
+		</div>
 	</c:otherwise>
 
 	<%--  //header --%>
