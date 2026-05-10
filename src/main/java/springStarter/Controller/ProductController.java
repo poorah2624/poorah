@@ -191,8 +191,8 @@ public class ProductController {
 	@Autowired
 	private ItemRepo itemRepo;
 	
-	@GetMapping("/products/gender/{gender}")
-	public String getByGender(@PathVariable String gender, Model model, @RequestParam String categoryName ){
+	@GetMapping("/products/gender/{gender}/{categoryName}")
+	public String getByGender(@PathVariable String gender, Model model, @PathVariable String categoryName){
 		
 		
 		
