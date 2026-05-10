@@ -198,7 +198,7 @@
 												</div>
 											</div>
 											
-											<div class="form-group">
+											<div class="form-group" id="genderDiv" style="display: none;">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="Gender">Gender <span
 													class="required"> *</span>
@@ -729,18 +729,19 @@
 					var categoryName = this.options[this.selectedIndex].text;
 
 					var sizeDiv = document.getElementById("sizeDiv");
-					var ageDiv = document.getElementById("ageDiv");
+					var genderDiv = document.getElementById("genderDiv");
 
 					sizeDiv.style.display = "none";
-					ageDiv.style.display = "none";
+					
 
-					if (categoryName.toLowerCase().includes("clothing")) {
+					if (categoryName.toLowerCase().includes("men") || categoryName.toLowerCase().includes("women")) {
 						sizeDiv.style.display = "block";
+						genderDiv.style.display = "block";
 					}
+					
+					
 
-					else if (categoryName.toLowerCase().includes("kids")) {
-						ageDiv.style.display = "block";
-					}
+					
 
 				});
 	</script>

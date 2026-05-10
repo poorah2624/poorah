@@ -33,9 +33,21 @@
 							<%--  Mega Menu --%>
 
 							<c:forEach var="cat" items="${categories}">
-								<li><a href="/products3/category/${cat.categoryId}">
-										${cat.categoryName}
-								</a></li>
+								<li class="dropdown"><a
+									href="/products3/category/${cat.categoryId}"
+									class="dropdown-toggle category-link" data-toggle="dropdown">
+										${cat.categoryName} </a>
+									<ul class="dropdown-menu">
+
+										<c:forEach var="sub" items="${cat.subCategories}">
+
+											<li><a
+												href="/products3/category/${cat.categoryId}?subCategory=${sub.subCategoryId}">
+													${sub.subCategoryName} </a></li>
+
+										</c:forEach>
+
+									</ul></li>
 							</c:forEach>
 
 							<li><a href="/userlogin" class="login-btn"><i
@@ -98,24 +110,23 @@
 								alt="PooRah Logo" class="site-logo"></li>
 							<li class="active"><a href="/home" class="act">Home</a></li>
 							<%-- Mega Menu --%>
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">Products <b class="caret"></b></a>
-								<ul class="dropdown-menu multi-column columns-3">
-									<div class="row">
-										<c:forEach var="cat" items="${categories}">
-											<div class="col-sm-3">
-												<ul class="multi-column-dropdown">
-													<h6>${cat.categoryName}</h6>
-													<c:forEach var="sub" items="${cat.subCategory}">
-														<li><a href="/products/${sub.subCategoryId}">${sub.subCategoryName }</a></li>
-													</c:forEach>
+							<c:forEach var="cat" items="${categories}">
+								<li class="dropdown"><a
+									href="/products3/category/${cat.categoryId}"
+									class="dropdown-toggle category-link" data-toggle="dropdown">
+										${cat.categoryName} </a>
+									<ul class="dropdown-menu">
 
+										<c:forEach var="sub" items="${cat.subCategories}">
 
-												</ul>
-											</div>
+											<li><a
+												href="/products3/category/${cat.categoryId}?subCategory=${sub.subCategoryId}">
+													${sub.subCategoryName} </a></li>
+
 										</c:forEach>
-									</div>
-								</ul></li>
+
+									</ul></li>
+							</c:forEach>
 
 
 							<li class="dropdown" style="position: relative;"><a href="#"

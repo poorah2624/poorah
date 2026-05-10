@@ -538,6 +538,11 @@ ul.multi-column-dropdown h6 {
     width: 100%;
     
 }
+.dropdown:hover .dropdown-menu{
+    display:block;
+    margin-top:0;
+}
+
 .push-right {
     margin-left: auto;
 }
