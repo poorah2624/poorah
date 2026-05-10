@@ -547,6 +547,18 @@ ul.multi-column-dropdown h6 {
     display:none !important;
 }
 
+@media (max-width:768px){
+
+    .dropdown-menu{
+        display:none;
+    }
+
+    .dropdown.mobile-open .dropdown-menu{
+        display:block;
+    }
+
+}
+
 .push-right {
     margin-left: auto;
 }

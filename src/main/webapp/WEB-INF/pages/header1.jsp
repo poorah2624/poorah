@@ -33,7 +33,7 @@
 							<%--  Mega Menu --%>
 
 							<c:forEach var="cat" items="${categories}">
-								<li class="dropdown"><a
+								<li class="dropdown mobile-category"><a
 									href="/products3/category/${cat.categoryId}"
 									class="category-link">
 										${cat.categoryName} </a>
@@ -111,7 +111,7 @@
 							<li class="active"><a href="/home" class="act">Home</a></li>
 							<%-- Mega Menu --%>
 							<c:forEach var="cat" items="${categories}">
-								<li class="dropdown"><a
+								<li class="dropdown mobile-category"><a
 									href="/products3/category/${cat.categoryId}"
 									class="category-link">
 										${cat.categoryName} </a>
