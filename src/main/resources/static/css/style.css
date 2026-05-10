@@ -543,6 +543,10 @@ ul.multi-column-dropdown h6 {
     margin-top:0;
 }
 
+.category-link::after{
+    display:none !important;
+}
+
 .push-right {
     margin-left: auto;
 }

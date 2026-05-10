@@ -35,14 +35,14 @@
 							<c:forEach var="cat" items="${categories}">
 								<li class="dropdown"><a
 									href="/products3/category/${cat.categoryId}"
-									class="dropdown-toggle category-link" data-toggle="dropdown">
+									class="category-link">
 										${cat.categoryName} </a>
 									<ul class="dropdown-menu">
 
 										<c:forEach var="sub" items="${cat.subCategory}">
 
 											<li><a
-												href="/products3/category/${cat.categoryId}?subCategory=${sub.subCategoryId}">
+												href="/products/${sub.subCategoryId}">
 													${sub.subCategoryName} </a></li>
 
 										</c:forEach>
@@ -113,14 +113,14 @@
 							<c:forEach var="cat" items="${categories}">
 								<li class="dropdown"><a
 									href="/products3/category/${cat.categoryId}"
-									class="dropdown-toggle category-link" data-toggle="dropdown">
+									class="category-link">
 										${cat.categoryName} </a>
 									<ul class="dropdown-menu">
 
 										<c:forEach var="sub" items="${cat.subCategory}">
 
 											<li><a
-												href="/products3/category/${cat.categoryId}?subCategory=${sub.subCategoryId}">
+												href="/products/${sub.subCategoryId}">
 													${sub.subCategoryName} </a></li>
 
 										</c:forEach>
