@@ -131,7 +131,7 @@ public class CartController {
 
 	    cartService.updateQuantity(user, itemId, quantity);
 
-	    return "success";
+	    return "redirect:/cart";
 	}
 	
 	@GetMapping("/DeleteCart/{cartId}")
