@@ -192,9 +192,9 @@ public class ProductController {
 	private ItemRepo itemRepo;
 	
 	@GetMapping("/products/gender/{gender}")
-	public String getByGender(@PathVariable String gender, Model model){
+	public String getByGender(@PathVariable String gender, Model model, @RequestParam String categoryName ){
 		
-		String categoryName = "Clothing";
+		
 		
 	    List<Item> items = itemRepo.findByGenderAndCategory_CategoryNameAndStatus(gender, categoryName, "Active");
 	    model.addAttribute("items", items);
