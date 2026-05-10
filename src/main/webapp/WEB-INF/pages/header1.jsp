@@ -34,7 +34,7 @@
 
 							<c:forEach var="cat" items="${categories}">
 								<li><a href="#">
-										<h6>${cat.categoryName}</h6>
+										${cat.categoryName}
 								</a></li>
 							</c:forEach>
 
