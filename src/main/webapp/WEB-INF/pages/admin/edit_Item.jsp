@@ -8,8 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,38 +24,24 @@
 
 <!-- Bootstrap core CSS -->
 
-<link
-	href="/admin/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-<link
-	href="/admin/fonts/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="/admin/css/animate.min.css"
-	rel="stylesheet">
+<link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+<link href="/admin/css/animate.min.css" rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<link href="/admin/css/custom.css"
-	rel="stylesheet">
-<link
-	href="/admin/css/icheck/flat/green.css"
-	rel="stylesheet">
+<link href="/admin/css/custom.css" rel="stylesheet">
+<link href="/admin/css/icheck/flat/green.css" rel="stylesheet">
 
-<link
-	href="/admin/js/datatables/jquery.dataTables.min.css"
+<link href="/admin/js/datatables/jquery.dataTables.min.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/buttons.bootstrap.min.css"
+<link href="/admin/js/datatables/buttons.bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/fixedHeader.bootstrap.min.css"
+<link href="/admin/js/datatables/fixedHeader.bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/responsive.bootstrap.min.css"
+<link href="/admin/js/datatables/responsive.bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/scroller.bootstrap.min.css"
+<link href="/admin/js/datatables/scroller.bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 
 <script src="/admin/js/jquery.min.js"></script>
@@ -72,44 +58,40 @@
 
 </head>
 <script>
+	$(document).ready(function() {
 
-$(document).ready(function () {
+		// Page load par check
+		toggleFieldsByCategory();
 
-    // Page load par check
-    toggleFieldsByCategory();
+		// Category change hone par
+		$("#category").change(function() {
+			toggleFieldsByCategory();
+		});
 
-    // Category change hone par
-    $("#category").change(function () {
-        toggleFieldsByCategory();
-    });
+	});
 
-});
+	function toggleFieldsByCategory() {
 
-function toggleFieldsByCategory() {
+		var categoryName = $("#category option:selected").text().trim();
 
-    var categoryName = $("#category option:selected").text().trim();
+		if (categoryName === "Clothing") {
 
-    if (categoryName === "Clothing") {
+			$("#sizeDiv").show();
+			$("#ageDiv").hide();
 
-        $("#sizeDiv").show();
-        $("#ageDiv").hide();
+		} else if (categoryName === "Kids") {
 
-    } 
-    else if (categoryName === "Kids") {
+			$("#ageDiv").show();
+			$("#sizeDiv").hide();
 
-        $("#ageDiv").show();
-        $("#sizeDiv").hide();
+		} else {
 
-    } 
-    else {
+			$("#sizeDiv").hide();
+			$("#ageDiv").hide();
 
-        $("#sizeDiv").hide();
-        $("#ageDiv").hide();
+		}
 
-    }
-
-}
-
+	}
 </script>
 
 <body class="nav-md">
@@ -147,8 +129,7 @@ function toggleFieldsByCategory() {
 							<div class="row x_title">
 								<div class="col-md-6">
 									<h3>
-										View Items<small><a
-											href="/view_Item"><button
+										View Items<small><a href="/view_Item"><button
 													class="btn-lg btn btn-outline btn-success">View
 													Items</button></a></small>
 									</h3>
@@ -171,8 +152,7 @@ function toggleFieldsByCategory() {
 									</div>
 									<div class="x_content">
 
-										<form action="/edit_Item"
-											method="post" name="my_form"
+										<form action="/edit_Item" method="post" name="my_form"
 											class="form-horizontal form-label-left"
 											enctype="multipart/form-data"
 											onSubmit="document.my_form.editor_contents.value = $('#editor').html()">
@@ -217,16 +197,16 @@ function toggleFieldsByCategory() {
 											</div>
 											<div class="form-group" id="genderDiv">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="Gender">Gender <span
-													class="required"> *</span>
+													for="Gender">Gender <span class="required">
+														*</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12" id='subcategory'>
-													<select name="gender"
-														id="gender" class="form-control" required>
-														
-															<option value="${item.gender}">${item.gender}</option>
-														    <option value="MEN">MEN</option>
-														    <option value="WOMEN">WOMEN</option>
+													<select name="gender" id="gender" class="form-control"
+														required>
+
+														<option value="${item.gender}">${item.gender}</option>
+														<option value="MEN">MEN</option>
+														<option value="WOMEN">WOMEN</option>
 
 													</select>
 
@@ -235,7 +215,7 @@ function toggleFieldsByCategory() {
 											</div>
 
 											<input type="hidden" name="itemId" value="${item.itemId }">
-											
+
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="skuId">SKU Id <span class="required">*</span>
@@ -258,17 +238,17 @@ function toggleFieldsByCategory() {
 														class="form-control col-md-7 col-xs-12">
 												</div>
 											</div>
-											
+
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="file">Item Image <span class="required">*</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
-												<c:forEach var="img" items="${fn:split(item.itemImage, ',')}">
-													<img
-														src="/uploads/${img}"
-														name="itemImage" style="width: 200px; height: 200px;">
-												</c:forEach>
+													<c:forEach var="img"
+														items="${fn:split(item.itemImage, ',')}">
+														<img src="/uploads/${img}" name="itemImage"
+															style="width: 200px; height: 200px;">
+													</c:forEach>
 												</div>
 											</div>
 											<div class="form-group">
@@ -289,8 +269,10 @@ function toggleFieldsByCategory() {
 														&#8377</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
-													<input type="text" id="price""
-														name="itemPrice" value="${item.itemPrice }"
+													<input type="text" id="price"
+														"
+														name="itemPrice"
+														value="${item.itemPrice }"
 														title="Enter Digits Only and it should not be more then INR 9.99 Crore"
 														class="form-control col-md-7 col-xs-12">
 												</div>
@@ -338,19 +320,19 @@ function toggleFieldsByCategory() {
 													XXL
 												</div>
 											</div>
-											
-											
+
+
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="weight">Weight<span class="required">(%)</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
-													<input type="text" id="weight"
-														name="weight" value="${item.weight } g"
+													<input type="text" id="weight" name="weight"
+														value="${item.weight } g"
 														class="form-control col-md-7 col-xs-12">
 												</div>
 											</div>
-											
+
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="fabric">Fabric <span class="required">*</span>
@@ -468,17 +450,13 @@ function toggleFieldsByCategory() {
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	<script
-		src="/admin/js/bootstrap.min.js"></script>
+	<script src="/admin/js/bootstrap.min.js"></script>
 
 	<!-- bootstrap progress js -->
-	<script
-		src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-	<script
-		src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+	<script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+	<script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
-	<script
-		src="/admin/js/icheck/icheck.min.js"></script>
+	<script src="/admin/js/icheck/icheck.min.js"></script>
 
 	<script src="/admin/js/custom.js"></script>
 
@@ -488,39 +466,24 @@ function toggleFieldsByCategory() {
   <script src="js/datatables/tools/js/dataTables.tableTools.js"></script> -->
 
 	<!-- Datatables-->
-	<script
-		src="/admin/js/datatables/jquery.dataTables.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.bootstrap.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.buttons.min.js"></script>
-	<script
-		src="/admin/js/datatables/buttons.bootstrap.min.js"></script>
-	<script
-		src="/admin/js/datatables/jszip.min.js"></script>
-	<script
-		src="/admin/js/datatables/pdfmake.min.js"></script>
-	<script
-		src="/admin/js/datatables/vfs_fonts.js"></script>
-	<script
-		src="/admin/js/datatables/buttons.html5.min.js"></script>
-	<script
-		src="/admin/js/datatables/buttons.print.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.keyTable.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.responsive.min.js"></script>
-	<script
-		src="/admin/js/datatables/responsive.bootstrap.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.scroller.min.js"></script>
+	<script src="/admin/js/datatables/jquery.dataTables.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.bootstrap.js"></script>
+	<script src="/admin/js/datatables/dataTables.buttons.min.js"></script>
+	<script src="/admin/js/datatables/buttons.bootstrap.min.js"></script>
+	<script src="/admin/js/datatables/jszip.min.js"></script>
+	<script src="/admin/js/datatables/pdfmake.min.js"></script>
+	<script src="/admin/js/datatables/vfs_fonts.js"></script>
+	<script src="/admin/js/datatables/buttons.html5.min.js"></script>
+	<script src="/admin/js/datatables/buttons.print.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.fixedHeader.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.keyTable.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.responsive.min.js"></script>
+	<script src="/admin/js/datatables/responsive.bootstrap.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.scroller.min.js"></script>
 
 
 	<!-- pace -->
-	<script
-		src="/admin/js/pace/pace.min.js"></script>
+	<script src="/admin/js/pace/pace.min.js"></script>
 	<script>
 		var handleDataTableButtons = function() {
 			"use strict";
@@ -630,31 +593,41 @@ function toggleFieldsByCategory() {
 
 						});
 	</script>
-	
+
 	<script>
-		document.getElementById("category").addEventListener("change",
-				function() {
+		function toggleCategoryFields() {
 
-					var categoryName = this.options[this.selectedIndex].text;
+			var categoryName = $("#category option:selected").text()
+					.toLowerCase();
 
-					var sizeDiv = document.getElementById("sizeDiv");
-					var genderDiv = document.getElementById("genderDiv");
+			var sizeDiv = document.getElementById("sizeDiv");
+			var genderDiv = document.getElementById("genderDiv");
 
-					sizeDiv.style.display = "none";
-					
+			sizeDiv.style.display = "none";
+			genderDiv.style.display = "none";
 
-					if (categoryName.toLowerCase().includes("men") || categoryName.toLowerCase().includes("women")) {
-						sizeDiv.style.display = "block";
-						genderDiv.style.display = "block";
-					}
-					
-					
+			if (categoryName.includes("men") || categoryName.includes("women")) {
 
-					
+				sizeDiv.style.display = "block";
+				genderDiv.style.display = "block";
 
-				});
+			}
+
+		}
+
+		$(document).ready(function() {
+
+			toggleCategoryFields();
+
+			$("#category").change(function() {
+
+				toggleCategoryFields();
+
+			});
+
+		});
 	</script>
-	
+
 </body>
 
 </html>
