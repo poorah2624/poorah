@@ -60,9 +60,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</label>
 
 				<!-- COD -->
-				<label> <input type="radio" name="paymentMethod" value="COD"
+				<!--  <label> <input type="radio" name="paymentMethod" value="COD"
 					onclick="showOption('cod')" checked> Cash on Delivery
-				</label>
+				</label> -->
 
 			</div>
 
@@ -107,14 +107,14 @@ function handlePayment(){
 
     var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
 
-    if(paymentMethod === "COD"){
+    /* if(paymentMethod === "COD"){
         document.getElementById("paymentForm").action = "/orderPlaced";
         document.getElementById("paymentForm").method = "post";
         document.getElementById("paymentForm").submit();
     } 
-    else {
+    else { */
         payNow(); // Razorpay call
-    }
+    /* } */
 }
 
 

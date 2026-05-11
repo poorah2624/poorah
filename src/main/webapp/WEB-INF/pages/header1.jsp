@@ -57,18 +57,7 @@
 
 
 							<li class="right-section">
-								<div class="search">
-									<input class="search_box" type="checkbox" id="search_box">
-									<label class="icon-search" for="search_box"> <span
-										class="glyphicon glyphicon-search"></span>
-									</label>
-									<div class="search_form">
-										<form action="#" method="post">
-											<input type="text" name="Search" placeholder="Search...">
-											<input type="submit" value="Send">
-										</form>
-									</div>
-								</div> <!-- CART --> <a href="/cart"> (${cartCount} Items) <img
+								<a href="/cart"> (${cartCount} Items) <img
 									src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" />
 							</a>
 							</li>
@@ -145,18 +134,7 @@
 
 
 							<li class="right-section">
-								<div class="search">
-									<input class="search_box" type="checkbox" id="search_box">
-									<label class="icon-search" for="search_box"> <span
-										class="glyphicon glyphicon-search"></span>
-									</label>
-									<div class="search_form">
-										<form action="#" method="post">
-											<input type="text" name="Search" placeholder="Search...">
-											<input type="submit" value="Send">
-										</form>
-									</div>
-								</div> <!-- CART --> <a href="/cart"> (${cartCount} Items) <img
+								 <a href="/cart"> (${cartCount} Items) <img
 									src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" />
 							</a>
 							</li>
