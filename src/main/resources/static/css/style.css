@@ -2325,9 +2325,14 @@ select.select_item {
 
 .dresses_grid {
 	position: relative;
-	transform: scale(1.03);
+	transform: scale(1.05);
         transform-origin: top center;
 }
+
+.w3ls_dresses_grid_right_grid3 .col-md-3{
+        padding-left: 6px;
+        padding-right: 6px;
+    }
 
 .dresses_grid_pos {
 	position: absolute;
