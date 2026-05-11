@@ -2340,12 +2340,44 @@ select.select_item {
     align-items: center;
     justify-content: center;
     background: #f8f8f8;
+    position: relative;
 }
 
 .hs-wrapper img{
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+}
+.wishlist-icon{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    width: 38px;
+    height: 38px;
+
+    background: #fff;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+
+    cursor: pointer;
+    z-index: 9;
+
+    transition: 0.3s;
+}
+
+.wishlist-icon i{
+    font-size: 18px;
+    color: #222;
+}
+
+.wishlist-icon:hover i{
+    color: red;
 }
 
 .w3ls_dresses_grid_right_grid3 .col-md-3 {

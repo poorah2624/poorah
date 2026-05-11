@@ -23,8 +23,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 	
 	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 		function hideURLbar(){ window.scrollTo(0,1); } 
+
 
 
 
@@ -176,6 +178,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											src="${fn:split(p.itemImage, ',')[0]}" alt=" "
 											class="img-responsive" />
 										</a>
+
+										<div class="wishlist-icon">
+											<i class="fa fa-heart-o"></i>
+										</div>
 
 										<div class="w3_hs_bottom w3_hs_bottom_sub1">
 											<ul>
