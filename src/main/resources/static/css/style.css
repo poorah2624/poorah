@@ -2315,6 +2315,11 @@ select.select_item {
 	margin-right: 1em;
 }
 
+.agileinfo_new_products_grid{
+    padding: 8px;
+    margin-bottom: 18px;
+}
+
 .dresses_grid {
 	background: #fff;
     border: 1px solid #e5e5e5;
