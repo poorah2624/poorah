@@ -2325,6 +2325,8 @@ select.select_item {
 
 .dresses_grid {
 	position: relative;
+	transform: scale(1.03);
+        transform-origin: top center;
 }
 
 .dresses_grid_pos {
@@ -3976,15 +3978,16 @@ td.invert-image a img {
 	}
 	.hs-wrapper, .hs-wrapper2 {
 		width: 100% !important;
-		height: 190px !important;
+		height: 220px !important;
 		overflow: hidden;
 		position: relative;
 	}
 	.hs-wrapper img, .hs-wrapper2 img {
 		width: 100% !important;
-		height: 190px !important;
+		height: 220px !important;
 		object-fit: cover !important;
 		display: block;
+		
 	}
 	.product-name {
 		font-size: 15px !important;

@@ -105,7 +105,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	<!-- dresses -->
 	<div class="dresses">
-		<div class="container">
+		<div class="container" style="width: 98% !important;">
 			<div class="w3ls_dresses_grids">
 				<!--  <div class="col-md-4 w3ls_dresses_grid_left">
 					<div class="w3ls_dresses_grid_left_grid">
