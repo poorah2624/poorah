@@ -2346,7 +2346,7 @@ select.select_item {
 .hs-wrapper img{
     max-width: 100%;
     max-height: 100%;
-    object-fit: contain;
+    object-fit: cover;
 }
 .wishlist-icon{
     position: absolute;
@@ -2439,14 +2439,16 @@ select.select_item {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	max-width: 100%;
-	color: #212121;
+	color: #111;
     text-decoration: none;
 }
 
 .simpleCart_shelfItem{
     padding: 0 12px;
-    margin-top: 8px;
     text-align: left !important;
+    width: 100%;
+    padding: 0 14px;
+    margin-top: 10px;
 }
 
 .simpleCart_shelfItem > div{
