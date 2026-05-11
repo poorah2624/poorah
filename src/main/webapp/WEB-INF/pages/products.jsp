@@ -185,11 +185,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										</div>
 									</div>
 
-									<h5 class="product-name"
-										style="text-align: center; font-size: 20px;">
+									<h5 class="product-name">
 										<a href="/single/${p.itemId}">${p.itemName }</a>
 									</h5>
-									<div class="simpleCart_shelfItem" style="text-align: center;">
+									<div class="simpleCart_shelfItem">
 										<div
 											style="display: flex; justify-content: center; gap: 10px; align-items: center;">
 											<p>
