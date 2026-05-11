@@ -2335,18 +2335,25 @@ select.select_item {
 }
 
 .hs-wrapper{
-    height: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f8f8f8;
-    position: relative;
+   width: 100%;
+    height: 430px;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden;
+    background: #f5f5f5;
 }
 
 .hs-wrapper img{
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
+     width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 .wishlist-icon{
     position: absolute;
@@ -2415,16 +2422,17 @@ select.select_item {
 }
 
 .product-name{
-    padding: 10px 12px 0px;
+    padding: 12px 14px 0 !important;
     margin: 0 !important;
 
+    width: 100%;
+
     font-size: 18px !important;
-    font-weight: 500;
-    line-height: 26px;
+    line-height: 25px;
 
     text-align: left !important;
 
-    height: 58px;
+    min-height: 58px;
 
     overflow: hidden;
 
@@ -2434,21 +2442,20 @@ select.select_item {
 }
 
 .product-name a {
-	display: block;
+	/*display: block;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	max-width: 100%;
+	max-width: 100%; */
 	color: #111;
     text-decoration: none;
 }
 
 .simpleCart_shelfItem{
-    padding: 0 12px;
-    text-align: left !important;
+  
     width: 100%;
     padding: 0 14px;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .simpleCart_shelfItem > div{
@@ -3932,10 +3939,12 @@ td.invert-image a img {
 		margin: 2em auto 0;
 	}
 	.dresses_grid {
-		width: 100% !important;
-		display: flex;
-		flex-direction: column;
-	}
+    width: 100% !important;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
+    padding-bottom: 12px;
+   }
 	.dropdown-menu.columns-3 {
 		min-width: 800px;
 	}
