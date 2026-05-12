@@ -179,9 +179,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											class="img-responsive" />
 										</a>
 
-										<div class="wishlist-icon">
-											<i class="fa fa-heart-o"></i>
-										</div>
+										
 
 										<div class="w3_hs_bottom w3_hs_bottom_sub1">
 											<ul>
