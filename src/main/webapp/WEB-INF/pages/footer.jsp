@@ -51,8 +51,10 @@
 							href="https://youtube.com/@poorah_official?si=8ccRnxp2cGtgTz1z"
 							class="youtube"> <i class="fab fa-youtube"></i>
 						</a></li>
-						<li><a href="#" class="linkedin"> </a> <i
-							class="fab fa-linkedin"></i></li>
+						<li><a href="#" class="linkedin"> <i
+								class="fab fa-linkedin"></i>
+						</a></li>
+
 					</ul>
 				</div>
 			</div>
