@@ -36,8 +36,7 @@
 				</div>
 				<div class="modal-body modal-body-sub">
 					<div class="row" style="display: flex;">
-						<div class="col-md-8 modal_body_left modal_body_left1"
-							style="border-right: 1px dotted #C2C2C2; padding-right: 3em;">
+						<div class="col-md-8 modal_body_left modal_body_left1">
 							<div class="sap_tabs">
 								<div id="horizontalTab"
 									style="display: block; width: 100%; margin: 0px;">

@@ -1810,6 +1810,9 @@ h2.resp-accordion {
 	flex: 1;
 	text-align: center;
 }
+ .modal-content{
+        overflow-x: hidden !important;
+    }
 
 /*-- //sap --*/
 .modal_body_right1 {
@@ -1832,6 +1835,10 @@ h2.resp-accordion {
 	font-size: 1.5em;
 	color: #212121;
 	padding-left: 1.5em;
+}
+.modal_body_left{
+    border-right: 1px dotted #C2C2C2;
+    padding-right: 3em;
 }
 
 .register input[type="text"], .register input[type="email"], .register input[type="password"]
@@ -4087,6 +4094,9 @@ td.invert-image a img {
 		width: 95% !important;
         margin: 20px auto !important;
 	}
+	.modal-body{
+        padding: 15px !important;
+    }
 	
 	 .modal-body .row{
         display: block !important;
@@ -4100,17 +4110,29 @@ td.invert-image a img {
         border-right: none !important;
     }
      .modal_body_left{
-        border-bottom: 1px solid #eee;
-        margin-bottom: 20px;
+        border-right: none !important;
+        padding-right: 15px !important;
+    }
+     .resp-tabs-list{
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px;
+        padding: 0 !important;
     }
      .resp-tabs-list li{
         width: 100% !important;
+        margin: 0 !important;
         text-align: center;
-        margin-bottom: 8px;
+        float: none !important;
+        display: block !important;
     }
 	h3.other-nw {
 		margin: 2em 0 2em;
 	}
+	 .register input{
+        width: 100% !important;
+        box-sizing: border-box;
+    }
 	.register input[type="text"],
     .register input[type="email"],
     .register input[type="password"]{
