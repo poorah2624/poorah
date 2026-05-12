@@ -8,12 +8,22 @@ html, body {
 	font-size: 100%;
 	background: #fff;
 	font-family: 'Montserrat', sans-serif;
+	overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+
+    -webkit-text-size-adjust: 100%;
 }
 
 .w3l_logo h1 a {
 	display: flex;
 	align-items: center;
 	gap: 10px;
+}
+
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .site-logo {
