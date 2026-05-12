@@ -39,10 +39,20 @@
 				<h4>Follow Us</h4>
 				<div class="agileits_social_button">
 					<ul>
-						<li><a href="https://www.facebook.com/share/15o2B42JpFz/?mibextid=wwXIfr" class="facebook"> </a></li>
-						<li><a href="https://www.instagram.com/poorah_official?igsh=c3gxN2RscjdsYzhu&utm_source=qr" class="instagram"> </a></li>
-						<li><a href="https://youtube.com/@poorah_official?si=8ccRnxp2cGtgTz1z" class="youtube"> </a></li>
-						<li><a href="#" class="linkedin"> </a></li>
+						<li><a
+							href="https://www.facebook.com/share/15o2B42JpFz/?mibextid=wwXIfr"
+							class="facebook"> <i class="fab fa-facebook-f"></i>
+						</a></li>
+						<li><a
+							href="https://www.instagram.com/poorah_official?igsh=c3gxN2RscjdsYzhu&utm_source=qr"
+							class="instagram"> <i class="fab fa-instagram"></i>
+						</a></li>
+						<li><a
+							href="https://youtube.com/@poorah_official?si=8ccRnxp2cGtgTz1z"
+							class="youtube"> <i class="fab fa-youtube"></i>
+						</a></li>
+						<li><a href="#" class="linkedin"> </a> <i
+							class="fab fa-linkedin-in"></i></li>
 					</ul>
 				</div>
 			</div>
@@ -177,9 +187,9 @@
 
 <script>
 	AOS.init({
-		duration : 1000, 
+		duration : 1000,
 		once : true
-	
+
 	});
 </script>
 
