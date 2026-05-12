@@ -1690,53 +1690,7 @@ ul.wmuSliderPagination {
     transform: translateY(-3px);
 }
 
-.agileits_social_button ul li a.facebook {
-	
-	display: block;
-	width: 35px;
-	height: 35px;
-}
 
-.agileits_social_button ul li a.facebook:hover {
-	
-	display: block;
-}
-
-.agileits_social_button ul li a.twitter {
-	background: url(../images/img-sp.png) no-repeat -41px -130px #414141;
-	display: block;
-	width: 35px;
-	height: 35px;
-}
-
-.agileits_social_button ul li a.twitter:hover {
-	background: url(../images/img-sp.png) no-repeat -41px -130px #5E5E5E;
-	display: block;
-}
-
-.agileits_social_button ul li a.google {
-	background: url(../images/img-sp.png) no-repeat -80px -130px #414141;
-	display: block;
-	width: 35px;
-	height: 35px;
-}
-
-.agileits_social_button ul li a.google:hover {
-	background: url(../images/img-sp.png) no-repeat -80px -130px #5E5E5E;
-	display: block;
-}
-
-.agileits_social_button ul li a.pinterest {
-	background: url(../images/img-sp.png) no-repeat -123px -130px #414141;
-	display: block;
-	width: 35px;
-	height: 35px;
-}
-
-.agileits_social_button ul li a.pinterest:hover {
-	background: url(../images/img-sp.png) no-repeat -123px -130px #5E5E5E;
-	display: block;
-}
 
 .footer-copy1 {
 	position: relative;
