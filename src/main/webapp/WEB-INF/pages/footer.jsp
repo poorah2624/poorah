@@ -39,10 +39,10 @@
 				<h4>Follow Us</h4>
 				<div class="agileits_social_button">
 					<ul>
-						<li><a href="#" class="facebook"> </a></li>
-						<li><a href="#" class="twitter"> </a></li>
-						<li><a href="#" class="google"> </a></li>
-						<li><a href="#" class="pinterest"> </a></li>
+						<li><a href="https://www.facebook.com/share/15o2B42JpFz/?mibextid=wwXIfr" class="facebook"> </a></li>
+						<li><a href="https://www.instagram.com/poorah_official?igsh=c3gxN2RscjdsYzhu&utm_source=qr" class="instagram"> </a></li>
+						<li><a href="https://youtube.com/@poorah_official?si=8ccRnxp2cGtgTz1z" class="youtube"> </a></li>
+						<li><a href="#" class="linkedin"> </a></li>
 					</ul>
 				</div>
 			</div>
