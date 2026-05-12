@@ -52,7 +52,7 @@
 							class="youtube"> <i class="fab fa-youtube"></i>
 						</a></li>
 						<li><a href="#" class="linkedin"> </a> <i
-							class="fab fa-linkedin-in"></i></li>
+							class="fab fa-linkedin"></i></li>
 					</ul>
 				</div>
 			</div>
