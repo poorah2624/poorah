@@ -5955,7 +5955,7 @@ input[type="radio"]:invalid {
 	display: flex;
 	width: 100%;
 	height: auto;
-	min-height: 850px;
+	min-height: auto;
 }
 
 .category-box {
@@ -5977,18 +5977,7 @@ input[type="radio"]:invalid {
 }
 
 /* TEXT OVERLAY */
-.overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: rgba(0, 0, 0, 0.3);
-	color: white;
-}
+
 
 .overlay h2 {
 	font-size: 30px;
@@ -6046,52 +6035,65 @@ input[type="radio"]:invalid {
 .custom-upload-box1,
 .custom-upload-box{
     width: 100%;
-    height: auto !important;
-    min-height: unset !important;
     margin: 0 !important;
     padding: 0 !important;
     display: block;
     position: relative;
 }
 
+
 .video-img1 img,
-.video-img img{
+.custom-upload-box1 img{
     width: 100%;
     height: auto !important;
     display: block;
 }
 
-@media (max-width: 400px){
+@media (max-width: 800px) {
 
-    .category-section1,
-    .category-section2{
+    .category-section1{
         height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
         display: block !important;
     }
 
-    .category-box1,
+    .category-box1{
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .category-box1 img{
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+    }
+
+    /* SECTION 2 */
+
+    .category-section2{
+        height: 300px !important;
+        display: block !important;
+    }
+
     .category-box2{
         width: 100% !important;
-        height: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        height: 300px !important;
     }
 
-    .category-box1 img,
-    .category-box2 img{
-        width: 100% !important;
-        height: auto !important;
-        display: block !important;
-    }
-     .video-img1,
     .video-img,
-    .custom-upload-box1,
-    .custom-upload-box {
-        height: auto !important;
-        min-height: auto !important;
+    .custom-upload-box{
+        height: 300px !important;
+        background-size: cover !important;
+        background-position: center !important;
     }
+     .custom-upload-box{
+        border-radius: 0 !important;
+    }
+    .custom-upload-box img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
 }
 
 /* custom design select */
@@ -6099,12 +6101,16 @@ input[type="radio"]:invalid {
 	position: relative;
 	border-radius: 10px;
 	overflow: hidden;
+	height: 500px;
+    
 }
 
 .custom-upload-box img {
 	width: 100%;
 	opacity: 0.6;
 	object-fit: cover;
+    height: 100%;
+    display: block;
 }
 
 .custom-upload-box1 {
