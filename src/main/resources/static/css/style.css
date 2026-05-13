@@ -1809,6 +1809,7 @@ h2.resp-accordion {
 }
  .modal-content{
         overflow-x: hidden !important;
+        overflow-y: auto !important;
     }
 
 /*-- //sap --*/
@@ -4087,12 +4088,21 @@ td.invert-image a img {
 }
 
 @media ( max-width :800px) {
-	/*.modal-dialog {
+	.modal-dialog {
 		width: 95% !important;
         margin: 20px auto !important;
-	}*/
+	}
+	 .modal-content{
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
 	.modal-body{
         padding: 15px !important;
+        overflow-y: auto !important;
+    }
+    #myModal88{
+        overflow-y: auto !important;
     }
 	
 	 .modal-body .row{
@@ -6231,7 +6241,7 @@ input[type="radio"]:invalid {
 	background: #fff;
 	margin: 10% auto;
 	padding: 20px;
-	width: 300px;
+	width: 900px;
 	border-radius: 8px;
 }
 
