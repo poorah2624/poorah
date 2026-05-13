@@ -15,20 +15,26 @@
 				<nav class="navbar navbar-default" style="align-items: center;">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<div class="navbar-header nav_2">
+
 						<button type="button"
 							class="navbar-toggle collapsed navbar-toggle1"
 							data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+
 							<span class="sr-only">Toggle navigation</span> <span
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
+
 						</button>
+
+						<a href="/home" class="mobile-logo"> <img
+							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
+							alt="PooRah Logo" class="site-logo">
+						</a>
 
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-							<li><a href="/home"><img
-									src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
-									alt="PooRah Logo" class="site-logo"></a></li>
+							
 							<li class="active"><a href="/home" class="act">Home</a></li>
 							<%--  Mega Menu --%>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -57,7 +63,7 @@
 							<li><a href="/userlogin" class="login-btn"><i
 									class="fa fa-user"></i>Login</a></li>
 
-							
+
 
 
 							<li class="right-section">
@@ -72,20 +78,16 @@
 											<input type="submit" value="Send">
 										</form>
 									</div>
-								</div>
-							
-
-							<!-- CART -->
-							<a href="/cart"> (${cartCount}
-									Items) <img
+								</div> <!-- CART --> <a href="/cart"> (${cartCount} Items) <img
 									src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" />
-							</a></li>
+							</a>
+							</li>
 						</ul>
 					</div>
 				</nav>
 
 			</div>
-			</div>
+		</div>
 	</c:when>
 	<%--  if user logged in --%>
 	<c:otherwise>
@@ -103,19 +105,26 @@
 				<nav class="navbar navbar-default">
 					<%-- Brand and toggle get grouped for better mobile display --%>
 					<div class="navbar-header nav_2">
+
 						<button type="button"
 							class="navbar-toggle collapsed navbar-toggle1"
 							data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+
 							<span class="sr-only">Toggle navigation</span> <span
 								class="icon-bar"></span> <span class="icon-bar"></span> <span
 								class="icon-bar"></span>
+
 						</button>
+
+						<a href="/home" class="mobile-logo"> <img
+							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
+							alt="PooRah Logo" class="site-logo">
+						</a>
+
 					</div>
 					<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 						<ul class="nav navbar-nav">
-							<li><img
-								src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
-								alt="PooRah Logo" class="site-logo"></li>
+							
 							<li class="active"><a href="/home" class="act">Home</a></li>
 							<%-- Mega Menu --%>
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -151,8 +160,8 @@
 									<li><a href="/myOrders">My Orders</a></li>
 									<li><a href="/userlogin">Logout</a></li>
 								</ul></li>
-								
-							
+
+
 
 
 							<li class="right-section">
@@ -167,21 +176,17 @@
 											<input type="submit" value="Send">
 										</form>
 									</div>
-								</div>
-							
-
-							<!-- CART -->
-							<a href="/cart"> (${cartCount}
-									Items) <img
+								</div> <!-- CART --> <a href="/cart"> (${cartCount} Items) <img
 									src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" />
-							</a></li>
+							</a>
+							</li>
 
 						</ul>
 					</div>
 				</nav>
 
 			</div>
-			</div>
+		</div>
 	</c:otherwise>
 
 	<%--  //header --%>

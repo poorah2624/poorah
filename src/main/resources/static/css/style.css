@@ -31,7 +31,11 @@ img{
 .site-logo {
 	height: 80px; /* 👈 same as h1 font size */
 	width: auto;
-	object-fit: contain;
+	display: block;
+}
+.mobile-logo{
+    display: inline-block;
+    padding: 8px 15px;
 }
 
 .w3l_logo h1 {
@@ -4239,6 +4243,7 @@ td.invert-image a img {
 		float: none;
 		margin-right: 0;
 		display: block;
+		margin-top: 12px !important;
 	}
 	.navbar-default .navbar-toggle .icon-bar {
 		background-color: #212121;
@@ -4325,6 +4330,15 @@ td.invert-image a img {
 		width: 100%;
 		box-shadow: none;
 	}
+	.mobile-logo{
+        display: block !important;
+    }
+    .navbar-header{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
 @media ( max-width :736px) {
@@ -5427,6 +5441,8 @@ td.invert-image a img {
 	.close1, .close2, .close3 {
 		right: 111px;
 	}
+	
+	
 }
 
 #cartError {
