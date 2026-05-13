@@ -11,6 +11,11 @@ html, body {
 	overflow-x: hidden;
    
 }
+img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 
 .w3l_logo h1 a {
 	display: flex;
@@ -5949,7 +5954,8 @@ input[type="radio"]:invalid {
 .category-section {
 	display: flex;
 	width: 100%;
-	height: 850px;
+	height: auto;
+	min-height: 850px;
 }
 
 .category-box {
@@ -6003,8 +6009,9 @@ input[type="radio"]:invalid {
 .category-section1 {
 	display: flex;
 	width: 100%;
-	height: 800px;
+	height: auto;
 	margin-bottom: 30px;
+	min-height: 800px;
 }
 
 .category-box1 {
@@ -6016,13 +6023,15 @@ input[type="radio"]:invalid {
 .category-section2 {
 	display: flex;
 	width: 100%;
-	height: 500px;
+	height: auto;
+	min-height: 500px;
 }
 
 .category-box2 {
 	position: relative;
 	width: 100%;
 	overflow: hidden;
+	
 }
 
 @media ( max-width : 400px) {
