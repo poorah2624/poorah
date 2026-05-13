@@ -4087,36 +4087,24 @@ td.invert-image a img {
 }
 
 @media ( max-width :800px) {
-	html,body{
-	overflow-x: hidden !important;
-	}
 	.modal-dialog {
-        
-        width: 100% !important;
-        overflow: hidden !important;
+		width: 95% !important;
+        margin: 20px auto !important;
 	}
 	.modal-body{
-        padding: 10px !important;
-    }
-    .modal-content{
-    width: 100% !important;
-    overflow: hidden !important;
+        padding: 15px !important;
     }
 	
-	 .login-row,
 	 .modal-body .row{
         display: block !important;
-        margin: 0 !important;
     }
     .modal_body_left,
-    .modal_body_right,
-    .col-md-8,
-    .col-md-4{
+    .modal_body_right{
         width: 100% !important;
         max-width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        float: none !important;
+        flex: 100% !important;
+        padding: 15px !important;
+        border-right: none !important;
     }
      .modal_body_left{
         border-right: none !important;
@@ -4125,15 +4113,16 @@ td.invert-image a img {
      .resp-tabs-list{
         display: flex !important;
         flex-direction: column !important;
-        width: 100% !important;
+        gap: 10px;
         padding: 0 !important;
     }
      .resp-tabs-list li{
         width: 100% !important;
-        box-sizing: border-box !important;
-        margin-bottom: 10px !important;
+        margin: 0 !important;
+        text-align: center;
+        float: none !important;
+        display: block !important;
     }
-
 	h3.other-nw {
 		margin: 2em 0 2em;
 	}
@@ -4420,7 +4409,7 @@ td.invert-image a img {
         display: inline-block;
     }
 	.modal-body-sub {
-		padding: 15px !important;
+		padding: 2em 1em !important;
 	}
 	.w3l_logo {
 		margin-left: 9em;
