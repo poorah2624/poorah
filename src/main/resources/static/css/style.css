@@ -6052,7 +6052,7 @@ input[type="radio"]:invalid {
 @media (max-width: 800px) {
 
     .category-section1{
-        height: auto !important;
+        height: 350px;
         display: block !important;
     }
 
