@@ -5995,16 +5995,25 @@ input[type="radio"]:invalid {
 	letter-spacing: 2px;
 }
 
-@media ( max-width : 800px) {
-	.category-section {
-		flex-direction: column;
-		height: auto;
-	}
-	.category-box {
-		width: 100%;
-		height: 350px;
-	}
+@media (max-width: 800px){
+
+    .category-section{
+        flex-direction: column;
+        height: auto !important;
+    }
+
+    .category-box{
+        width: 100%;
+        height: auto !important;
+    }
+
+    .category-box img{
+        width: 100%;
+        height: auto !important;
+        display: block;
+    }
 }
+
 
 .category-section1 {
 	display: flex;
@@ -6034,23 +6043,27 @@ input[type="radio"]:invalid {
 	
 }
 
-@media ( max-width : 400px) {
-	.category-section1 {
-		flex-direction: column;
-		height: auto;
-	}
-	.category-box1 {
-		width: 100%;
-		height: 250px;
-	}
-	.category-section2 {
-		flex-direction: column;
-		height: auto;
-	}
-	.category-box2 {
-		width: 100%;
-		height: 300px;
-	}
+@media (max-width: 400px){
+
+    .category-section1,
+    .category-section2{
+        flex-direction: column;
+        height: auto !important;
+    }
+
+    .category-box1,
+    .category-box2{
+        width: 100%;
+        height: auto !important;
+        line-height: 0;
+    }
+
+    .category-box1 img,
+    .category-box2 img{
+        width: 100%;
+        height: auto !important;
+        display: block;
+    }
 }
 
 /* custom design select */
