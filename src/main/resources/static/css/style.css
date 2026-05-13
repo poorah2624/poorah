@@ -9,10 +9,7 @@ html, body {
 	background: #fff;
 	font-family: 'Montserrat', sans-serif;
 	overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-
-    -webkit-text-size-adjust: 100%;
+   
 }
 
 .w3l_logo h1 a {
@@ -4090,24 +4087,36 @@ td.invert-image a img {
 }
 
 @media ( max-width :800px) {
+	html,body{
+	overflow-x: hidden !important;
+	}
 	.modal-dialog {
-		width: 95% !important;
-        margin: 20px auto !important;
+        
+        width: 100% !important;
+        overflow: hidden !important;
 	}
 	.modal-body{
-        padding: 15px !important;
+        padding: 10px !important;
+    }
+    .modal-content{
+    width: 100% !important;
+    overflow: hidden !important;
     }
 	
+	 .login-row,
 	 .modal-body .row{
         display: block !important;
+        margin: 0 !important;
     }
     .modal_body_left,
-    .modal_body_right{
+    .modal_body_right,
+    .col-md-8,
+    .col-md-4{
         width: 100% !important;
         max-width: 100% !important;
-        flex: 100% !important;
-        padding: 15px !important;
-        border-right: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        float: none !important;
     }
      .modal_body_left{
         border-right: none !important;
@@ -4116,16 +4125,15 @@ td.invert-image a img {
      .resp-tabs-list{
         display: flex !important;
         flex-direction: column !important;
-        gap: 10px;
+        width: 100% !important;
         padding: 0 !important;
     }
      .resp-tabs-list li{
         width: 100% !important;
-        margin: 0 !important;
-        text-align: center;
-        float: none !important;
-        display: block !important;
+        box-sizing: border-box !important;
+        margin-bottom: 10px !important;
     }
+
 	h3.other-nw {
 		margin: 2em 0 2em;
 	}
@@ -4412,7 +4420,7 @@ td.invert-image a img {
         display: inline-block;
     }
 	.modal-body-sub {
-		padding: 2em 1em !important;
+		padding: 15px !important;
 	}
 	.w3l_logo {
 		margin-left: 9em;
