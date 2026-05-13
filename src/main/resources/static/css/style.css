@@ -4087,10 +4087,10 @@ td.invert-image a img {
 }
 
 @media ( max-width :800px) {
-	.modal-dialog {
+	/*.modal-dialog {
 		width: 95% !important;
         margin: 20px auto !important;
-	}
+	}*/
 	.modal-body{
         padding: 15px !important;
     }
@@ -4532,9 +4532,9 @@ td.invert-image a img {
 	.banner6 {
 		background-position: -140px 0px;
 	}
-	.modal-dialog {
+	/*.modal-dialog {
 		width: 595px;
-	}
+	}*/
 	.banner7 {
 		background-position: -165px 0px;
 	}
@@ -4559,12 +4559,12 @@ td.invert-image a img {
 		width: 100%;
 		margin: 2em 0 0;
 	}
-	.modal_body_left1 {
+	/*.modal_body_left1 {
 		float: left !important;
 	}
 	.modal_body_right1 {
 		float: right !important;
-	}
+	}*/
 	.w3l_faq_grid h3 {
 		font-size: 1.19em;
 	}
@@ -4581,9 +4581,9 @@ td.invert-image a img {
 }
 
 @media ( max-width : 600px) {
-	.modal-dialog {
+	/*.modal-dialog {
 		width: 560px;
-	}
+	}*/
 	.social {
 		width: 9.5em;
 	}
