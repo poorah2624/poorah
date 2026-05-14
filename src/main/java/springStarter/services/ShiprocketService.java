@@ -15,27 +15,36 @@ import springStarter.models.Orders;
 @Service
 public class ShiprocketService {
 	
+	private String cachedToken;
+	private long tokenTime;
+	
 	public String getToken() {
+		if (cachedToken != null &&
+		        (System.currentTimeMillis() - tokenTime) < 50 * 60 * 1000) {
+		        return cachedToken;
+		    }
+		
+		String url = "https://apiv2.shiprocket.in/v1/external/auth/login";
 
-        String url = "https://apiv2.shiprocket.in/v1/external/auth/login";
+	    RestTemplate restTemplate = new RestTemplate();
 
-        RestTemplate restTemplate = new RestTemplate();
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+	    Map<String, String> body = new HashMap<>();
+	    body.put("email", "rahul@poorah.com");
+	    body.put("password", "YV20LdgZ&wh5b&MAS$5Krss4q6bk%TXD");
 
-        Map<String, String> body = new HashMap<>();
+	    HttpEntity<Map<String, String>> request =
+	            new HttpEntity<>(body, headers);
 
-        body.put("email", "rahul@poorah.com");
-        body.put("password", "YV20LdgZ&wh5b&MAS$5Krss4q6bk%TXD");
+	    ResponseEntity<String> response =
+	            restTemplate.postForEntity(url, request, String.class);
 
-        HttpEntity<Map<String, String>> request =
-                new HttpEntity<>(body, headers);
+	    JSONObject json = new JSONObject(response.getBody());
+	    tokenTime = System.currentTimeMillis();
 
-        ResponseEntity<String> response =
-                restTemplate.postForEntity(url, request, String.class);
-
-        return response.getBody();
+	    return json.getString("token");   
     }
 	
 	public void createOrder(Orders order) {
@@ -89,12 +98,8 @@ public class ShiprocketService {
             body.put("billing_last_name", "");
             
             body.put("billing_address",
-                    order.getAddress().getHouseNo());
-
-            body.put("billing_address",
-                    order.getAddress().getArea());
-            
-            body.put("billing_address",
+                    order.getAddress().getHouseNo() + ", " +
+                    order.getAddress().getArea() + ", " +
                     order.getAddress().getLandmark());
 
             body.put("billing_city",
