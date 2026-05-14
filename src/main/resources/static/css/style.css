@@ -6004,7 +6004,7 @@ input[type="radio"]:invalid {
 
     .category-section{
         flex-direction: column;
-        height: auto !important;
+        height: 1177px;
     }
 
     .category-box{
