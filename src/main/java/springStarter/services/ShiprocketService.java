@@ -124,8 +124,11 @@ public class ShiprocketService {
 
             body.put("order_items", items);
 
-            body.put("payment_method",
-                    order.getPaymentMethod());
+            if (order.getPaymentStatus().equals("PAID")) {
+                body.put("payment_method", "Prepaid");
+            } else {
+                body.put("payment_method", "COD");
+            }
 
             body.put("sub_total",
                     order.getTotalAmount());
