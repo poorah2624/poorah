@@ -49,7 +49,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<a href="/products/gender/MEN/Men"> <img
 					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/11_o4fxd5.jpg"
 					alt="Men">
-					<div class="overlay">
+					<div class="overlay1">
 						<h2>Men Collection</h2>
 					</div>
 				</a>
@@ -60,12 +60,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<a href="/products/gender/WOMEN/Women"> <img
 					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/22_bmq1op.jpg"
 					alt="Women">
-					<div class="overlay">
+					<div class="overlay1">
 						<h2>Women Collection</h2>
 					</div>
 				</a>
 			</div>
-			<div class="clearfix"></div>
+		
 
 		</div>
 
@@ -93,7 +93,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 			<div class="category-box2">
 				<div class="video-img custom-upload-box">
-					<div class="overlay"></div>
+					<div class="overlay2"></div>
 					<div class="overlay-content">
 
 

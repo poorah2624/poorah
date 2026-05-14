@@ -5970,61 +5970,95 @@ input[type="radio"]:invalid {
 .category-section {
 	display: flex;
 	width: 100%;
-	height: auto;
-	min-height: auto;
+	gap: 15px;
 }
 
-.category-box {
+.category-box3,
+.category-box4 {
 	position: relative;
 	width: 50%;
 	overflow: hidden;
+	flex: 1;
 }
 
-.category-box img {
+.category-box3 img,
+.category-box4 img {
 	width: 100%;
-	height: 100%;
+	height: auto;
+	display: block;
 	object-fit: cover;
 	transition: 0.5s;
 }
 
-/* HOVER EFFECT 🔥 */
-.category-box:hover img {
+/* Hover */
+.category-box3:hover img,
+.category-box4:hover img {
 	transform: scale(1.1);
 }
 
-/* TEXT OVERLAY */
-
-
-.overlay h2 {
-	font-size: 30px;
-	letter-spacing: 2px;
+.overlay1{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	text-align:center;
 }
 
-@media (max-width: 800px){
+.overlay1 h2{
+	color:#fff;
+	font-size:28px;
+	margin:0;
+}
+
+@media (max-width:800px){
 
     .category-section{
-        flex-direction: column;
-        height: auto !important;
+        display:flex;
+        flex-direction:column;
+        height:auto !important;
+        gap:10px;
+        margin:0;
+        padding:0;
     }
 
-    .category-box3{
-        width: 100%;
-        height: auto !important;
-    }
+    .category-box3,
     .category-box4{
-        width: 100%;
-        height: 200px;
+        width:100%;
+        height:auto !important;
+        margin:0;
+        padding:0;
     }
 
-    .category-box3 img{
-        width: 100%;
-        height: auto !important;
-        display: block;
+    .category-box3 img,
+    .category-box4 img{
+        width:100%;
+        height:auto !important;
+        display:block;
     }
-     .category-box4 img{
-        width: 100%;
-        height: 200px;
-        display: block;
+
+    .clearfix{
+        display:none;
+    }
+    .overlay1{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+    }
+
+    .overlay h2{
+        font-size:22px;
+        color:#fff;
+        margin:0;
     }
 }
 
@@ -6073,6 +6107,8 @@ input[type="radio"]:invalid {
     height: auto !important;
     display: block;
 }
+
+
 
 @media (max-width: 800px) {
 
@@ -6176,7 +6212,7 @@ input[type="radio"]:invalid {
 	object-fit: cover;
 }
 
-.overlay {
+.overlay2 {
 	position: absolute;
 	top: 0;
 	left: 0;
