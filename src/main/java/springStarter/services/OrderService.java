@@ -56,6 +56,9 @@ public class OrderService {
 
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private ShiprocketService shiprocketService;
 
 	public void placeOrder(User user, Long addressId, String paymentMethod, HttpSession session,
 	        String razorpayPaymentId, String razorpayOrderId) {
@@ -277,6 +280,11 @@ public class OrderService {
 		Orders order = orderRepo.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
 
 		order.setStatus(status);
+		
+		 if ("Packed".equalsIgnoreCase(status)) {
+			 shiprocketService.createOrder(order);
+		    }
+
 
 		// optional logic
 		for (Order_item item : order.getItems()) {

@@ -44,18 +44,7 @@
 <link
 	href="/admin/js/datatables/jquery.dataTables.min.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/buttons.bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/fixedHeader.bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/responsive.bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/scroller.bootstrap.min.css"
-	rel="stylesheet" type="text/css" />
+
 
 <script src="/admin/js/jquery.min.js"></script>
 

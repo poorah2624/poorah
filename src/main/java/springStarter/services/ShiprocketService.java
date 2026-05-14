@@ -1,0 +1,151 @@
+package springStarter.services;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import springStarter.models.Order_item;
+import springStarter.models.Orders;
+
+@Service
+public class ShiprocketService {
+	
+	public String getToken() {
+
+        String url = "https://apiv2.shiprocket.in/v1/external/auth/login";
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, String> body = new HashMap<>();
+
+        body.put("email", "rahul@poorah.com");
+        body.put("password", "YV20LdgZ&wh5b&MAS$5Krss4q6bk%TXD");
+
+        HttpEntity<Map<String, String>> request =
+                new HttpEntity<>(body, headers);
+
+        ResponseEntity<String> response =
+                restTemplate.postForEntity(url, request, String.class);
+
+        return response.getBody();
+    }
+	
+	public void createOrder(Orders order) {
+
+        try {
+
+            String token = getToken();
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(token);
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            JSONArray items = new JSONArray();
+            for (Order_item item : order.getItems()) {
+            	
+                JSONObject itemJson = new JSONObject();
+                if (item.getIsCustom() != null && item.getIsCustom()) {
+
+                    itemJson.put("name", "Custom TShirt");
+
+                } else {
+
+                    itemJson.put("name",
+                            item.getItem().getItemName());
+                }
+
+                itemJson.put("sku", "SKU_" + item.getId());
+
+                itemJson.put("units",
+                        item.getQuantity());
+
+                itemJson.put("selling_price",
+                        item.getFinalPrice());
+
+                items.put(itemJson);
+            }
+
+            JSONObject body = new JSONObject();
+
+            body.put("order_id",
+                    order.getOrderNumber());
+
+            body.put("order_date",
+                    order.getOrderDate().toString());
+
+            body.put("pickup_location",
+                    "Home");
+
+            body.put("billing_customer_name",
+                    order.getUser().getUserName());
+
+            body.put("billing_last_name", "");
+            
+            body.put("billing_address",
+                    order.getAddress().getHouseNo());
+
+            body.put("billing_address",
+                    order.getAddress().getArea());
+            
+            body.put("billing_address",
+                    order.getAddress().getLandmark());
+
+            body.put("billing_city",
+                    order.getAddress().getCity());
+
+            body.put("billing_pincode",
+                    order.getAddress().getPincode());
+
+            body.put("billing_state",
+                    order.getAddress().getState());
+
+            body.put("billing_country",
+                    "India");
+
+            body.put("billing_email",
+                    order.getUser().getUserEmail());
+
+            body.put("billing_phone",
+                    order.getAddress().getMobile());
+
+            body.put("shipping_is_billing", true);
+
+            body.put("order_items", items);
+
+            body.put("payment_method",
+                    order.getPaymentMethod());
+
+            body.put("sub_total",
+                    order.getTotalAmount());
+
+            body.put("length", 10);
+            body.put("breadth", 10);
+            body.put("height", 2);
+            body.put("weight", 0.5);
+
+            HttpEntity<String> request =
+                    new HttpEntity<>(body.toString(), headers);
+
+            ResponseEntity<String> response =
+                    restTemplate.postForEntity(
+                            "https://apiv2.shiprocket.in/v1/external/orders/create/adhoc",
+                            request,
+                            String.class);
+
+            System.out.println("SHIPROCKET RESPONSE:");
+            System.out.println(response.getBody());
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+}
