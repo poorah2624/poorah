@@ -6113,7 +6113,7 @@ input[type="radio"]:invalid {
 @media (max-width: 800px) {
 
     .category-section1{
-        height: 350px;
+        height: 300px;
         display: block !important;
     }
 
