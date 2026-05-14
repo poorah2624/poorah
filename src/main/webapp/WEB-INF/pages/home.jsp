@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="category-section">
 
 			<!-- MEN -->
-			<div class="category-box">
+			<div class="category-box3">
 				<a href="/products/gender/MEN/Men"> <img
 					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/11_o4fxd5.jpg"
 					alt="Men">
@@ -56,7 +56,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 
 			<!-- WOMEN -->
-			<div class="category-box">
+			<div class="category-box4">
 				<a href="/products/gender/WOMEN/Women"> <img
 					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/22_bmq1op.jpg"
 					alt="Women">
