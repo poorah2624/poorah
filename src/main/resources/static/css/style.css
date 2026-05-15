@@ -6032,6 +6032,10 @@ input[type="radio"]:invalid {
         margin:0;
         padding:0;
     }
+    
+    .category-box4{
+    margin-bottom: clamp(10px, 2vw, 20px) !important;
+  }
 
     .category-box3 img,
     .category-box4 img{
