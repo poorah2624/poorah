@@ -6067,13 +6067,11 @@ input[type="radio"]:invalid {
 	width: 100%;
     margin: 0 !important;
     padding: 0 !important;
-    height: 650px;
+   
 }
 
 .category-box1 {
 	width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
     line-height: 0;
 }
 
@@ -6085,25 +6083,19 @@ input[type="radio"]:invalid {
 
 .category-box2 {
 	width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
     line-height: 0;
 	
 }
 .video-img1,
-.video-img,
-.custom-upload-box1,
-.custom-upload-box{
+.video-img{
     width: 100%;
-    margin: 0 !important;
-    padding: 0 !important;
     display: block;
     position: relative;
 }
 
 
-.video-img1 img,
-.custom-upload-box1 img{
+
+.video-img1 img{
     width: 100%;
     height: auto !important;
     display: block;
