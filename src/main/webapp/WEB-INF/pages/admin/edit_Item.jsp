@@ -631,14 +631,20 @@
 
 			var sizeDiv = document.getElementById("sizeDiv");
 			var genderDiv = document.getElementById("genderDiv");
+			var variantDiv = document.getElementById("variantDiv");
+			var fabricDiv = document.getElementById("fabricDiv");
 
 			sizeDiv.style.display = "none";
 			genderDiv.style.display = "none";
+			variantDiv.style.display = "none";
+			fabricDiv.style.display = "none";
 
-			if (categoryName.includes("men") || categoryName.includes("women")) {
+			if (categoryName.toLowerCase().includes("men") || categoryName.toLowerCase().includes("women")) {
 
 				sizeDiv.style.display = "block";
 				genderDiv.style.display = "block";
+				variantDiv.style.display = "block";
+				fabricDiv.style.display = "block";
 
 			}
 

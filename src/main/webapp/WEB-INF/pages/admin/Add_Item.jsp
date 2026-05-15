@@ -306,7 +306,7 @@
 												</div>
 											</div>
 
-											<div class="form-group">
+											<div class="form-group" id="fabricDiv">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="fabric">Fabric <span class="required">*</span>
 												</label>
@@ -713,21 +713,22 @@
 					var sizeDiv = document.getElementById("sizeDiv");
 					var genderDiv = document.getElementById("genderDiv");
 					var variantDiv = document.getElementById("variantDiv");
+					var fabricDiv = document.getElementById("fabricDiv");
 
 					sizeDiv.style.display = "none";
 					genderDiv.style.display = "none";
 					variantDiv.style.display = "none";
+					fabricDiv.style.display = "none";
 
 					if (categoryName.toLowerCase().includes("men")
 							|| categoryName.toLowerCase().includes("women")) {
 						sizeDiv.style.display = "block";
 						genderDiv.style.display = "block";
+						variantDiv.style.display = "block";
+						fabricDiv.style.display = "block";
 					}
 					
-					if(categoryName.toLowerCase().includes("beauty"))
-						{
-                         variantDiv.style.display = "block";
-                        }
+					
 
 				});
 	</script>
