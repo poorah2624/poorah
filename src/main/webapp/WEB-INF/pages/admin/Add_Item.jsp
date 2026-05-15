@@ -238,18 +238,7 @@
 												</div>
 											</div>
 
-											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="stock">Item Stock limit <span class="required">
-														*</span>
-												</label>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<input type="text" id="stock" pattern="[0-9]{1,20}"
-														name="stock" title="Enter Digits Only" required="required"
-														placeholder="Enter Stock Limit"
-														class="form-control col-md-7 col-xs-12">
-												</div>
-											</div>
+											
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="discount">Discount<span class="required">(%)</span>
@@ -275,7 +264,7 @@
 												</div>
 											</div>
 
-											<div class="form-group">
+											<div class="form-group" id="variantDiv">
 
 												<label class="control-label col-md-3"> Product
 													Variants </label>
@@ -723,14 +712,22 @@
 
 					var sizeDiv = document.getElementById("sizeDiv");
 					var genderDiv = document.getElementById("genderDiv");
+					var variantDiv = document.getElementById("variantDiv");
 
 					sizeDiv.style.display = "none";
+					genderDiv.style.display = "none";
+					variantDiv.style.display = "none";
 
 					if (categoryName.toLowerCase().includes("men")
 							|| categoryName.toLowerCase().includes("women")) {
 						sizeDiv.style.display = "block";
 						genderDiv.style.display = "block";
 					}
+					
+					if(categoryName.toLowerCase().includes("beauty"))
+						{
+                         variantDiv.style.display = "block";
+                        }
 
 				});
 	</script>

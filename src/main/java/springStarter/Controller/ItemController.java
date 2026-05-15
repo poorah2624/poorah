@@ -121,7 +121,7 @@ public class ItemController {
 		item.setItemName(itemName);
 		item.setItemImage(finalImages);
 		item.setItemPrice(itemPrice);
-		item.setStock(stock);
+		//item.setStock(stock);
 		item.setDiscount(discount);
 		item.setFeaturedProduct(featuredProduct);
 		item.setItemDesc(itemDesc);

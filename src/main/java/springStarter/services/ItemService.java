@@ -55,7 +55,7 @@ public class ItemService {
 		existingItem.setSkuId(item.getSkuId());
 	    existingItem.setItemName(item.getItemName());
 	    existingItem.setItemPrice(item.getItemPrice());
-	    existingItem.setStock(item.getStock());
+	    //existingItem.setStock(item.getStock());
 	    existingItem.setDiscount(item.getDiscount());
 	    existingItem.setFeaturedProduct(item.getFeaturedProduct());
 	    existingItem.setItemDesc(item.getItemDesc());

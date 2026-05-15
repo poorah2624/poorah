@@ -36,9 +36,6 @@ public class Item {
 	@Column(name="itemPrice", nullable=false)
 	private BigDecimal itemPrice;
 	
-	@Column(name="stock", nullable=false)
-	private String stock;
-	
 	@Column(name="discount", nullable=false)
 	private BigDecimal discount;
 	
@@ -159,13 +156,6 @@ public class Item {
 		this.itemPrice = itemPrice;
 	}
 
-    public String getStock() {
-		return stock;
-	}
-
-	public void setStock(String stock) {
-		this.stock = stock;
-	}
 
 	public BigDecimal getDiscount() {
 		return discount;
