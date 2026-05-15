@@ -6142,11 +6142,6 @@ input[type="radio"]:invalid {
      .custom-upload-box{
         border-radius: 0 !important;
     }
-    .custom-upload-box img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
     
      .overlay-content{
         width: 90%;
