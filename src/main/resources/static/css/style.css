@@ -6067,7 +6067,7 @@ input[type="radio"]:invalid {
 	width: 100%;
     margin: 0 !important;
     padding: 0 !important;
-   
+   margin-bottom: clamp(10px, 2vw, 20px) !important;
 }
 
 .category-box1 {
@@ -6108,6 +6108,7 @@ input[type="radio"]:invalid {
     .category-section1{
         height: 300px;
         display: block !important;
+        margin-bottom: clamp(10px, 2vw, 20px) !important;
     }
 
     .category-box1{
