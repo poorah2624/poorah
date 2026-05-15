@@ -238,7 +238,7 @@
 												</div>
 											</div>
 
-											
+
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="discount">Discount<span class="required">(%)</span>
@@ -251,45 +251,42 @@
 														class="form-control col-md-7 col-xs-12">
 												</div>
 											</div>
-											<div class="form-group" id="sizeDiv" style="display: none;">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="size">Select Size<span class="required">*</span>
-												</label>
+											
+
+											<div class="form-group" id="variantDiv"
+												style="display: none;">
+
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">
+													Product Variants </label>
+
 												<div class="col-md-6 col-sm-6 col-xs-12">
-													<input type="checkbox" name="size" value="S"> S<input
-														type="checkbox" name="size" value="M"> M<input
-														type="checkbox" name="size" value="L"> L<input
-														type="checkbox" name="size" value="XL"> XL<input
-														type="checkbox" name="size" value="XXL"> XXL
-												</div>
-											</div>
-
-											<div class="form-group" id="variantDiv">
-
-												<label class="control-label col-md-3"> Product
-													Variants </label>
-
-												<div class="col-md-6">
 
 													<div id="variantContainer">
 
-														<div class="variantRow">
+														<!-- FIRST ROW -->
 
-															<input type="text" name="color[]" placeholder="Color"
-																class="form-control" style="margin-bottom: 10px;">
+														<div class="variantRow"
+															style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
 
+															<label>Color</label> <input type="text" name="color[]"
+																placeholder="Enter Color" class="form-control"
+																style="margin-bottom: 10px;"> <label>Size</label>
 															<input type="text" name="variantSize[]"
-																placeholder="Size" class="form-control"
-																style="margin-bottom: 10px;"> <input
-																type="number" name="variantStock[]" placeholder="Stock"
-																class="form-control" style="margin-bottom: 10px;">
+																placeholder="Enter Size (S/M/L/XL)" class="form-control"
+																style="margin-bottom: 10px;"> <label>Stock</label>
+															<input type="number" name="variantStock[]"
+																placeholder="Enter Stock" class="form-control"
+																style="margin-bottom: 10px;">
+
+															<button type="button" class="btn btn-danger btn-sm"
+																onclick="removeVariant(this)">Remove</button>
 
 														</div>
 
 													</div>
 
 													<button type="button" class="btn btn-primary"
-														onclick="addVariant()">Add Variant</button>
+														onclick="addVariant()">+ Add Variant</button>
 
 												</div>
 
@@ -306,7 +303,7 @@
 												</div>
 											</div>
 
-											<div class="form-group" id="fabricDiv">
+											<div class="form-group" id="fabricDiv" style="display: none;">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="fabric">Fabric <span class="required">*</span>
 												</label>
@@ -739,31 +736,54 @@ function addVariant(){
 
     let html = `
 
-        <div class="variantRow" style="margin-top:15px;">
+        <div class="variantRow"
+             style="border:1px solid #ddd;
+                    padding:15px;
+                    margin-bottom:15px;
+                    border-radius:5px;
+                    background:#fafafa;">
+
+            <label>Color</label>
 
             <input type="text"
                    name="color[]"
-                   placeholder="Color"
+                   placeholder="Enter Color"
                    class="form-control"
                    style="margin-bottom:10px;">
+
+            <label>Size</label>
 
             <input type="text"
                    name="variantSize[]"
-                   placeholder="Size"
+                   placeholder="Enter Size (S/M/L/XL)"
                    class="form-control"
                    style="margin-bottom:10px;">
 
+            <label>Stock</label>
+
             <input type="number"
                    name="variantStock[]"
-                   placeholder="Stock"
+                   placeholder="Enter Stock"
                    class="form-control"
                    style="margin-bottom:10px;">
+
+            <button type="button"
+                    class="btn btn-danger btn-sm"
+                    onclick="removeVariant(this)">
+                Remove
+            </button>
 
         </div>
     `;
 
     document.getElementById("variantContainer")
             .insertAdjacentHTML("beforeend", html);
+}
+
+
+function removeVariant(button){
+
+    button.closest(".variantRow").remove();
 
 }
 

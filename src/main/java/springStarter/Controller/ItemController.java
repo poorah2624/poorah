@@ -65,13 +65,13 @@ public class ItemController {
 	@PostMapping("/Add_Item")
 	public String add_Item(@RequestParam Long categoryId, @RequestParam Long subCategoryId,
 			               @RequestParam("itemName") String itemName,  @RequestParam("itemImage") MultipartFile[] files,
-			               @RequestParam("itemPrice") BigDecimal itemPrice, @RequestParam("stock") String stock,
+			               @RequestParam("itemPrice") BigDecimal itemPrice,
 			               @RequestParam("discount") BigDecimal discount, @RequestParam("featuredProduct") String featuredProduct,
 			               @RequestParam("itemDesc") String itemDesc, 
 			               @RequestParam("keyFeatures") String keyFeatures,
 			               @RequestParam("status") String status,
-			               @RequestParam(value="size", required=false) String[] size,
-			               @RequestParam(value="age", required=false) String[] age,
+			               //@RequestParam(value="size", required=false) String[] size,
+			               //@RequestParam(value="age", required=false) String[] age,
 			               @RequestParam(value="weight", required=false) String weight,
 			               @RequestParam("fabric") String fabric,
 			               @RequestParam("gender") String gender,
@@ -128,16 +128,7 @@ public class ItemController {
 		item.setKeyFeatures(keyFeatures);
 		item.setStatus(status);
 		
-		if(size != null){
-            String sizes = String.join(",", size);
-            item.setSize(sizes);
-        }
-
-        if(age != null){
-            String ages = String.join(",", age);
-            item.setAge(ages);
-        }
-
+		
 		item.setWeight(weight);
 		item.setFabric(fabric);
 		item.setGender(gender);
@@ -148,7 +139,7 @@ public class ItemController {
 	    SubCategory subCategory = subCategoryService.getSubCategoryById(subCategoryId);
 	    item.setSubCategory(subCategory);
 	    
-	    item.setInCart(true);
+	    
 	    item.setInCart(false);
 	    
 	    List<ItemVariant> variants = new ArrayList<>();
@@ -157,12 +148,15 @@ public class ItemController {
 
 	        for(int i = 0; i < colors.size(); i++){
 
+	            // empty rows skip
+	            if(colors.get(i) == null || colors.get(i).trim().isEmpty()){
+	                continue;
+	            }
+
 	            ItemVariant variant = new ItemVariant();
 
 	            variant.setColor(colors.get(i));
-
 	            variant.setSize(variantSizes.get(i));
-
 	            variant.setStock(variantStocks.get(i));
 
 	            variant.setItem(item);
@@ -208,6 +202,8 @@ public class ItemController {
                              @RequestParam(value = "color[]", required = false) List<String> colors,
                              @RequestParam(value = "variantSize[]", required = false) List<String> variantSizes,
                              @RequestParam(value = "variantStock[]", required = false) List<Integer> variantStocks) {
+		
+		Item existingItem = itemService.getItemById(item.getItemId());
 
 		 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
 		try {
@@ -231,8 +227,14 @@ public class ItemController {
 
 	        
 	        if (imageUrls.length() > 0) {
+
 	            String finalImages = imageUrls.toString().replaceAll(",$", "");
+
 	            item.setItemImage(finalImages);
+
+	        } else {
+
+	            item.setItemImage(existingItem.getItemImage());
 	        }
 
 	    } catch (Exception e) {
@@ -243,10 +245,13 @@ public class ItemController {
 
 		if(colors != null){
 
-		    for(int i = 0; i < colors.size(); i++){
+			for(int i = 0; i < colors.size(); i++){
 
-		        ItemVariant variant = new ItemVariant();
+			    if(colors.get(i) == null || colors.get(i).trim().isEmpty()){
+			        continue;
+			    }
 
+			    ItemVariant variant = new ItemVariant();
 		        // existing variant update
 		        if(variantIds != null &&
 		           variantIds.size() > i &&

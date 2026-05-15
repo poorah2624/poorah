@@ -278,7 +278,7 @@
 												</div>
 											</div>
 
-											
+
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="discount">Discount<span class="required">(%)</span>
@@ -291,26 +291,10 @@
 												</div>
 											</div>
 
-											<div class="form-group" id="sizeDiv">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="size">Select Size<span class="required">*</span>
-												</label>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<input type="checkbox" name="size" value="S"
-														<c:if test="${fn:contains(item.size,'S')}">checked</c:if>>
-													S <input type="checkbox" name="size" value="M"
-														<c:if test="${fn:contains(item.size,'M')}">checked</c:if>>
-													M <input type="checkbox" name="size" value="L"
-														<c:if test="${fn:contains(item.size,'L')}">checked</c:if>>
-													L <input type="checkbox" name="size" value="XL"
-														<c:if test="${fn:contains(item.size,'XL')}">checked</c:if>>
-													XL <input type="checkbox" name="size" value="XXL"
-														<c:if test="${fn:contains(item.size,'XXL')}">checked</c:if>>
-													XXL
-												</div>
-											</div>
 
-											<div class="form-group">
+
+											<div class="form-group" id="variantDiv">
+
 												<label class="control-label col-md-3 col-sm-3 col-xs-12">
 													Product Variants </label>
 
@@ -321,22 +305,27 @@
 														<c:forEach var="variant" items="${item.variants}">
 
 															<div class="variantRow"
-																style="margin-bottom: 10px; border: 1px solid #ddd; padding: 10px;">
+																style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
 
 																<input type="hidden" name="variantId[]"
-																	value="${variant.id}"> <input type="text"
-																	name="color[]" value="${variant.color}"
-																	placeholder="Color" class="form-control"
-																	style="margin-bottom: 5px;"> <input type="text"
+																	value="${variant.variantId}"> <label>Color</label>
+
+																<input type="text" name="color[]"
+																	value="${variant.color}" placeholder="Enter Color"
+																	class="form-control" style="margin-bottom: 10px;">
+
+																<label>Size</label> <input type="text"
 																	name="variantSize[]" value="${variant.size}"
-																	placeholder="Size" class="form-control"
-																	style="margin-bottom: 5px;"> <input
-																	type="number" name="variantStock[]"
-																	value="${variant.stock}" placeholder="Stock"
-																	class="form-control" style="margin-bottom: 5px;">
+																	placeholder="Enter Size" class="form-control"
+																	style="margin-bottom: 10px;"> <label>Stock</label>
+
+																<input type="number" name="variantStock[]"
+																	value="${variant.stock}" placeholder="Enter Stock"
+																	class="form-control" style="margin-bottom: 10px;">
 
 																<button type="button"
-																	class="btn btn-danger removeVariant">Remove</button>
+																	class="btn btn-danger btn-sm removeVariant">
+																	Remove</button>
 
 															</div>
 
@@ -348,6 +337,7 @@
 														id="addVariantBtn">+ Add Variant</button>
 
 												</div>
+
 											</div>
 
 
@@ -662,7 +652,7 @@
 
 		});
 	</script>
-	
+
 	<script>
 
 $(document).ready(function(){
@@ -672,28 +662,42 @@ $(document).ready(function(){
         $("#variantContainer").append(`
 
             <div class="variantRow"
-                 style="margin-bottom:10px; border:1px solid #ddd; padding:10px;">
+                 style="border:1px solid #ddd;
+                        padding:15px;
+                        margin-bottom:15px;
+                        border-radius:5px;
+                        background:#fafafa;">
+
+                <input type="hidden"
+                       name="variantId[]"
+                       value="">
+
+                <label>Color</label>
 
                 <input type="text"
                        name="color[]"
-                       placeholder="Color"
+                       placeholder="Enter Color"
                        class="form-control"
-                       style="margin-bottom:5px;">
+                       style="margin-bottom:10px;">
+
+                <label>Size</label>
 
                 <input type="text"
                        name="variantSize[]"
-                       placeholder="Size"
+                       placeholder="Enter Size"
                        class="form-control"
-                       style="margin-bottom:5px;">
+                       style="margin-bottom:10px;">
+
+                <label>Stock</label>
 
                 <input type="number"
                        name="variantStock[]"
-                       placeholder="Stock"
+                       placeholder="Enter Stock"
                        class="form-control"
-                       style="margin-bottom:5px;">
+                       style="margin-bottom:10px;">
 
                 <button type="button"
-                        class="btn btn-danger removeVariant">
+                        class="btn btn-danger btn-sm removeVariant">
                     Remove
                 </button>
 
@@ -702,6 +706,7 @@ $(document).ready(function(){
         `);
 
     });
+
 
     $(document).on("click", ".removeVariant", function(){
 
