@@ -6106,14 +6106,17 @@ input[type="radio"]:invalid {
 @media (max-width: 800px) {
 
     .category-section1{
-       
+       height: 250px;
         display: block !important;
         margin-bottom: clamp(10px, 2vw, 20px) !important;
     }
 
     .category-box1{
         width: 100% !important;
-        height: auto !important;
+        height: 250px;
+    }
+    .video-img1{
+    height: 250px;
     }
 
     .category-box1 img{
