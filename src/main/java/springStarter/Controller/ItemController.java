@@ -3,6 +3,7 @@ package springStarter.Controller;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import com.cloudinary.utils.ObjectUtils;
 
 import springStarter.models.Category;
 import springStarter.models.Item;
+import springStarter.models.ItemVariant;
 import springStarter.models.SubCategory;
 import springStarter.services.CategoryService;
 import springStarter.services.ItemService;
@@ -66,13 +68,16 @@ public class ItemController {
 			               @RequestParam("itemPrice") BigDecimal itemPrice, @RequestParam("stock") String stock,
 			               @RequestParam("discount") BigDecimal discount, @RequestParam("featuredProduct") String featuredProduct,
 			               @RequestParam("itemDesc") String itemDesc, 
-			               @RequestParam("itemDesc") String keyFeatures,
+			               @RequestParam("keyFeatures") String keyFeatures,
 			               @RequestParam("status") String status,
 			               @RequestParam(value="size", required=false) String[] size,
 			               @RequestParam(value="age", required=false) String[] age,
 			               @RequestParam(value="weight", required=false) String weight,
 			               @RequestParam("fabric") String fabric,
 			               @RequestParam("gender") String gender,
+			               @RequestParam(value = "color[]", required = false) List<String> colors,
+			               @RequestParam(value = "variantSize[]", required = false) List<String> variantSizes,
+                           @RequestParam(value = "variantStock[]", required = false) List<Integer> variantStocks,
 	                        Model model) throws IOException {
 		
 		 // upload folder
@@ -145,7 +150,29 @@ public class ItemController {
 	    
 	    item.setInCart(true);
 	    item.setInCart(false);
+	    
+	    List<ItemVariant> variants = new ArrayList<>();
 
+	    if(colors != null){
+
+	        for(int i = 0; i < colors.size(); i++){
+
+	            ItemVariant variant = new ItemVariant();
+
+	            variant.setColor(colors.get(i));
+
+	            variant.setSize(variantSizes.get(i));
+
+	            variant.setStock(variantStocks.get(i));
+
+	            variant.setItem(item);
+
+	            variants.add(variant);
+	        }
+	    }
+
+	    item.setVariants(variants);
+	    
 	    itemService.saveItem(item);
 		
 		return "redirect:/view_Item";
@@ -176,7 +203,11 @@ public class ItemController {
 	
 	@PostMapping("/edit_Item")
 	public String updateItem(@ModelAttribute Item item,
-	                         @RequestParam("file") MultipartFile[] files) {
+	                         @RequestParam("file") MultipartFile[] files,
+	                         @RequestParam(value = "variantId[]", required = false) List<Long> variantIds,
+                             @RequestParam(value = "color[]", required = false) List<String> colors,
+                             @RequestParam(value = "variantSize[]", required = false) List<String> variantSizes,
+                             @RequestParam(value = "variantStock[]", required = false) List<Integer> variantStocks) {
 
 		 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
 		try {
@@ -207,6 +238,34 @@ public class ItemController {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+		
+		List<ItemVariant> variants = new ArrayList<>();
+
+		if(colors != null){
+
+		    for(int i = 0; i < colors.size(); i++){
+
+		        ItemVariant variant = new ItemVariant();
+
+		        // existing variant update
+		        if(variantIds != null &&
+		           variantIds.size() > i &&
+		           variantIds.get(i) != null){
+
+		            variant.setVariantId(variantIds.get(i));
+		        }
+
+		        variant.setColor(colors.get(i));
+		        variant.setSize(variantSizes.get(i));
+		        variant.setStock(variantStocks.get(i));
+
+		        variant.setItem(item);
+
+		        variants.add(variant);
+		    }
+		}
+
+		item.setVariants(variants);
 
 	    itemService.updateItem(item);
 

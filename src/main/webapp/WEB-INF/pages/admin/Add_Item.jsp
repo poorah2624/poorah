@@ -7,9 +7,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page isELIgnored="false" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,23 +24,14 @@
 
 <!-- Bootstrap core CSS -->
 
-<link
-	href="/admin/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-<link
-	href="/admin/fonts/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="/admin/css/animate.min.css"
-	rel="stylesheet">
+<link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+<link href="/admin/css/animate.min.css" rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<link href="/admin/css/custom.css"
-	rel="stylesheet">
-<link
-	href="/admin/css/icheck/flat/green.css"
-	rel="stylesheet">
+<link href="/admin/css/custom.css" rel="stylesheet">
+<link href="/admin/css/icheck/flat/green.css" rel="stylesheet">
 <!-- editor -->
 <link
 	href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css"
@@ -48,16 +39,11 @@
 <link
 	href="/admin/css/editor/external/google-code-prettify/prettify.css"
 	rel="stylesheet">
-<link
-	href="/admin/css/editor/index.css"
-	rel="stylesheet">
+<link href="/admin/css/editor/index.css" rel="stylesheet">
 <!-- select2 -->
-<link
-	href="/admin/css/select/select2.min.css"
-	rel="stylesheet">
+<link href="/admin/css/select/select2.min.css" rel="stylesheet">
 <!-- switchery -->
-<link rel="stylesheet"
-	href="/admin/css/switchery/switchery.min.css" />
+<link rel="stylesheet" href="/admin/css/switchery/switchery.min.css" />
 
 <script src="/admin/js/jquery.min.js"></script>
 
@@ -157,8 +143,7 @@
 										<div class="clearfix"></div>
 									</div>
 									<div class="x_content">
-										<form action="/Add_Item"
-											method="post" name="my_form"
+										<form action="/Add_Item" method="post" name="my_form"
 											class="form-horizontal form-label-left"
 											enctype="multipart/form-data"
 											onSubmit="document.my_form.editor_contents.value = $('#editor').html()">
@@ -197,15 +182,15 @@
 
 												</div>
 											</div>
-											
+
 											<div class="form-group" id="genderDiv" style="display: none;">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="Gender">Gender <span
-													class="required"> *</span>
+													for="Gender">Gender <span class="required">
+														*</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12" id='subcategory'>
-													<select name="gender" id="gender"
-														class="form-control" required>
+													<select name="gender" id="gender" class="form-control"
+														required>
 
 														<option value="">Select Gender</option>
 														<option value="MEN">MEN</option>
@@ -216,7 +201,7 @@
 
 												</div>
 											</div>
-											
+
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="title">Item Name <span class="required">*</span>
@@ -289,7 +274,38 @@
 														type="checkbox" name="size" value="XXL"> XXL
 												</div>
 											</div>
-											
+
+											<div class="form-group">
+
+												<label class="control-label col-md-3"> Product
+													Variants </label>
+
+												<div class="col-md-6">
+
+													<div id="variantContainer">
+
+														<div class="variantRow">
+
+															<input type="text" name="color[]" placeholder="Color"
+																class="form-control" style="margin-bottom: 10px;">
+
+															<input type="text" name="variantSize[]"
+																placeholder="Size" class="form-control"
+																style="margin-bottom: 10px;"> <input
+																type="number" name="variantStock[]" placeholder="Stock"
+																class="form-control" style="margin-bottom: 10px;">
+
+														</div>
+
+													</div>
+
+													<button type="button" class="btn btn-primary"
+														onclick="addVariant()">Add Variant</button>
+
+												</div>
+
+											</div>
+
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="weight">Weight<span class="required">*</span>
@@ -300,15 +316,15 @@
 														class="form-control col-md-7 col-xs-12">
 												</div>
 											</div>
-											
+
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="fabric">Fabric <span class="required">*</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<input type="text" id="title" pattern="([A-Za-z .])+"
-														name="fabric" title="Enter Words Only"
-														required="required" placeholder="Enter Fabric here"
+														name="fabric" title="Enter Words Only" required="required"
+														placeholder="Enter Fabric here"
 														class="form-control col-md-7 col-xs-12">
 												</div>
 											</div>
@@ -418,55 +434,41 @@
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	<script
-		src="/admin/js/bootstrap.min.js"></script>
+	<script src="/admin/js/bootstrap.min.js"></script>
 
 	<!-- bootstrap progress js -->
-	<script
-		src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-	<script
-		src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+	<script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+	<script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
-	<script
-		src="/admin/js/icheck/icheck.min.js"></script>
+	<script src="/admin/js/icheck/icheck.min.js"></script>
 	<!-- tags -->
-	<script
-		src="/admin/js/tags/jquery.tagsinput.min.js"></script>
+	<script src="/admin/js/tags/jquery.tagsinput.min.js"></script>
 	<!-- switchery -->
-	<script
-		src="/admin/js/switchery/switchery.min.js"></script>
+	<script src="/admin/js/switchery/switchery.min.js"></script>
 	<!-- daterangepicker -->
-	<script type="text/javascript"
-		src="/admin/js/moment/moment.min.js"></script>
+	<script type="text/javascript" src="/admin/js/moment/moment.min.js"></script>
 	<script type="text/javascript"
 		src="/admin/js/datepicker/daterangepicker.js"></script>
 	<!-- richtext editor -->
-	<script
-		src="/admin/js/editor/bootstrap-wysiwyg.js"></script>
-	<script
-		src="/admin/js/editor/external/jquery.hotkeys.js"></script>
+	<script src="/admin/js/editor/bootstrap-wysiwyg.js"></script>
+	<script src="/admin/js/editor/external/jquery.hotkeys.js"></script>
 	<script
 		src="/admin/js/editor/external/google-code-prettify/prettify.js"></script>
 	<!-- select2 -->
-	<script
-		src="/admin/js/select/select2.full.js"></script>
+	<script src="/admin/js/select/select2.full.js"></script>
 	<!-- form validation -->
-	<script type="text/javascript"
-		src="/admin/js/parsley/parsley.min.js"></script>
+	<script type="text/javascript" src="/admin/js/parsley/parsley.min.js"></script>
 	<!-- textarea resize -->
-	<script
-		src="/admin/js/textarea/autosize.min.js"></script>
+	<script src="/admin/js/textarea/autosize.min.js"></script>
 	<script>
 		autosize($('.resizable_textarea'));
 	</script>
 	<!-- Autocomplete -->
 	<script type="text/javascript"
 		src="/admin/js/autocomplete/countries.js"></script>
-	<script
-		src="/admin/js/autocomplete/jquery.autocomplete.js"></script>
+	<script src="/admin/js/autocomplete/jquery.autocomplete.js"></script>
 	<!-- pace -->
-	<script
-		src="/admin/js/pace/pace.min.js"></script>
+	<script src="/admin/js/pace/pace.min.js"></script>
 	<!--  <script type="text/javascript">
 		$(function() {
 			'use strict';
@@ -713,7 +715,8 @@
 	</script>
 
 	<script>
-		document.getElementById("category").addEventListener("change",
+		document.getElementById("category").addEventListener(
+				"change",
 				function() {
 
 					var categoryName = this.options[this.selectedIndex].text;
@@ -722,19 +725,51 @@
 					var genderDiv = document.getElementById("genderDiv");
 
 					sizeDiv.style.display = "none";
-					
 
-					if (categoryName.toLowerCase().includes("men") || categoryName.toLowerCase().includes("women")) {
+					if (categoryName.toLowerCase().includes("men")
+							|| categoryName.toLowerCase().includes("women")) {
 						sizeDiv.style.display = "block";
 						genderDiv.style.display = "block";
 					}
-					
-					
-
-					
 
 				});
 	</script>
+
+	<script>
+
+function addVariant(){
+
+    let html = `
+
+        <div class="variantRow" style="margin-top:15px;">
+
+            <input type="text"
+                   name="color[]"
+                   placeholder="Color"
+                   class="form-control"
+                   style="margin-bottom:10px;">
+
+            <input type="text"
+                   name="variantSize[]"
+                   placeholder="Size"
+                   class="form-control"
+                   style="margin-bottom:10px;">
+
+            <input type="number"
+                   name="variantStock[]"
+                   placeholder="Stock"
+                   class="form-control"
+                   style="margin-bottom:10px;">
+
+        </div>
+    `;
+
+    document.getElementById("variantContainer")
+            .insertAdjacentHTML("beforeend", html);
+
+}
+
+</script>
 </body>
 
 </html>

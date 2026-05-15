@@ -321,6 +321,46 @@
 												</div>
 											</div>
 
+											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">
+													Product Variants </label>
+
+												<div class="col-md-6 col-sm-6 col-xs-12">
+
+													<div id="variantContainer">
+
+														<c:forEach var="variant" items="${item.variants}">
+
+															<div class="variantRow"
+																style="margin-bottom: 10px; border: 1px solid #ddd; padding: 10px;">
+
+																<input type="hidden" name="variantId[]"
+																	value="${variant.id}"> <input type="text"
+																	name="color[]" value="${variant.color}"
+																	placeholder="Color" class="form-control"
+																	style="margin-bottom: 5px;"> <input type="text"
+																	name="variantSize[]" value="${variant.size}"
+																	placeholder="Size" class="form-control"
+																	style="margin-bottom: 5px;"> <input
+																	type="number" name="variantStock[]"
+																	value="${variant.stock}" placeholder="Stock"
+																	class="form-control" style="margin-bottom: 5px;">
+
+																<button type="button"
+																	class="btn btn-danger removeVariant">Remove</button>
+
+															</div>
+
+														</c:forEach>
+
+													</div>
+
+													<button type="button" class="btn btn-primary"
+														id="addVariantBtn">+ Add Variant</button>
+
+												</div>
+											</div>
+
 
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
@@ -627,6 +667,56 @@
 
 		});
 	</script>
+	
+	<script>
+
+$(document).ready(function(){
+
+    $("#addVariantBtn").click(function(){
+
+        $("#variantContainer").append(`
+
+            <div class="variantRow"
+                 style="margin-bottom:10px; border:1px solid #ddd; padding:10px;">
+
+                <input type="text"
+                       name="color[]"
+                       placeholder="Color"
+                       class="form-control"
+                       style="margin-bottom:5px;">
+
+                <input type="text"
+                       name="variantSize[]"
+                       placeholder="Size"
+                       class="form-control"
+                       style="margin-bottom:5px;">
+
+                <input type="number"
+                       name="variantStock[]"
+                       placeholder="Stock"
+                       class="form-control"
+                       style="margin-bottom:5px;">
+
+                <button type="button"
+                        class="btn btn-danger removeVariant">
+                    Remove
+                </button>
+
+            </div>
+
+        `);
+
+    });
+
+    $(document).on("click", ".removeVariant", function(){
+
+        $(this).closest(".variantRow").remove();
+
+    });
+
+});
+
+</script>
 
 </body>
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import springStarter.models.Category;
 import springStarter.models.Item;
+import springStarter.models.ItemVariant;
 import springStarter.repository.CategoryRepo;
 import springStarter.repository.ItemRepo;
 
@@ -89,11 +90,23 @@ public class ItemService {
 	    existingItem.setCategory(item.getCategory());
 	    existingItem.setSubCategory(item.getSubCategory());
 
-	    // image update only if new image provided
+	    
 	    if(item.getItemImage() != null && !item.getItemImage().isEmpty()) {
 	        existingItem.setItemImage(item.getItemImage());
 	    }
+	    
+	
+	    existingItem.getVariants().clear();
 
+	    if(item.getVariants() != null){
+
+	        for(ItemVariant variant : item.getVariants()){
+
+	            variant.setItem(existingItem);
+
+	            existingItem.getVariants().add(variant);
+	        }
+	    }
 	    // save
 	    itemRepo.save(existingItem);
 		
