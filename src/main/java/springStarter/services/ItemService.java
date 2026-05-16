@@ -1,5 +1,6 @@
 package springStarter.services;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,17 +72,20 @@ public class ItemService {
 	    if(item.getItemImage() != null && !item.getItemImage().isEmpty()) {
 	        existingItem.setItemImage(item.getItemImage());
 	    }
-	  
+	    
+	    
 	    if (existingItem.getVariants() != null) {
 	        existingItem.getVariants().clear();
+	    } else {
+	        existingItem.setVariants(new ArrayList<>());
 	    }
 
-	    if(item.getVariants() != null){
-	        for(ItemVariant variant : item.getVariants()){
-	            variant.setItem(existingItem);
+	  
+	    if (item.getVariants() != null) {
+	        for (ItemVariant variant : item.getVariants()) {
+	            variant.setItem(existingItem); 
+	            existingItem.getVariants().add(variant); 
 	        }
-	        
-	        existingItem.setVariants(item.getVariants());
 	    }
 	    
 	    // Final Database Sync
