@@ -226,7 +226,11 @@ public class ItemController {
 	    }
 	    existingItem.setItemDesc(item.getItemDesc());
 	    existingItem.setKeyFeatures(item.getKeyFeatures());
-	    existingItem.setStatus(item.getStatus());
+	    if (item.getStatus() != null && !item.getStatus().trim().isEmpty()) {
+	        existingItem.setStatus(item.getStatus());
+	    } else if (existingItem.getStatus() == null) {
+	        existingItem.setStatus("active"); 
+	    }
 	    existingItem.setWeight(item.getWeight());
 	    existingItem.setFabric(item.getFabric());
 	    existingItem.setGender(item.getGender());

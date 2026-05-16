@@ -51,7 +51,7 @@ public class Item {
 	@Column(name="keyFeatures", nullable=true, length=5000)
 	private String KeyFeatures;
 	
-	@Column(name="status", nullable=false)
+	@Column(name="status", nullable=true)
 	private String status;
 	
 	/*@Column(name="size", nullable=true)
