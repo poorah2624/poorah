@@ -178,59 +178,39 @@ public class ItemController {
 	public String updateItem(
 	        @ModelAttribute Item item,
 	        @RequestParam(value= "file", required = false) MultipartFile[] files,
-	        
 	        @RequestParam(value = "variantId[]", required = false) List<Long> variantIds,
 	        @RequestParam(value = "color[]", required = false) List<String> colors,
 	        @RequestParam(value = "variantImage[]", required = false) MultipartFile[] variantImages,
-	        
-	        
 	        javax.servlet.http.HttpServletRequest request
 	) throws IOException {
 
 	    Item existingItem = itemService.getItemById(item.getItemId());
 
-	 // ================= 1. MAIN PRODUCT IMAGE UPDATE =================
+	    // Main image upload logic waise hi rahega...
 	    try {
 	        StringBuilder imageUrls = new StringBuilder();
-	       
 	        if (files != null) {
 	            for (MultipartFile file : files) {
 	                if (!file.isEmpty()) {
-	                    Map uploadResult = cloudinary.uploader().upload(
-	                            file.getBytes(),
-	                            ObjectUtils.asMap("folder", "poorah/products")
-	                    );
-	                    String imageUrl = (String) uploadResult.get("secure_url");
-	                    imageUrls.append(imageUrl).append(",");
+	                    Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("folder", "poorah/products"));
+	                    imageUrls.append(uploadResult.get("secure_url")).append(",");
 	                }
 	            }
 	        }
-
 	        if (imageUrls.length() > 0) {
-	            String finalImages = imageUrls.toString().replaceAll(",$", "");
-	            existingItem.setItemImage(finalImages);
+	            existingItem.setItemImage(imageUrls.toString().replaceAll(",$", ""));
 	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+	    } catch (Exception e) { e.printStackTrace(); }
 
-	    // Basic Form Formatted Fields Sync
+	    // Basic Fields Sync
 	    existingItem.setItemName(item.getItemName());
 	    existingItem.setSkuId(item.getSkuId());
 	    existingItem.setItemPrice(item.getItemPrice());
 	    existingItem.setDiscount(item.getDiscount());
-	    if (item.getFeaturedProduct() != null && !item.getFeaturedProduct().trim().isEmpty()) {
-	        existingItem.setFeaturedProduct(item.getFeaturedProduct());
-	    } else {
-	        existingItem.setFeaturedProduct("No"); 
-	    }
+	    existingItem.setFeaturedProduct(item.getFeaturedProduct() != null ? item.getFeaturedProduct() : "No");
 	    existingItem.setItemDesc(item.getItemDesc());
 	    existingItem.setKeyFeatures(item.getKeyFeatures());
-	    if (item.getStatus() != null && !item.getStatus().trim().isEmpty()) {
-	        existingItem.setStatus(item.getStatus());
-	    } else if (existingItem.getStatus() == null) {
-	        existingItem.setStatus("active"); 
-	    }
+	    existingItem.setStatus(item.getStatus() != null ? item.getStatus() : "active");
 	    existingItem.setWeight(item.getWeight());
 	    existingItem.setFabric(item.getFabric());
 	    existingItem.setGender(item.getGender());
@@ -238,36 +218,23 @@ public class ItemController {
 	    existingItem.setCategory(item.getCategory());
 	    existingItem.setSubCategory(item.getSubCategory());
 
-	    List<ItemVariant> variants = new ArrayList<>();
+	    // ================= VARIANTS PREPARATION =================
+	    List<ItemVariant> tempVariants = new ArrayList<>();
 	    long baseTimestamp = System.currentTimeMillis();
 
 	    if (colors != null) {
 	        for (int i = 0; i < colors.size(); i++) {
 	            String color = colors.get(i);
-	            if (color == null || color.trim().isEmpty())
-	                continue;
+	            if (color == null || color.trim().isEmpty()) continue;
 
-	            ItemVariant variant = null;
-	            Long currentId = (variantIds != null && variantIds.size() > i) ? variantIds.get(i) : null;
-
-	          
-	            if (currentId != null && currentId > 0) {
-	                for (ItemVariant oldV : existingItem.getVariants()) {
-	                    if (oldV.getVariantId().equals(currentId)) {
-	                        variant = oldV;
-	                        break;
-	                    }
-	                }
+	            ItemVariant variant = new ItemVariant();
+	            
+	            // Naye detached object me hum data bind kar rahe hain
+	            if (variantIds != null && variantIds.size() > i) {
+	                variant.setVariantId(variantIds.get(i));
 	            }
-
-	           
-	            if (variant == null) {
-	                variant = new ItemVariant();
-	            }
-
 	            variant.setVariantColor(color);
 
-	            // Stock parsing
 	            String sStock = request.getParameter("stockS_" + i);
 	            String mStock = request.getParameter("stockM_" + i);
 	            String lStock = request.getParameter("stockL_" + i);
@@ -278,34 +245,35 @@ public class ItemController {
 	            lStock = (lStock != null && !lStock.trim().isEmpty()) ? lStock.trim() : "0";
 	            xlStock = (xlStock != null && !xlStock.trim().isEmpty()) ? xlStock.trim() : "0";
 
-	            String combinedStockString = "S:" + sStock + ",M:" + mStock + ",L:" + lStock + ",XL:" + xlStock;
-	            variant.setVariantStock(combinedStockString);
+	            variant.setVariantStock("S:" + sStock + ",M:" + mStock + ",L:" + lStock + ",XL:" + xlStock);
 
-	            // IMAGE LOGIC
-	            String imageUrl = variant.getVariantImage(); 
+	            // Image Logic
+	            String imageUrl = "";
 	            if (variantImages != null && variantImages.length > i && !variantImages[i].isEmpty()) {
-	                Map uploadResult = cloudinary.uploader().upload(
-	                        variantImages[i].getBytes(),
-	                        ObjectUtils.asMap("folder", "poorah/variants")
-	                );
+	                Map uploadResult = cloudinary.uploader().upload(variantImages[i].getBytes(), ObjectUtils.asMap("folder", "poorah/variants"));
 	                imageUrl = (String) uploadResult.get("secure_url");
+	            } else {
+	                if (variantIds != null && variantIds.size() > i && variantIds.get(i) != null) {
+	                    for (ItemVariant oldV : existingItem.getVariants()) {
+	                        if (oldV.getVariantId().equals(variantIds.get(i))) {
+	                            imageUrl = oldV.getVariantImage();
+	                            break;
+	                        }
+	                    }
+	                }
 	            }
 	            variant.setVariantImage(imageUrl);
-	            
-	            // SKU Logic
-	            if (variant.getVariantSku() == null) {
-	                variant.setVariantSku("VAR-" + baseTimestamp + "-C" + i);
-	            }
+	            variant.setVariantSku("VAR-" + baseTimestamp + "-C" + i);
 
-	            variant.setItem(existingItem);
-	            variants.add(variant);
+	            tempVariants.add(variant);
 	        }
 	    }
 
-	    
-	    existingItem.setVariants(variants);
+	   
+	    item.setVariants(tempVariants);
 
-	    itemService.updateItem(existingItem);
+	  
+	    itemService.updateItem(existingItem, item);
 
 	    return "redirect:/view_Item";
 	}
