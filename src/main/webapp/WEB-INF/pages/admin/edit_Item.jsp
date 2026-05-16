@@ -284,7 +284,8 @@
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<input type="text" id="stock" pattern="[0-9]{1,20}"
-														name="stock" value="${item.stock }" title="Enter Digits Only" required="required"
+														name="stock" value="${item.stock }"
+														title="Enter Digits Only" required="required"
 														placeholder="Enter Stock Limit"
 														class="form-control col-md-7 col-xs-12">
 												</div>
@@ -315,32 +316,34 @@
 													<div id="variantContainer">
 
 														<c:forEach var="variant" items="${item.variants}">
-
 															<div class="variantRow"
-																style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
+																style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px">
 
 																<input type="hidden" name="variantId[]"
-																	value="${variant.variantId}"> <label>Color</label>
-
-																<input type="text" name="color[]"
-																	value="${variant.variantColor}" placeholder="Enter Color"
-																	class="form-control" style="margin-bottom: 10px;">
+																	value="${variant.variantId}" /> <label>Color</label> <input
+																	type="text" name="color[]"
+																	value="${variant.variantColor}" class="form-control" />
 
 																<label>Size</label> <input type="text"
 																	name="variantSize[]" value="${variant.variantSize}"
-																	placeholder="Enter Size" class="form-control"
-																	style="margin-bottom: 10px;"> <label>Stock</label>
+																	class="form-control" /> <label>Stock</label> <input
+																	type="number" name="variantStock[]"
+																	value="${variant.variantStock}" class="form-control" />
 
-																<input type="number" name="variantStock[]"
-																	value="${variant.variantStock}" placeholder="Enter Stock"
-																	class="form-control" style="margin-bottom: 10px;">
+																<br />
+
+																<c:if test="${not empty variant.variantImage}">
+																	<img src="${variant.variantImage}"
+																		style="width: 100px; height: 100px" />
+																</c:if>
+
+																<label>Change Image</label> <input type="file"
+																	name="variantImage[]" class="form-control" />
 
 																<button type="button"
-																	class="btn btn-danger btn-sm removeVariant">
-																	Remove</button>
+																	class="btn btn-danger removeVariant">Remove</button>
 
 															</div>
-
 														</c:forEach>
 
 													</div>
@@ -625,106 +628,63 @@
 						});
 	</script>
 
-	<script>
-		function toggleCategoryFields() {
+	
 
-			var categoryName = $("#category option:selected").text()
-					.toLowerCase();
+	
+<script>
 
-			var genderDiv = document.getElementById("genderDiv");
-			var variantDiv = document.getElementById("variantDiv");
-			var fabricDiv = document.getElementById("fabricDiv");
-			var stockDiv = document.getElementById("stockDiv");
+function toggleCategoryFields(){
 
-			genderDiv.style.display = "none";
-			variantDiv.style.display = "none";
-			fabricDiv.style.display = "none";
-			stockDiv.style.display = "block";
+    var categoryName = $("#category option:selected").text().toLowerCase();
 
-			if (categoryName.toLowerCase().includes("men") || categoryName.toLowerCase().includes("women")) {
+    $("#genderDiv, #variantDiv, #fabricDiv").hide();
+    $("#stockDiv").show();
 
-				genderDiv.style.display = "block";
-				variantDiv.style.display = "block";
-				fabricDiv.style.display = "block";
-				stockDiv.style.display = "none";
-
-			}
-			
-
-		}
-
-		$(document).ready(function() {
-
-			toggleCategoryFields();
-
-			$("#category").change(function() {
-
-				toggleCategoryFields();
-
-			});
-
-		});
-	</script>
-
-	<script>
+    if(categoryName.includes("men") || categoryName.includes("women")){
+        $("#genderDiv, #variantDiv, #fabricDiv").show();
+        $("#stockDiv").hide();
+    }
+}
 
 $(document).ready(function(){
 
+    // initial load
+    toggleCategoryFields();
+
+    // on change
+    $("#category").change(function(){
+        toggleCategoryFields();
+    });
+
+    // add variant
     $("#addVariantBtn").click(function(){
 
         $("#variantContainer").append(`
+            <div class="variantRow" style="border:1px solid #ddd;padding:15px;margin-bottom:15px">
 
-            <div class="variantRow"
-                 style="border:1px solid #ddd;
-                        padding:15px;
-                        margin-bottom:15px;
-                        border-radius:5px;
-                        background:#fafafa;">
-
-                <input type="hidden"
-                       name="variantId[]"
-                       value="">
+                <input type="hidden" name="variantId[]" value=""/>
 
                 <label>Color</label>
-
-                <input type="text"
-                       name="color[]"
-                       placeholder="Enter Color"
-                       class="form-control"
-                       style="margin-bottom:10px;">
+                <input type="text" name="color[]" class="form-control"/>
 
                 <label>Size</label>
-
-                <input type="text"
-                       name="variantSize[]"
-                       placeholder="Enter Size"
-                       class="form-control"
-                       style="margin-bottom:10px;">
+                <input type="text" name="variantSize[]" class="form-control"/>
 
                 <label>Stock</label>
+                <input type="number" name="variantStock[]" class="form-control"/>
 
-                <input type="number"
-                       name="variantStock[]"
-                       placeholder="Enter Stock"
-                       class="form-control"
-                       style="margin-bottom:10px;">
+                <label>Image</label>
+                <input type="file" name="variantImage[]" class="form-control"/>
 
-                <button type="button"
-                        class="btn btn-danger btn-sm removeVariant">
-                    Remove
-                </button>
+                <button type="button" class="btn btn-danger removeVariant">Remove</button>
 
             </div>
-
         `);
 
     });
 
-
     $(document).on("click", ".removeVariant", function(){
-
         $(this).closest(".variantRow").remove();
-
     });
 
 });

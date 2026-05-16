@@ -263,11 +263,10 @@
 														class="form-control col-md-7 col-xs-12">
 												</div>
 											</div>
-											
+
 
 											<div class="form-group" id="variantDiv"
 												style="display: none;">
-
 												<label class="control-label col-md-3 col-sm-3 col-xs-12">
 													Product Variants </label>
 
@@ -275,33 +274,60 @@
 
 													<div id="variantContainer">
 
-														<!-- FIRST ROW -->
-
-														<div class="variantRow"
+														<!-- COLOR BLOCK -->
+														<div class="colorBlock"
 															style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
 
 															<label>Color</label> <input type="text" name="color[]"
-																placeholder="Enter Color" class="form-control"
-																style="margin-bottom: 10px;"> <label>Size</label>
-															<input type="text" name="variantSize[]"
-																placeholder="Enter Size (S/M/L/XL)" class="form-control"
-																style="margin-bottom: 10px;"> <label>Stock</label>
-															<input type="number" name="variantStock[]"
-																placeholder="Enter Stock" class="form-control"
-																style="margin-bottom: 10px;">
+																class="form-control" placeholder="Enter Color">
+
+															<label style="margin-top: 10px;">Color Image</label> <input
+																type="file" name="colorImage[]" class="form-control">
+
+															<hr>
+
+															<label>Sizes & Stock</label>
+
+															<div>
+																<label> <input type="checkbox" class="sizeChk"
+																	value="S"> S
+																</label> <input type="number" name="stock[S][]"
+																	placeholder="Stock for S" class="form-control">
+															</div>
+
+															<div>
+																<label> <input type="checkbox" class="sizeChk"
+																	value="M"> M
+																</label> <input type="number" name="stock[M][]"
+																	placeholder="Stock for M" class="form-control">
+															</div>
+
+															<div>
+																<label> <input type="checkbox" class="sizeChk"
+																	value="L"> L
+																</label> <input type="number" name="stock[L][]"
+																	placeholder="Stock for L" class="form-control">
+															</div>
+
+															<div>
+																<label> <input type="checkbox" class="sizeChk"
+																	value="XL"> XL
+																</label> <input type="number" name="stock[XL][]"
+																	placeholder="Stock for XL" class="form-control">
+															</div>
 
 															<button type="button" class="btn btn-danger btn-sm"
-																onclick="removeVariant(this)">Remove</button>
+																onclick="removeVariant(this)" style="margin-top: 10px;">
+																Remove Color</button>
 
 														</div>
 
 													</div>
 
 													<button type="button" class="btn btn-primary"
-														onclick="addVariant()">+ Add Variant</button>
+														onclick="addVariant()">+ Add Color</button>
 
 												</div>
-
 											</div>
 
 											<div class="form-group">
@@ -746,60 +772,55 @@
 
 	<script>
 
-function addVariant(){
+	function addVariant(){
 
-    let html = `
+	    let html = `
+	      <div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
 
-        <div class="variantRow"
-             style="border:1px solid #ddd;
-                    padding:15px;
-                    margin-bottom:15px;
-                    border-radius:5px;
-                    background:#fafafa;">
+	        <label>Color</label>
+	        <input type="text" name="color[]" class="form-control">
 
-            <label>Color</label>
+	        <label style="margin-top:10px;">Color Image</label>
+	        <input type="file" name="colorImage[]" class="form-control">
 
-            <input type="text"
-                   name="color[]"
-                   placeholder="Enter Color"
-                   class="form-control"
-                   style="margin-bottom:10px;">
+	        <hr>
 
-            <label>Size</label>
+	        <label>Sizes & Stock</label>
 
-            <input type="text"
-                   name="variantSize[]"
-                   placeholder="Enter Size (S/M/L/XL)"
-                   class="form-control"
-                   style="margin-bottom:10px;">
+	        <div>
+	          <label><input type="checkbox" value="S"> S</label>
+	          <input type="number" name="stock[S][]" class="form-control" placeholder="Stock for S">
+	        </div>
 
-            <label>Stock</label>
+	        <div>
+	          <label><input type="checkbox" value="M"> M</label>
+	          <input type="number" name="stock[M][]" class="form-control" placeholder="Stock for M">
+	        </div>
 
-            <input type="number"
-                   name="variantStock[]"
-                   placeholder="Enter Stock"
-                   class="form-control"
-                   style="margin-bottom:10px;">
+	        <div>
+	          <label><input type="checkbox" value="L"> L</label>
+	          <input type="number" name="stock[L][]" class="form-control" placeholder="Stock for L">
+	        </div>
 
-            <button type="button"
-                    class="btn btn-danger btn-sm"
-                    onclick="removeVariant(this)">
-                Remove
-            </button>
+	        <div>
+	          <label><input type="checkbox" value="XL"> XL</label>
+	          <input type="number" name="stock[XL][]" class="form-control" placeholder="Stock for XL">
+	        </div>
 
-        </div>
-    `;
+	        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top:10px;">
+	          Remove Color
+	        </button>
 
-    document.getElementById("variantContainer")
-            .insertAdjacentHTML("beforeend", html);
-}
+	      </div>
+	    `;
 
-
-function removeVariant(button){
-
-    button.closest(".variantRow").remove();
-
-}
+	    document.getElementById("variantContainer")
+	            .insertAdjacentHTML("beforeend", html);
+	}
+	
+	function removeVariant(btn){
+	    btn.closest(".colorBlock").remove();
+	}
 
 </script>
 </body>
