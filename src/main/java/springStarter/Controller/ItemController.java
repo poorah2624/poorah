@@ -177,29 +177,32 @@ public class ItemController {
 	@PostMapping("/edit_Item")
 	public String updateItem(
 	        @ModelAttribute Item item,
-	        @RequestParam("file") MultipartFile[] files,
+	        @RequestParam(value= "file", required = false) MultipartFile[] files,
 	        
 	        @RequestParam(value = "variantId[]", required = false) List<Long> variantIds,
 	        @RequestParam(value = "color[]", required = false) List<String> colors,
 	        @RequestParam(value = "variantImage[]", required = false) MultipartFile[] variantImages,
 	        
-	        // HIGHLIGHT: Indexed parameter inputs ko extract karne ke liye HttpServletRequest ko add kiya
+	        
 	        javax.servlet.http.HttpServletRequest request
 	) throws IOException {
 
 	    Item existingItem = itemService.getItemById(item.getItemId());
 
-	    // ================= 1. MAIN PRODUCT IMAGE UPDATE =================
+	 // ================= 1. MAIN PRODUCT IMAGE UPDATE =================
 	    try {
 	        StringBuilder imageUrls = new StringBuilder();
-	        for (MultipartFile file : files) {
-	            if (!file.isEmpty()) {
-	                Map uploadResult = cloudinary.uploader().upload(
-	                        file.getBytes(),
-	                        ObjectUtils.asMap("folder", "poorah/products")
-	                );
-	                String imageUrl = (String) uploadResult.get("secure_url");
-	                imageUrls.append(imageUrl).append(",");
+	       
+	        if (files != null) {
+	            for (MultipartFile file : files) {
+	                if (!file.isEmpty()) {
+	                    Map uploadResult = cloudinary.uploader().upload(
+	                            file.getBytes(),
+	                            ObjectUtils.asMap("folder", "poorah/products")
+	                    );
+	                    String imageUrl = (String) uploadResult.get("secure_url");
+	                    imageUrls.append(imageUrl).append(",");
+	                }
 	            }
 	        }
 
