@@ -65,7 +65,6 @@ public class ItemController {
 	
 	@PostMapping("/Add_Item")
 	public String add_Item(
-
 	        @RequestParam Long categoryId,
 	        @RequestParam Long subCategoryId,
 	        @RequestParam("itemName") String itemName,
@@ -82,47 +81,42 @@ public class ItemController {
 	        @RequestParam(value="fabric", required=false) String fabric,
 	        @RequestParam(value="gender", required=false) String gender,
 
+	        @RequestParam(value="color[]", required=false) List<String> colors,
 	        @RequestParam(value="variantImage[]", required=false) MultipartFile[] variantImages,
-
-	        @RequestParam Map<String, String> allParams,
+	        
+	        @RequestParam(value="stock[S][]", required=false) String[] stockS,
+	        @RequestParam(value="stock[M][]", required=false) String[] stockM,
+	        @RequestParam(value="stock[L][]", required=false) String[] stockL,
+	        @RequestParam(value="stock[XL][]", required=false) String[] stockXL,
 
 	        Model model
-
 	) throws IOException {
 
-	    // ================= MAIN IMAGES =================
+	    // ================= 1. MAIN IMAGES UPLOAD =================
 	    StringBuilder imageUrls = new StringBuilder();
-
 	    for (MultipartFile file : files) {
 	        if (file != null && !file.isEmpty()) {
-
 	            Map uploadResult = cloudinary.uploader().upload(
 	                    file.getBytes(),
 	                    ObjectUtils.asMap("folder", "poorah/products")
 	            );
-
 	            imageUrls.append(uploadResult.get("secure_url")).append(",");
 	        }
 	    }
-
 	    String finalImages = imageUrls.toString().replaceAll(",$", "");
 
-	    // ================= ITEM OBJECT =================
+	    // ================= 2. CREATE ITEM OBJECT =================
 	    Item item = new Item();
-
 	    String skuId = "SKU-" + System.currentTimeMillis();
 	    item.setSkuId(skuId.substring(0, Math.min(skuId.length(), 50)));
-
 	    item.setItemName(itemName);
 	    item.setItemImage(finalImages);
 	    item.setItemPrice(itemPrice);
-
 	    item.setDiscount(discount);
 	    item.setFeaturedProduct(featuredProduct);
 	    item.setItemDesc(itemDesc);
 	    item.setKeyFeatures(keyFeatures);
 	    item.setStatus(status);
-
 	    item.setWeight(weight);
 	    item.setFabric(fabric);
 	    item.setGender(gender);
@@ -130,86 +124,76 @@ public class ItemController {
 
 	    item.setCategory(categoryService.getCategoryById(categoryId));
 	    item.setSubCategory(subCategoryService.getSubCategoryById(subCategoryId));
-
 	    item.setInCart(false);
 
-	    // ================= VARIANTS =================
+	    // ================= 3. VARIANTS PROCESSING =================
 	    List<ItemVariant> variants = new ArrayList<>();
 
-	    List<String> colors = new ArrayList<>();
-	    if (allParams.get("color[]") != null) {
-	        colors = Arrays.asList(allParams.get("color[]").split(","));
-	    }
-
-	    String[] sizes = {"S", "M", "L", "XL"};
-
-	    if (colors != null) {
+	    if (colors != null && !colors.isEmpty()) {
+	        String[] sizes = {"S", "M", "L", "XL"};
+	        
+	        // Mili-seconds tracker base loop se pehle le lete hain
+	        long baseTimestamp = System.currentTimeMillis(); 
 
 	        for (int i = 0; i < colors.size(); i++) {
-
 	            String color = colors.get(i);
-
-	            if (color == null || color.trim().isEmpty())
+	            if (color == null || color.trim().isEmpty()) {
 	                continue;
+	            }
 
-	            // ========== VARIANT IMAGE ==========
+	            // ========== VARIANT IMAGE UPLOAD ==========
 	            String imageUrl = "";
-
-	            if (variantImages != null &&
-	                    variantImages.length > i &&
-	                    !variantImages[i].isEmpty()) {
-
+	            if (variantImages != null && variantImages.length > i && !variantImages[i].isEmpty()) {
 	                Map uploadResult = cloudinary.uploader().upload(
 	                        variantImages[i].getBytes(),
 	                        ObjectUtils.asMap("folder", "poorah/variants")
 	                );
-
 	                imageUrl = (String) uploadResult.get("secure_url");
 	            }
 
-	            // ========== SIZE LOOP ==========
+	            // ========== SIZES LOOP ==========
 	            for (String size : sizes) {
-
-	                String key = "stock[" + size + "][]";
-	                String value = allParams.get(key);
-
 	                int stockVal = 0;
+	                String[] currentSizeArray = null;
 
-	                if (value != null && !value.isEmpty()) {
+	                if (size.equals("S")) currentSizeArray = stockS;
+	                else if (size.equals("M")) currentSizeArray = stockM;
+	                else if (size.equals("L")) currentSizeArray = stockL;
+	                else if (size.equals("XL")) currentSizeArray = stockXL;
 
-	                    String[] arr = value.split(",");
-
-	                    if (arr.length > i && !arr[i].trim().isEmpty()) {
+	                if (currentSizeArray != null && currentSizeArray.length > i) {
+	                    String val = currentSizeArray[i];
+	                    if (val != null && !val.trim().isEmpty()) {
 	                        try {
-	                            stockVal = Integer.parseInt(arr[i].trim());
+	                            stockVal = Integer.parseInt(val.trim());
 	                        } catch (Exception e) {
 	                            stockVal = 0;
 	                        }
 	                    }
 	                }
 
-	                // ========== CREATE VARIANT ==========
+	                // Agar stock milta hai, to naya variant record banaiye
 	                if (stockVal > 0) {
-
 	                    ItemVariant v = new ItemVariant();
-
 	                    v.setVariantColor(color);
 	                    v.setVariantSize(size);
 	                    v.setVariantStock(stockVal);
 	                    v.setVariantImage(imageUrl);
-
-	                    v.setVariantSku("VAR-" + System.currentTimeMillis() + "-" + i + "-" + size);
-
-	                    v.setItem(item);
-
+	                    
+	                    // COUNTER MIX (i aur size lagane se SKU guarantee unique ho jayega)
+	                    v.setVariantSku("VAR-" + baseTimestamp + "-C" + i + "-" + size);
+	                    
+	                    v.setItem(item); // Item ka reference dena bohot zaroori hai bidirectional me
 	                    variants.add(v);
 	                }
 	            }
 	        }
 	    }
 
+	    // Bidirectional list set karein
 	    item.setVariants(variants);
-
+	    
+	    // Pure Object graph ko ek baar me save karein (CascadeType.ALL isko db me handle karega)
 	    itemService.saveItem(item);
 
 	    return "redirect:/view_Item";

@@ -771,38 +771,40 @@
 	<script>
 
 	function addVariant(){
-
+	    // Ek poora naya Color Block (HTML String) taiyar karenge
 	    let html = `
 	      <div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
 
 	        <label>Color</label>
-	        <input type="text" name="color[]" class="form-control">
+	        <input type="text" name="color[]" class="form-control" placeholder="Enter Color">
 
-	        <label style="margin-top:10px;">Color Image</label>
-	        <input type="file" name="colorImage[]" class="form-control">
+	        <!-- Yahan name='variantImage[]' hona chahiye, na ki colorImage[] -->
+	        <label style="margin-top:10px;">Variant Image</label>
+	        <input type="file" name="variantImage[]" class="form-control">
 
 	        <hr>
 
 	        <label>Sizes & Stock</label>
 
+	        <!-- Default value="0" lagana zaroori hai taaki backend par array elements miss na hon -->
 	        <div>
-	          <label><input type="checkbox" value="S"> S</label>
-	          <input type="number" name="stock[S][]" class="form-control" placeholder="Stock for S">
+	          <label><input type="checkbox" class="sizeChk" value="S"> S</label>
+	          <input type="number" name="stock[S][]" class="form-control" placeholder="Stock for S" value="0">
 	        </div>
 
 	        <div>
-	          <label><input type="checkbox" value="M"> M</label>
-	          <input type="number" name="stock[M][]" class="form-control" placeholder="Stock for M">
+	          <label><input type="checkbox" class="sizeChk" value="M"> M</label>
+	          <input type="number" name="stock[M][]" class="form-control" placeholder="Stock for M" value="0">
 	        </div>
 
 	        <div>
-	          <label><input type="checkbox" value="L"> L</label>
-	          <input type="number" name="stock[L][]" class="form-control" placeholder="Stock for L">
+	          <label><input type="checkbox" class="sizeChk" value="L"> L</label>
+	          <input type="number" name="stock[L][]" class="form-control" placeholder="Stock for L" value="0">
 	        </div>
 
 	        <div>
-	          <label><input type="checkbox" value="XL"> XL</label>
-	          <input type="number" name="stock[XL][]" class="form-control" placeholder="Stock for XL">
+	          <label><input type="checkbox" class="sizeChk" value="XL"> XL</label>
+	          <input type="number" name="stock[XL][]" class="form-control" placeholder="Stock for XL" value="0">
 	        </div>
 
 	        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top:10px;">
@@ -812,11 +814,13 @@
 	      </div>
 	    `;
 
+	    // Is naye HTML ko container ke andar sabse niche insert kar denge
 	    document.getElementById("variantContainer")
 	            .insertAdjacentHTML("beforeend", html);
 	}
-	
+
 	function removeVariant(btn){
+	    // Remove button dabane par uske sabse pass wale .colorBlock element ko delete karega
 	    btn.closest(".colorBlock").remove();
 	}
 
