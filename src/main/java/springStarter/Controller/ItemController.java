@@ -116,6 +116,7 @@ public class ItemController {
 	    item.setWeight(weight);
 	    item.setFabric(fabric);
 	    item.setGender(gender);
+	    item.setStock(stock);
 
 	    item.setCategory(categoryService.getCategoryById(categoryId));
 	    item.setSubCategory(subCategoryService.getSubCategoryById(subCategoryId));
