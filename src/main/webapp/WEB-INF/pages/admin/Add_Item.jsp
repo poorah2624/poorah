@@ -734,7 +734,8 @@
 					
 						genderDiv.style.display = "block";
 						variantDiv.style.display = "block";
-						fabricDiv.style.display = "none";
+						fabricDiv.style.display = "block";
+						stockDiv.style.display = "none";
 					}
 					
 					
