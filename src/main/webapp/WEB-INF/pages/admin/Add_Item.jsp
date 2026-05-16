@@ -189,8 +189,7 @@
 														*</span>
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12" id='subcategory'>
-													<select name="gender" id="gender" class="form-control"
-														required>
+													<select name="gender" id="gender" class="form-control">
 
 														<option value="">Select Gender</option>
 														<option value="MEN">MEN</option>
@@ -219,7 +218,6 @@
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<input type="file" id="file" name="itemImage"
-														required="required"
 														class="form-control col-md-7 col-xs-12"
 														onchange="return fileValidation()" multiple>
 												</div>
@@ -244,7 +242,7 @@
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<input type="text" id="stock" pattern="[0-9]{1,20}"
-														name="stock" title="Enter Digits Only" required="required"
+														name="stock" title="Enter Digits Only"
 														placeholder="Enter Stock Limit"
 														class="form-control col-md-7 col-xs-12">
 												</div>
@@ -347,7 +345,7 @@
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<input type="text" id="title" pattern="([A-Za-z .])+"
-														name="fabric" title="Enter Words Only" required="required"
+														name="fabric" title="Enter Words Only"
 														placeholder="Enter Fabric here"
 														class="form-control col-md-7 col-xs-12">
 												</div>
