@@ -65,7 +65,7 @@ public class ItemController {
 	@PostMapping("/Add_Item")
 	public String add_Item(@RequestParam Long categoryId, @RequestParam Long subCategoryId,
 			               @RequestParam("itemName") String itemName,  @RequestParam("itemImage") MultipartFile[] files,
-			               @RequestParam("itemPrice") BigDecimal itemPrice,
+			               @RequestParam("itemPrice") BigDecimal itemPrice,  @RequestParam(value="stock", required=false) String stock,
 			               @RequestParam("discount") BigDecimal discount, @RequestParam("featuredProduct") String featuredProduct,
 			               @RequestParam("itemDesc") String itemDesc, 
 			               @RequestParam("keyFeatures") String keyFeatures,
@@ -73,8 +73,8 @@ public class ItemController {
 			               //@RequestParam(value="size", required=false) String[] size,
 			               //@RequestParam(value="age", required=false) String[] age,
 			               @RequestParam(value="weight", required=false) String weight,
-			               @RequestParam("fabric") String fabric,
-			               @RequestParam("gender") String gender,
+			               @RequestParam(value="fabric", required=false) String fabric,
+			               @RequestParam(value="gender", required=false) String gender,
 			               @RequestParam(value = "color[]", required = false) List<String> colors,
 			               @RequestParam(value = "variantSize[]", required = false) List<String> variantSizes,
                            @RequestParam(value = "variantStock[]", required = false) List<Integer> variantStocks,
@@ -121,7 +121,19 @@ public class ItemController {
 		item.setItemName(itemName);
 		item.setItemImage(finalImages);
 		item.setItemPrice(itemPrice);
-		//item.setStock(stock);
+		
+		
+		if(colors != null && !colors.isEmpty()
+		   && colors.get(0) != null
+		   && !colors.get(0).trim().isEmpty()){
+
+		    item.setStock(null);
+
+		}else{
+
+		    item.setStock(stock);
+		}
+		
 		item.setDiscount(discount);
 		item.setFeaturedProduct(featuredProduct);
 		item.setItemDesc(itemDesc);
@@ -155,9 +167,14 @@ public class ItemController {
 
 	            ItemVariant variant = new ItemVariant();
 
-	            variant.setColor(colors.get(i));
-	            variant.setSize(variantSizes.get(i));
-	            variant.setStock(variantStocks.get(i));
+	            variant.setVariantColor(colors.get(i));
+	            variant.setVariantSize(variantSizes.get(i));
+	            variant.setVariantStock(variantStocks.get(i));
+
+	            // variant sku
+	            String variantSku = "VAR-" + System.currentTimeMillis() + "-" + i;
+
+	            variant.setVariantSku(variantSku);
 
 	            variant.setItem(item);
 
@@ -260,9 +277,9 @@ public class ItemController {
 		            variant.setVariantId(variantIds.get(i));
 		        }
 
-		        variant.setColor(colors.get(i));
-		        variant.setSize(variantSizes.get(i));
-		        variant.setStock(variantStocks.get(i));
+		        variant.setVariantColor(colors.get(i));
+		        variant.setVariantSize(variantSizes.get(i));
+		        variant.setVariantStock(variantStocks.get(i));
 
 		        variant.setItem(item);
 

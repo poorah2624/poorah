@@ -30,11 +30,14 @@ public class Item {
 	@Column(name="itemName", nullable=false)
 	private String itemName;
 	
-	@Column(name="itemImage", nullable=false)
+	@Column(name="itemImage", nullable=true)
 	private String itemImage;
 	
 	@Column(name="itemPrice", nullable=false)
 	private BigDecimal itemPrice;
+	
+	@Column(name="stock", nullable=true)
+	private String stock;
 	
 	@Column(name="discount", nullable=false)
 	private BigDecimal discount;
@@ -45,28 +48,28 @@ public class Item {
 	@Column(name="itemDesc", nullable=false, length=5000)
 	private String itemDesc;
 	
-	@Column(name="keyFeatures", nullable=false, length=5000)
+	@Column(name="keyFeatures", nullable=true, length=5000)
 	private String KeyFeatures;
 	
 	@Column(name="status", nullable=false)
 	private String status;
 	
-	@Column(name="size", nullable=true)
+	/*@Column(name="size", nullable=true)
 	private String size;
 	
 	@Column(name="age", nullable=true)
-	private String age;
+	private String age;*/
 	
 	@Column(name="weight", nullable=true)
 	private String weight;
 	
-	@Column(name="fabric", nullable=false)
+	@Column(name="fabric", nullable=true)
 	private String fabric;
 	
 	@Column(name="skuId", nullable=false, unique=true)
 	private String skuId;
 	
-	@Column(name="gender", nullable=false)
+	@Column(name="gender", nullable=true)
 	private String gender; 
 	
 	private LocalDateTime createdAt;
@@ -155,7 +158,16 @@ public class Item {
     public void setItemPrice(BigDecimal itemPrice) {
 		this.itemPrice = itemPrice;
 	}
+    
 
+
+	public String getStock() {
+		return stock;
+	}
+
+	public void setStock(String stock) {
+		this.stock = stock;
+	}
 
 	public BigDecimal getDiscount() {
 		return discount;
@@ -198,7 +210,7 @@ public class Item {
 		this.status = status;
 	}
 
-	public String getSize() {
+	/*public String getSize() {
 		return size;
 	}
 
@@ -212,7 +224,7 @@ public class Item {
 
 	public void setAge(String age) {
 		this.age = age;
-	}
+	}*/
 
 	public String getWeight() {
 		return weight;

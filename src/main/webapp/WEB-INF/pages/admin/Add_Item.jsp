@@ -237,6 +237,18 @@
 														class="form-control col-md-7 col-xs-12">
 												</div>
 											</div>
+											<div class="form-group" id="stockDiv">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12"
+													for="stock">Item Stock limit <span class="required">
+														*</span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<input type="text" id="stock" pattern="[0-9]{1,20}"
+														name="stock" title="Enter Digits Only" required="required"
+														placeholder="Enter Stock Limit"
+														class="form-control col-md-7 col-xs-12">
+												</div>
+											</div>
 
 
 											<div class="form-group">
@@ -710,18 +722,21 @@
 					var genderDiv = document.getElementById("genderDiv");
 					var variantDiv = document.getElementById("variantDiv");
 					var fabricDiv = document.getElementById("fabricDiv");
+					var stockDiv = document.getElementById("stockDiv");
 
 					genderDiv.style.display = "none";
 					variantDiv.style.display = "none";
 					fabricDiv.style.display = "none";
+					stockDiv.style.display = "block";
 
 					if (categoryName.toLowerCase().includes("men")
 							|| categoryName.toLowerCase().includes("women")) {
 					
 						genderDiv.style.display = "block";
 						variantDiv.style.display = "block";
-						fabricDiv.style.display = "block";
+						fabricDiv.style.display = "none";
 					}
+					
 					
 					
 

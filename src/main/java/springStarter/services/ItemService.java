@@ -67,7 +67,7 @@ public class ItemService {
 	    Category category = categoryRepo.findById(item.getCategory().getCategoryId()).orElse(null);
 	    
 	    
-	    if(category != null){
+	    /* if(category != null){
 	    if(category.getCategoryName().equalsIgnoreCase("Clothing")){
 	        existingItem.setSize(item.getSize());
 	        existingItem.setAge(null);
@@ -80,7 +80,7 @@ public class ItemService {
 	        existingItem.setSize(null);
 	        existingItem.setAge(null);
 	    }
-	    }
+	    } */
 	    
 	    existingItem.setWeight(item.getWeight());
 	    existingItem.setFabric(item.getFabric());

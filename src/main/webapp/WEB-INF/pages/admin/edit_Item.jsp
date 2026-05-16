@@ -246,7 +246,7 @@
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<c:forEach var="img"
 														items="${fn:split(item.itemImage, ',')}">
-														<img src="/uploads/${img}" name="itemImage"
+														<img src="${img}" name="itemImage"
 															style="width: 200px; height: 200px;">
 													</c:forEach>
 												</div>
@@ -274,6 +274,18 @@
 														name="itemPrice"
 														value="${item.itemPrice }"
 														title="Enter Digits Only and it should not be more then INR 9.99 Crore"
+														class="form-control col-md-7 col-xs-12">
+												</div>
+											</div>
+											<div class="form-group" id="stockDiv">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12"
+													for="stock">Item Stock limit <span class="required">
+														*</span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<input type="text" id="stock" pattern="[0-9]{1,20}"
+														name="stock" value="${item.stock }" title="Enter Digits Only" required="required"
+														placeholder="Enter Stock Limit"
 														class="form-control col-md-7 col-xs-12">
 												</div>
 											</div>
@@ -311,16 +323,16 @@
 																	value="${variant.variantId}"> <label>Color</label>
 
 																<input type="text" name="color[]"
-																	value="${variant.color}" placeholder="Enter Color"
+																	value="${variant.variantColor}" placeholder="Enter Color"
 																	class="form-control" style="margin-bottom: 10px;">
 
 																<label>Size</label> <input type="text"
-																	name="variantSize[]" value="${variant.size}"
+																	name="variantSize[]" value="${variant.variantSize}"
 																	placeholder="Enter Size" class="form-control"
 																	style="margin-bottom: 10px;"> <label>Stock</label>
 
 																<input type="number" name="variantStock[]"
-																	value="${variant.stock}" placeholder="Enter Stock"
+																	value="${variant.variantStock}" placeholder="Enter Stock"
 																	class="form-control" style="margin-bottom: 10px;">
 
 																<button type="button"
@@ -347,7 +359,7 @@
 												</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
 													<input type="text" id="weight" name="weight"
-														value="${item.weight } g"
+														value="${item.weight }"
 														class="form-control col-md-7 col-xs-12">
 												</div>
 											</div>
@@ -622,18 +634,22 @@
 			var genderDiv = document.getElementById("genderDiv");
 			var variantDiv = document.getElementById("variantDiv");
 			var fabricDiv = document.getElementById("fabricDiv");
+			var stockDiv = document.getElementById("stockDiv");
 
 			genderDiv.style.display = "none";
 			variantDiv.style.display = "none";
 			fabricDiv.style.display = "none";
+			stockDiv.style.display = "block";
 
 			if (categoryName.toLowerCase().includes("men") || categoryName.toLowerCase().includes("women")) {
 
 				genderDiv.style.display = "block";
 				variantDiv.style.display = "block";
 				fabricDiv.style.display = "block";
+				stockDiv.style.display = "none";
 
 			}
+			
 
 		}
 

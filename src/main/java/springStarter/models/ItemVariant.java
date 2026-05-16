@@ -2,23 +2,24 @@ package springStarter.models;
 
 import javax.persistence.*;
 
+
 @Entity
-@Table(name = "item_variant")
+@Table(name = "itemVariant")
 public class ItemVariant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long variantId;
 
-    private String color;
+    private String variantColor;
 
-    private String size;
+    private String variantSize;
 
-    private Integer stock;
+    private Integer variantStock;
 
-    private String image;
+    private String variantImage;
 
-    private String sku;
+    private String variantSku;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
@@ -32,44 +33,44 @@ public class ItemVariant {
 		this.variantId = variantId;
 	}
 
-	public String getColor() {
-		return color;
+	public String getVariantColor() {
+		return variantColor;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
+	public void setVariantColor(String variantColor) {
+		this.variantColor = variantColor;
 	}
 
-	public String getSize() {
-		return size;
+	public String getVariantSize() {
+		return variantSize;
 	}
 
-	public void setSize(String size) {
-		this.size = size;
+	public void setVariantSize(String variantSize) {
+		this.variantSize = variantSize;
 	}
 
-	public Integer getStock() {
-		return stock;
+	public Integer getVariantStock() {
+		return variantStock;
 	}
 
-	public void setStock(Integer stock) {
-		this.stock = stock;
+	public void setVariantStock(Integer variantStock) {
+		this.variantStock = variantStock;
 	}
 
-	public String getImage() {
-		return image;
+	public String getVariantImage() {
+		return variantImage;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setVariantImage(String variantImage) {
+		this.variantImage = variantImage;
 	}
 
-	public String getSku() {
-		return sku;
+	public String getVariantSku() {
+		return variantSku;
 	}
 
-	public void setSku(String sku) {
-		this.sku = sku;
+	public void setVariantSku(String variantSku) {
+		this.variantSku = variantSku;
 	}
 
 	public Item getItem() {
@@ -79,6 +80,8 @@ public class ItemVariant {
 	public void setItem(Item item) {
 		this.item = item;
 	}
+
+	
     
     
 
