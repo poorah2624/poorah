@@ -37,21 +37,28 @@
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="x_panel">
 							<div class="x_title">
-								<h2>Edit Item <small>Here</small></h2>
+								<h2>
+									Edit Item <small>Here</small>
+								</h2>
 								<div class="clearfix"></div>
 							</div>
 							<div class="x_content">
-								<form action="/edit_Item" method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
+								<form action="/edit_Item" method="post"
+									class="form-horizontal form-label-left"
+									enctype="multipart/form-data">
 									<input type="hidden" name="itemId" value="${item.itemId}">
 
 									<!-- Category -->
 									<div class="form-group">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Main Category *</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Main
+											Category *</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<select name="category.categoryId" id="category" class="form-control" required>
+											<select name="category.categoryId" id="category"
+												class="form-control" required>
 												<option value="">Select Category</option>
 												<c:forEach var="cat" items="${categories}">
-													<option value="${cat.categoryId}" ${cat.categoryId == item.category.categoryId ? 'selected' : ''}>${cat.categoryName}</option>
+													<option value="${cat.categoryId}"
+														${cat.categoryId == item.category.categoryId ? 'selected' : ''}>${cat.categoryName}</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -59,11 +66,14 @@
 
 									<!-- SubCategory -->
 									<div class="form-group">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Sub Category *</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Sub
+											Category *</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<select name="subCategory.subCategoryId" id="subCategorySelect" class="form-control" required>
+											<select name="subCategory.subCategoryId"
+												id="subCategorySelect" class="form-control" required>
 												<c:forEach var="s" items="${subcategories}">
-													<option value="${s.subCategoryId}" ${s.subCategoryId == item.subCategory.subCategoryId ? 'selected' : ''}>${s.subCategoryName}</option>
+													<option value="${s.subCategoryId}"
+														${s.subCategoryId == item.subCategory.subCategoryId ? 'selected' : ''}>${s.subCategoryName}</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -71,93 +81,115 @@
 
 									<!-- Gender -->
 									<div class="form-group" id="genderDiv">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Gender *</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Gender
+											*</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<select name="gender" id="gender" class="form-control">
-												<option value="MEN" ${item.gender == 'MEN' ? 'selected' : ''}>MEN</option>
-												<option value="WOMEN" ${item.gender == 'WOMEN' ? 'selected' : ''}>WOMEN</option>
+												<option value="MEN"
+													${item.gender == 'MEN' ? 'selected' : ''}>MEN</option>
+												<option value="WOMEN"
+													${item.gender == 'WOMEN' ? 'selected' : ''}>WOMEN</option>
 											</select>
 										</div>
 									</div>
 
 									<!-- SKU -->
 									<div class="form-group">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">SKU Id *</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">SKU
+											Id *</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<input type="text" name="skuId" value="${item.skuId}" class="form-control" required>
+											<input type="text" name="skuId" value="${item.skuId}"
+												class="form-control" required>
 										</div>
 									</div>
 
 									<!-- Item Name -->
 									<div class="form-group">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Item Name *</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Item
+											Name *</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<input type="text" name="itemName" value="${item.itemName}" class="form-control" required>
+											<input type="text" name="itemName" value="${item.itemName}"
+												class="form-control" required>
 										</div>
 									</div>
 
 									<!-- Main Price -->
 									<div class="form-group">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Item Price (₹) *</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Item
+											Price (₹) *</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<input type="text" name="itemPrice" value="${item.itemPrice}" class="form-control" required>
+											<input type="text" name="itemPrice" value="${item.itemPrice}"
+												class="form-control" required>
 										</div>
 									</div>
 
 									<!-- ADDED: MAIN ITEM IMAGE UPLOAD SECTION (Yeh missing tha) -->
 									<div class="form-group">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Main Item Image</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Main
+											Item Image</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<!-- Puraani images ka preview dikhane ke liye -->
 											<c:if test="${not empty item.itemImage}">
 												<div style="margin-bottom: 10px;">
-													<c:forEach var="img" items="${fn:split(item.itemImage, ',')}">
-														<img src="${img}" style="width: 70px; height: 70px; margin-right: 5px; border: 1px solid #ccc; object-fit: cover;">
+													<c:forEach var="img"
+														items="${fn:split(item.itemImage, ',')}">
+														<img src="${img}"
+															style="width: 70px; height: 70px; margin-right: 5px; border: 1px solid #ccc; object-fit: cover;">
 													</c:forEach>
 												</div>
 											</c:if>
 											<!-- Input field jo controller me "file" ke naam se map hogi -->
-											<input type="file" name="file" class="form-control col-md-7 col-xs-12" multiple>
-											<small class="text-muted">Change Image</small>
+											<input type="file" name="file"
+												class="form-control col-md-7 col-xs-12" multiple> <small
+												class="text-muted">Change Image</small>
 										</div>
 									</div>
 
 									<!-- Stock Div (For non-clothing) -->
 									<div class="form-group" id="stockDiv">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Item Stock *</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Item
+											Stock *</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<input type="text" name="stock" value="${item.stock}" class="form-control">
+											<input type="text" name="stock" value="${item.stock}"
+												class="form-control">
 										</div>
 									</div>
 
 									<!-- Discount -->
 									<div class="form-group">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Discount (%)</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Discount
+											(%)</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<input type="text" name="discount" value="${item.discount}" class="form-control">
+											<input type="text" name="discount" value="${item.discount}"
+												class="form-control">
 										</div>
 									</div>
 
 									<!-- PRODUCT VARIANTS (MAIN BLOCK) -->
 									<div class="form-group" id="variantDiv">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Product Variants</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Product
+											Variants</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<div id="variantContainer">
 
-												<c:forEach var="variant" items="${item.variants}" varStatus="st">
-													<div class="colorBlock" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
-														<input type="hidden" name="variantId[]" value="${variant.variantId}" /> 
-														
-														<label>Color</label> 
-														<input type="text" name="color[]" value="${variant.variantColor}" class="form-control" required /> 
-														
-														<label style="margin-top: 10px;">Variant Image</label>
+												<c:forEach var="variant" items="${item.variants}"
+													varStatus="st">
+													<div class="colorBlock"
+														style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
+														<input type="hidden" name="variantId[]"
+															value="${variant.variantId}" /> <label>Color</label> <input
+															type="text" name="color[]"
+															value="${variant.variantColor}" class="form-control"
+															required /> <label style="margin-top: 10px;">Variant
+															Image</label>
 														<c:if test="${not empty variant.variantImage}">
 															<div>
-																<img src="${variant.variantImage}" style="width: 80px; height: 80px; margin-bottom: 10px; border: 1px solid #ccc;" />
+																<img src="${variant.variantImage}"
+																	style="width: 80px; height: 80px; margin-bottom: 10px; border: 1px solid #ccc;" />
 															</div>
 														</c:if>
-														<input type="file" name="variantImage[]" class="form-control" />
+														<input type="file" name="variantImage[]"
+															class="form-control" />
 
 														<hr>
 														<label>Sizes & Stock</label>
@@ -166,32 +198,35 @@
 
 														<!-- Puraane variants ke liye dynamic parameters index: stockS_0, stockS_1... -->
 														<div>
-															<label>S</label> 
-															<input type="number" name="stockS_${st.index}" class="form-control" min="0"
+															<label>S</label> <input type="number"
+																name="stockS_${st.index}" class="form-control" min="0"
 																value="${fn:contains(stockStr, 'S:') ? fn:substringBefore(fn:substringAfter(stockStr, 'S:'), ',M:') : '0'}">
 														</div>
 														<div>
-															<label>M</label> 
-															<input type="number" name="stockM_${st.index}" class="form-control" min="0"
+															<label>M</label> <input type="number"
+																name="stockM_${st.index}" class="form-control" min="0"
 																value="${fn:contains(stockStr, 'M:') ? fn:substringBefore(fn:substringAfter(stockStr, 'M:'), ',L:') : '0'}">
 														</div>
 														<div>
-															<label>L</label> 
-															<input type="number" name="stockL_${st.index}" class="form-control" min="0"
+															<label>L</label> <input type="number"
+																name="stockL_${st.index}" class="form-control" min="0"
 																value="${fn:contains(stockStr, 'L:') ? fn:substringBefore(fn:substringAfter(stockStr, 'L:'), ',XL:') : '0'}">
 														</div>
 														<div>
-															<label>XL</label> 
-															<input type="number" name="stockXL_${st.index}" class="form-control" min="0"
+															<label>XL</label> <input type="number"
+																name="stockXL_${st.index}" class="form-control" min="0"
 																value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XL:') : '0'}">
 														</div>
 
-														<button type="button" class="btn btn-danger btn-sm removeVariant" style="margin-top: 10px;">Remove Color</button>
+														<button type="button"
+															class="btn btn-danger btn-sm removeVariant"
+															style="margin-top: 10px;">Remove Color</button>
 													</div>
 												</c:forEach>
 
 											</div>
-											<button type="button" class="btn btn-primary" id="addVariantBtn">+ Add Color Block</button>
+											<button type="button" class="btn btn-primary"
+												id="addVariantBtn">+ Add Color Block</button>
 										</div>
 									</div>
 
@@ -199,13 +234,32 @@
 									<div class="form-group" id="fabricDiv">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">Fabric</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<input type="text" name="fabric" value="${item.fabric}" class="form-control">
+											<input type="text" name="fabric" value="${item.fabric}"
+												class="form-control">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">Weight</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<input type="text" name="weight" value="${item.weight}" class="form-control">
+											<input type="text" name="weight" value="${item.weight}"
+												class="form-control">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3 col-xs-12"
+											for="feature">Featured Product <span class="required">
+												*</span></label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<!-- Dropdown select se 'value' attribute hataiye, select ka name controller me match karega -->
+											<select name="featuredProduct" id="feature"
+												class="form-control col-md-7 col-xs-12" required>
+												<!-- JSTL condition se select logic lagaiye -->
+												<option value="Yes"
+													${item.featuredProduct == 'Yes' ? 'selected' : ''}>Yes</option>
+												<option value="No"
+													${item.featuredProduct == 'No' ? 'selected' : ''}>No</option>
+											</select>
 										</div>
 									</div>
 
@@ -217,7 +271,8 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-md-3 col-sm-3 col-xs-12">Key Features</label>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Key
+											Features</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<textarea name="keyFeatures" class="form-control" rows="4">${item.keyFeatures}</textarea>
 										</div>
@@ -226,7 +281,8 @@
 									<div class="ln_solid"></div>
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-											<button type="submit" class="btn btn-success">Update Item</button>
+											<button type="submit" class="btn btn-success">Update
+												Item</button>
 										</div>
 									</div>
 								</form>

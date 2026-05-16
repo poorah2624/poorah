@@ -219,7 +219,11 @@ public class ItemController {
 	    existingItem.setSkuId(item.getSkuId());
 	    existingItem.setItemPrice(item.getItemPrice());
 	    existingItem.setDiscount(item.getDiscount());
-	    existingItem.setFeaturedProduct(item.getFeaturedProduct());
+	    if (item.getFeaturedProduct() != null && !item.getFeaturedProduct().trim().isEmpty()) {
+	        existingItem.setFeaturedProduct(item.getFeaturedProduct());
+	    } else {
+	        existingItem.setFeaturedProduct("No"); 
+	    }
 	    existingItem.setItemDesc(item.getItemDesc());
 	    existingItem.setKeyFeatures(item.getKeyFeatures());
 	    existingItem.setStatus(item.getStatus());
