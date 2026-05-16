@@ -144,18 +144,29 @@
 														<td>${i.category.categoryName }</td>
 														<td>${i.subCategory.subCategoryName }</td>
 														<td>${i.skuId }</td>
-														<td><img src="${fn:split(i.itemImage, ',')[0]}"
-															style="width: 60px; height: 60px; object-fit: cover;"></td>
+														<td><c:if test="${not empty i.itemImage}">
+																<img src="${fn:split(i.itemImage, ',')[0]}"
+																	style="width: 60px; height: 60px; object-fit: cover;">
+															</c:if></td>
 														<td>${i.itemName }</td>
 														<td>&#8377 ${i.itemPrice }/-</td>
 														<td>${i.discount }%</td>
-														<td>${i.size }</td>
+														<td><c:choose>
+																<c:when test="${not empty i.variants}">
+																	<c:forEach var="v" items="${i.variants}">
+																		<span class="badge badge-primary">${v.size}</span>
+																	</c:forEach>
+																</c:when>
+																<c:otherwise>
+            N/A
+        </c:otherwise>
+															</c:choose></td>
 														<td>${i.weight }g</td>
 														<td>${i.fabric }</td>
 														<td><c:choose>
-                                                               <c:when test="${not empty i.variants}">
-                                                                   <c:forEach var="v" items="${i.variants}">
-                                                                      	<div style="margin-bottom: 5px;">
+																<c:when test="${not empty i.variants}">
+																	<c:forEach var="v" items="${i.variants}">
+																		<div style="margin-bottom: 5px;">
 
 																			<span class="badge badge-info"> ${v.color} </span> -
 
