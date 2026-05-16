@@ -15,7 +15,7 @@ public class ItemVariant {
 
     private String variantSize;
 
-    private Integer variantStock;
+    private String variantStock;
 
     private String variantImage;
 
@@ -49,11 +49,11 @@ public class ItemVariant {
 		this.variantSize = variantSize;
 	}
 
-	public Integer getVariantStock() {
+	public String getVariantStock() {
 		return variantStock;
 	}
 
-	public void setVariantStock(Integer variantStock) {
+	public void setVariantStock(String variantStock) {
 		this.variantStock = variantStock;
 	}
 

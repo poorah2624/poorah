@@ -769,61 +769,58 @@
 	</script>
 
 	<script>
+    
+    let variantIndex = 1; 
 
-	function addVariant(){
-	    // Ek poora naya Color Block (HTML String) taiyar karenge
-	    let html = `
-	      <div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
+    function addVariant(){
+        let html = `
+          <div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
 
-	        <label>Color</label>
-	        <input type="text" name="color[]" class="form-control" placeholder="Enter Color">
+            <label>Color</label>
+            <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required>
 
-	        <!-- Yahan name='variantImage[]' hona chahiye, na ki colorImage[] -->
-	        <label style="margin-top:10px;">Variant Image</label>
-	        <input type="file" name="variantImage[]" class="form-control">
+            <label style="margin-top:10px;">Variant Image</label>
+            <input type="file" name="variantImage[]" class="form-control">
 
-	        <hr>
+            <hr>
 
-	        <label>Sizes & Stock</label>
+            <label>Sizes & Stock</label>
 
-	        <!-- Default value="0" lagana zaroori hai taaki backend par array elements miss na hon -->
-	        <div>
-	          <label><input type="checkbox" class="sizeChk" value="S"> S</label>
-	          <input type="number" name="stock[S][]" class="form-control" placeholder="Stock for S" value="0">
-	        </div>
+            <!-- Yahan humne arrays me explicit index lagaya hai taaki mapping na bigde -->
+            <div>
+              <label>S</label>
+              <input type="number" name="stockS[]" class="form-control" placeholder="Stock for S" value="0" min="0">
+            </div>
 
-	        <div>
-	          <label><input type="checkbox" class="sizeChk" value="M"> M</label>
-	          <input type="number" name="stock[M][]" class="form-control" placeholder="Stock for M" value="0">
-	        </div>
+            <div>
+              <label>M</label>
+              <input type="number" name="stockM[]" class="form-control" placeholder="Stock for M" value="0" min="0">
+            </div>
 
-	        <div>
-	          <label><input type="checkbox" class="sizeChk" value="L"> L</label>
-	          <input type="number" name="stock[L][]" class="form-control" placeholder="Stock for L" value="0">
-	        </div>
+            <div>
+              <label>L</label>
+              <input type="number" name="stockL[]" class="form-control" placeholder="Stock for L" value="0" min="0">
+            </div>
 
-	        <div>
-	          <label><input type="checkbox" class="sizeChk" value="XL"> XL</label>
-	          <input type="number" name="stock[XL][]" class="form-control" placeholder="Stock for XL" value="0">
-	        </div>
+            <div>
+              <label>XL</label>
+              <input type="number" name="stockXL[]" class="form-control" placeholder="Stock for XL" value="0" min="0">
+            </div>
 
-	        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top:10px;">
-	          Remove Color
-	        </button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top:10px;">
+              Remove Color
+            </button>
 
-	      </div>
-	    `;
+          </div>
+        `;
 
-	    // Is naye HTML ko container ke andar sabse niche insert kar denge
-	    document.getElementById("variantContainer")
-	            .insertAdjacentHTML("beforeend", html);
-	}
+        document.getElementById("variantContainer").insertAdjacentHTML("beforeend", html);
+        variantIndex++; // Counter badha denge
+    }
 
-	function removeVariant(btn){
-	    // Remove button dabane par uske sabse pass wale .colorBlock element ko delete karega
-	    btn.closest(".colorBlock").remove();
-	}
-
+    function removeVariant(btn){
+        btn.closest(".colorBlock").remove();
+    }
 </script>
 </body>
 

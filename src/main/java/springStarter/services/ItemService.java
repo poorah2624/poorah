@@ -42,74 +42,51 @@ public class ItemService {
 	}
 
 	public void updateItem(Item item) {
-		Item existingItem = itemRepo.findById(item.getItemId())
+	    Item existingItem = itemRepo.findById(item.getItemId())
 	            .orElseThrow(() -> new RuntimeException("Item not found"));
-		
-		if(item.getSkuId() != null &&
-				   itemRepo.existsBySkuId(item.getSkuId()) &&
-				   !existingItem.getSkuId().equals(item.getSkuId())){
+	    
+	    if(item.getSkuId() != null &&
+	       itemRepo.existsBySkuId(item.getSkuId()) &&
+	       !existingItem.getSkuId().equals(item.getSkuId())){
+	        throw new RuntimeException("SKU already exists");
+	    }
 
-				    throw new RuntimeException("SKU already exists");
-				}
-
-		existingItem.setSkuId(item.getSkuId());
+	    // Basic Fields Update
+	    existingItem.setSkuId(item.getSkuId());
 	    existingItem.setItemName(item.getItemName());
 	    existingItem.setItemPrice(item.getItemPrice());
-	    //existingItem.setStock(item.getStock());
 	    existingItem.setDiscount(item.getDiscount());
 	    existingItem.setFeaturedProduct(item.getFeaturedProduct());
 	    existingItem.setItemDesc(item.getItemDesc());
 	    existingItem.setKeyFeatures(item.getKeyFeatures());
 	    existingItem.setStatus(item.getStatus());
 	    
-	    //existingItem.setCategory(item.getCategory());
-
-	    Category category = categoryRepo.findById(item.getCategory().getCategoryId()).orElse(null);
-	    
-	    
-	    /* if(category != null){
-	    if(category.getCategoryName().equalsIgnoreCase("Clothing")){
-	        existingItem.setSize(item.getSize());
-	        existingItem.setAge(null);
-	    }
-	    else if(category.getCategoryName().equalsIgnoreCase("Kids")){
-	        existingItem.setAge(item.getAge());
-	        existingItem.setSize(null);
-	    }
-	    else{
-	        existingItem.setSize(null);
-	        existingItem.setAge(null);
-	    }
-	    } */
-	    
 	    existingItem.setWeight(item.getWeight());
 	    existingItem.setFabric(item.getFabric());
 	    existingItem.setGender(item.getGender());
-
 	    
 	    existingItem.setCategory(item.getCategory());
 	    existingItem.setSubCategory(item.getSubCategory());
 
-	    
 	    if(item.getItemImage() != null && !item.getItemImage().isEmpty()) {
 	        existingItem.setItemImage(item.getItemImage());
 	    }
 	    
-	
-	    existingItem.getVariants().clear();
+	    // ================= VARIANTS RE-MAPPING (SAFE WAY) =================
+	    // Direct clear karne ke bajay existing list ko clean karke re-populate karenge
+	    if (existingItem.getVariants() != null) {
+	        existingItem.getVariants().clear();
+	    }
 
 	    if(item.getVariants() != null){
-
 	        for(ItemVariant variant : item.getVariants()){
-
-	            variant.setItem(existingItem);
-
+	            variant.setItem(existingItem); // Bidirectional relation map karein
 	            existingItem.getVariants().add(variant);
 	        }
 	    }
-	    // save
+	    
+	    // Final Database Sync
 	    itemRepo.save(existingItem);
-		
 	}
 	
 	public void deleteItem(Long id) {
