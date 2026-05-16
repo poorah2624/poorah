@@ -127,7 +127,6 @@
 													<th>Item Name</th>
 													<th>Price (&#8377)</th>
 													<th>Discount %</th>
-													<th>Size</th>
 													<th>Weight</th>
 													<th>Fabric</th>
 													<th>Variants</th>
@@ -154,7 +153,7 @@
 														<td><c:choose>
 																<c:when test="${not empty i.variants}">
 																	<c:forEach var="v" items="${i.variants}">
-																		<span class="badge badge-primary">${v.size}</span>
+																		<span class="badge badge-primary">${v.variantSize}</span>
 																	</c:forEach>
 																</c:when>
 																<c:otherwise>
@@ -168,11 +167,11 @@
 																	<c:forEach var="v" items="${i.variants}">
 																		<div style="margin-bottom: 5px;">
 
-																			<span class="badge badge-info"> ${v.color} </span> -
+																			<span class="badge badge-info"> ${v.variantColor} </span> -
 
-																			<span class="badge badge-primary"> ${v.size} </span>
+																			<span class="badge badge-primary"> ${v.variantSize} </span>
 
-																			- Stock: ${v.stock}
+																			- Stock: ${v.variantStock}
 
 																		</div>
 

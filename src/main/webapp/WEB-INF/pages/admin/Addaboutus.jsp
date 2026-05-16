@@ -151,7 +151,7 @@ function fileValidation(){
                       </label>
                       <c:if test="${not empty aboutUs.aImage}">
                       <div class="col-md-6 col-sm-6 col-xs-12">
-                          <img src="/uploads/${aboutUs.aImage }" name="aImage" style="width:150px;height:150px;"/>
+                          <img src="${aboutUs.aImage }" name="aImage" style="width:150px;height:150px;"/>
                           <input type="file" id="title" name="aImage"  class="form-control col-md-7 col-xs-12">
                       </div>
                       </c:if>
