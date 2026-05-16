@@ -272,12 +272,12 @@
 
 													<div id="variantContainer">
 
-														<!-- COLOR BLOCK -->
+														<!-- PEHLA COLOR BLOCK (Hamesha Index 0 ke liye fixed rahega) -->
 														<div class="colorBlock"
 															style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
 
 															<label>Color</label> <input type="text" name="color[]"
-																class="form-control" placeholder="Enter Color">
+																class="form-control" placeholder="Enter Color" required>
 
 															<label style="margin-top: 10px;">Variant Image</label> <input
 																type="file" name="variantImage[]" class="form-control">
@@ -286,37 +286,30 @@
 
 															<label>Sizes & Stock</label>
 
+															<!-- Explicit indexing _0 setup taaki Controller default block ko target kar sake -->
 															<div>
-																<label> <input type="checkbox" class="sizeChk"
-																	value="S"> S
-																</label> <input type="number" name="variantStock[S][]"
-																	placeholder="Stock for S" class="form-control">
+																<label> S </label> <input type="number" name="stockS_0"
+																	placeholder="Stock for S" class="form-control"
+																	value="0" min="0">
 															</div>
 
 															<div>
-																<label> <input type="checkbox" class="sizeChk"
-																	value="M"> M
-																</label> <input type="number" name="variantStock[M][]"
-																	placeholder="Stock for M" class="form-control">
+																<label> M </label> <input type="number" name="stockM_0"
+																	placeholder="Stock for M" class="form-control"
+																	value="0" min="0">
 															</div>
 
 															<div>
-																<label> <input type="checkbox" class="sizeChk"
-																	value="L"> L
-																</label> <input type="number" name="variantStock[L][]"
-																	placeholder="Stock for L" class="form-control">
+																<label> L </label> <input type="number" name="stockL_0"
+																	placeholder="Stock for L" class="form-control"
+																	value="0" min="0">
 															</div>
 
 															<div>
-																<label> <input type="checkbox" class="sizeChk"
-																	value="XL"> XL
-																</label> <input type="number" name="variantStock[XL][]"
-																	placeholder="Stock for XL" class="form-control">
+																<label> XL </label> <input type="number"
+																	name="stockXL_0" placeholder="Stock for XL"
+																	class="form-control" value="0" min="0">
 															</div>
-
-															<button type="button" class="btn btn-danger btn-sm"
-																onclick="removeVariant(this)" style="margin-top: 10px;">
-																Remove Color</button>
 
 														</div>
 
@@ -767,24 +760,23 @@
 
 	<script>
     
-	// Add_Item.jsp ke script block me check karein:
-	let variantCount = $(".colorBlock").length; // Default base counters setup
+	// Pehla block pehle se 0 lekar baitha hai, toh agla index 1 hoga
+	let variantCount = 1; 
 
 	function addVariant(){
 	    let html = `
-	      <div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
+	      <div class="colorBlock" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
 
 	        <label>Color</label>
 	        <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required>
 
-	        <label style="margin-top:10px;">Variant Image</label>
+	        <label style="margin-top: 10px;">Variant Image</label>
 	        <input type="file" name="variantImage[]" class="form-control">
 
 	        <hr>
 
 	        <label>Sizes & Stock</label>
 
-	        <!-- HIGHLIGHT: Names strictly formatted with current global index tags -->
 	        <div>
 	          <label>S</label>
 	          <input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0">
@@ -805,7 +797,7 @@
 	          <input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
 	        </div>
 
-	        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top:10px;">
+	        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top: 10px;">
 	          Remove Color
 	        </button>
 
@@ -813,12 +805,12 @@
 	    `;
 
 	    document.getElementById("variantContainer").insertAdjacentHTML("beforeend", html);
-	    variantCount++; 
+	    variantCount++; // Click counter plus hotey rahega
 	}
 
-    function removeVariant(btn){
-        btn.closest(".colorBlock").remove();
-    }
+	function removeVariant(btn){
+	    btn.closest(".colorBlock").remove();
+	}
 </script>
 </body>
 
