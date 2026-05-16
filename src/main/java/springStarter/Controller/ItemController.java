@@ -71,7 +71,7 @@ public class ItemController {
 	        @RequestParam("itemName") String itemName,
 	        @RequestParam("itemImage") MultipartFile[] files,
 	        @RequestParam("itemPrice") BigDecimal itemPrice,
-
+	        @RequestParam("stock") String stock,
 	        @RequestParam("discount") BigDecimal discount,
 	        @RequestParam("featuredProduct") String featuredProduct,
 	        @RequestParam("itemDesc") String itemDesc,
@@ -126,6 +126,7 @@ public class ItemController {
 	    item.setWeight(weight);
 	    item.setFabric(fabric);
 	    item.setGender(gender);
+	    item.setStock(stock != null && !stock.trim().isEmpty() ? stock : "0");
 
 	    item.setCategory(categoryService.getCategoryById(categoryId));
 	    item.setSubCategory(subCategoryService.getSubCategoryById(subCategoryId));
