@@ -71,18 +71,17 @@ public class ItemService {
 	    if(item.getItemImage() != null && !item.getItemImage().isEmpty()) {
 	        existingItem.setItemImage(item.getItemImage());
 	    }
-	    
-	    // ================= VARIANTS RE-MAPPING (SAFE WAY) =================
-	    // Direct clear karne ke bajay existing list ko clean karke re-populate karenge
+	  
 	    if (existingItem.getVariants() != null) {
 	        existingItem.getVariants().clear();
 	    }
 
 	    if(item.getVariants() != null){
 	        for(ItemVariant variant : item.getVariants()){
-	            variant.setItem(existingItem); // Bidirectional relation map karein
-	            existingItem.getVariants().add(variant);
+	            variant.setItem(existingItem);
 	        }
+	        
+	        existingItem.setVariants(item.getVariants());
 	    }
 	    
 	    // Final Database Sync

@@ -230,7 +230,6 @@ public class ItemController {
 	    existingItem.setCategory(item.getCategory());
 	    existingItem.setSubCategory(item.getSubCategory());
 
-	    // ================= 2. VARIANTS UPDATE (1 Row Per Color) =================
 	    List<ItemVariant> variants = new ArrayList<>();
 	    long baseTimestamp = System.currentTimeMillis();
 
@@ -240,21 +239,32 @@ public class ItemController {
 	            if (color == null || color.trim().isEmpty())
 	                continue;
 
-	            ItemVariant variant = new ItemVariant();
+	            ItemVariant variant = null;
+	            Long currentId = (variantIds != null && variantIds.size() > i) ? variantIds.get(i) : null;
 
-	            if (variantIds != null && variantIds.size() > i) {
-	                variant.setVariantId(variantIds.get(i));
+	          
+	            if (currentId != null && currentId > 0) {
+	                for (ItemVariant oldV : existingItem.getVariants()) {
+	                    if (oldV.getVariantId().equals(currentId)) {
+	                        variant = oldV;
+	                        break;
+	                    }
+	                }
+	            }
+
+	           
+	            if (variant == null) {
+	                variant = new ItemVariant();
 	            }
 
 	            variant.setVariantColor(color);
 
-	            // HIGHLIGHT: Params arrays hata kar humne explicit template query logic map kar diya
+	            // Stock parsing
 	            String sStock = request.getParameter("stockS_" + i);
 	            String mStock = request.getParameter("stockM_" + i);
 	            String lStock = request.getParameter("stockL_" + i);
 	            String xlStock = request.getParameter("stockXL_" + i);
 
-	            // Safe fallback validation 
 	            sStock = (sStock != null && !sStock.trim().isEmpty()) ? sStock.trim() : "0";
 	            mStock = (mStock != null && !mStock.trim().isEmpty()) ? mStock.trim() : "0";
 	            lStock = (lStock != null && !lStock.trim().isEmpty()) ? lStock.trim() : "0";
@@ -264,36 +274,17 @@ public class ItemController {
 	            variant.setVariantStock(combinedStockString);
 
 	            // IMAGE LOGIC
-	            String imageUrl = "";
+	            String imageUrl = variant.getVariantImage(); 
 	            if (variantImages != null && variantImages.length > i && !variantImages[i].isEmpty()) {
 	                Map uploadResult = cloudinary.uploader().upload(
 	                        variantImages[i].getBytes(),
 	                        ObjectUtils.asMap("folder", "poorah/variants")
 	                );
 	                imageUrl = (String) uploadResult.get("secure_url");
-	            } else {
-	                if (variantIds != null && variantIds.size() > i && variantIds.get(i) != null) {
-	                    Long currentId = variantIds.get(i);
-	                    for (ItemVariant oldV : existingItem.getVariants()) {
-	                        if (oldV.getVariantId().equals(currentId)) {
-	                            imageUrl = oldV.getVariantImage(); 
-	                            break;
-	                        }
-	                    }
-	                }
 	            }
-
 	            variant.setVariantImage(imageUrl);
 	            
 	            // SKU Logic
-	            if (variantIds != null && variantIds.size() > i && variantIds.get(i) != null) {
-	                for (ItemVariant oldV : existingItem.getVariants()) {
-	                    if (oldV.getVariantId().equals(variantIds.get(i))) {
-	                        variant.setVariantSku(oldV.getVariantSku());
-	                        break;
-	                    }
-	                }
-	            }
 	            if (variant.getVariantSku() == null) {
 	                variant.setVariantSku("VAR-" + baseTimestamp + "-C" + i);
 	            }
@@ -303,9 +294,9 @@ public class ItemController {
 	        }
 	    }
 
+	    
 	    existingItem.setVariants(variants);
 
-	    // Sync update to repo via service layer
 	    itemService.updateItem(existingItem);
 
 	    return "redirect:/view_Item";
