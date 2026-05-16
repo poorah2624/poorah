@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -64,41 +65,49 @@ public class ItemController {
 	
 	@PostMapping("/Add_Item")
 	public String add_Item(
+
 	        @RequestParam Long categoryId,
 	        @RequestParam Long subCategoryId,
 	        @RequestParam("itemName") String itemName,
 	        @RequestParam("itemImage") MultipartFile[] files,
 	        @RequestParam("itemPrice") BigDecimal itemPrice,
-	        @RequestParam(value="stock", required=false) String stock,
+
 	        @RequestParam("discount") BigDecimal discount,
 	        @RequestParam("featuredProduct") String featuredProduct,
 	        @RequestParam("itemDesc") String itemDesc,
 	        @RequestParam("keyFeatures") String keyFeatures,
 	        @RequestParam("status") String status,
+
 	        @RequestParam(value="weight", required=false) String weight,
 	        @RequestParam(value="fabric", required=false) String fabric,
 	        @RequestParam(value="gender", required=false) String gender,
-	        @RequestParam(value="color[]", required=false) List<String> colors,
-	        @RequestParam Map<String, String> allParams,
+
 	        @RequestParam(value="variantImage[]", required=false) MultipartFile[] variantImages,
+
+	        @RequestParam Map<String, String> allParams,
+
 	        Model model
+
 	) throws IOException {
 
 	    // ================= MAIN IMAGES =================
 	    StringBuilder imageUrls = new StringBuilder();
 
 	    for (MultipartFile file : files) {
-	        if (!file.isEmpty()) {
+	        if (file != null && !file.isEmpty()) {
+
 	            Map uploadResult = cloudinary.uploader().upload(
 	                    file.getBytes(),
 	                    ObjectUtils.asMap("folder", "poorah/products")
 	            );
+
 	            imageUrls.append(uploadResult.get("secure_url")).append(",");
 	        }
 	    }
 
 	    String finalImages = imageUrls.toString().replaceAll(",$", "");
 
+	    // ================= ITEM OBJECT =================
 	    Item item = new Item();
 
 	    String skuId = "SKU-" + System.currentTimeMillis();
@@ -113,10 +122,10 @@ public class ItemController {
 	    item.setItemDesc(itemDesc);
 	    item.setKeyFeatures(keyFeatures);
 	    item.setStatus(status);
+
 	    item.setWeight(weight);
 	    item.setFabric(fabric);
 	    item.setGender(gender);
-	    item.setStock(stock);
 
 	    item.setCategory(categoryService.getCategoryById(categoryId));
 	    item.setSubCategory(subCategoryService.getSubCategoryById(subCategoryId));
@@ -125,7 +134,13 @@ public class ItemController {
 
 	    // ================= VARIANTS =================
 	    List<ItemVariant> variants = new ArrayList<>();
-	    String[] sizes = {"S","M","L","XL"};
+
+	    List<String> colors = new ArrayList<>();
+	    if (allParams.get("color[]") != null) {
+	        colors = Arrays.asList(allParams.get("color[]").split(","));
+	    }
+
+	    String[] sizes = {"S", "M", "L", "XL"};
 
 	    if (colors != null) {
 
@@ -136,12 +151,12 @@ public class ItemController {
 	            if (color == null || color.trim().isEmpty())
 	                continue;
 
-	            // color image
+	            // ========== VARIANT IMAGE ==========
 	            String imageUrl = "";
 
 	            if (variantImages != null &&
-	                variantImages.length > i &&
-	                !variantImages[i].isEmpty()) {
+	                    variantImages.length > i &&
+	                    !variantImages[i].isEmpty()) {
 
 	                Map uploadResult = cloudinary.uploader().upload(
 	                        variantImages[i].getBytes(),
@@ -151,34 +166,38 @@ public class ItemController {
 	                imageUrl = (String) uploadResult.get("secure_url");
 	            }
 
-	            // sizes loop
-	            for (int j = 0; j < sizes.length; j++) {
+	            // ========== SIZE LOOP ==========
+	            for (String size : sizes) {
 
-	                String size = sizes[j];
-
-	                int index = i * sizes.length + j;
+	                String key = "stock[" + size + "][]";
+	                String value = allParams.get(key);
 
 	                int stockVal = 0;
 
-	                try {
-	                    String[] stockArr = allParams.get("stock[" + size + "][]").split(",");
+	                if (value != null && !value.isEmpty()) {
 
-	                    if (stockArr.length > i && !stockArr[i].isEmpty()) {
-	                        stockVal = Integer.parseInt(stockArr[i].trim());
+	                    String[] arr = value.split(",");
+
+	                    if (arr.length > i && !arr[i].trim().isEmpty()) {
+	                        try {
+	                            stockVal = Integer.parseInt(arr[i].trim());
+	                        } catch (Exception e) {
+	                            stockVal = 0;
+	                        }
 	                    }
-	                } catch (Exception e) {
-	                    stockVal = 0;
 	                }
 
+	                // ========== CREATE VARIANT ==========
 	                if (stockVal > 0) {
 
 	                    ItemVariant v = new ItemVariant();
+
 	                    v.setVariantColor(color);
 	                    v.setVariantSize(size);
 	                    v.setVariantStock(stockVal);
 	                    v.setVariantImage(imageUrl);
 
-	                    v.setVariantSku("VAR-" + System.currentTimeMillis() + "-" + i + "-" + j);
+	                    v.setVariantSku("VAR-" + System.currentTimeMillis() + "-" + i + "-" + size);
 
 	                    v.setItem(item);
 

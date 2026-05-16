@@ -27,6 +27,8 @@ public interface ItemRepo extends JpaRepository<Item, Long>  {
 	        String gender,
 	        String status
 	);
+
+	List<Item> findAllByOrderByCreateAtDesc();
 	
 
 }

@@ -315,35 +315,64 @@
 
 													<div id="variantContainer">
 
-														<c:forEach var="variant" items="${item.variants}">
-															<div class="variantRow"
-																style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px">
+														<c:forEach var="variant" items="${item.variants}"
+															varStatus="st">
+
+															<div class="colorBlock"
+																style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
 
 																<input type="hidden" name="variantId[]"
-																	value="${variant.variantId}" /> <label>Color</label> <input
-																	type="text" name="color[]"
+																	value="${variant.variantId}" />
+
+																<!-- COLOR -->
+																<label>Color</label> <input type="text" name="color[]"
 																	value="${variant.variantColor}" class="form-control" />
 
-																<label>Size</label> <input type="text"
-																	name="variantSize[]" value="${variant.variantSize}"
-																	class="form-control" /> <label>Stock</label> <input
-																	type="number" name="variantStock[]"
-																	value="${variant.variantStock}" class="form-control" />
-
-																<br />
-
+																<!-- IMAGE -->
+																<label>Variant Image</label>
 																<c:if test="${not empty variant.variantImage}">
 																	<img src="${variant.variantImage}"
-																		style="width: 100px; height: 100px" />
+																		style="width: 80px; height: 80px; margin-bottom: 10px;" />
 																</c:if>
 
-																<label>Change Image</label> <input type="file"
-																	name="variantImage[]" class="form-control" />
+																<input type="file" name="variantImage[]"
+																	class="form-control" />
+
+																<hr>
+
+																<!-- STOCK (SAME AS ADD ITEM) -->
+																<label>Sizes & Stock</label>
+
+																<div>
+																	<label>S</label> <input type="number" name="stock[S][]"
+																		class="form-control"
+																		value="${variant.variantSize == 'S' ? variant.variantStock : ''}">
+																</div>
+
+																<div>
+																	<label>M</label> <input type="number" name="stock[M][]"
+																		class="form-control"
+																		value="${variant.variantSize == 'M' ? variant.variantStock : ''}">
+																</div>
+
+																<div>
+																	<label>L</label> <input type="number" name="stock[L][]"
+																		class="form-control"
+																		value="${variant.variantSize == 'L' ? variant.variantStock : ''}">
+																</div>
+
+																<div>
+																	<label>XL</label> <input type="number"
+																		name="stock[XL][]" class="form-control"
+																		value="${variant.variantSize == 'XL' ? variant.variantStock : ''}">
+																</div>
 
 																<button type="button"
-																	class="btn btn-danger removeVariant">Remove</button>
+																	class="btn btn-danger btn-sm removeVariant">
+																	Remove</button>
 
 															</div>
+
 														</c:forEach>
 
 													</div>
@@ -628,10 +657,10 @@
 						});
 	</script>
 
-	
 
-	
-<script>
+
+
+	<script>
 
 function toggleCategoryFields(){
 

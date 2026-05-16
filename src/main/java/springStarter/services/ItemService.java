@@ -33,7 +33,7 @@ public class ItemService {
 	}
 
 	public List<Item> getAllItems() {
-		return itemRepo.findAll();
+		return itemRepo.findAllByOrderByCreateAtDesc();
 	}
 
 	public Item getItemById(Long itemId) {
