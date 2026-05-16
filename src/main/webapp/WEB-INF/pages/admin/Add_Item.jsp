@@ -281,8 +281,8 @@
 															<label>Color</label> <input type="text" name="color[]"
 																class="form-control" placeholder="Enter Color">
 
-															<label style="margin-top: 10px;">Color Image</label> <input
-																type="file" name="colorImage[]" class="form-control">
+															<label style="margin-top: 10px;">Variant Image</label> <input
+																type="file" name="variantImage[]" class="form-control">
 
 															<hr>
 
@@ -291,28 +291,28 @@
 															<div>
 																<label> <input type="checkbox" class="sizeChk"
 																	value="S"> S
-																</label> <input type="number" name="stock[S][]"
+																</label> <input type="number" name="variantStock[S][]"
 																	placeholder="Stock for S" class="form-control">
 															</div>
 
 															<div>
 																<label> <input type="checkbox" class="sizeChk"
 																	value="M"> M
-																</label> <input type="number" name="stock[M][]"
+																</label> <input type="number" name="variantStock[M][]"
 																	placeholder="Stock for M" class="form-control">
 															</div>
 
 															<div>
 																<label> <input type="checkbox" class="sizeChk"
 																	value="L"> L
-																</label> <input type="number" name="stock[L][]"
+																</label> <input type="number" name="variantStock[L][]"
 																	placeholder="Stock for L" class="form-control">
 															</div>
 
 															<div>
 																<label> <input type="checkbox" class="sizeChk"
 																	value="XL"> XL
-																</label> <input type="number" name="stock[XL][]"
+																</label> <input type="number" name="variantStock[XL][]"
 																	placeholder="Stock for XL" class="form-control">
 															</div>
 
