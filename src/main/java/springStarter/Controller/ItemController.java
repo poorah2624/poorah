@@ -69,10 +69,8 @@ public class ItemController {
 	        @RequestParam(value="color[]", required=false) List<String> colors,
 	        @RequestParam(value="variantImage[]", required=false) MultipartFile[] variantImages,
 	        
-	        @RequestParam(value="stockS[]", required=false) String[] stockS,
-	        @RequestParam(value="stockM[]", required=false) String[] stockM,
-	        @RequestParam(value="stockL[]", required=false) String[] stockL,
-	        @RequestParam(value="stockXL[]", required=false) String[] stockXL,
+	        // HIGHLIGHT: Data safely track karne ke liye HttpServletRequest parameter lein
+	        javax.servlet.http.HttpServletRequest request,
 
 	        Model model
 	) throws IOException {
@@ -123,6 +121,7 @@ public class ItemController {
 	                continue;
 	            }
 
+	            // ========== VARIANT IMAGE UPLOAD ==========
 	            String imageUrl = "";
 	            if (variantImages != null && variantImages.length > i && !variantImages[i].isEmpty()) {
 	                Map uploadResult = cloudinary.uploader().upload(
@@ -132,13 +131,22 @@ public class ItemController {
 	                imageUrl = (String) uploadResult.get("secure_url");
 	            }
 
-	            String sStock = (stockS != null && stockS.length > i && !stockS[i].trim().isEmpty()) ? stockS[i].trim() : "0";
-	            String mStock = (stockM != null && stockM.length > i && !stockM[i].trim().isEmpty()) ? stockM[i].trim() : "0";
-	            String lStock = (stockL != null && stockL.length > i && !stockL[i].trim().isEmpty()) ? stockL[i].trim() : "0";
-	            String xlStock = (stockXL != null && stockXL.length > i && !stockXL[i].trim().isEmpty()) ? stockXL[i].trim() : "0";
+	            // ========== HIGHLIGHT: INDEXED PARAMETERS DIRECT READING VIA LOOP INDEX ==========
+	            String sStock = request.getParameter("stockS_" + i);
+	            String mStock = request.getParameter("stockM_" + i);
+	            String lStock = request.getParameter("stockL_" + i);
+	            String xlStock = request.getParameter("stockXL_" + i);
 
+	            
+	            sStock = (sStock != null && !sStock.trim().isEmpty()) ? sStock.trim() : "0";
+	            mStock = (mStock != null && !mStock.trim().isEmpty()) ? mStock.trim() : "0";
+	            lStock = (lStock != null && !lStock.trim().isEmpty()) ? lStock.trim() : "0";
+	            xlStock = (xlStock != null && !xlStock.trim().isEmpty()) ? xlStock.trim() : "0";
+
+	            
 	            String combinedStockString = "S:" + sStock + ",M:" + mStock + ",L:" + lStock + ",XL:" + xlStock;
 
+	            // ========== CREATE ONLY ONE VARIANT ROW PER COLOR ==========
 	            ItemVariant v = new ItemVariant();
 	            v.setVariantColor(color);
 	            v.setVariantStock(combinedStockString); 

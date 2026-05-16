@@ -761,62 +761,60 @@
 						fabricDiv.style.display = "block";
 						stockDiv.style.display = "none";
 					}
-					
-					
-					
-
+			
 				});
 	</script>
 
 	<script>
     
-    let variantIndex = 1; 
+	// Add_Item.jsp ke script block me check karein:
+	let variantCount = $(".colorBlock").length; // Default base counters setup
 
-    function addVariant(){
-        let html = `
-          <div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
+	function addVariant(){
+	    let html = `
+	      <div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
 
-            <label>Color</label>
-            <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required>
+	        <label>Color</label>
+	        <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required>
 
-            <label style="margin-top:10px;">Variant Image</label>
-            <input type="file" name="variantImage[]" class="form-control">
+	        <label style="margin-top:10px;">Variant Image</label>
+	        <input type="file" name="variantImage[]" class="form-control">
 
-            <hr>
+	        <hr>
 
-            <label>Sizes & Stock</label>
+	        <label>Sizes & Stock</label>
 
-            <!-- Yahan humne arrays me explicit index lagaya hai taaki mapping na bigde -->
-            <div>
-              <label>S</label>
-              <input type="number" name="stockS[]" class="form-control" placeholder="Stock for S" value="0" min="0">
-            </div>
+	        <!-- HIGHLIGHT: Names strictly formatted with current global index tags -->
+	        <div>
+	          <label>S</label>
+	          <input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0">
+	        </div>
 
-            <div>
-              <label>M</label>
-              <input type="number" name="stockM[]" class="form-control" placeholder="Stock for M" value="0" min="0">
-            </div>
+	        <div>
+	          <label>M</label>
+	          <input type="number" name="stockM_\${variantCount}" class="form-control" value="0" min="0">
+	        </div>
 
-            <div>
-              <label>L</label>
-              <input type="number" name="stockL[]" class="form-control" placeholder="Stock for L" value="0" min="0">
-            </div>
+	        <div>
+	          <label>L</label>
+	          <input type="number" name="stockL_\${variantCount}" class="form-control" value="0" min="0">
+	        </div>
 
-            <div>
-              <label>XL</label>
-              <input type="number" name="stockXL[]" class="form-control" placeholder="Stock for XL" value="0" min="0">
-            </div>
+	        <div>
+	          <label>XL</label>
+	          <input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
+	        </div>
 
-            <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top:10px;">
-              Remove Color
-            </button>
+	        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top:10px;">
+	          Remove Color
+	        </button>
 
-          </div>
-        `;
+	      </div>
+	    `;
 
-        document.getElementById("variantContainer").insertAdjacentHTML("beforeend", html);
-        variantIndex++; // Counter badha denge
-    }
+	    document.getElementById("variantContainer").insertAdjacentHTML("beforeend", html);
+	    variantCount++; 
+	}
 
     function removeVariant(btn){
         btn.closest(".colorBlock").remove();
