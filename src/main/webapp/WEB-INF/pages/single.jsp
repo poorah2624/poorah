@@ -118,7 +118,7 @@
 					</h5>
 
 					<ul>
-						<c:forTokens items="${fn:split(item.keyFeatures, '\n')}" delims="&#10;&#13;"
+						<c:forTokens items="${item.keyFeatures}" delims="&#10;&#13;"
 							var="feature">
 							<c:if test="${not empty feature}">
 								<li>${feature}</li>
