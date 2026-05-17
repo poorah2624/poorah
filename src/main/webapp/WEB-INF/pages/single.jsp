@@ -322,70 +322,132 @@
 				<div class="sap_tabs">
 					<div id="horizontalTab1"
 						style="display: block; width: 100%; margin: 0px;">
-						<ul>
+						<ul class="resp-tabs-list">
 							<li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Product
 									Specification</span></li>
 							<li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Reviews</span></li>
 						</ul>
-						<div class="tab-1 resp-tab-content additional_info_grid"
-							aria-labelledby="tab_item-0">
-							<h3>${item.itemName}</h3>
-							<table class="table table-bordered">
-								<tr>
-									<th>Price</th>
-									<td>₹ ${item.itemPrice}</td>
-								</tr>
-								<tr>
-									<th>Category</th>
-									<td>${item.category.categoryName}</td>
-								</tr>
-								<tr>
-									<th>Sub Category</th>
-									<td>${item.subCategory.subCategoryName}</td>
-								</tr>
-								<tr>
-									<th>Weight</th>
-									<td>${item.weight}</td>
-								</tr>
-								<tr>
-									<th>Fabric</th>
-									<td>${item.fabric}</td>
-								</tr>
-								<tr>
-									<th>Description</th>
-									<td>${item.itemDesc}</td>
-								</tr>
-							</table>
-						</div>
 
-						<div class="tab-2 resp-tab-content additional_info_grid"
-							aria-labelledby="tab_item-1">
-							<h4>(${fn:length(reviews)}) Reviews</h4>
-							<div class="additional_info_sub_grids">
-								<c:forEach var="r" items="${reviews}">
-									<div class="col-xs-10 additional_info_sub_grid_right"
-										style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-										<div class="additional_info_sub_grid_rightl">
-											<h5>
-												<c:choose>
-													<c:when test="${not empty r.user}">${r.user.userName}</c:when>
-													<c:otherwise>${r.guestName}</c:otherwise>
-												</c:choose>
-											</h5>
-											<small class="text-muted">${r.createdAt}</small>
-											<p style="margin-top: 5px;">${r.message}</p>
-										</div>
-										<div class="additional_info_sub_grid_rightr">
-											<div class="rating">
-												<c:forEach begin="1" end="5" var="step">
-													<span
-														style="color: ${step <= r.rating ? 'gold' : 'lightgray'}; font-size: 18px;">★</span>
-												</c:forEach>
+						<div class="resp-tabs-container">
+							<div class="tab-1 resp-tab-content additional_info_grid"
+								aria-labelledby="tab_item-0">
+								<h3>${item.itemName}</h3>
+								<table class="table table-bordered">
+									<tr>
+										<th>Price</th>
+										<td>₹ ${item.itemPrice}</td>
+									</tr>
+									<tr>
+										<th>Category</th>
+										<td>${item.category.categoryName}</td>
+									</tr>
+									<tr>
+										<th>Sub Category</th>
+										<td>${item.subCategory.subCategoryName}</td>
+									</tr>
+									<tr>
+										<th>Weight</th>
+										<td>${item.weight}</td>
+									</tr>
+									<tr>
+										<th>Fabric</th>
+										<td>${item.fabric}</td>
+									</tr>
+									<tr>
+										<th>Description</th>
+										<td>${item.itemDesc}</td>
+									</tr>
+								</table>
+							</div>
+
+							<div class="tab-2 resp-tab-content additional_info_grid"
+								aria-labelledby="tab_item-1">
+								<h4>(${fn:length(reviews)}) Reviews</h4>
+								<div class="additional_info_sub_grids"
+									style="margin-top: 15px; max-height: 400px; overflow-y: auto;">
+									<c:forEach var="r" items="${reviews}">
+										<div class="col-xs-12 additional_info_sub_grid_right"
+											style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+											<div class="col-md-9 additional_info_sub_grid_rightl">
+												<h5>
+													<c:choose>
+														<c:when test="${not empty r.user}">${r.user.userName}</c:when>
+														<c:otherwise>${r.guestName}</c:otherwise>
+													</c:choose>
+												</h5>
+												<small class="text-muted">${r.createdAt}</small>
+												<p style="margin-top: 5px; color: #555;">${r.message}</p>
 											</div>
+											<div class="col-md-3 additional_info_sub_grid_rightr"
+												style="text-align: right;">
+												<div class="rating">
+													<c:forEach begin="1" end="5" var="step">
+														<span
+															style="color: ${step <= r.rating ? 'gold' : 'lightgray'}; font-size: 18px;">★</span>
+													</c:forEach>
+												</div>
+											</div>
+											<div class="clearfix"></div>
 										</div>
-										<div class="clearfix"></div>
-									</div>
-								</c:forEach>
+									</c:forEach>
+									<c:if test="${empty reviews}">
+										<p class="text-muted" style="margin-top: 10px;">No reviews
+											yet for this product. Be the first one to review!</p>
+									</c:if>
+								</div>
+
+								<div class="review_grids"
+									style="margin-top: 30px; border-top: 1px dashed #ccc; padding-top: 20px;">
+									<h5 style="font-weight: bold; margin-bottom: 15px;">Add A
+										Review</h5>
+									<form action="/addReview" method="post" class="form-vertical">
+										<input type="hidden" name="itemId" value="${item.itemId}">
+
+										<div class="row" style="margin-bottom: 15px;">
+											<c:choose>
+												<c:when test="${not empty sessionScope.LoggedInUser}">
+													<div class="col-md-6">
+														<input type="text" name="userName"
+															value="${sessionScope.LoggedInUser.userName}"
+															class="form-control" readonly style="background: #eee;">
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="col-md-6" style="margin-bottom: 10px;">
+														<input type="text" name="guestName"
+															placeholder="Your Name" class="form-control" required>
+													</div>
+													<div class="col-md-6">
+														<input type="email" name="guestEmail"
+															placeholder="Your Email Address" class="form-control"
+															required>
+													</div>
+												</c:otherwise>
+											</c:choose>
+										</div>
+
+										<div class="form-group" style="margin-bottom: 15px;">
+											<label style="display: block; margin-bottom: 5px;">Your
+												Rating:</label> <select name="rating" class="form-control"
+												style="width: 150px;" required>
+												<option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+												<option value="4">⭐⭐⭐⭐ (4/5)</option>
+												<option value="3">⭐⭐⭐ (3/5)</option>
+												<option value="2">⭐⭐ (2/5)</option>
+												<option value="1">⭐ (1/5)</option>
+											</select>
+										</div>
+
+										<div class="form-group" style="margin-bottom: 15px;">
+											<textarea name="message"
+												placeholder="Add Your Review Message here..."
+												class="form-control" rows="4" required></textarea>
+										</div>
+
+										<input type="submit" value="Submit Review"
+											class="btn btn-success">
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -394,7 +456,6 @@
 		</div>
 	</div>
 
-	<!-- Size Chart Modal Container -->
 	<div id="sizeChartModal" class="modal"
 		style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);">
 		<div class="modal-content"
@@ -429,6 +490,11 @@
 					<td>42</td>
 					<td>29</td>
 				</tr>
+				<tr>
+					<td>XXL</td>
+					<td>44</td>
+					<td>30</td>
+				</tr>
 			</table>
 		</div>
 	</div>
@@ -441,13 +507,16 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			// HIGHLIGHT: strict core framework setup structure for responsive tabs
 			$('#horizontalTab1').easyResponsiveTabs({
-				type : 'default',           
-				width : 'auto', 
-				fit : true
+				type: 'default',           
+				width: 'auto', 
+				fit: true,
+				activate: function(event) {
+					// Callback function switch if needed
+				}
 			});
 			
-			// Initial load par pehle active color block ki image set kar dete hain
 			let initialImg = $(".color-swatch.active").attr("data-variant-image");
 			if(initialImg && initialImg.trim() !== "") {
 				$("#mainProductImg").attr("src", initialImg);
@@ -461,31 +530,23 @@
 			});
 		});
 
-		// HIGHLIGHT: COLOR SELECTION ME IMAGE TOGGLE LOGIC JODA HAI
 		function selectColorBlock(index, element) {
-			// Swatches CSS toggle
 			$(".color-swatch").removeClass("active");
 			$(element).addClass("active");
 
-			// Size fields mapping display toggle
 			$(".size-wrapper").removeClass("active");
 			$("#sizeWrapper_" + index).addClass("active");
 			
-			// Radio reset safely
 			$('input[name="selectedSize"]').prop('checked', false);
 
-			// IMAGE MODIFICATION INTERACTION
 			let variantImgUrl = $(element).attr("data-variant-image");
 			if(variantImgUrl && variantImgUrl.trim() !== "") {
-				// 1. Direct active zoomed source image reset
 				$("#mainProductImg").attr("src", variantImgUrl);
-				// 2. Zoom effects attributes support resets
 				$("#mainProductImg").attr("data-zoom-image", variantImgUrl);
 				$(".zoomImg").attr("src", variantImgUrl); 
 			}
 		}
 
-		// CART ACTION SUBMISSION MANAGEMENT
 		function handleCartAction(action, itemId, btn) {
 			let activeWrapper = $(".size-wrapper.active");
 			let selectedSize = activeWrapper.find('input[name="selectedSize"]:checked').val();
@@ -502,19 +563,14 @@
 			}
 			errorDiv.innerHTML = "";
 
-			// Agar variants maujud hain toh size validation apply hoga (E.g. Men/Women)
 			if (activeWrapper.length > 0 && !selectedSize) {
 				errorDiv.innerHTML = "Please select a size for the chosen color.";
 				return;
 			}
 
 			let url = '/' + (action === 'add' ? 'addToCart' : 'buyNow') + '?itemId=' + itemId;
-			if(activeColor) {
-				url += '&color=' + encodeURIComponent(activeColor);
-			}
-			if(selectedSize) {
-				url += '&size=' + selectedSize;
-			}
+			if(activeColor) { url += '&color=' + encodeURIComponent(activeColor); }
+			if(selectedSize) { url += '&size=' + selectedSize; }
 
 			if(action === 'add') {
 				fetch('https://www.poorah.com' + url)
