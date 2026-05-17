@@ -1628,23 +1628,33 @@ ul.wmuSliderPagination {
 	background: #fff;
 }
 
+.w3_footer_grids {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 40px 0;
+}
+
 .w3_footer_grid h3 {
-	color: #212121;
-	font-size: 1.5em;
-	margin-bottom: 2em;
-	padding-bottom: .5em;
-	position: relative;
-	text-transform: uppercase;
+	font-size: 22px;
+    color: #000;
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    padding-bottom: 10px;
 }
 
 .w3_footer_grid h3:after {
 	content: '';
-	background: #ff9b05;
-	width: 20%;
-	height: 2px;
-	position: absolute;
-	bottom: 0;
-	left: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background: #ff9800;
 }
 
 .w3_footer_grid p {
@@ -1652,19 +1662,25 @@ ul.wmuSliderPagination {
 	line-height: 1.8em;
 	margin-bottom: 2em;
 }
+.w3_footer_grid ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
 
 .w3_footer_grid ul li {
-	list-style-type: none;
-	margin-bottom: 1em;
-	color: #999;
-	font-size: 14px;
+	margin-bottom: 12px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 .w3_footer_grid ul.address li i {
-	color: #414141;
-	border: 1px solid #414141;
-	padding: .5em;
-	margin-right: 1em;
+	margin-right: 12px;
+    color: #333;
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
 }
 
 .w3_footer_grid ul.address li span {
@@ -1673,12 +1689,13 @@ ul.wmuSliderPagination {
 }
 
 .w3_footer_grid ul li a {
-	color: #999;
-	text-decoration: none;
+	color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .w3_footer_grid ul li a:hover {
-	color: #212121;
+	color: #ff9800;
 }
 
 .w3_footer_grid ul.info li a {
@@ -1690,6 +1707,43 @@ ul.wmuSliderPagination {
 	margin: 2em 0 1em;
 	font-size: 1.2em;
 	color: #ff9b05;
+}
+
+.follow-title {
+    color: #ff9800;
+    font-size: 18px;
+    margin: 20px 0 15px 0;
+    font-weight: 500;
+}
+.social-links-list {
+    display: flex !important;
+    align-items: center;
+    gap: 12px; /* Icons ke beech ka gap */
+    padding: 0;
+}
+
+.social-links-list li {
+    margin: 0 !important;
+}
+
+.social-links-list li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #111; /* Clean Solid Black Circle */
+    color: #fff !important;
+    border-radius: 50%;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+/* Subtle Hover Animations */
+.social-links-list li a:hover {
+    background: #ff9800; /* Orange highlight on hover */
+    transform: translateY(-3px);
 }
 /*-- social-buttons --*/
 .agileits_social_button ul{

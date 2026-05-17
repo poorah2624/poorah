@@ -1,19 +1,21 @@
 
 <div class="footer">
 	<div class="container">
-		<div class="w3_footer_grids">
-			<div class="col-md-3 w3_footer_grid">
-				<h3>Contact</h3>
+		<div class="w3_footer_grids rows-flex">
 
+			<div class="col-md-3 col-sm-6 w3_footer_grid">
+				<h3>Contact</h3>
 				<ul class="address">
 					<li><i class="glyphicon glyphicon-map-marker"
-						aria-hidden="true"></i>${cDetails.address }</span></li>
-					<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a
-						href="mailto:info@example.com">${cDetails.emailId }</a></li>
-					<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>${cDetails.mobileNo }</li>
+						aria-hidden="true"></i> <span>${cDetails.address}</span></li>
+					<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>
+						<a href="mailto:${cDetails.emailId}">${cDetails.emailId}</a></li>
+					<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>
+						<span>${cDetails.mobileNo}</span></li>
 				</ul>
 			</div>
-			<div class="col-md-3 w3_footer_grid">
+
+			<div class="col-md-3 col-sm-6 w3_footer_grid">
 				<h3>Information</h3>
 				<ul class="info">
 					<li><a href="/about">About Us</a></li>
@@ -22,51 +24,56 @@
 					<li><a href="/products2">Special Products</a></li>
 				</ul>
 			</div>
-			<div class="col-md-3 w3_footer_grid">
+
+			<div class="col-md-3 col-sm-6 w3_footer_grid">
 				<h3>Category</h3>
 				<ul class="info">
 					<c:forEach var="c" items="${categories}">
-						<li><a href="/products3/category/${c.categoryId}">${c.categoryName }</a></li>
+						<li><a href="/products3/category/${c.categoryId}">${c.categoryName}</a></li>
 					</c:forEach>
 				</ul>
 			</div>
-			<div class="col-md-3 w3_footer_grid">
-				<h3>Profile</h3>
-				<ul class="info">
 
+			<div class="col-md-3 col-sm-6 w3_footer_grid">
+				<h3>Profile</h3>
+				<ul class="info" style="margin-bottom: 20px;">
 					<li><a href="/cart">My Cart</a></li>
 				</ul>
-				<h4>Follow Us</h4>
+
+				<h4 class="follow-title">Follow Us</h4>
 				<div class="agileits_social_button">
-					<ul>
+					<ul class="social-links-list">
 						<li><a
 							href="https://www.facebook.com/share/15o2B42JpFz/?mibextid=wwXIfr"
-							class="facebook"> <i class="fab fa-facebook-f"></i>
+							class="facebook" target="_blank"> <i class="fa fa-facebook"></i>
 						</a></li>
 						<li><a
 							href="https://www.instagram.com/poorah_official?igsh=c3gxN2RscjdsYzhu&utm_source=qr"
-							class="instagram"> <i class="fab fa-instagram"></i>
+							class="instagram" target="_blank"> <i class="fa fa-instagram"></i>
 						</a></li>
 						<li><a
 							href="https://youtube.com/@poorah_official?si=8ccRnxp2cGtgTz1z"
-							class="youtube"> <i class="fab fa-youtube"></i>
+							class="youtube" target="_blank"> <i
+								class="fa fa-youtube-play"></i>
 						</a></li>
-						<li><a href="#" class="linkedin"> <i
-								class="fab fa-linkedin"></i>
+						<li><a href="#" class="linkedin" target="_blank"> <i
+								class="fa fa-linkedin"></i>
 						</a></li>
-
 					</ul>
 				</div>
 			</div>
+
 			<div class="clearfix"></div>
 		</div>
 	</div>
+
 	<div class="footer-copy">
 		<div class="footer-copy1">
 			<div class="footer-copy-pos">
-				<a href="#home1" class="scroll"><img
+				<a href="#home1" class="scroll"> <img
 					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880816/arrow_ykqi4r.png"
-					alt=" " class="img-responsive" /></a>
+					alt="Scroll Up" class="img-responsive" />
+				</a>
 			</div>
 		</div>
 		<div class="container">
@@ -196,12 +203,12 @@
 </script>
 
 <script>
-$(window).load(function() {
-    
-    if (window.instgrm) {
-        window.instgrm.Embeds.process(); 
-    }
-});
+	$(window).load(function() {
+
+		if (window.instgrm) {
+			window.instgrm.Embeds.process();
+		}
+	});
 </script>
 
 

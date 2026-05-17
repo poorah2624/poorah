@@ -189,7 +189,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 		<div class="insta-section">
-			<h3>Trending on Instagram</h3>
+			<h3>We on Instagram</h3>
 
 			<div class="insta-grid">
 				<c:forEach var="s" items="${social}" varStatus="status">
