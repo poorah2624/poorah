@@ -179,10 +179,18 @@
 	
 	<script type="text/javascript">
 	$(document).ready(function() {
-	    $('#datatable').dataTable({
-	        "responsive": true,
-	        "bStateSave": false, 
-	        "order": []
+	   
+	    if ($.fn.DataTable.isDataTable('#datatable')) {
+	        $('#datatable').DataTable().destroy();
+	    }
+
+	   
+	    $('#datatable').DataTable({
+	        "order": [],
+	        "aaSorting": [], 
+	        "bSort": false, 
+	        "stateSave": false,
+	        "responsive": true
 	    });
 	});
 	</script>

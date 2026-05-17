@@ -160,7 +160,15 @@ public class ItemController {
 	
 	@GetMapping("/view_Item")
 	public String view_Item(Model model) {
-		List<Item> item = itemService.getAllItems(); 
+	    List<Item> item = itemService.getAllItems(); 
+	    
+	   
+	    System.out.println("====== BACKEND DATA ORDER START ======");
+	    for(Item i : item) {
+	        System.out.println("Item ID: " + i.getItemId() + " | Name: " + i.getItemName() + " | CreatedAt: " + i.getCreatedAt());
+	    }
+	    System.out.println("====== BACKEND DATA ORDER END ======");
+
 	    model.addAttribute("items", item); 
 	    return "admin/view_Item";
 	}
