@@ -178,12 +178,13 @@
 	<script src="/admin/js/pace/pace.min.js"></script>
 	
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#datatable').dataTable({
-				"responsive": true,
-				"bStateSave": true
-			});
-		});
+	$(document).ready(function() {
+	    $('#datatable').dataTable({
+	        "responsive": true,
+	        "bStateSave": false, 
+	        "order": []
+	    });
+	});
 	</script>
 </body>
 </html>
