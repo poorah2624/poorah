@@ -118,14 +118,9 @@
 					</h5>
 
 					<ul>
-						<c:forEach var="feature"
-							items="${fn:split(item.keyFeatures, '&#10;')}">
-
-							<c:if test="${not empty fn:trim(feature)}">
-								<li>${feature}</li>
-							</c:if>
-
-						</c:forEach>
+						<c:forTokens items="${item.keyFeatures}" delims="." var="feature">
+							<li>${feature}</li>
+						</c:forTokens>
 					</ul>
 				</div>
 
