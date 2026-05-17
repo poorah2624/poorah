@@ -116,9 +116,13 @@
 					<h5>
 						<i>Key Features</i>
 					</h5>
+
 					<ul>
-						<c:forTokens items="${item.keyFeatures}" delims="" var="feature">
-							<li>${feature}</li>
+						<c:forTokens items="${item.keyFeatures}" delims="&#10;&#13;"
+							var="feature">
+							<c:if test="${not empty feature}">
+								<li>${feature}</li>
+							</c:if>
 						</c:forTokens>
 					</ul>
 				</div>
@@ -251,8 +255,7 @@
 								class="form-control"
 								style="width: 200px; display: inline-block;" />
 							<button onclick="checkDelivery()" class="btn btn-primary">Check</button>
-							<br>
-							<i id="deliveryResult"
+							<br> <i id="deliveryResult"
 								style="margin-top: 10px; display: inline-block;"></i>
 						</div>
 					</div>
