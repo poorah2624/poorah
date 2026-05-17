@@ -7,35 +7,40 @@
 <html>
 <head>
 <%@include file="head.jsp"%>
-<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/css/flexslider.css" type="text/css"
+	media="screen" />
 <style>
-	.color-swatch {
-		display: inline-block;
-		padding: 6px 14px;
-		margin-right: 8px;
-		border: 1px solid #ccc;
-		border-radius: 4px;
-		cursor: pointer;
-		background: #fff;
-		transition: all 0.2s ease;
-	}
-	.color-swatch.active {
-		border-color: #28a745;
-		background-color: #e2f0d9;
-		font-weight: bold;
-		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-	}
-	.size-wrapper {
-		display: none; 
-	}
-	.size-wrapper.active {
-		display: block;
-	}
-	.disabled-size {
-		color: #ccc;
-		text-decoration: line-through;
-		cursor: not-allowed;
-	}
+.color-swatch {
+	display: inline-block;
+	padding: 6px 14px;
+	margin-right: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	cursor: pointer;
+	background: #fff;
+	transition: all 0.2s ease;
+}
+
+.color-swatch.active {
+	border-color: #28a745;
+	background-color: #e2f0d9;
+	font-weight: bold;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.size-wrapper {
+	display: none;
+}
+
+.size-wrapper.active {
+	display: block;
+}
+
+.disabled-size {
+	color: #ccc;
+	text-decoration: line-through;
+	cursor: not-allowed;
+}
 </style>
 </head>
 
@@ -43,10 +48,12 @@
 	<%@include file="header1.jsp"%>
 
 	<c:if test="${not empty defaultAddress}">
-		<div style="background: #f5f5f5; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
+		<div
+			style="background: #f5f5f5; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
 			<div class="container">
-				<b>Deliver to:</b> ${defaultAddress.fullName}, ${defaultAddress.pincode} 
-				<a href="/address" style="margin-left:10px;">Change</a>
+				<b>Deliver to:</b> ${defaultAddress.fullName},
+				${defaultAddress.pincode} <a href="/address"
+					style="margin-left: 10px;">Change</a>
 			</div>
 		</div>
 	</c:if>
@@ -55,7 +62,8 @@
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Product Detail</li>
 			</ul>
 		</div>
@@ -64,23 +72,29 @@
 	<!-- Single Product View Detail -->
 	<div class="single">
 		<div class="container">
-			
+
 			<!-- Left Column: Image Gallery Viewer -->
 			<div class="col-md-4 single-left">
 				<div class="flexslider" id="productFlexSlider">
 					<ul class="slides">
 						<!-- Target Main Active Display Container Box -->
-						<li data-thumb="${fn:split(item.itemImage, ',')[0]}" id="mainDisplayLi">
+						<li data-thumb="${fn:split(item.itemImage, ',')[0]}"
+							id="mainDisplayLi">
 							<div class="thumb-image">
 								<!-- ID 'mainProductImg' diya hai taaki JS se image url change ho sake -->
-								<img src="${fn:split(item.itemImage, ',')[0]}" id="mainProductImg" data-imagezoom="true" class="img-responsive">
+								<img src="${fn:split(item.itemImage, ',')[0]}"
+									id="mainProductImg" data-imagezoom="true"
+									class="img-responsive">
 							</div>
 						</li>
 						<!-- Remaining fallback dynamic slider tabs -->
-						<c:forEach var="img" items="${fn:split(item.itemImage, ',')}" varStatus="loop">
+						<c:forEach var="img" items="${fn:split(item.itemImage, ',')}"
+							varStatus="loop">
 							<c:if test="${!loop.first}">
 								<li data-thumb="${img}">
-									<div class="thumb-image"><img src="${img}" data-imagezoom="true" class="img-responsive"></div>
+									<div class="thumb-image">
+										<img src="${img}" data-imagezoom="true" class="img-responsive">
+									</div>
 								</li>
 							</c:if>
 						</c:forEach>
@@ -93,90 +107,115 @@
 				<h3>${item.itemName}</h3>
 
 				<div class="description">
-					<h5><i>Description</i></h5>
+					<h5>
+						<i>Description</i>
+					</h5>
 					<p>${item.itemDesc}</p>
 				</div>
 				<div class="keyFeatures">
-					<h5><i>Key Features</i></h5>
-					<p>${item.keyFeatures}</p>
+					<h5>
+						<i>Key Features</i>
+					</h5>
+					<ul>
+						<c:forTokens items="${item.keyFeatures}" delims="" var="feature">
+							<li>${feature}</li>
+						</c:forTokens>
+					</ul>
 				</div>
 
 				<div class="color-quality">
 					<div class="color-quality-left" style="width: 100%;">
 
 						<!-- VALIDATION CHECK: Men/Women aur variants present hone par hi variants dikhenge -->
-						<c:if test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') && not empty item.variants}">
-							
+						<c:if
+							test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') && not empty item.variants}">
+
 							<!-- 1. SELECT COLOR CONFIGURATION -->
 							<div style="margin-bottom: 20px;">
 								<h5>Select Color:</h5>
 								<c:forEach var="v" items="${item.variants}" varStatus="status">
 									<!-- Custom data attribute lagaya hai data-variant-image taaki JS isko read kar sake -->
-									<span class="color-swatch ${status.first ? 'active' : ''}" 
-										  data-variant-image="${v.variantImage}"
-										  onclick="selectColorBlock(${status.index}, this)">
-										${v.variantColor}
-									</span>
+									<span class="color-swatch ${status.first ? 'active' : ''}"
+										data-variant-image="${v.variantImage}"
+										onclick="selectColorBlock(${status.index}, this)">
+										${v.variantColor} </span>
 								</c:forEach>
 							</div>
 
 							<!-- 2. SELECT SIZES LAYOUT BASED ON SYSTEM SELECTION -->
-							<div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+							<div
+								style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
 								<h5 style="margin: 0;">Select Size:</h5>
-								<a href="javascript:void(0);" class="size-chart-link" onclick="openSizeChart()">Size Chart</a>
+								<a href="javascript:void(0);" class="size-chart-link"
+									onclick="openSizeChart()">Size Chart</a>
 							</div>
 
 							<div class="size-options-container" style="margin-bottom: 20px;">
 								<c:forEach var="v" items="${item.variants}" varStatus="status">
-									<div id="sizeWrapper_${status.index}" class="size-wrapper ${status.first ? 'active' : ''}">
-										
+									<div id="sizeWrapper_${status.index}"
+										class="size-wrapper ${status.first ? 'active' : ''}">
+
 										<c:set var="stockStr" value="${v.variantStock}" />
-										
+
 										<!-- Stored formatted string se numbers filter out karenge -->
-										<c:set var="sQty" value="${fn:contains(stockStr, 'S:') ? fn:substringBefore(fn:substringAfter(stockStr, 'S:'), ',M:') : '0'}" />
-										<c:set var="mQty" value="${fn:contains(stockStr, 'M:') ? fn:substringBefore(fn:substringAfter(stockStr, 'M:'), ',L:') : '0'}" />
-										<c:set var="lQty" value="${fn:contains(stockStr, 'L:') ? fn:substringBefore(fn:substringAfter(stockStr, 'L:'), ',XL:') : '0'}" />
-										<c:set var="xlQty" value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XL:') : '0'}" />
+										<c:set var="sQty"
+											value="${fn:contains(stockStr, 'S:') ? fn:substringBefore(fn:substringAfter(stockStr, 'S:'), ',M:') : '0'}" />
+										<c:set var="mQty"
+											value="${fn:contains(stockStr, 'M:') ? fn:substringBefore(fn:substringAfter(stockStr, 'M:'), ',L:') : '0'}" />
+										<c:set var="lQty"
+											value="${fn:contains(stockStr, 'L:') ? fn:substringBefore(fn:substringAfter(stockStr, 'L:'), ',XL:') : '0'}" />
+										<c:set var="xlQty"
+											value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XL:') : '0'}" />
 
 										<!-- Size option elements with dynamic disabled checks -->
-										<label style="margin-right: 15px;" class="${sQty == '0' ? 'disabled-size' : ''}">
-											<input type="radio" name="selectedSize" value="S" ${sQty == '0' ? 'disabled' : ''}> S (${sQty} left)
-										</label>
-
-										<label style="margin-right: 15px;" class="${mQty == '0' ? 'disabled-size' : ''}">
-											<input type="radio" name="selectedSize" value="M" ${mQty == '0' ? 'disabled' : ''}> M (${mQty} left)
-										</label>
-
-										<label style="margin-right: 15px;" class="${lQty == '0' ? 'disabled-size' : ''}">
-											<input type="radio" name="selectedSize" value="L" ${lQty == '0' ? 'disabled' : ''}> L (${lQty} left)
-										</label>
-
-										<label style="margin-right: 15px;" class="${xlQty == '0' ? 'disabled-size' : ''}">
-											<input type="radio" name="selectedSize" value="XL" ${xlQty == '0' ? 'disabled' : ''}> XL (${xlQty} left)
+										<label style="margin-right: 15px;"
+											class="${sQty == '0' ? 'disabled-size' : ''}"> <input
+											type="radio" name="selectedSize" value="S"
+											${sQty == '0' ? 'disabled' : ''}> S (${sQty} left)
+										</label> <label style="margin-right: 15px;"
+											class="${mQty == '0' ? 'disabled-size' : ''}"> <input
+											type="radio" name="selectedSize" value="M"
+											${mQty == '0' ? 'disabled' : ''}> M (${mQty} left)
+										</label> <label style="margin-right: 15px;"
+											class="${lQty == '0' ? 'disabled-size' : ''}"> <input
+											type="radio" name="selectedSize" value="L"
+											${lQty == '0' ? 'disabled' : ''}> L (${lQty} left)
+										</label> <label style="margin-right: 15px;"
+											class="${xlQty == '0' ? 'disabled-size' : ''}"> <input
+											type="radio" name="selectedSize" value="XL"
+											${xlQty == '0' ? 'disabled' : ''}> XL (${xlQty} left)
 										</label>
 									</div>
 								</c:forEach>
 							</div>
 						</c:if>
-						
+
 						<!-- FALLBACK: Agar category Beauty hai ya koi variant nahi hai, toh simple normal text dikhega -->
 						<c:if test="${empty item.variants}">
-							<div style="margin-bottom: 20px; color: #28a745; font-weight: bold;">
-								<span class="glyphicon glyphicon-ok-sign"></span> In Stock (Ready to dispatch)
+							<div
+								style="margin-bottom: 20px; color: #28a745; font-weight: bold;">
+								<span class="glyphicon glyphicon-ok-sign"></span> In Stock
+								(Ready to dispatch)
 							</div>
 						</c:if>
 
 					</div>
 
 					<!-- Pricing and Transaction Buttons -->
-					<div class="simpleCart_shelfItem" style="clear:both; margin-top:20px;">
+					<div class="simpleCart_shelfItem"
+						style="clear: both; margin-top: 20px;">
 						<div class="price-section">
 							<div class="final-price">
-								₹<c:if test="${not empty item.discountedPrice}"><fmt:formatNumber value="${item.discountedPrice}" maxFractionDigits="0" />/-</c:if>
+								₹
+								<c:if test="${not empty item.discountedPrice}">
+									<fmt:formatNumber value="${item.discountedPrice}"
+										maxFractionDigits="0" />/-</c:if>
 							</div>
 							<div class="price-meta">
-								<span class="old-price">₹<fmt:formatNumber value="${item.itemPrice}" maxFractionDigits="0" />/-</span> 
-								<span class="discount">${fn:split(item.discount, '.')[0]}% OFF</span>
+								<span class="old-price">₹<fmt:formatNumber
+										value="${item.itemPrice}" maxFractionDigits="0" />/-
+								</span> <span class="discount">${fn:split(item.discount, '.')[0]}%
+									OFF</span>
 							</div>
 						</div>
 
@@ -184,25 +223,37 @@
 							<c:when test="${not empty sessionScope.LoggedInUser}">
 								<c:choose>
 									<c:when test="${item.inCart}">
-										<button onclick="goToCart()" class="btn btn-success">Go to Cart</button>
+										<button onclick="goToCart()" class="btn btn-success">Go
+											to Cart</button>
 									</c:when>
 									<c:otherwise>
-										<button onclick="handleCartAction('add', ${item.itemId}, this)" class="btn btn-primary">Add to Cart</button>
-										<button onclick="handleCartAction('buy', ${item.itemId}, this)" class="btn btn-primary" style="background: orange; border:none;">Buy Now</button>
+										<button
+											onclick="handleCartAction('add', ${item.itemId}, this)"
+											class="btn btn-primary">Add to Cart</button>
+										<button
+											onclick="handleCartAction('buy', ${item.itemId}, this)"
+											class="btn btn-primary"
+											style="background: orange; border: none;">Buy Now</button>
 									</c:otherwise>
 								</c:choose>
 							</c:when>
 							<c:otherwise>
 								<p>
-									<a class="item_add" onclick="alert('Please login first to manage shopping cart operations.'); return false;" href="/login">Add to cart</a>
+									<a class="item_add"
+										onclick="alert('Please login first to manage shopping cart operations.'); return false;"
+										href="/login">Add to cart</a>
 								</p>
 							</c:otherwise>
 						</c:choose>
 
 						<div style="margin-top: 25px;">
-							<input type="text" id="pincode" placeholder="Enter Pincode" class="form-control" style="width: 200px; display: inline-block;" />
+							<input type="text" id="pincode" placeholder="Enter Pincode"
+								class="form-control"
+								style="width: 200px; display: inline-block;" />
 							<button onclick="checkDelivery()" class="btn btn-primary">Check</button>
-							<br><i id="deliveryResult" style="margin-top: 10px; display:inline-block;"></i>
+							<br>
+							<i id="deliveryResult"
+								style="margin-top: 10px; display: inline-block;"></i>
 						</div>
 					</div>
 
@@ -215,37 +266,66 @@
 		<div class="additional_info">
 			<div class="container">
 				<div class="sap_tabs">
-					<div id="horizontalTab1" style="display: block; width: 100%; margin: 0px;">
+					<div id="horizontalTab1"
+						style="display: block; width: 100%; margin: 0px;">
 						<ul>
-							<li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Product Specification</span></li>
+							<li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Product
+									Specification</span></li>
 							<li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Reviews</span></li>
 						</ul>
-						<div class="tab-1 resp-tab-content additional_info_grid" aria-labelledby="tab_item-0">
+						<div class="tab-1 resp-tab-content additional_info_grid"
+							aria-labelledby="tab_item-0">
 							<h3>${item.itemName}</h3>
 							<table class="table table-bordered">
-								<tr><th>Price</th><td>₹ ${item.itemPrice}</td></tr>
-								<tr><th>Category</th><td>${item.category.categoryName}</td></tr>
-								<tr><th>Sub Category</th><td>${item.subCategory.subCategoryName}</td></tr>
-								<tr><th>Weight</th><td>${item.weight}</td></tr>
-								<tr><th>Fabric</th><td>${item.fabric}</td></tr>
-								<tr><th>Description</th><td>${item.itemDesc}</td></tr>
+								<tr>
+									<th>Price</th>
+									<td>₹ ${item.itemPrice}</td>
+								</tr>
+								<tr>
+									<th>Category</th>
+									<td>${item.category.categoryName}</td>
+								</tr>
+								<tr>
+									<th>Sub Category</th>
+									<td>${item.subCategory.subCategoryName}</td>
+								</tr>
+								<tr>
+									<th>Weight</th>
+									<td>${item.weight}</td>
+								</tr>
+								<tr>
+									<th>Fabric</th>
+									<td>${item.fabric}</td>
+								</tr>
+								<tr>
+									<th>Description</th>
+									<td>${item.itemDesc}</td>
+								</tr>
 							</table>
 						</div>
 
-						<div class="tab-2 resp-tab-content additional_info_grid" aria-labelledby="tab_item-1">
+						<div class="tab-2 resp-tab-content additional_info_grid"
+							aria-labelledby="tab_item-1">
 							<h4>(${fn:length(reviews)}) Reviews</h4>
 							<div class="additional_info_sub_grids">
 								<c:forEach var="r" items="${reviews}">
-									<div class="col-xs-10 additional_info_sub_grid_right" style="margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+									<div class="col-xs-10 additional_info_sub_grid_right"
+										style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
 										<div class="additional_info_sub_grid_rightl">
-											<h5><c:choose><c:when test="${not empty r.user}">${r.user.userName}</c:when><c:otherwise>${r.guestName}</c:otherwise></c:choose></h5>
+											<h5>
+												<c:choose>
+													<c:when test="${not empty r.user}">${r.user.userName}</c:when>
+													<c:otherwise>${r.guestName}</c:otherwise>
+												</c:choose>
+											</h5>
 											<small class="text-muted">${r.createdAt}</small>
-											<p style="margin-top:5px;">${r.message}</p>
+											<p style="margin-top: 5px;">${r.message}</p>
 										</div>
 										<div class="additional_info_sub_grid_rightr">
 											<div class="rating">
 												<c:forEach begin="1" end="5" var="step">
-													<span style="color: ${step <= r.rating ? 'gold' : 'lightgray'}; font-size: 18px;">★</span>
+													<span
+														style="color: ${step <= r.rating ? 'gold' : 'lightgray'}; font-size: 18px;">★</span>
 												</c:forEach>
 											</div>
 										</div>
@@ -261,16 +341,40 @@
 	</div>
 
 	<!-- Size Chart Modal Container -->
-	<div id="sizeChartModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
-		<div class="modal-content" style="background:#fff; width:400px; margin:15% auto; padding:20px; border-radius:5px; position:relative;">
-			<span style="position:absolute; right:15px; top:10px; font-size:24px; cursor:pointer;" onclick="closeSizeChart()">&times;</span>
+	<div id="sizeChartModal" class="modal"
+		style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);">
+		<div class="modal-content"
+			style="background: #fff; width: 400px; margin: 15% auto; padding: 20px; border-radius: 5px; position: relative;">
+			<span
+				style="position: absolute; right: 15px; top: 10px; font-size: 24px; cursor: pointer;"
+				onclick="closeSizeChart()">&times;</span>
 			<h3>Size Chart</h3>
-			<table class="table table-striped" style="margin-top:15px;">
-				<tr><th>Size</th><th>Chest (inch)</th><th>Length (inch)</th></tr>
-				<tr><td>S</td><td>36</td><td>26</td></tr>
-				<tr><td>M</td><td>38</td><td>27</td></tr>
-				<tr><td>L</td><td>40</td><td>28</td></tr>
-				<tr><td>XL</td><td>42</td><td>29</td></tr>
+			<table class="table table-striped" style="margin-top: 15px;">
+				<tr>
+					<th>Size</th>
+					<th>Chest (inch)</th>
+					<th>Length (inch)</th>
+				</tr>
+				<tr>
+					<td>S</td>
+					<td>36</td>
+					<td>26</td>
+				</tr>
+				<tr>
+					<td>M</td>
+					<td>38</td>
+					<td>27</td>
+				</tr>
+				<tr>
+					<td>L</td>
+					<td>40</td>
+					<td>28</td>
+				</tr>
+				<tr>
+					<td>XL</td>
+					<td>42</td>
+					<td>29</td>
+				</tr>
 			</table>
 		</div>
 	</div>
@@ -280,7 +384,7 @@
 	<script defer src="/js/jquery.flexslider.js"></script>
 	<script src="/js/imagezoom.js"></script>
 	<script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
-	
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#horizontalTab1').easyResponsiveTabs({

@@ -3074,6 +3074,16 @@ h2.typoh2 {
 	margin: 1em 0 0;
 }
 
+.keyFeatures ul {
+	padding-left: 20px;
+	margin-top: 10px;
+}
+
+.keyFeatures li {
+	margin-bottom: 8px;
+	line-height: 1.6;
+}
+
 .color-quality-left {
 	float: left;
 }

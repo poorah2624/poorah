@@ -371,7 +371,8 @@
 												<label class="control-label col-md-3 col-sm-3 col-xs-12">Key
 													Features</label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
-													<textarea name="keyFeatures" class="form-control" rows="4"></textarea>
+													<textarea name="keyFeatures" class="form-control" rows="6"
+														placeholder="Enter one feature per line"></textarea>
 												</div>
 											</div>
 											<br />
