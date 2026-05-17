@@ -611,10 +611,10 @@ ul.multi-column-dropdown h6 {
 	/* text-align:center; */
 }
 
-.navbar-nav {
+/*.navbar-nav {
 	display: flex;
 		align-items: center;
-}
+}*/
 
 .dropdown:hover .dropdown-menu {
 	display: block;
