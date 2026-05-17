@@ -1,4 +1,3 @@
-<!-- AUTHOR AND HEADER META BLOCKS -->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -12,23 +11,30 @@
 <style>
 	.color-swatch {
 		display: inline-block;
-		padding: 6px 12px;
+		padding: 6px 14px;
 		margin-right: 8px;
 		border: 1px solid #ccc;
 		border-radius: 4px;
 		cursor: pointer;
 		background: #fff;
+		transition: all 0.2s ease;
 	}
 	.color-swatch.active {
 		border-color: #28a745;
 		background-color: #e2f0d9;
 		font-weight: bold;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 	}
 	.size-wrapper {
-		display: none; /* JavaScript handle karega toggle color select hone par */
+		display: none; 
 	}
 	.size-wrapper.active {
 		display: block;
+	}
+	.disabled-size {
+		color: #ccc;
+		text-decoration: line-through;
+		cursor: not-allowed;
 	}
 </style>
 </head>
@@ -37,7 +43,7 @@
 	<%@include file="header1.jsp"%>
 
 	<c:if test="${not empty defaultAddress}">
-		<div style="background: #f5f5f5; padding: 10px; margin-bottom: 15px; border-radius: 5px; container">
+		<div style="background: #f5f5f5; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
 			<div class="container">
 				<b>Deliver to:</b> ${defaultAddress.fullName}, ${defaultAddress.pincode} 
 				<a href="/address" style="margin-left:10px;">Change</a>
@@ -50,7 +56,7 @@
 		<div class="container">
 			<ul>
 				<li><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
-				<li>Single Page</li>
+				<li>Product Detail</li>
 			</ul>
 		</div>
 	</div>
@@ -59,22 +65,30 @@
 	<div class="single">
 		<div class="container">
 			
-			<!-- Image Flexslider View -->
+			<!-- Left Column: Image Gallery Viewer -->
 			<div class="col-md-4 single-left">
-				<div class="flexslider">
+				<div class="flexslider" id="productFlexSlider">
 					<ul class="slides">
-						<c:forEach var="img" items="${fn:split(item.itemImage, ',')}">
-							<li data-thumb="${img}">
-								<div class="thumb-image">
-									<img src="${img}" data-imagezoom="true" class="img-responsive">
-								</div>
-							</li>
+						<!-- Target Main Active Display Container Box -->
+						<li data-thumb="${fn:split(item.itemImage, ',')[0]}" id="mainDisplayLi">
+							<div class="thumb-image">
+								<!-- ID 'mainProductImg' diya hai taaki JS se image url change ho sake -->
+								<img src="${fn:split(item.itemImage, ',')[0]}" id="mainProductImg" data-imagezoom="true" class="img-responsive">
+							</div>
+						</li>
+						<!-- Remaining fallback dynamic slider tabs -->
+						<c:forEach var="img" items="${fn:split(item.itemImage, ',')}" varStatus="loop">
+							<c:if test="${!loop.first}">
+								<li data-thumb="${img}">
+									<div class="thumb-image"><img src="${img}" data-imagezoom="true" class="img-responsive"></div>
+								</li>
+							</c:if>
 						</c:forEach>
 					</ul>
 				</div>
 			</div>
 
-			<!-- Product Details Info Panel -->
+			<!-- Right Column: Product Management Detail Panel -->
 			<div class="col-md-8 single-right">
 				<h3>${item.itemName}</h3>
 
@@ -90,64 +104,71 @@
 				<div class="color-quality">
 					<div class="color-quality-left" style="width: 100%;">
 
-						<c:if test="${item.category.categoryName == 'Men' || item.category.categoryName == 'Women' || not empty item.variants}">
+						<!-- VALIDATION CHECK: Men/Women aur variants present hone par hi variants dikhenge -->
+						<c:if test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') && not empty item.variants}">
 							
-							<!-- 1. STEP ONE: CHOOSE COLOR BLOCK -->
+							<!-- 1. SELECT COLOR CONFIGURATION -->
 							<div style="margin-bottom: 20px;">
 								<h5>Select Color:</h5>
 								<c:forEach var="v" items="${item.variants}" varStatus="status">
+									<!-- Custom data attribute lagaya hai data-variant-image taaki JS isko read kar sake -->
 									<span class="color-swatch ${status.first ? 'active' : ''}" 
+										  data-variant-image="${v.variantImage}"
 										  onclick="selectColorBlock(${status.index}, this)">
 										${v.variantColor}
 									</span>
 								</c:forEach>
 							</div>
 
-							<!-- 2. STEP TWO: DYNAMIC SIZE SELECTORS ACCORDING TO COLOR CHOSEN -->
+							<!-- 2. SELECT SIZES LAYOUT BASED ON SYSTEM SELECTION -->
 							<div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
 								<h5 style="margin: 0;">Select Size:</h5>
 								<a href="javascript:void(0);" class="size-chart-link" onclick="openSizeChart()">Size Chart</a>
 							</div>
 
-							<div class="size-options-container">
+							<div class="size-options-container" style="margin-bottom: 20px;">
 								<c:forEach var="v" items="${item.variants}" varStatus="status">
 									<div id="sizeWrapper_${status.index}" class="size-wrapper ${status.first ? 'active' : ''}">
 										
 										<c:set var="stockStr" value="${v.variantStock}" />
 										
-										<!-- Extract stocks to check availability -->
+										<!-- Stored formatted string se numbers filter out karenge -->
 										<c:set var="sQty" value="${fn:contains(stockStr, 'S:') ? fn:substringBefore(fn:substringAfter(stockStr, 'S:'), ',M:') : '0'}" />
 										<c:set var="mQty" value="${fn:contains(stockStr, 'M:') ? fn:substringBefore(fn:substringAfter(stockStr, 'M:'), ',L:') : '0'}" />
 										<c:set var="lQty" value="${fn:contains(stockStr, 'L:') ? fn:substringBefore(fn:substringAfter(stockStr, 'L:'), ',XL:') : '0'}" />
 										<c:set var="xlQty" value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XL:') : '0'}" />
 
-										<!-- S Size Option Row -->
-										<label style="margin-right: 15px; ${sQty == '0' ? 'color:#ccc; text-decoration:line-through;' : ''}">
+										<!-- Size option elements with dynamic disabled checks -->
+										<label style="margin-right: 15px;" class="${sQty == '0' ? 'disabled-size' : ''}">
 											<input type="radio" name="selectedSize" value="S" ${sQty == '0' ? 'disabled' : ''}> S (${sQty} left)
 										</label>
 
-										<!-- M Size Option Row -->
-										<label style="margin-right: 15px; ${mQty == '0' ? 'color:#ccc; text-decoration:line-through;' : ''}">
+										<label style="margin-right: 15px;" class="${mQty == '0' ? 'disabled-size' : ''}">
 											<input type="radio" name="selectedSize" value="M" ${mQty == '0' ? 'disabled' : ''}> M (${mQty} left)
 										</label>
 
-										<!-- L Size Option Row -->
-										<label style="margin-right: 15px; ${lQty == '0' ? 'color:#ccc; text-decoration:line-through;' : ''}">
+										<label style="margin-right: 15px;" class="${lQty == '0' ? 'disabled-size' : ''}">
 											<input type="radio" name="selectedSize" value="L" ${lQty == '0' ? 'disabled' : ''}> L (${lQty} left)
 										</label>
 
-										<!-- XL Size Option Row -->
-										<label style="margin-right: 15px; ${xlQty == '0' ? 'color:#ccc; text-decoration:line-through;' : ''}">
+										<label style="margin-right: 15px;" class="${xlQty == '0' ? 'disabled-size' : ''}">
 											<input type="radio" name="selectedSize" value="XL" ${xlQty == '0' ? 'disabled' : ''}> XL (${xlQty} left)
 										</label>
 									</div>
 								</c:forEach>
 							</div>
 						</c:if>
+						
+						<!-- FALLBACK: Agar category Beauty hai ya koi variant nahi hai, toh simple normal text dikhega -->
+						<c:if test="${empty item.variants}">
+							<div style="margin-bottom: 20px; color: #28a745; font-weight: bold;">
+								<span class="glyphicon glyphicon-ok-sign"></span> In Stock (Ready to dispatch)
+							</div>
+						</c:if>
 
 					</div>
 
-					<!-- Checkout Pricing and Action Buttons Elements -->
+					<!-- Pricing and Transaction Buttons -->
 					<div class="simpleCart_shelfItem" style="clear:both; margin-top:20px;">
 						<div class="price-section">
 							<div class="final-price">
@@ -173,7 +194,7 @@
 							</c:when>
 							<c:otherwise>
 								<p>
-									<a class="item_add" onclick="alert('Please login first to add items into cart'); return false;" href="/login">Add to cart</a>
+									<a class="item_add" onclick="alert('Please login first to manage shopping cart operations.'); return false;" href="/login">Add to cart</a>
 								</p>
 							</c:otherwise>
 						</c:choose>
@@ -190,7 +211,7 @@
 			</div>
 		</div>
 
-		<!-- Specification and Tab Info Block -->
+		<!-- Specifications Tab panel section -->
 		<div class="additional_info">
 			<div class="container">
 				<div class="sap_tabs">
@@ -211,7 +232,6 @@
 							</table>
 						</div>
 
-						<!-- Reviews Tab Item Block -->
 						<div class="tab-2 resp-tab-content additional_info_grid" aria-labelledby="tab_item-1">
 							<h4>(${fn:length(reviews)}) Reviews</h4>
 							<div class="additional_info_sub_grids">
@@ -233,16 +253,6 @@
 									</div>
 								</c:forEach>
 							</div>
-							
-							<!-- Review Box Input Submission -->
-							<div class="review_grids" style="margin-top:20px;">
-								<h5>Add A Review</h5>
-								<form action="/addReview" method="post">
-									<input type="hidden" name="itemId" value="${item.itemId}">
-									<textarea name="message" placeholder="Add Your Review" required="" class="form-control" rows="3" style="margin-bottom:10px;"></textarea>
-									<input type="submit" value="Submit" class="btn btn-sm btn-success">
-								</form>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -250,7 +260,7 @@
 		</div>
 	</div>
 
-	<!-- Size Chart Modal Dashboard Content -->
+	<!-- Size Chart Modal Container -->
 	<div id="sizeChartModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
 		<div class="modal-content" style="background:#fff; width:400px; margin:15% auto; padding:20px; border-radius:5px; position:relative;">
 			<span style="position:absolute; right:15px; top:10px; font-size:24px; cursor:pointer;" onclick="closeSizeChart()">&times;</span>
@@ -267,7 +277,6 @@
 
 	<%@include file="footer.jsp"%>
 
-	<!-- Core Flexslider and Tab Setup Dependencies Scripts -->
 	<script defer src="/js/jquery.flexslider.js"></script>
 	<script src="/js/imagezoom.js"></script>
 	<script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
@@ -279,6 +288,12 @@
 				width : 'auto', 
 				fit : true
 			});
+			
+			// Initial load par pehle active color block ki image set kar dete hain
+			let initialImg = $(".color-swatch.active").attr("data-variant-image");
+			if(initialImg && initialImg.trim() !== "") {
+				$("#mainProductImg").attr("src", initialImg);
+			}
 		});
 		
 		$(window).load(function() {
@@ -288,19 +303,31 @@
 			});
 		});
 
-		// 1. CHOOSE ACTIVE COLOR FUNCTIONALITY
+		// HIGHLIGHT: COLOR SELECTION ME IMAGE TOGGLE LOGIC JODA HAI
 		function selectColorBlock(index, element) {
+			// Swatches CSS toggle
 			$(".color-swatch").removeClass("active");
 			$(element).addClass("active");
 
+			// Size fields mapping display toggle
 			$(".size-wrapper").removeClass("active");
 			$("#sizeWrapper_" + index).addClass("active");
 			
-			// Uncheck previous sizes when color switches
+			// Radio reset safely
 			$('input[name="selectedSize"]').prop('checked', false);
+
+			// IMAGE MODIFICATION INTERACTION
+			let variantImgUrl = $(element).attr("data-variant-image");
+			if(variantImgUrl && variantImgUrl.trim() !== "") {
+				// 1. Direct active zoomed source image reset
+				$("#mainProductImg").attr("src", variantImgUrl);
+				// 2. Zoom effects attributes support resets
+				$("#mainProductImg").attr("data-zoom-image", variantImgUrl);
+				$(".zoomImg").attr("src", variantImgUrl); 
+			}
 		}
 
-		// 2. CHECK SIZE AND TRIGGER SHOPPING CART ACTIONS
+		// CART ACTION SUBMISSION MANAGEMENT
 		function handleCartAction(action, itemId, btn) {
 			let activeWrapper = $(".size-wrapper.active");
 			let selectedSize = activeWrapper.find('input[name="selectedSize"]:checked').val();
@@ -317,14 +344,16 @@
 			}
 			errorDiv.innerHTML = "";
 
+			// Agar variants maujud hain toh size validation apply hoga (E.g. Men/Women)
 			if (activeWrapper.length > 0 && !selectedSize) {
 				errorDiv.innerHTML = "Please select a size for the chosen color.";
 				return;
 			}
 
-			// Build target parameters url query
 			let url = '/' + (action === 'add' ? 'addToCart' : 'buyNow') + '?itemId=' + itemId;
-			url += '&color=' + encodeURIComponent(activeColor);
+			if(activeColor) {
+				url += '&color=' + encodeURIComponent(activeColor);
+			}
 			if(selectedSize) {
 				url += '&size=' + selectedSize;
 			}
@@ -338,7 +367,7 @@
 				})
 				.catch(err => console.log(err));
 			} else {
-				window.location.href = url; // Buy now redirects instantly
+				window.location.href = url;
 			}
 		}
 
