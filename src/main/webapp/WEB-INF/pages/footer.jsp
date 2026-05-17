@@ -195,4 +195,13 @@
 	});
 </script>
 
+<script>
+$(window).load(function() {
+    
+    if (window.instgrm) {
+        window.instgrm.Embeds.process(); 
+    }
+});
+</script>
+
 

@@ -151,15 +151,16 @@ img{
 .insta-grid {
 	display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     justify-content: center;
 }
 
 .insta-card {
-	flex: 1 1 calc(25% - 15px);
-    max-width: calc(25% - 15px);
-    box-sizing: border-box;
+	min-width: 320px;
+    max-width: 500px;
+    width: 100%;
     margin-bottom: 20px;
+    display: inline-block;
 }
 
 .insta-card:hover {
