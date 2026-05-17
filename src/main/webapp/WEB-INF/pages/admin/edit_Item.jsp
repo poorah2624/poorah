@@ -217,6 +217,11 @@
 																name="stockXL_${st.index}" class="form-control" min="0"
 																value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XL:') : '0'}">
 														</div>
+														<div>
+															<label>XXL</label> <input type="number"
+																name="stockXL_${st.index}" class="form-control" min="0"
+																value="${fn:contains(stockStr, 'XXL:') ? fn:substringAfter(stockStr, 'XXL:') : '0'}">
+														</div>
 
 														<button type="button"
 															class="btn btn-danger btn-sm removeVariant"

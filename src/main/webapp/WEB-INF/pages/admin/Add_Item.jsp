@@ -310,6 +310,11 @@
 																	name="stockXL_0" placeholder="Stock for XL"
 																	class="form-control" value="0" min="0">
 															</div>
+															<div>
+																<label> XXL </label> <input type="number"
+																	name="stockXL_0" placeholder="Stock for XL"
+																	class="form-control" value="0" min="0">
+															</div>
 
 														</div>
 

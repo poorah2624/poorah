@@ -226,6 +226,19 @@
 												<c:otherwise></c:otherwise>
 											</c:choose>
 										</label>
+										<!-- ================= XXL SIZE OPTION ================= -->
+										<label style="margin-right: 15px;"
+											class="${xxlQty == '0' ? 'disabled-size' : ''}"> <input
+											type="radio" name="selectedSize" value="XL"
+											${xxlQty == '0' ? 'disabled' : ''}> XXL <c:choose>
+												<c:when test="${xxlQty == '0'}"> (Out of stock)</c:when>
+												<c:when test="${xxlQty > 0 && xxlQty <= 5}">
+													<span style="color: red; font-weight: bold;"> (Only
+														${xxlQty} left!)</span>
+												</c:when>
+												<c:otherwise></c:otherwise>
+											</c:choose>
+										</label>
 
 									</div>
 								</c:forEach>
