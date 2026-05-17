@@ -4335,10 +4335,8 @@ td.invert-image a img {
 		border-color: #212121;
 	}
 	.navbar-toggle {
-		float: none;
-		margin-right: 0;
-		display: block;
-		margin-top: 12px !important;
+		margin-right: 0 !important;
+		float: none !important;
 	}
 	.navbar-default .navbar-toggle .icon-bar {
 		background-color: #212121;
@@ -4429,11 +4427,23 @@ td.invert-image a img {
         display: block !important;
     }
     .navbar-header{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        display: flex !important;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		padding: 5px 15px;
     }
+    .mobile-brand-logo {
+		display: block !important;
+		max-height: 40px;
+		width: auto;
+	}
+	.desktop-only-logo {
+		display: none !important;
+	}
+	.mobile-brand-logo-link {
+		display: none !important;
+	}
 }
 
 @media ( max-width :736px) {
