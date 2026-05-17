@@ -65,8 +65,18 @@ public class SocialLinkController {
 	}
 	
 	@PostMapping("/edit_insta")
-	public String updateSocial(@ModelAttribute SocialLinks social) {
-		socialLinkService.updateSocialLinks(social); 
+	public String updateSocial(
+	        @ModelAttribute SocialLinks social,
+	        javax.servlet.http.HttpServletRequest request
+	) {
+	    if (social.getSocialStatus() == null) {
+	        String statusParam = request.getParameter("socialStatus");
+	        if (statusParam != null && !statusParam.trim().isEmpty()) {
+	            social.setSocialStatus(statusParam.trim());
+	        }
+	    }
+	    
+	    socialLinkService.updateSocialLinks(social); 
 	    return "redirect:/view_insta";
 	}
 	
@@ -75,7 +85,7 @@ public class SocialLinkController {
 
 		socialLinkService.deleteSocialLinks(instaId);
 
-	    return "redirect:/view_Category";
+	    return "redirect:/view_Insta";
 	}
 
 }

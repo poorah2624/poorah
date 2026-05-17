@@ -33,13 +33,17 @@ public class SocialLinkService {
 	}
 	
 	public void updateSocialLinks(SocialLinks updated) {
-
-		SocialLinks existing = socialLinkRepo.findById(updated.getInstaId())
+	    SocialLinks existing = socialLinkRepo.findById(updated.getInstaId())
 	            .orElseThrow(() -> new RuntimeException("Not found"));
 
 	    existing.setPlatform(updated.getPlatform());
 	    existing.setUrl(updated.getUrl());
-	    existing.setSocialStatus(updated.getSocialStatus());
+	    
+	    if (updated.getSocialStatus() != null && !updated.getSocialStatus().trim().isEmpty()) {
+	        existing.setSocialStatus(updated.getSocialStatus());
+	    } else if (existing.getSocialStatus() == null) {
+	        existing.setSocialStatus("active");
+	    }
 
 	    socialLinkRepo.save(existing);
 	}
