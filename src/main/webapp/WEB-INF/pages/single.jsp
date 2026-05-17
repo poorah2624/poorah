@@ -168,24 +168,65 @@
 										<c:set var="xlQty"
 											value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XL:') : '0'}" />
 
-										<!-- Size option elements with dynamic disabled checks -->
+										<!-- ================= S SIZE OPTION ================= -->
 										<label style="margin-right: 15px;"
 											class="${sQty == '0' ? 'disabled-size' : ''}"> <input
 											type="radio" name="selectedSize" value="S"
-											${sQty == '0' ? 'disabled' : ''}> S (${sQty} left)
-										</label> <label style="margin-right: 15px;"
+											${sQty == '0' ? 'disabled' : ''}> S <!-- HIGHLIGHT: Stock dynamic representation logic -->
+											<c:choose>
+												<c:when test="${sQty == '0'}"> (Out of stock)</c:when>
+												<c:when test="${sQty > 0 && sQty <= 5}">
+													<span style="color: red; font-weight: bold;"> (Only
+														${sQty} left!)</span>
+												</c:when>
+												<c:otherwise>
+													<!-- Jab 5 se zyada stock hoga toh kuch nahi dikhega -->
+												</c:otherwise>
+											</c:choose>
+										</label>
+
+										<!-- ================= M SIZE OPTION ================= -->
+										<label style="margin-right: 15px;"
 											class="${mQty == '0' ? 'disabled-size' : ''}"> <input
 											type="radio" name="selectedSize" value="M"
-											${mQty == '0' ? 'disabled' : ''}> M (${mQty} left)
-										</label> <label style="margin-right: 15px;"
+											${mQty == '0' ? 'disabled' : ''}> M <c:choose>
+												<c:when test="${mQty == '0'}"> (Out of stock)</c:when>
+												<c:when test="${mQty > 0 && mQty <= 5}">
+													<span style="color: red; font-weight: bold;"> (Only
+														${mQty} left!)</span>
+												</c:when>
+												<c:otherwise></c:otherwise>
+											</c:choose>
+										</label>
+
+										<!-- ================= L SIZE OPTION ================= -->
+										<label style="margin-right: 15px;"
 											class="${lQty == '0' ? 'disabled-size' : ''}"> <input
 											type="radio" name="selectedSize" value="L"
-											${lQty == '0' ? 'disabled' : ''}> L (${lQty} left)
-										</label> <label style="margin-right: 15px;"
+											${lQty == '0' ? 'disabled' : ''}> L <c:choose>
+												<c:when test="${lQty == '0'}"> (Out of stock)</c:when>
+												<c:when test="${lQty > 0 && lQty <= 5}">
+													<span style="color: red; font-weight: bold;"> (Only
+														${lQty} left!)</span>
+												</c:when>
+												<c:otherwise></c:otherwise>
+											</c:choose>
+										</label>
+
+										<!-- ================= XL SIZE OPTION ================= -->
+										<label style="margin-right: 15px;"
 											class="${xlQty == '0' ? 'disabled-size' : ''}"> <input
 											type="radio" name="selectedSize" value="XL"
-											${xlQty == '0' ? 'disabled' : ''}> XL (${xlQty} left)
+											${xlQty == '0' ? 'disabled' : ''}> XL <c:choose>
+												<c:when test="${xlQty == '0'}"> (Out of stock)</c:when>
+												<c:when test="${xlQty > 0 && xlQty <= 5}">
+													<span style="color: red; font-weight: bold;"> (Only
+														${xlQty} left!)</span>
+												</c:when>
+												<c:otherwise></c:otherwise>
+											</c:choose>
 										</label>
+
 									</div>
 								</c:forEach>
 							</div>
