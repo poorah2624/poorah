@@ -34,7 +34,7 @@ public class ItemService {
 	}
 
 	public List<Item> getAllItems() {
-		return itemRepo.findAllByOrderByCreatedAtDesc();
+		return itemRepo.findAllByOrderByItemIdDesc();
 	}
 
 	public Item getItemById(Long itemId) {
