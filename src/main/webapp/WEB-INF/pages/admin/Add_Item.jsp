@@ -795,6 +795,10 @@
 	          <label>XL</label>
 	          <input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
 	        </div>
+	        <div>
+	          <label>XXL</label>
+	          <input type="number" name="stockXXL_\${variantCount}" class="form-control" value="0" min="0">
+	        </div>
 
 	        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top: 10px;">
 	          Remove Color
