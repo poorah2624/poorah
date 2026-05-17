@@ -150,22 +150,34 @@ img{
 
 .insta-grid {
 	display: flex;
-	gap: 25px;
-	justify-content: center;
-	flex-wrap: wrap;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
 }
 
 .insta-card {
-	width: 320px;
-	background: #fafafa;
-	border-radius: 12px;
-	padding: 10px;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-	transition: 0.3s;
+	flex: 1 1 calc(25% - 15px);
+    max-width: calc(25% - 15px);
+    box-sizing: border-box;
+    margin-bottom: 20px;
 }
 
 .insta-card:hover {
 	transform: translateY(-5px);
+}
+
+@media (max-width: 992px) {
+    .insta-card {
+        flex: 1 1 calc(50% - 15px);
+        max-width: calc(50% - 15px);
+    }
+}
+
+@media (max-width: 480px) {
+    .insta-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
 }
 
 p {
