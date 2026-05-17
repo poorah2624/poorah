@@ -118,11 +118,12 @@
 					</h5>
 
 					<ul>
-						<c:set var="features" value="${fn:split(item.keyFeatures, '\n')}" />
-
-						<c:forEach var="feature" items="${features}">
-							<li>${feature}</li>
-						</c:forEach>
+						<c:forTokens items="${fn:split(item.keyFeatures, '\n')}" delims="&#10;&#13;"
+							var="feature">
+							<c:if test="${not empty feature}">
+								<li>${feature}</li>
+							</c:if>
+						</c:forTokens>
 					</ul>
 				</div>
 
