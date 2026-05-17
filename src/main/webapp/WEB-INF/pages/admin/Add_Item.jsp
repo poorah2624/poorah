@@ -362,24 +362,17 @@
 
 
 											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="descr">Add Description below: </label>
-
-
-												<textarea name="itemDesc" class="form-control">
-                 
-                </textarea>
-
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<textarea name="itemDesc" class="form-control" rows="4"></textarea>
+												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="descr">Add Key Features below: </label>
-
-
-												<textarea name="keyFeatures" class="form-control">
-                 
-                </textarea>
-
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">Key
+													Features</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<textarea name="keyFeatures" class="form-control" rows="4"></textarea>
+												</div>
 											</div>
 											<br />
 											<div class="form-group">
