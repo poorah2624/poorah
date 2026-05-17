@@ -179,18 +179,16 @@
 	
 	<script type="text/javascript">
 	$(document).ready(function() {
-	   
+	    
 	    if ($.fn.DataTable.isDataTable('#datatable')) {
 	        $('#datatable').DataTable().destroy();
 	    }
 
-	   
 	    $('#datatable').DataTable({
-	        "order": [],
-	        "aaSorting": [], 
-	        "bSort": false, 
+	        "responsive": true,
 	        "stateSave": false,
-	        "responsive": true
+	        
+	        "order": [[ 0, "desc" ]] 
 	    });
 	});
 	</script>
