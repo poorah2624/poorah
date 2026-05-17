@@ -3082,6 +3082,13 @@ h2.typoh2 {
 .keyFeatures li {
 	margin-bottom: 8px;
 	line-height: 1.6;
+	font-size: 12px;
+}
+
+@media(max-width:768px){
+    .keyFeatures li{
+        font-size:12px;
+    }
 }
 
 .color-quality-left {
