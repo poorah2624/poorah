@@ -1,9 +1,9 @@
 
 <div class="footer">
 	<div class="container">
-		<div class="w3_footer_grids rows-flex">
+		<div class="w3_footer_grids">
 
-			<div class="col-md-3 col-sm-6 w3_footer_grid">
+			<div class="col-md-3 col-sm-6 w3_footer_grid custom-left-footer">
 				<h3>Contact</h3>
 				<ul class="address">
 					<li><i class="glyphicon glyphicon-map-marker"
@@ -15,7 +15,7 @@
 				</ul>
 			</div>
 
-			<div class="col-md-3 col-sm-6 w3_footer_grid">
+			<div class="col-md-3 col-sm-6 w3_footer_grid custom-left-footer">
 				<h3>Information</h3>
 				<ul class="info">
 					<li><a href="/about">About Us</a></li>
@@ -25,7 +25,7 @@
 				</ul>
 			</div>
 
-			<div class="col-md-3 col-sm-6 w3_footer_grid">
+			<div class="col-md-3 col-sm-6 w3_footer_grid custom-left-footer">
 				<h3>Category</h3>
 				<ul class="info">
 					<c:forEach var="c" items="${categories}">
@@ -34,7 +34,7 @@
 				</ul>
 			</div>
 
-			<div class="col-md-3 col-sm-6 w3_footer_grid">
+			<div class="col-md-3 col-sm-6 w3_footer_grid custom-left-footer">
 				<h3>Profile</h3>
 				<ul class="info" style="margin-bottom: 20px;">
 					<li><a href="/cart">My Cart</a></li>

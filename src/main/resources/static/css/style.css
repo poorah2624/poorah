@@ -1710,40 +1710,45 @@ ul.wmuSliderPagination {
 }
 
 .follow-title {
+    text-align: left !important;
     color: #ff9800;
     font-size: 18px;
     margin: 20px 0 15px 0;
     font-weight: 500;
 }
 .social-links-list {
-    display: flex !important;
-    align-items: center;
-    gap: 12px; /* Icons ke beech ka gap */
-    padding: 0;
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
 }
 
 .social-links-list li {
-    margin: 0 !important;
+    display: inline-block !important;
+    margin-right: 10px !important;
+    margin-bottom: 0 !important;
 }
 
 .social-links-list li a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: #111; /* Clean Solid Black Circle */
+    display: inline-block !important;
+    text-align: center !important;
+    line-height: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    background: #111 !important; 
     color: #fff !important;
-    border-radius: 50%;
-    font-size: 16px;
+    border-radius: 50% !important;
+    font-size: 14px !important;
     transition: all 0.3s ease;
-    text-decoration: none;
 }
 
 /* Subtle Hover Animations */
 .social-links-list li a:hover {
-    background: #ff9800; /* Orange highlight on hover */
-    transform: translateY(-3px);
+    background: #ff9800 !important;
+    transform: translateY(-2px);
+}
+.social-links-list li a i {
+    color: #fff !important;
 }
 /*-- social-buttons --*/
 .agileits_social_button ul{
