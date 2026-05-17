@@ -29,9 +29,10 @@ img{
 }
 
 .site-logo {
-	height: 80px; /* 👈 same as h1 font size */
-	width: auto;
-	display: block;
+	max-height: 50px; /* Header ke menu ke hisab se perfectly adjust */
+		width: auto;
+		display: inline-block;
+		vertical-align: middle;
 }
 .mobile-logo{
     display: inline-block;
@@ -611,10 +612,8 @@ ul.multi-column-dropdown h6 {
 }
 
 .navbar-nav {
-	/*float: left;*/
 	display: flex;
-	align-items: center;
-	width: 100%;
+		align-items: center;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -4336,7 +4335,9 @@ td.invert-image a img {
 	}
 	.navbar-toggle {
 		margin-right: 0 !important;
-		float: none !important;
+			margin-top: 0 !important;
+			margin-bottom: 0 !important;
+			float: none !important;
 	}
 	.navbar-default .navbar-toggle .icon-bar {
 		background-color: #212121;
@@ -4407,9 +4408,10 @@ td.invert-image a img {
 		margin: 0;
 	}
 	.site-logo {
-		width: 120px;
-		margin: 10px auto;
-		display: block;
+		max-height: 50px; /* Header ke menu ke hisab se perfectly adjust */
+		width: auto;
+		display: inline-block;
+		vertical-align: middle;
 	}
 	.right-section {
 		float: none !important;
@@ -4428,23 +4430,30 @@ td.invert-image a img {
     }
     .navbar-header{
         display: flex !important;
-		align-items: center;
-		justify-content: space-between;
-		width: 100%;
-		padding: 5px 15px;
+			align-items: center !important;
+			justify-content: space-between !important;
+			width: 100% !important;
+			padding: 5px 15px !important;
+			float: none !important;
     }
     .mobile-brand-logo {
-		display: block !important;
-		max-height: 40px;
-		width: auto;
+		max-height: 40px !important;
+			width: auto !important;
+			display: block !important;
 	}
 	.desktop-only-logo {
 		display: none !important;
 	}
 	.mobile-brand-logo-link {
+		display: block !important;
+	}
+	.desktop-logo-item {
+			display: none !important;
+		}
+}
+.mobile-brand-logo-link {
 		display: none !important;
 	}
-}
 
 @media ( max-width :736px) {
 	.modal-dialog {
