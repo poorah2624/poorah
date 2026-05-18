@@ -416,7 +416,7 @@
 								</div>
 							</c:otherwise>
 						</c:choose>
-					</forEach>
+					</c:forEach>
 				</div>
 
 				<div class="cart-summary-card">
