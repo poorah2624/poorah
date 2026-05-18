@@ -47,7 +47,7 @@
 
 							<li><a href="/userlogin" class="login-btn"><i class="fa fa-user"></i> Login</a></li>
 
-							<li class="right-section">
+							<li class="right-section" style="position: absolute !important; right: 20px !important; top: 15px !important;">
 								<a href="/cart"> (${cartCount} Items) 
 									<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" />
 								</a>
@@ -115,7 +115,7 @@
 								</ul>
 							</li>
 
-							<li class="right-section">
+							<li class="right-section" style="position: absolute !important; right: 20px !important; top: 15px !important;">
 								<a href="/cart"> (${cartCount} Items) 
 									<img src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880990/bag_yjk2pm.png" />
 								</a>
