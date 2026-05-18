@@ -4453,13 +4453,13 @@ td.invert-image a img {
        display: block !important;
         position: relative !important;
         width: 100% !important;
-        height: 60px !important; 
+        height: 75px !important; 
         background: #ffffff !important;
         padding: 10px 15px !important;
         float: none !important;
     }
     .mobile-brand-logo {
-		max-height: 35px !important;
+		max-height: 48px !important;
         width: auto !important;
         display: block !important;
 	}
@@ -6612,7 +6612,7 @@ table th, table td {
 		.collapse.navbar-collapse.in {
 			display: block !important;
         position: absolute !important;
-        top: 60px !important;
+        top: 75px !important;
         left: 0 !important;
         width: 100% !important;
         background: #ffffff !important;
