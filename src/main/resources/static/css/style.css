@@ -4336,7 +4336,7 @@ td.invert-image a img {
 	.navbar-toggle {
 		display: block !important;
 			position: absolute !important;
-			right: 65px !important; /* Cart button ke liye space choda */
+			right: 15px !important;
 			top: 50% !important;
 			transform: translateY(-50%) !important;
 			margin: 0 !important;
@@ -4367,7 +4367,10 @@ td.invert-image a img {
 	}*/
 	.navbar-nav {
 			margin: 0 !important;
-			padding: 10px 0 !important;
+			padding: 0 !important;
+			display: block !important;
+			float: none !important;
+			width: 100% !important;
 		}
 	.dropdown-menu.columns-3 {
 		min-width: 100%;
@@ -4395,12 +4398,15 @@ td.invert-image a img {
 			float: none !important;
 			display: block !important;
 			width: 100% !important;
+			text-align: left !important;
 		}
 
 		.navbar-nav > li > a {
 			padding: 12px 20px !important;
-			border-bottom: 1px solid #f0f0f0;
+			border-bottom: 1px solid #eee !important;
 			color: #333 !important;
+			display: block !important;
+			width: 100% !important;
 		}
 	.dropdown-menu.columns-3 {
 		min-width: 100% !important;
@@ -4467,11 +4473,12 @@ td.invert-image a img {
 			display: none !important;
 		}
 		.navbar-nav > li.right-section {
-			position: absolute !important;
-			right: 15px !important;
-			top: 15px !important;
-			z-index: 99999 !important;
-			display: block !important;
+			position: relative !important;
+			right: auto !important;
+			top: auto !important;
+			transform: none !important;
+			float: none !important;
+			background: #fdfdfd !important;
 		}
 		.navbar-nav > li.right-section a {
 			padding: 5px !important;
@@ -6583,21 +6590,20 @@ table th, table td {
 	.navbar-collapse.in {
 		display: block !important;
 	}
-	.navbar-collapse.collapse.in {
-			display: block !important;
-			position: absolute !important;
-			top: 60px !important; /* Header bar ke theek niche se start hoga */
-			left: 0 !important;
-			width: 100% !important;
-			background: #ffffff !important;
-			z-index: 9999 !important;
-			box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
-			border: none !important;
-			max-height: 350px !important;
-			overflow-y: auto !important;
-		}
+	
 		.desktop-logo-item {
 			display: none !important;
+		}
+		.collapse.navbar-collapse.in {
+			display: block !important;
+			clear: both !important;
+			float: none !important;
+			width: 100% !important;
+			background: #ffffff !important;
+			padding: 0 !important;
+			margin-top: 60px !important; /* Header line ke theek niche se menu khulega */
+			border: none !important;
+			box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
 		}
 }
 
