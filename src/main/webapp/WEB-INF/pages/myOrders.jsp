@@ -135,6 +135,30 @@
 		gap: 10px;
 		margin-top: 20px;
 	}
+	
+	@media (max-width: 768px) {
+    
+    .profile-container .row {
+        display: block !important;
+    }
+    
+    .item-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px;
+    }
+  
+    .product-img {
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+    }
+  
+    .action-area {
+        text-align: left !important;
+        width: 100% !important;
+        min-width: unset !important;
+    }
+}
 </style>
 </head>
 <body>
