@@ -4445,7 +4445,7 @@ td.invert-image a img {
         display: block !important;
     }
     .navbar-header{
-        display: block !important;
+       display: block !important;
 			position: relative !important;
 			width: 100% !important;
 			height: 60px !important;
@@ -4473,12 +4473,11 @@ td.invert-image a img {
 			display: none !important;
 		}
 		.navbar-nav > li.right-section {
-			position: relative !important;
-			right: auto !important;
-			top: auto !important;
-			transform: none !important;
+			position: static !important;
+			display: block !important;
 			float: none !important;
-			background: #fdfdfd !important;
+			transform: none !important;
+			background: #fff8f0 !important;
 		}
 		.navbar-nav > li.right-section a {
 			padding: 5px !important;
@@ -6601,7 +6600,7 @@ table th, table td {
 			width: 100% !important;
 			background: #ffffff !important;
 			padding: 0 !important;
-			margin-top: 60px !important; /* Header line ke theek niche se menu khulega */
+			margin-top: 60px !important; 
 			border: none !important;
 			box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
 		}
