@@ -15,41 +15,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <title>PooRah Fashion</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords"
-	content="Women's Fashion Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-
-<script type="application/x-javascript">
-	
-	
-	
-	
-	
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-		function hideURLbar(){ window.scrollTo(0,1); } 
-
-
-
-
-
-</script>
-
-<!-- //for-mobile-apps -->
-<link href="/css/bootstrap.css" rel="stylesheet" type="text/css"
-	media="all" />
-<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/css/fasthover.css" rel="stylesheet" type="text/css"
-	media="all" />
-
-
-<link href='//fonts.googleapis.com/css?family=Glegoo:400,700'
-	rel='stylesheet' type='text/css'>
-<link
-	href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-	rel='stylesheet' type='text/css'>
-
-
+<%@include file="head.jsp"%>
 
 </head>
 
