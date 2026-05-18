@@ -4333,6 +4333,12 @@ td.invert-image a img {
 	.navbar-default .navbar-toggle {
 		border-color: #212121;
 	}
+	.navbar-default {
+			background-color: #ffffff !important;
+			border: none !important;
+			margin: 0 !important;
+			padding: 0 !important;
+		}
 	.navbar-toggle {
 		display: block !important;
 			position: absolute !important;
@@ -4343,7 +4349,7 @@ td.invert-image a img {
 			float: none !important;
 			background-color: #f8f9fa !important;
 			border: 1px solid #ddd !important;
-			padding: 9px 10px !important;
+			z-index: 99999 !important;
 	}
 	.navbar-default .navbar-toggle .icon-bar {
 		background-color: #212121;
@@ -4399,11 +4405,12 @@ td.invert-image a img {
 			display: block !important;
 			width: 100% !important;
 			text-align: left !important;
+			position: static !important;
 		}
 
 		.navbar-nav > li > a {
 			padding: 12px 20px !important;
-			border-bottom: 1px solid #eee !important;
+			border-bottom: 1px solid #f0f0f0 !important;
 			color: #333 !important;
 			display: block !important;
 			width: 100% !important;
@@ -4448,13 +4455,15 @@ td.invert-image a img {
        display: block !important;
 			position: relative !important;
 			width: 100% !important;
-			height: 60px !important;
+			height: 65px !important;
 			background: #ffffff !important;
+			margin: 0 !important;
 			padding: 10px 15px !important;
 			float: none !important;
+			box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     .mobile-brand-logo {
-		max-height: 38px !important;
+		max-height: 35px !important;
 			width: auto !important;
 			display: block !important;
 	}
@@ -4467,7 +4476,7 @@ td.invert-image a img {
 			left: 15px !important;
 			top: 50% !important;
 			transform: translateY(-50%) !important;
-			z-index: 9999 !important;
+			z-index: 99999 !important;
 	}
 	.desktop-logo-item {
 			display: none !important;
@@ -4476,12 +4485,16 @@ td.invert-image a img {
 			position: static !important;
 			display: block !important;
 			float: none !important;
+			width: 100% !important;
 			transform: none !important;
-			background: #fff8f0 !important;
+			background: #fff9f2 !important;
 		}
 		.navbar-nav > li.right-section a {
-			padding: 5px !important;
+			padding: 12px 20px !important;
+			color: #ff9800 !important;
 			display: block !important;
+			width: 100% !important;
+			border-bottom: 1px solid #f0f0f0 !important;
 		}
 
 		.navbar-nav > li.right-section img {
@@ -6595,14 +6608,16 @@ table th, table td {
 		}
 		.collapse.navbar-collapse.in {
 			display: block !important;
-			clear: both !important;
-			float: none !important;
+			position: absolute !important;
+			top: 65px !important; 
+			left: 0 !important;
 			width: 100% !important;
 			background: #ffffff !important;
 			padding: 0 !important;
-			margin-top: 60px !important; 
+			margin: 0 !important;
 			border: none !important;
 			box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+			z-index: 99998 !important;
 		}
 }
 
