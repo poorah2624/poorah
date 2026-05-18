@@ -4405,7 +4405,6 @@ td.invert-image a img {
 			display: block !important;
 			width: 100% !important;
 			text-align: left !important;
-			position: static !important;
 		}
 
 		.navbar-nav > li > a {
@@ -4455,12 +4454,11 @@ td.invert-image a img {
        display: block !important;
 			position: relative !important;
 			width: 100% !important;
-			height: 65px !important;
+			height: 60px !important; 
 			background: #ffffff !important;
 			margin: 0 !important;
 			padding: 10px 15px !important;
 			float: none !important;
-			box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     .mobile-brand-logo {
 		max-height: 35px !important;
@@ -6014,6 +6012,12 @@ input[type="radio"]:invalid {
 			float: right !important;
 		}
 }
+.navbar-nav > li.right-section {
+			position: absolute !important;
+			right: 20px !important;
+			top: 15px !important;
+			float: right !important;
+		}
 
 .hero_area {
 	position: relative;
@@ -6609,7 +6613,7 @@ table th, table td {
 		.collapse.navbar-collapse.in {
 			display: block !important;
 			position: absolute !important;
-			top: 65px !important; 
+			top: 60px !important;
 			left: 0 !important;
 			width: 100% !important;
 			background: #ffffff !important;
