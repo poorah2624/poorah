@@ -368,7 +368,16 @@ public class HomeController {
 	}
 
 	@GetMapping("/customDesign")
-	public String customDesign() {
+	public String customDesign(Model model, HttpSession session) {
+		User user = (User) session.getAttribute("LoggedInUser");
+	    if(user == null){
+	        return "redirect:/userlogin";
+	        
+	    }
+	    
+	    ContactDetails cDetails = cDetailsService.getContactDetails();
+		model.addAttribute("cDetails", cDetails);
+		
 		return "customDesign";
 	}
 
