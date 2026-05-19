@@ -29,5 +29,7 @@ public class ContactService {
 	public Contact getByContactId(Long contactId) {
 		return contactRepo.findByContactId(contactId);
 	}
+	
+	
 
 }
