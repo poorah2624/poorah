@@ -58,7 +58,6 @@
         background-color: #fffdfa;
     }
     
-    /* Segmented Radio Button Group (Address Type) */
     .address-type-group {
         display: flex;
         gap: 12px;
@@ -79,9 +78,9 @@
         margin: 0;
     }
     .address-type-group input[type="radio"] {
-        display: none; /* ओरिजिनल गोल रेडियो बटन छुपाने के लिए */
+        display: none;
     }
-    /* जब रेडियो बटन सिलेक्टेड हो */
+   
     .address-type-group input[type="radio"]:checked + span {
         color: #ff9800;
     }
@@ -91,7 +90,7 @@
         color: #ff9800;
     }
     
-    /* Custom Checkbox */
+    
     .default-addr-checkbox {
         display: flex;
         align-items: center;
@@ -105,11 +104,10 @@
     .default-addr-checkbox input {
         width: 16px;
         height: 16px;
-        accent-color: #ff9800; /* मॉडर्न ब्राउज़र्स के लिए ऑरेंज टिक */
+        accent-color: #ff9800; 
         cursor: pointer;
     }
 
-    /* Action Row Buttons */
     .form-actions-row {
         display: flex;
         gap: 15px;
@@ -153,7 +151,7 @@
         border-color: #bbb;
     }
     
-    /* 2-Column row for city/state/pincode */
+  
     .form-row-custom {
         display: grid;
         grid-template-columns: 1fr 1fr;

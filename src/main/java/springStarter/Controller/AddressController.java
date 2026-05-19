@@ -91,13 +91,22 @@ public class AddressController {
 	}
 	
 	@GetMapping("/editAddress/{id}")
-	public String editAddress(@PathVariable Long id, Model model){
+	public String editAddress(@PathVariable Long id, Model model, HttpSession session){
+		
+		List<Category> categories = categoryService.getAllCategories();
+
+	    model.addAttribute("categories", categories);
+
+	    User user = (User) session.getAttribute("LoggedInUser");
+	    if(user == null){
+	        return "redirect:/userlogin";
+	    }
 
 	    Address address = addressService.getById(id);
 
 	    model.addAttribute("address", address);
 
-	    return "editAddress"; // JSP page
+	    return "editAddress";
 	}
 	
 	@PostMapping("/updateAddress")

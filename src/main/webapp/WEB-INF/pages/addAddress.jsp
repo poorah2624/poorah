@@ -17,7 +17,7 @@
     .form-section {
         padding: 50px 0;
     }
-    /* Elegant Form Container Card */
+  
     .form-card {
         background: #ffffff;
         border-radius: 12px;
@@ -36,7 +36,7 @@
         padding-bottom: 15px;
     }
     
-    /* Modern Inputs Styling */
+   
     .form-group label {
         font-size: 13px;
         font-weight: 600;
@@ -57,7 +57,6 @@
         background-color: #fffdfa;
     }
     
-    /* Segmented Radio Button Group (Address Type) */
     .address-type-group {
         display: flex;
         gap: 12px;
@@ -78,7 +77,7 @@
         margin: 0;
     }
     .address-type-group input[type="radio"] {
-        display: none; /* ओरिजिनल गोल रेडियो बटन छुपाने के लिए */
+        display: none;
     }
     .address-type-group input[type="radio"]:checked + span {
         color: #ff9800;
@@ -89,7 +88,7 @@
         color: #ff9800;
     }
     
-    /* Custom Checkbox */
+   
     .default-addr-checkbox {
         display: flex;
         align-items: center;
@@ -107,7 +106,6 @@
         cursor: pointer;
     }
 
-    /* Action Row Buttons */
     .form-actions-row {
         display: flex;
         gap: 15px;
@@ -150,8 +148,7 @@
         background: #f8f9fa;
         border-color: #bbb;
     }
-    
-    /* 2-Column row for city/state */
+  
     .form-row-custom {
         display: grid;
         grid-template-columns: 1fr 1fr;
