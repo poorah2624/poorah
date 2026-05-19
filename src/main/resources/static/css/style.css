@@ -6371,10 +6371,34 @@ input[type="radio"]:invalid {
     width: 100%;
     max-width: 360px;
     margin: 0 auto;
-    background: #000000;
+    background: #ffffff;
     border-radius: 8px;
-    padding: 10px;
+    padding: 0;
+    overflow: hidden;
     transition: background-color 0.3s ease;
+}
+
+.tshirt-base-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    mix-blend-mode: multiply; 
+    position: relative;
+    z-index: 1;
+}
+
+
+.design-overlay-preview {
+    position: absolute;
+    top: 48%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25%;
+    max-height: 30%;
+    object-fit: contain;
+    pointer-events: none;
+    z-index: 2; 
+    mix-blend-mode: multiply; 
 }
 
 /* custom design select */

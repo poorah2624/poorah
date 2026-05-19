@@ -474,16 +474,14 @@ textarea.form-control {
 							</div>
 						</div>
 
-						<div class="studio-group">
-							<label>Select T-Shirt Base Color</label> <select
-								class="form-control" name="color" id="tshirtColorSelect"
-								onchange="changeTshirtColor()" required>
-								<option value="#000000">Black</option>
-								<option value="#ffffff">White</option>
-								<option value="#ff4d4d">Red</option>
-								<option value="#2874f0">Blue</option>
-							</select>
-						</div>
+						<select class="form-control" name="color" id="tshirtColorSelect"
+							onchange="changeTshirtColor()" required>
+							<option value="#ffffff">White</option>
+							<option value="#000000">Black</option>
+							<option value="#ff4d4d">Red</option>
+							<option value="#2874f0">Blue</option>
+							<option value="#e0e0e0">Grey</option>
+						</select>
 
 						<div class="studio-group">
 							<label>T-Shirt Fit Type</label>
@@ -641,19 +639,14 @@ textarea.form-control {
             if (event.target == modal) { modal.style.display = "none"; }
         }
 	</script>
-	
+
 	<script>
 	function changeTshirtColor() {
 	   
 	    const selectedColor = document.getElementById("tshirtColorSelect").value;
+	 
 	    const canvasWrapper = document.querySelector(".tshirt-canvas-wrapper");
 	    canvasWrapper.style.backgroundColor = selectedColor;
-	    
-	    if(selectedColor === "#ffffff") {
-	        canvasWrapper.style.boxShadow = "inset 0 0 20px rgba(0,0,0,0.05)";
-	    } else {
-	        canvasWrapper.style.boxShadow = "none";
-	    }
 	}
 	</script>
 </body>
