@@ -67,7 +67,11 @@ public class AddressController {
 	    User user = (User) session.getAttribute("LoggedInUser");
 	    if(user == null){
 	        return "redirect:/userlogin";
+	        
 	    }
+	    
+	    ContactDetails cDetails = cDetailsService.getContactDetails();
+		model.addAttribute("cDetails", cDetails);
 	    
 		return "addAddress";
 	}
@@ -105,6 +109,9 @@ public class AddressController {
 	    Address address = addressService.getById(id);
 
 	    model.addAttribute("address", address);
+	    
+	    ContactDetails cDetails = cDetailsService.getContactDetails();
+		model.addAttribute("cDetails", cDetails);
 
 	    return "editAddress";
 	}
