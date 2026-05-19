@@ -6366,6 +6366,17 @@ input[type="radio"]:invalid {
     
 }
 
+.tshirt-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    background: #000000;
+    border-radius: 8px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
 /* custom design select */
 .custom-upload-box {
 	position: relative;
