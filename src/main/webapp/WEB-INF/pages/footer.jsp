@@ -20,7 +20,8 @@
 						<i class="glyphicon glyphicon-envelope"
 						style="position: absolute; left: 0; top: 3px; color: #333;"></i> <a
 						href="mailto:${cDetails.emailId}"
-						style="color: #666; text-decoration: none;">${cDetails.emailId}</a>
+						style="color: #666; text-decoration: none;"><span
+						style="display: block; text-align: left !important;">${cDetails.emailId}</span></a>
 					</li>
 					<li
 						style="text-align: left !important; margin-bottom: 12px; color: #666; font-size: 14px; position: relative; padding-left: 25px;">
