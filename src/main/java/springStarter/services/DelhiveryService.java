@@ -196,17 +196,37 @@ public class DelhiveryService {
                     "POORAH"
             );
 
-            // =========================
-            // BODY
-            // =========================
+         // =========================
+         // SHIPMENTS ARRAY
+         // =========================
 
-            String requestBody =
-                    "format=json&data="
-                            + URLEncoder.encode(
-                            shipment.toString(),
-                            "UTF-8"
-                    );
+         JSONArray shipments =
+                 new JSONArray();
 
+         shipments.put(shipment);
+
+         // =========================
+         // FINAL BODY
+         // =========================
+
+         JSONObject finalBody =
+                 new JSONObject();
+
+         finalBody.put(
+                 "shipments",
+                 shipments
+         );
+
+         // =========================
+         // REQUEST BODY
+         // =========================
+
+         String requestBody =
+                 "format=json&data="
+                         + URLEncoder.encode(
+                         finalBody.toString(),
+                         "UTF-8"
+                 );
             HttpEntity<String> request =
                     new HttpEntity<>(
                             requestBody,
