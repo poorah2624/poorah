@@ -26,6 +26,6 @@ public interface OrderRepo extends JpaRepository<Orders, Long> {
 	
 	List<Orders> findByCategoryOrderByOrderDateDesc(String category);
 	
-	
+	Orders findByAwbCode(String awbCode);
 
 }

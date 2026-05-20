@@ -76,6 +76,14 @@ public class Orders {
     private LocalDateTime deliveredDate;
 
     private String estimatedDeliveryDate;
+    
+    private String trackingId;
+
+    private String courierName;
+
+    private String shipmentStatus;
+
+    private String awbCode;
 
     // Order belongs to user
     @ManyToOne
@@ -239,6 +247,30 @@ public class Orders {
 	}
 	public void setDeliveryCharge(BigDecimal deliveryCharge) {
 		this.deliveryCharge = deliveryCharge;
+	}
+	public String getTrackingId() {
+		return trackingId;
+	}
+	public void setTrackingId(String trackingId) {
+		this.trackingId = trackingId;
+	}
+	public String getCourierName() {
+		return courierName;
+	}
+	public void setCourierName(String courierName) {
+		this.courierName = courierName;
+	}
+	public String getShipmentStatus() {
+		return shipmentStatus;
+	}
+	public void setShipmentStatus(String shipmentStatus) {
+		this.shipmentStatus = shipmentStatus;
+	}
+	public String getAwbCode() {
+		return awbCode;
+	}
+	public void setAwbCode(String awbCode) {
+		this.awbCode = awbCode;
 	}
 	
 	

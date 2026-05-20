@@ -57,8 +57,11 @@ public class OrderService {
 	@Autowired
 	private EmailService emailService;
 	
+	/*@Autowired
+	private ShiprocketService shiprocketService;*/
+	
 	@Autowired
-	private ShiprocketService shiprocketService;
+	private DelhiveryService delhiveryService;
 
 	public void placeOrder(User user, Long addressId, String paymentMethod, HttpSession session,
 	        String razorpayPaymentId, String razorpayOrderId) {
@@ -281,10 +284,14 @@ public class OrderService {
 
 		order.setStatus(status);
 		
-		 if ("Packed".equalsIgnoreCase(status)) {
+		/* if ("Packed".equalsIgnoreCase(status)) {
 			 shiprocketService.createOrder(order);
-		    }
+		    }*/
+		
+		if ("Packed".equalsIgnoreCase(status)) {
 
+		    delhiveryService.createShipment(order);
+		}
 
 		// optional logic
 		for (Order_item item : order.getItems()) {
