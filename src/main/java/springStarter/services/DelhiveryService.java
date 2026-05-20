@@ -1,5 +1,7 @@
 package springStarter.services;
 
+import java.net.URLEncoder;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,16 @@ public class DelhiveryService {
 
         try {
 
-            RestTemplate restTemplate = new RestTemplate();
+            RestTemplate restTemplate =
+                    new RestTemplate();
 
-            HttpHeaders headers = new HttpHeaders();
+            HttpHeaders headers =
+                    new HttpHeaders();
 
-            headers.setContentType(MediaType.APPLICATION_JSON);
+            // IMPORTANT
+            headers.setContentType(
+                    MediaType.APPLICATION_FORM_URLENCODED
+            );
 
             headers.set(
                     "Authorization",
@@ -38,16 +45,21 @@ public class DelhiveryService {
             // ORDER ITEMS
             // =========================
 
-            JSONArray orderItems = new JSONArray();
+            JSONArray orderItems =
+                    new JSONArray();
 
             for (Order_item item : order.getItems()) {
 
-                JSONObject obj = new JSONObject();
+                JSONObject obj =
+                        new JSONObject();
 
-                // product name
-                if (item.getIsCustom() != null && item.getIsCustom()) {
+                if (item.getIsCustom() != null
+                        && item.getIsCustom()) {
 
-                    obj.put("name", "Custom T-Shirt");
+                    obj.put(
+                            "name",
+                            "Custom T-Shirt"
+                    );
 
                 } else {
 
@@ -57,19 +69,16 @@ public class DelhiveryService {
                     );
                 }
 
-                // SKU
                 obj.put(
                         "sku",
                         "SKU-" + item.getId()
                 );
 
-                // quantity
                 obj.put(
                         "units",
                         item.getQuantity()
                 );
 
-                // price
                 obj.put(
                         "selling_price",
                         item.getFinalPrice()
@@ -79,10 +88,11 @@ public class DelhiveryService {
             }
 
             // =========================
-            // SHIPMENT DATA
+            // SHIPMENT
             // =========================
 
-            JSONObject shipment = new JSONObject();
+            JSONObject shipment =
+                    new JSONObject();
 
             shipment.put(
                     "name",
@@ -138,8 +148,6 @@ public class DelhiveryService {
                     order.getOrderNumber()
             );
 
-            // PAYMENT MODE
-
             shipment.put(
                     "payment_mode",
                     "Paid".equalsIgnoreCase(
@@ -148,52 +156,54 @@ public class DelhiveryService {
                             : "COD"
             );
 
-            // TOTAL
-
             shipment.put(
                     "sub_total",
                     order.getTotalAmount()
             );
-
-            // ITEMS
 
             shipment.put(
                     "order_items",
                     orderItems
             );
 
-            // PACKAGE SIZE
-
-            shipment.put("length", 10);
-
-            shipment.put("breadth", 10);
-
-            shipment.put("height", 2);
-
-            shipment.put("weight", 0.5);
-
-            // SHIPPING SAME AS BILLING
-
             shipment.put(
                     "shipping_is_billing",
                     true
             );
 
+            shipment.put("length", 10);
+            shipment.put("breadth", 10);
+            shipment.put("height", 2);
+            shipment.put("weight", 0.5);
+
             // =========================
             // MAIN BODY
             // =========================
 
-            JSONArray shipments = new JSONArray();
+            JSONArray shipments =
+                    new JSONArray();
 
             shipments.put(shipment);
 
-            JSONObject body = new JSONObject();
+            JSONObject body =
+                    new JSONObject();
 
-            body.put("shipments", shipments);
+            body.put(
+                    "shipments",
+                    shipments
+            );
+
+            // IMPORTANT
+            String requestBody =
+                    "format=json&data="
+                            + URLEncoder.encode(
+                            body.toString(),
+                            "UTF-8"
+                    );
 
             HttpEntity<String> request =
                     new HttpEntity<>(
-                            body.toString(),
+                            requestBody,
                             headers
                     );
 
@@ -223,6 +233,16 @@ public class DelhiveryService {
             JSONArray packages =
                     json.getJSONArray("packages");
 
+            // IMPORTANT
+            if (packages.length() == 0) {
+
+                System.out.println(
+                        "NO PACKAGE CREATED"
+                );
+
+                return;
+            }
+
             JSONObject pkg =
                     packages.getJSONObject(0);
 
@@ -230,14 +250,18 @@ public class DelhiveryService {
                     pkg.getString("waybill");
 
             // =========================
-            // SAVE IN DATABASE
+            // SAVE DB
             // =========================
 
             order.setAwbCode(awb);
 
-            order.setCourierName("Delhivery");
+            order.setCourierName(
+                    "Delhivery"
+            );
 
-            order.setShipmentStatus("Packed");
+            order.setShipmentStatus(
+                    "Packed"
+            );
 
             orderRepo.save(order);
 

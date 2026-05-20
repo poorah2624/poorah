@@ -1,7 +1,6 @@
 package springStarter.Controller;
 
-import java.util.Map;
-
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,37 +19,62 @@ public class DelhiveryWebhookController {
     @PostMapping("/delhivery/webhook")
     @ResponseBody
     public String webhook(
-            @RequestBody Map<String,Object> payload) {
+            @RequestBody String payload) {
 
-        String awb =
-            payload.get("awb").toString();
+        try {
 
-        String status =
-            payload.get("status").toString();
+            System.out.println(
+                    "WEBHOOK: " + payload
+            );
 
-        Orders order =
-            orderRepo.findByAwbCode(awb);
+            JSONObject json =
+                    new JSONObject(payload);
 
-        if(order != null) {
+            String awb =
+                    json.optString("awb");
 
-            order.setShipmentStatus(status);
+            String status =
+                    json.optString("status");
 
-            if(status.equalsIgnoreCase("In Transit")) {
+            Orders order =
+                    orderRepo.findByAwbCode(awb);
 
-                order.setStatus("Shipped");
+            if(order != null) {
+
+                order.setShipmentStatus(status);
+
+                if(status.equalsIgnoreCase(
+                        "In Transit")) {
+
+                    order.setStatus(
+                            "Shipped"
+                    );
+                }
+
+                else if(status.equalsIgnoreCase(
+                        "Out For Delivery")) {
+
+                    order.setStatus(
+                            "Out for delivery"
+                    );
+                }
+
+                else if(status.equalsIgnoreCase(
+                        "Delivered")) {
+
+                    order.setStatus(
+                            "Delivered"
+                    );
+                }
+
+                orderRepo.save(order);
             }
 
-            else if(status.equalsIgnoreCase("Out For Delivery")) {
+        }
 
-                order.setStatus("Out for delivery");
-            }
+        catch(Exception e) {
 
-            else if(status.equalsIgnoreCase("Delivered")) {
-
-                order.setStatus("Delivered");
-            }
-
-            orderRepo.save(order);
+            e.printStackTrace();
         }
 
         return "OK";
