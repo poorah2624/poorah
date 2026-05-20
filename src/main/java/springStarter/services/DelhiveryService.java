@@ -31,7 +31,6 @@ public class DelhiveryService {
             HttpHeaders headers =
                     new HttpHeaders();
 
-            // IMPORTANT
             headers.setContentType(
                     MediaType.APPLICATION_FORM_URLENCODED
             );
@@ -53,6 +52,7 @@ public class DelhiveryService {
                 JSONObject obj =
                         new JSONObject();
 
+                // PRODUCT NAME
                 if (item.getIsCustom() != null
                         && item.getIsCustom()) {
 
@@ -69,16 +69,19 @@ public class DelhiveryService {
                     );
                 }
 
+                // SKU
                 obj.put(
                         "sku",
                         "SKU-" + item.getId()
                 );
 
+                // QUANTITY
                 obj.put(
                         "units",
                         item.getQuantity()
                 );
 
+                // PRICE
                 obj.put(
                         "selling_price",
                         item.getFinalPrice()
@@ -88,7 +91,7 @@ public class DelhiveryService {
             }
 
             // =========================
-            // SHIPMENT
+            // SHIPMENT DATA
             // =========================
 
             JSONObject shipment =
@@ -100,12 +103,7 @@ public class DelhiveryService {
             );
 
             shipment.put(
-                    "billing_last_name",
-                    ""
-            );
-
-            shipment.put(
-                    "billing_address",
+                    "add",
                     order.getAddress().getHouseNo()
                             + ", "
                             + order.getAddress().getArea()
@@ -114,33 +112,33 @@ public class DelhiveryService {
             );
 
             shipment.put(
-                    "billing_city",
+                    "city",
                     order.getAddress().getCity()
             );
 
             shipment.put(
-                    "billing_pincode",
-                    order.getAddress().getPincode()
-            );
-
-            shipment.put(
-                    "billing_state",
+                    "state",
                     order.getAddress().getState()
             );
 
             shipment.put(
-                    "billing_country",
+                    "country",
                     "India"
             );
 
             shipment.put(
-                    "billing_email",
-                    order.getUser().getUserEmail()
+                    "pin",
+                    order.getAddress().getPincode()
             );
 
             shipment.put(
                     "phone",
                     order.getAddress().getMobile()
+            );
+
+            shipment.put(
+                    "email",
+                    order.getUser().getUserEmail()
             );
 
             shipment.put(
@@ -151,53 +149,61 @@ public class DelhiveryService {
             shipment.put(
                     "payment_mode",
                     "Paid".equalsIgnoreCase(
-                            order.getPaymentStatus())
+                            order.getPaymentStatus()
+                    )
                             ? "Prepaid"
                             : "COD"
             );
 
             shipment.put(
-                    "sub_total",
+                    "total_amount",
                     order.getTotalAmount()
             );
 
             shipment.put(
-                    "order_items",
-                    orderItems
+                    "quantity",
+                    order.getQuantity()
             );
 
             shipment.put(
-                    "shipping_is_billing",
-                    true
+                    "products_desc",
+                    "Fashion Products"
             );
 
-            shipment.put("length", 10);
-            shipment.put("breadth", 10);
-            shipment.put("height", 2);
-            shipment.put("weight", 0.5);
-
-            // =========================
-            // MAIN BODY
-            // =========================
-
-            JSONArray shipments =
-                    new JSONArray();
-
-            shipments.put(shipment);
-
-            JSONObject body =
-                    new JSONObject();
-
-            body.put(
-                    "shipments",
-                    shipments
+            shipment.put(
+                    "weight",
+                    0.5
             );
 
-            // IMPORTANT
+            shipment.put(
+                    "shipment_length",
+                    10
+            );
+
+            shipment.put(
+                    "shipment_width",
+                    10
+            );
+
+            shipment.put(
+                    "shipment_height",
+                    2
+            );
+
+            // EXACT SAME AS PANEL PICKUP NAME
+            shipment.put(
+                    "seller_add",
+                    "POORAH"
+            );
+
+            // =========================
+            // BODY
+            // =========================
+
             String requestBody =
                     "format=json&data="
                             + URLEncoder.encode(
-                            body.toString(),
+                            shipment.toString(),
                             "UTF-8"
                     );
 
@@ -233,7 +239,6 @@ public class DelhiveryService {
             JSONArray packages =
                     json.getJSONArray("packages");
 
-            // IMPORTANT
             if (packages.length() == 0) {
 
                 System.out.println(
@@ -246,28 +251,48 @@ public class DelhiveryService {
             JSONObject pkg =
                     packages.getJSONObject(0);
 
-            String awb =
-                    pkg.getString("waybill");
+            String status =
+                    pkg.getString("status");
 
             // =========================
-            // SAVE DB
+            // SUCCESS
             // =========================
 
-            order.setAwbCode(awb);
+            if (status.equalsIgnoreCase("Success")) {
 
-            order.setCourierName(
-                    "Delhivery"
-            );
+                String awb =
+                        pkg.getString("waybill");
 
-            order.setShipmentStatus(
-                    "Packed"
-            );
+                order.setAwbCode(awb);
 
-            orderRepo.save(order);
+                order.setCourierName(
+                        "Delhivery"
+                );
 
-            System.out.println(
-                    "AWB SAVED: " + awb
-            );
+                order.setShipmentStatus(
+                        "Packed"
+                );
+
+                orderRepo.save(order);
+
+                System.out.println(
+                        "AWB SAVED: "
+                                + awb
+                );
+
+            }
+
+            // =========================
+            // FAILED
+            // =========================
+
+            else {
+
+                System.out.println(
+                        "DELHIVERY FAILED: "
+                                + pkg.toString()
+                );
+            }
 
         }
 
