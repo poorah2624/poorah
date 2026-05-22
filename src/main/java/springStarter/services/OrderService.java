@@ -57,8 +57,8 @@ public class OrderService {
 	@Autowired
 	private EmailService emailService;
 	
-	/*@Autowired
-	private ShiprocketService shiprocketService;*/
+	@Autowired
+	private ShiprocketService shiprocketService;
 	
 	@Autowired
 	private DelhiveryService delhiveryService;
@@ -284,9 +284,9 @@ public class OrderService {
 
 		order.setStatus(status);
 		
-		/* if ("Packed".equalsIgnoreCase(status)) {
+		 if ("Packed".equalsIgnoreCase(status)) {
 			 shiprocketService.createOrder(order);
-		    }*/
+		    }
 		
 		if ("Packed".equalsIgnoreCase(status)) {
 
