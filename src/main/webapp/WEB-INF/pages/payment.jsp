@@ -61,7 +61,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					name="paymentMethod" value="PARTIAL_COD"
 					onclick="showOption('partial_cod')"> Pay 50% Now & 50% On
 					Delivery
-				</label>
+				</label> <label> <input type="checkbox" name="noReturnDiscount"
+					value="YES"> Get ₹50 Discount (No Return After Delivery)
+				</label> <input type="hidden" id="noReturnDiscountHidden"
+					name="noReturnDiscount" value="NO">
 
 			</div>
 
@@ -110,6 +113,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        alert("Please select payment method");
 	        return;
 	    }
+	    
+	    var checkbox = document.querySelector('input[name="noReturnDiscount"]');
+
+	    if(checkbox.checked){
+            document.getElementById("noReturnDiscountHidden").value = "YES";
+	    }
+
 
 	    payNow();
 	}
@@ -122,6 +132,16 @@ function payNow() {
         document.querySelector('input[name="paymentMethod"]:checked').value;
 
     var amountToPay = Math.round(${finalAmount});
+    
+    var checkbox =
+        document.querySelector(
+            'input[name="noReturnDiscount"]'
+        );
+
+    if(checkbox.checked){
+
+        amountToPay = amountToPay - 50;
+    }
 
     if(paymentMethod === "PARTIAL_COD"){
         amountToPay = Math.round(${finalAmount} / 2);

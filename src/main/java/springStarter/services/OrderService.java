@@ -64,7 +64,7 @@ public class OrderService {
 	private DelhiveryService delhiveryService;
 
 	public void placeOrder(User user, Long addressId, String paymentMethod, HttpSession session,
-	        String razorpayPaymentId, String razorpayOrderId) {
+	        String razorpayPaymentId, String razorpayOrderId, String noReturnDiscount) {
 
 	    Long buyNowItemId = (Long) session.getAttribute("buyNowItemId");
 
@@ -195,6 +195,19 @@ public class OrderService {
 	    }
 
 	    BigDecimal finalAmount = total.add(deliveryCharge);
+	    
+	    if("YES".equals(noReturnDiscount)){
+
+	        finalAmount =
+	            finalAmount.subtract(
+	                BigDecimal.valueOf(50));
+
+	        order.setNoReturnOrder(true);
+
+	    }else{
+
+	        order.setNoReturnOrder(false);
+	    }
 
 	    // ✅ SET ORDER VALUES
 	    order.setItems(orderItems);
@@ -206,9 +219,6 @@ public class OrderService {
 	    order.setCategory(category);
 
 
-	    // =========================
-	    // ✅ PAYMENT CREATE
-	    // =========================
 	    Payment payment = new Payment();
 
 	    payment.setOrder(order);
@@ -254,6 +264,7 @@ public class OrderService {
 	            System.out.println("⚠️ Razorpay Payment ID missing");
 	        }
 	    }
+	    
 	    orderRepo.save(order);
 
 	    StringBuilder items = new StringBuilder();
@@ -444,12 +455,21 @@ public class OrderService {
 			return false;
 
 		Order_item item = optionalItem.get();
+		
+		if(Boolean.TRUE.equals(
+		        item.getOrder().getNoReturnOrder())){
+
+		    return false;
+		}
 
 		if (!item.getOrder().getUser().getId().equals(userId))
 			return false;
 
 		if (!"Delivered".equals(item.getOrder().getStatus()))
 			return false;
+		
+		if (item.getOrder().getNoReturnOrder())
+		    return false;
 
 		List<ReturnRequest> existing = returnRequestRepo.findByOrderItem(item);
 

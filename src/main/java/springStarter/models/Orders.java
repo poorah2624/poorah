@@ -65,6 +65,8 @@ public class Orders {
 	private boolean canExchange;
 
     private LocalDateTime orderDate;
+    
+    private Boolean noReturnOrder = false;
 
     @PrePersist
     public void onCreate(){
@@ -271,6 +273,12 @@ public class Orders {
 	}
 	public void setAwbCode(String awbCode) {
 		this.awbCode = awbCode;
+	}
+	public Boolean getNoReturnOrder() {
+		return noReturnOrder;
+	}
+	public void setNoReturnOrder(Boolean noReturnOrder) {
+		this.noReturnOrder = noReturnOrder;
 	}
 	
 	

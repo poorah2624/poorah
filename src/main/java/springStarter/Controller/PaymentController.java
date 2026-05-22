@@ -132,6 +132,7 @@ public class PaymentController {
 	                         @RequestParam String paymentMethod,
 	                         @RequestParam(required = false) String razorpayPaymentId,
 	                         @RequestParam(required = false) String razorpayOrderId,
+	                         @RequestParam(defaultValue = "NO") String noReturnDiscount,
 	                         HttpSession session,
 	                         Model model,
 	                         RedirectAttributes redirectAttributes){
@@ -145,7 +146,7 @@ public class PaymentController {
 	    model.addAttribute("selectedAddressId", addressId);
 
 
-	    orderService.placeOrder(user, addressId, paymentMethod, session, razorpayPaymentId, razorpayOrderId);
+	    orderService.placeOrder(user, addressId, paymentMethod, session, razorpayPaymentId, razorpayOrderId, noReturnDiscount);
 	    
 	    session.removeAttribute("buyNowItemId");
 
