@@ -31,8 +31,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span
-						class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Checkout</li>
 			</ul>
 		</div>
@@ -56,22 +56,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div>
 
 				<label> <input type="radio" name="paymentMethod" value="UPI"
-					onclick="showOption('upi')"> Online
+					onclick="showOption('upi')"> Pay Full Amount Online
+				</label> <br> <br> <label> <input type="radio"
+					name="paymentMethod" value="PARTIAL_COD"
+					onclick="showOption('partial_cod')"> Pay 50% Now & 50% On
+					Delivery
 				</label>
-
-				<!-- COD -->
-				<!--  <label> <input type="radio" name="paymentMethod" value="COD"
-					onclick="showOption('cod')" checked> Cash on Delivery
-				</label> -->
 
 			</div>
 
 			<hr>
 
-
-			<!-- COD SECTION -->
-			<div id="codBox">
-				<p>Pay cash at the time of delivery.</p>
+			<div id="partial_codBox" style="display: none;">
+				<p>Pay only 50% now. Remaining 50% will be collected at
+					delivery.</p>
 			</div>
 
 			<br>
@@ -89,10 +87,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script>
 	function showOption(type){
 
-	    if(type === 'cod'){
-	        document.getElementById("codBox").style.display = "block";
+	    if(type === 'partial_cod'){
+	        document.getElementById("partial_codBox").style.display = "block";
 	    } else {
-	        document.getElementById("codBox").style.display = "none";
+	        document.getElementById("partial_codBox").style.display = "none";
 	    }
 	}
 </script>
@@ -103,30 +101,38 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<script>
 
-function handlePayment(){
+	function handlePayment(){
 
-    var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+	    var selected =
+	        document.querySelector('input[name="paymentMethod"]:checked');
 
-    /* if(paymentMethod === "COD"){
-        document.getElementById("paymentForm").action = "/orderPlaced";
-        document.getElementById("paymentForm").method = "post";
-        document.getElementById("paymentForm").submit();
-    } 
-    else { */
-        payNow(); // Razorpay call
-    /* } */
-}
+	    if(!selected){
+	        alert("Please select payment method");
+	        return;
+	    }
+
+	    payNow();
+	}
 
 
 // ✅ Separate function
 function payNow() {
+
+    var paymentMethod =
+        document.querySelector('input[name="paymentMethod"]:checked').value;
+
+    var amountToPay = Math.round(${finalAmount});
+
+    if(paymentMethod === "PARTIAL_COD"){
+        amountToPay = Math.round(${finalAmount} / 2);
+    }
 
     fetch("/create-order", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: "amount=" +Math.round(${finalAmount})
+        body: "amount=" + amountToPay
     })
     .then(res => res.json())
     .then(data => {
@@ -139,23 +145,20 @@ function payNow() {
             description: "Order Payment",
             order_id: data.id,
 
-            handler: function (response){
+            handler: function(response){
 
                 var form = document.getElementById("paymentForm");
 
-                // payment method
                 var methodInput = document.createElement("input");
                 methodInput.type = "hidden";
                 methodInput.name = "paymentMethod";
-                methodInput.value = "ONLINE";
+                methodInput.value = paymentMethod;
 
-                // paymentId
                 var paymentIdInput = document.createElement("input");
                 paymentIdInput.type = "hidden";
                 paymentIdInput.name = "razorpayPaymentId";
                 paymentIdInput.value = response.razorpay_payment_id;
 
-                // orderId
                 var orderIdInput = document.createElement("input");
                 orderIdInput.type = "hidden";
                 orderIdInput.name = "razorpayOrderId";

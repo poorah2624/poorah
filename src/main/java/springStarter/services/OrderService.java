@@ -216,14 +216,28 @@ public class OrderService {
 
 	    payment.setPaymentMethod(paymentMethod);
 	    payment.setPaymentDate(LocalDateTime.now());
-	    payment.setAmount(finalAmount); 
+	    //payment.setAmount(finalAmount); 
+	    
+	    if ("PARTIAL_COD".equals(paymentMethod)) {
 
-	    if ("COD".equals(paymentMethod)) {
+	        BigDecimal advanceAmount = finalAmount.divide(
+	                BigDecimal.valueOf(2),
+	                0,
+	                RoundingMode.HALF_UP);
 
-	        payment.setPaymentStatus("Pending");
+	        payment.setAmount(advanceAmount);
 
-	        order.setPaymentMethod("COD");
-	        order.setPaymentStatus("Pending");
+	    } else {
+
+	        payment.setAmount(finalAmount);
+	    }
+
+	    if ("PARTIAL_COD".equals(paymentMethod)) {
+
+	        payment.setPaymentStatus("Partially Paid");
+
+	        order.setPaymentMethod("PARTIAL_COD");
+	        order.setPaymentStatus("Partially Paid");
 
 	    } else {
 
@@ -315,9 +329,17 @@ public class OrderService {
 	        }
 	    }
 
-	    if ("Delivered".equalsIgnoreCase(status)) {
-	        order.setPaymentStatus("Paid");
-	    }
+		if ("Delivered".equalsIgnoreCase(status)) {
+
+		    if ("PARTIAL_COD".equals(order.getPaymentMethod())) {
+
+		        order.setPaymentStatus("COD Partial");
+
+		    } else {
+
+		        order.setPaymentStatus("Paid");
+		    }
+		}
 
 	    if ("Cancelled".equalsIgnoreCase(status)) {
 	        order.setPaymentStatus("Cancelled");
