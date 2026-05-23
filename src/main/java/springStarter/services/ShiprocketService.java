@@ -1,5 +1,7 @@
 package springStarter.services;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,14 +126,25 @@ public class ShiprocketService {
 
             body.put("order_items", items);
 
-            if (order.getPaymentStatus().equals("PAID")) {
+            if ("Paid".equalsIgnoreCase(order.getPaymentStatus())) {
+                
                 body.put("payment_method", "Prepaid");
-            } else {
-                body.put("payment_method", "COD");
-            }
+                body.put("sub_total", order.getTotalAmount()); 
 
-            body.put("sub_total",
-                    order.getTotalAmount());
+            } else if ("Partially Paid".equalsIgnoreCase(order.getPaymentStatus())) {
+                
+                body.put("payment_method", "COD");
+               
+                BigDecimal collectableAmount = order.getTotalAmount().multiply(new BigDecimal("0.6"))
+                        .setScale(0, RoundingMode.HALF_UP);
+                        
+                body.put("sub_total", collectableAmount); 
+
+            } else {
+               
+                body.put("payment_method", "COD");
+                body.put("sub_total", order.getTotalAmount());
+            }
 
             body.put("length", 10);
             body.put("breadth", 10);

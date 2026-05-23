@@ -224,21 +224,10 @@ public class OrderService {
 	    //payment.setAmount(finalAmount); 
 	    
 	    if ("PARTIAL_COD".equals(paymentMethod)) {
-
-	        BigDecimal advanceAmount = finalAmount.divide(
-	                BigDecimal.valueOf(2),
-	                0,
-	                RoundingMode.HALF_UP);
+	    	BigDecimal advanceAmount = finalAmount.multiply(new BigDecimal("0.4"))
+	                .setScale(0, RoundingMode.HALF_UP);
 
 	        payment.setAmount(advanceAmount);
-
-	    } else {
-
-	        payment.setAmount(finalAmount);
-	    }
-
-	    if ("PARTIAL_COD".equals(paymentMethod)) {
-
 	        payment.setPaymentStatus("Partially Paid");
 
 	        order.setPaymentMethod("PARTIAL_COD");
@@ -246,19 +235,21 @@ public class OrderService {
 
 	    } else {
 
+	    	payment.setAmount(finalAmount);
+	        
 	        if (razorpayPaymentId != null && !razorpayPaymentId.isEmpty()) {
-
 	            payment.setRazorpayPaymentId(razorpayPaymentId);
 	            payment.setRazorpayOrderId(razorpayOrderId);
 	            payment.setPaymentStatus("Paid");
 
 	            order.setPaymentMethod("ONLINE");
 	            order.setPaymentStatus("Paid");
-
 	        } else {
 	            System.out.println("⚠️ Razorpay Payment ID missing");
 	        }
 	    }
+
+	    
 	    
 	    orderRepo.save(order);
 
