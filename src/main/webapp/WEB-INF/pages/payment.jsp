@@ -139,12 +139,11 @@ function payNow() {
         );
 
     if(checkbox.checked){
-
         amountToPay = amountToPay - 50;
     }
 
     if(paymentMethod === "PARTIAL_COD"){
-        amountToPay = Math.round(${finalAmount} / 2);
+        amountToPay = Math.round(amountToPay / 2);
     }
 
     fetch("/create-order", {

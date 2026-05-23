@@ -196,14 +196,9 @@ public class OrderService {
 
 	    BigDecimal finalAmount = total.add(deliveryCharge);
 	    
-	    if("YES".equals(noReturnDiscount)){
-
-	        finalAmount =
-	            finalAmount.subtract(
-	                BigDecimal.valueOf(50));
-
+	    if("YES".equals(noReturnDiscount)) {
+	        finalAmount = finalAmount.subtract(BigDecimal.valueOf(50));
 	        order.setNoReturnOrder(true);
-
 	    }else{
 
 	        order.setNoReturnOrder(false);
