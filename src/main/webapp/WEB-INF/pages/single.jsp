@@ -106,23 +106,7 @@
 			<div class="col-md-8 single-right">
 				<h3>${item.itemName}</h3>
 
-				<div class="description">
-					<h5>
-						<i>Description</i>
-					</h5>
-					<p>${item.itemDesc}</p>
-				</div>
-				<div class="keyFeatures">
-					<h5>
-						<i>Key Features</i>
-					</h5>
-
-					<ul>
-						<c:forTokens items="${item.keyFeatures}" delims="." var="feature">
-							<li>${feature}</li>
-						</c:forTokens>
-					</ul>
-				</div>
+				
 
 				<div class="color-quality">
 					<div class="color-quality-left" style="width: 100%;">
@@ -313,6 +297,23 @@
 
 				</div>
 				<div class="clearfix"></div>
+				<div class="description">
+					<h5>
+						<i>Description</i>
+					</h5>
+					<p>${item.itemDesc}</p>
+				</div>
+				<div class="keyFeatures">
+					<h5>
+						<i>Key Features</i>
+					</h5>
+
+					<ul>
+						<c:forTokens items="${item.keyFeatures}" delims="." var="feature">
+							<li>${feature}</li>
+						</c:forTokens>
+					</ul>
+				</div>
 			</div>
 		</div>
 
@@ -323,13 +324,13 @@
 					<div id="horizontalTab1"
 						style="display: block; width: 100%; margin: 0px;">
 						<ul class="resp-tabs-list">
-							<li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Product
-									Specification</span></li>
+							<!--  <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Product
+									Specification</span></li> -->
 							<li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Reviews</span></li>
 						</ul>
 
 						<div class="resp-tabs-container">
-							<div class="tab-1 resp-tab-content additional_info_grid"
+							<!--  <div class="tab-1 resp-tab-content additional_info_grid"
 								aria-labelledby="tab_item-0">
 								<h3>${item.itemName}</h3>
 								<table class="table table-bordered">
@@ -358,7 +359,7 @@
 										<td>${item.itemDesc}</td>
 									</tr>
 								</table>
-							</div>
+							</div>  -->
 
 							<div class="tab-2 resp-tab-content additional_info_grid"
 								aria-labelledby="tab_item-1">
