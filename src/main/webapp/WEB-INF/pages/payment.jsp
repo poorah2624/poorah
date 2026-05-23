@@ -19,13 +19,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- header -->
 	<%@include file="header1.jsp"%>
 	<!-- //header -->
-	<!-- banner -->
-	<!--  <div class="banner10" id="home1">
-		<div class="container">
-			<h2>Payment Page</h2>
-		</div>
-	</div> -->
-	<!-- //banner -->
 
 	<!-- breadcrumbs -->
 	<div class="breadcrumb_dress">
@@ -47,25 +40,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" />
 		</h4>
 
-		<!-- <form action="/orderPlaced" method="post"> -->
 		<form action="/payment" method="post" id="paymentForm">
 
 			<input type="hidden" name="addressId" value="${selectedAddressId}">
 
 			<!-- PAYMENT OPTIONS -->
 			<div>
-
 				<label> <input type="radio" name="paymentMethod" value="UPI"
 					onclick="showOption('upi')"> Pay Full Amount Online
-				</label> <br> <br> <label> <input type="radio"
-					name="paymentMethod" value="PARTIAL_COD"
-					onclick="showOption('partial_cod')"> Pay 50% Now & 50% On
-					Delivery
-				</label> <label> <input type="checkbox" name="noReturnDiscount"
-					value="YES"> Get ₹50 Discount (No Return After Delivery)
-				</label> <input type="hidden" id="noReturnDiscountHidden"
-					name="noReturnDiscount" value="NO">
+				</label> <br>
 
+				<div id="discountBox"
+					style="display: none; margin-left: 20px; margin-top: 10px; margin-bottom: 10px;">
+					<label> <input type="checkbox"
+						id="noReturnDiscountCheckbox" onclick="toggleDiscountValue()">
+						Get ₹50 Discount (No Return After Delivery)
+					</label>
+				</div>
+
+				<br> <label> <input type="radio" name="paymentMethod"
+					value="PARTIAL_COD" onclick="showOption('partial_cod')">
+					Pay 50% Now & 50% On Delivery
+				</label>
+
+				<input type="hidden" id="noReturnDiscountHidden"
+					name="noReturnDiscount" value="NO">
 			</div>
 
 			<hr>
@@ -87,124 +86,122 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<%@include file="footer.jsp"%>
 	<!-- //footer -->
 
-	<script>
-	function showOption(type){
-
-	    if(type === 'partial_cod'){
-	        document.getElementById("partial_codBox").style.display = "block";
-	    } else {
-	        document.getElementById("partial_codBox").style.display = "none";
-	    }
-	}
-</script>
-
 	<!-- payment gateway -->
-
 	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 	<script>
 
-	function handlePayment(){
+	function showOption(type){
+	    var partialBox = document.getElementById("partial_codBox");
+	    var discountBox = document.getElementById("discountBox");
+	    var discountCheckbox = document.getElementById("noReturnDiscountCheckbox");
+	    var discountHidden = document.getElementById("noReturnDiscountHidden");
 
-	    var selected =
-	        document.querySelector('input[name="paymentMethod"]:checked');
+	    if(type === 'partial_cod'){
+	        partialBox.style.display = "block";
+	        discountBox.style.display = "none";    
+	        discountCheckbox.checked = false; 
+	        discountHidden.value = "NO";  
+	    } else {
+	        partialBox.style.display = "none";
+	        discountBox.style.display = "block"; 
+	    }
+	}
+
+	function toggleDiscountValue() {
+	    var checkbox = document.getElementById("noReturnDiscountCheckbox");
+	    var hiddenInput = document.getElementById("noReturnDiscountHidden");
+	    if(checkbox.checked) {
+	        hiddenInput.value = "YES";
+	    } else {
+	        hiddenInput.value = "NO";
+	    }
+	}
+
+	function handlePayment(){
+	    var selected = document.querySelector('input[name="paymentMethod"]:checked');
 
 	    if(!selected){
 	        alert("Please select payment method");
 	        return;
 	    }
 	    
-	    var checkbox = document.querySelector('input[name="noReturnDiscount"]');
-
-	    if(checkbox.checked){
-            document.getElementById("noReturnDiscountHidden").value = "YES";
-	    }
-
-
+	
 	    payNow();
 	}
 
+	function payNow() {
+	    var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+	    var amountToPay = Math.round(${finalAmount});
+	    var checkbox = document.getElementById("noReturnDiscountCheckbox");
 
-// ✅ Separate function
-function payNow() {
+	    if(paymentMethod === "UPI" && checkbox.checked){
+	        amountToPay = amountToPay - 50;
+	    }
 
-    var paymentMethod =
-        document.querySelector('input[name="paymentMethod"]:checked').value;
+	
+	    if(paymentMethod === "PARTIAL_COD"){
+	        amountToPay = Math.round(amountToPay / 2);
+	    }
 
-    var amountToPay = Math.round(${finalAmount});
-    
-    var checkbox =
-        document.querySelector(
-            'input[name="noReturnDiscount"]'
-        );
+	    fetch("/create-order", {
+	        method: "POST",
+	        headers: {
+	            "Content-Type": "application/x-www-form-urlencoded"
+	        },
+	        body: "amount=" + amountToPay
+	    })
+	    .then(res => res.json())
+	    .then(data => {
 
-    if(checkbox.checked){
-        amountToPay = amountToPay - 50;
-    }
+	        var options = {
+	            key: "rzp_live_SjF1cX3eDU1byW", 
+	            amount: data.amount,
+	            currency: "INR",
+	            name: "PooRah",
+	            description: "Order Payment",
+	            order_id: data.id,
 
-    if(paymentMethod === "PARTIAL_COD"){
-        amountToPay = Math.round(amountToPay / 2);
-    }
+	            handler: function(response){
+	                var form = document.getElementById("paymentForm");
 
-    fetch("/create-order", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: "amount=" + amountToPay
-    })
-    .then(res => res.json())
-    .then(data => {
+	            
+	                var oldMethod = form.querySelector('input[type="hidden"][name="paymentMethod"]');
+	                if(oldMethod) oldMethod.remove();
 
-        var options = {
-            key: "rzp_live_SjF1cX3eDU1byW",
-            amount: data.amount,
-            currency: "INR",
-            name: "PooRah",
-            description: "Order Payment",
-            order_id: data.id,
+	                var methodInput = document.createElement("input");
+	                methodInput.type = "hidden";
+	                methodInput.name = "paymentMethod";
+	                methodInput.value = paymentMethod;
 
-            handler: function(response){
+	                var paymentIdInput = document.createElement("input");
+	                paymentIdInput.type = "hidden";
+	                paymentIdInput.name = "razorpayPaymentId";
+	                paymentIdInput.value = response.razorpay_payment_id;
 
-                var form = document.getElementById("paymentForm");
+	                var orderIdInput = document.createElement("input");
+	                orderIdInput.type = "hidden";
+	                orderIdInput.name = "razorpayOrderId";
+	                orderIdInput.value = response.razorpay_order_id;
 
-                var methodInput = document.createElement("input");
-                methodInput.type = "hidden";
-                methodInput.name = "paymentMethod";
-                methodInput.value = paymentMethod;
+	                form.appendChild(methodInput);
+	                form.appendChild(paymentIdInput);
+	                form.appendChild(orderIdInput);
 
-                var paymentIdInput = document.createElement("input");
-                paymentIdInput.type = "hidden";
-                paymentIdInput.name = "razorpayPaymentId";
-                paymentIdInput.value = response.razorpay_payment_id;
+	                form.action = "/orderPlaced";
+	                form.method = "post";
+	                form.submit();
+	            },
 
-                var orderIdInput = document.createElement("input");
-                orderIdInput.type = "hidden";
-                orderIdInput.name = "razorpayOrderId";
-                orderIdInput.value = response.razorpay_order_id;
+	            theme: {
+	                color: "#ff3f6c"
+	            }
+	        };
 
-                form.appendChild(methodInput);
-                form.appendChild(paymentIdInput);
-                form.appendChild(orderIdInput);
-
-                form.action = "/orderPlaced";
-                form.method = "post";
-                form.submit();
-            },
-
-            theme: {
-                color: "#ff3f6c"
-            }
-        };
-
-        var rzp = new Razorpay(options);
-        rzp.open();
-    });
-}
-
-</script>
-
-
-
+	        var rzp = new Razorpay(options);
+	        rzp.open();
+	    });
+	}
+	</script>
 </body>
 </html>
