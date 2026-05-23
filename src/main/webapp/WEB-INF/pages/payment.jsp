@@ -214,9 +214,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	    var hiddenInput = document.getElementById("noReturnDiscountHidden");
 	    if(checkbox.checked) {
 	        hiddenInput.value = "YES";
+	        triggerCelebration();
 	    } else {
 	        hiddenInput.value = "NO";
 	    }
+	}
+	
+	function triggerCelebration() {
+	    var duration = 1.5 * 1000;
+	    var end = Date.now() + duration;
+
+	    (function frame() {
+	        // बाएं और दाएं दोनों तरफ से रिबन ब्लास्ट करने के लिए
+	        confetti({
+	            particleCount: 4,
+	            angle: 60,
+	            spread: 55,
+	            origin: { x: 0, y: 0.8 },
+	            colors: ['#ff9b05', '#28a745', '#007bff', '#ff3f6c', '#e0a800']
+	        });
+	        confetti({
+	            particleCount: 4,
+	            angle: 120,
+	            spread: 55,
+	            origin: { x: 1, y: 0.8 },
+	            colors: ['#ff9b05', '#28a745', '#007bff', '#ff3f6c', '#e0a800']
+	        });
+
+	        if (Date.now() < end) {
+	            requestAnimationFrame(frame);
+	        }
+	    }());
 	}
 
 	function handlePayment(){
