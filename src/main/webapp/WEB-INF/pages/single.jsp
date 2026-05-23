@@ -7,8 +7,7 @@
 <html>
 <head>
 <%@include file="head.jsp"%>
-<link rel="stylesheet" href="/css/flexslider.css" type="text/css"
-	media="screen" />
+<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
 <style>
 /* --- Modern E-commerce Product Page Layout --- */
 body {
@@ -28,40 +27,41 @@ body {
 	margin-bottom: 30px;
 }
 
-/* --- Anti-Squeeze Professional Image Viewer --- */
+/* --- Anti-Squeeze Professional Image Viewer Fix --- */
 .gallery-wrapper {
 	position: relative;
 	border: 1px solid #f0f0f0;
 	border-radius: 12px;
 	background: #fff;
+	overflow: hidden;
 }
 
 .thumb-image {
-	width: 100%;
-	height: 480px; /* फिक्स्ड हाइट ताकि लेआउट न हिले */
-	overflow: hidden;
+	width: 100% !important;
+	height: 500px !important; /* फिक्स्ड हाइट फ्रेम */
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	background: #fff !important;
 	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #fff;
 }
 
 #mainProductImg {
-	max-height: 100%;
-	max-width: 100%;
+	max-height: 100% !important;
+	max-width: 100% !important;
 	width: auto !important;
 	height: auto !important;
-	object-fit: contain !important;
-	/* इमेज का ओरिजिनल रेशियो कभी नहीं बिगड़ेगा */
+	object-fit: contain !important; /* आस्पेक्ट रेशियो लॉक */
 	margin: 0 auto;
 	display: block;
 }
 
-/* इमेज ज़ूम को सिकुड़ने से रोकने के लिए */
+/* इमेज ज़ूम को सिकुड़ने से रोकने के लिए सबसे ज़रूरी फिक्स */
 .zoomImg {
-	background-color: #fff;
-	object-fit: contain !important;
+	background-color: #fff !important;
+	object-fit: contain !important; /* ज़ूम लेंस के अंदर भी इमेज का अनुपात सही रहेगा */
+	width: auto !important;
+	height: auto !important;
 }
 
 /* --- Typography & Badges --- */
@@ -148,11 +148,11 @@ body {
 
 /* Size Active Hide/Show Control */
 .size-wrapper {
-	display: none;
+	display: none !important;
 }
 
 .size-wrapper.active {
-	display: block; /* सिर्फ एक्टिव कलर के साइज दिखेंगे */
+	display: block !important; /* सिर्फ एक्टिव कलर के साइज दिखेंगे */
 }
 
 /* Size Radio Styles */
@@ -276,13 +276,11 @@ body {
 	<%@include file="header1.jsp"%>
 
 	<c:if test="${not empty defaultAddress}">
-		<div
-			style="background: #e9ecef; padding: 12px 0; border-bottom: 1px solid #dee2e6;">
+		<div style="background: #e9ecef; padding: 12px 0; border-bottom: 1px solid #dee2e6;">
 			<div class="container" style="font-size: 14px; color: #495057;">
 				<span class="glyphicon glyphicon-map-marker" style="color: #ff9b05;"></span>
-				<b>Deliver to:</b> ${defaultAddress.fullName},
-				${defaultAddress.pincode} <a href="/address"
-					style="margin-left: 15px; color: #ff9b05; font-weight: 600;">Change</a>
+				<b>Deliver to:</b> ${defaultAddress.fullName}, ${defaultAddress.pincode} 
+				<a href="/address" style="margin-left: 15px; color: #ff9b05; font-weight: 600;">Change</a>
 			</div>
 		</div>
 	</c:if>
@@ -291,8 +289,7 @@ body {
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span class="glyphicon glyphicon-home"
-						aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Product Detail</li>
 			</ul>
 		</div>
@@ -308,22 +305,16 @@ body {
 					<div class="gallery-wrapper">
 						<div class="flexslider" id="productFlexSlider">
 							<ul class="slides">
-								<li data-thumb="${fn:split(item.itemImage, ',')[0]}"
-									id="mainDisplayLi">
+								<li data-thumb="${fn:split(item.itemImage, ',')[0]}" id="mainDisplayLi">
 									<div class="thumb-image">
-										<!-- पुराना डेटा-इमेजज़ूम प्लगइन वापस लगा दिया गया है -->
-										<img src="${fn:split(item.itemImage, ',')[0]}"
-											id="mainProductImg" data-imagezoom="true"
-											class="img-responsive">
+										<img src="${fn:split(item.itemImage, ',')[0]}" id="mainProductImg" data-imagezoom="true" class="img-responsive">
 									</div>
 								</li>
-								<c:forEach var="img" items="${fn:split(item.itemImage, ',')}"
-									varStatus="loop">
+								<c:forEach var="img" items="${fn:split(item.itemImage, ',')}" varStatus="loop">
 									<c:if test="${!loop.first}">
 										<li data-thumb="${img}">
 											<div class="thumb-image">
-												<img src="${img}" data-imagezoom="true"
-													class="img-responsive">
+												<img src="${img}" data-imagezoom="true" class="img-responsive">
 											</div>
 										</li>
 									</c:if>
@@ -339,24 +330,16 @@ body {
 
 					<!-- Pricing Details Container -->
 					<div class="price-box">
-						<div class="final-price">
-							₹
-							<fmt:formatNumber value="${item.discountedPrice}"
-								maxFractionDigits="0" />
-							/-
-						</div>
-						<span class="old-price">₹<fmt:formatNumber
-								value="${item.itemPrice}" maxFractionDigits="0" />/-
-						</span> <span class="discount-badge">${fn:split(item.discount, '.')[0]}%
-							OFF</span>
+						<div class="final-price">₹<fmt:formatNumber value="${item.discountedPrice}" maxFractionDigits="0" />/-</div>
+						<span class="old-price">₹<fmt:formatNumber value="${item.itemPrice}" maxFractionDigits="0" />/-</span> 
+						<span class="discount-badge">${fn:split(item.discount, '.')[0]}% OFF</span>
 					</div>
 
 					<div class="color-quality">
 						<div class="color-quality-left" style="width: 100%;">
 
 							<!-- Variants Check Logic -->
-							<c:if
-								test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') && not empty item.variants}">
+							<c:if test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') && not empty item.variants}">
 
 								<!-- 1. COLOR SELECTION SECTION -->
 								<div style="margin-bottom: 25px;">
@@ -371,83 +354,65 @@ body {
 
 								<!-- 2. SIZE SELECTION SECTION -->
 								<div style="margin-bottom: 15px;">
-									<span class="section-title">Select Size</span> <a
-										href="javascript:void(0);" class="size-chart-link"
-										onclick="openSizeChart()"> <span
-										class="glyphicon glyphicon-list-alt"></span> Size Chart
+									<span class="section-title">Select Size</span> 
+									<a href="javascript:void(0);" class="size-chart-link" onclick="openSizeChart()"> 
+										<span class="glyphicon glyphicon-list-alt"></span> Size Chart
 									</a>
 								</div>
 
 								<div class="size-options-container" style="margin-bottom: 25px;">
 									<c:forEach var="v" items="${item.variants}" varStatus="status">
-										<!-- यहाँ ID को फिक्स किया गया है (sizeWrapper_${status.index}) ताकि साइज रिपीट न हों -->
-										<div id="sizeWrapper_${status.index}"
-											class="size-wrapper ${status.first ? 'active' : ''}">
+										<div id="sizeWrapper_${status.index}" class="size-wrapper ${status.first ? 'active' : ''}">
 
 											<c:set var="stockStr" value="${v.variantStock}" />
-											<c:set var="sQty"
-												value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
-											<c:set var="mQty"
-												value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
-											<c:set var="lQty"
-												value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
-											<c:set var="xlQty"
-												value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
-											<c:set var="xxlQty"
-												value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
+											<c:set var="sQty" value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
+											<c:set var="mQty" value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
+											<c:set var="lQty" value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
+											<c:set var="xlQty" value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
+											<c:set var="xxlQty" value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
 
 											<!-- S Size Card -->
-											<label
-												class="size-option-label ${sQty == '0' ? 'disabled-size' : ''}">
-												<input type="radio" name="selectedSize" value="S"
-												${sQty == '0' ? 'disabled' : ''}> <span
-												class="size-custom-box">S</span> <c:if
-													test="${sQty > 0 && sQty <= 5}">
+											<label class="size-option-label ${sQty == '0' ? 'disabled-size' : ''}">
+												<input type="radio" name="selectedSize" value="S" ${sQty == '0' ? 'disabled' : ''}> 
+												<span class="size-custom-box">S</span> 
+												<c:if test="${sQty > 0 && sQty <= 5}">
 													<span class="stock-warning">${sQty} Left!</span>
 												</c:if>
 											</label>
 
 											<!-- M Size Card -->
-											<label
-												class="size-option-label ${mQty == '0' ? 'disabled-size' : ''}">
-												<input type="radio" name="selectedSize" value="M"
-												${mQty == '0' ? 'disabled' : ''}> <span
-												class="size-custom-box">M</span> <c:if
-													test="${mQty > 0 && mQty <= 5}">
+											<label class="size-option-label ${mQty == '0' ? 'disabled-size' : ''}">
+												<input type="radio" name="selectedSize" value="M" ${mQty == '0' ? 'disabled' : ''}> 
+												<span class="size-custom-box">M</span> 
+												<c:if test="${mQty > 0 && mQty <= 5}">
 													<span class="stock-warning">${mQty} Left!</span>
 												</c:if>
 											</label>
 
 											<!-- L Size Card -->
-											<label
-												class="size-option-label ${lQty == '0' ? 'disabled-size' : ''}">
-												<input type="radio" name="selectedSize" value="L"
-												${lQty == '0' ? 'disabled' : ''}> <span
-												class="size-custom-box">L</span> <c:if
-													test="${lQty > 0 && lQty <= 5}">
+											<label class="size-option-label ${lQty == '0' ? 'disabled-size' : ''}">
+												<input type="radio" name="selectedSize" value="L" ${lQty == '0' ? 'disabled' : ''}> 
+												<span class="size-custom-box">L</span> 
+												<c:if test="${lQty > 0 && lQty <= 5}">
 													<span class="stock-warning">${lQty} Left!</span>
 												</c:if>
 											</label>
 
 											<!-- XL Size Card -->
-											<label
-												class="size-option-label ${xlQty == '0' ? 'disabled-size' : ''}">
-												<input type="radio" name="selectedSize" value="XL"
-												${xlQty == '0' ? 'disabled' : ''}> <span
-												class="size-custom-box">XL</span> <c:if
-													test="${xlQty > 0 && xlQty <= 5}">
+											<label class="size-option-label ${xlQty == '0' ? 'disabled-size' : ''}">
+												<input type="radio" name="selectedSize" value="XL" ${xlQty == '0' ? 'disabled' : ''}> 
+												<span class="size-custom-box">XL</span> 
+												<c:if test="${xlQty > 0 && xlQty <= 5}">
 													<span class="stock-warning">${xlQty} Left!</span>
 												</c:if>
 											</label>
 
 											<!-- XXL Size Card -->
 											<c:if test="${not empty xxlQty}">
-												<label
-													class="size-option-label ${xxlQty eq '0' ? 'disabled-size' : ''}">
-													<input type="radio" name="selectedSize" value="XXL"
-													${xxlQty eq '0' ? 'disabled' : ''}> <span
-													class="size-custom-box">XXL</span> <c:if
-														test="${xxlQty > 0 && xxlQty <= 5}">
+												<label class="size-option-label ${xxlQty eq '0' ? 'disabled-size' : ''}">
+													<input type="radio" name="selectedSize" value="XXL" ${xxlQty eq '0' ? 'disabled' : ''}> 
+													<span class="size-custom-box">XXL</span> 
+													<c:if test="${xxlQty > 0 && xxlQty <= 5}">
 														<span class="stock-warning">${xxlQty} Left!</span>
 													</c:if>
 												</label>
@@ -458,10 +423,8 @@ body {
 							</c:if>
 
 							<c:if test="${empty item.variants}">
-								<div
-									style="margin-bottom: 20px; color: #27ae60; font-weight: bold; font-size: 16px;">
-									<span class="glyphicon glyphicon-ok-sign"></span> In Stock
-									(Ready to dispatch)
+								<div style="margin-bottom: 20px; color: #27ae60; font-weight: bold; font-size: 16px;">
+									<span class="glyphicon glyphicon-ok-sign"></span> In Stock (Ready to dispatch)
 								</div>
 							</c:if>
 						</div>
@@ -473,24 +436,17 @@ body {
 									<c:when test="${not empty sessionScope.LoggedInUser}">
 										<c:choose>
 											<c:when test="${item.inCart}">
-												<button onclick="goToCart()"
-													class="btn btn-custom btn-success-go">Go to Cart</button>
+												<button onclick="goToCart()" class="btn btn-custom btn-success-go">Go to Cart</button>
 											</c:when>
 											<c:otherwise>
-												<button
-													onclick="handleCartAction('add', ${item.itemId}, this)"
-													class="btn btn-custom btn-add-cart">Add to Cart</button>
-												<button
-													onclick="handleCartAction('buy', ${item.itemId}, this)"
-													class="btn btn-custom btn-buy-now">Buy Now</button>
+												<button onclick="handleCartAction('add', ${item.itemId}, this)" class="btn btn-custom btn-add-cart">Add to Cart</button>
+												<button onclick="handleCartAction('buy', ${item.itemId}, this)" class="btn btn-custom btn-buy-now">Buy Now</button>
 											</c:otherwise>
 										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<a class="btn btn-custom btn-buy-now text-center"
-											style="line-height: 24px;"
-											onclick="alert('Please login first to manage shopping cart operations.'); return false;"
-											href="/login">Add to cart</a>
+										<a class="btn btn-custom btn-buy-now text-center" style="line-height: 24px;"
+											onclick="alert('Please login first to manage shopping cart operations.'); return false;" href="/login">Add to cart</a>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -498,25 +454,19 @@ body {
 							<!-- Policy Guard Alert -->
 							<div class="trust-banner">
 								<b style="font-size: 15px;">↩️ 5 Days Easy Returns Available</b>
-								<small style="display: block; color: #555; margin-top: 4px;">
-									No returns applicable if purchased using "No Return Discount
-									Offer". </small>
+								<small style="display: block; color: #555; margin-top: 4px;">No returns applicable if purchased using "No Return Discount Offer". </small>
 							</div>
 
 							<!-- Pincode Checker UI Section -->
 							<div class="pincode-section">
-								<div class="section-title" style="font-size: 12px;">Check
-									Delivery Availability</div>
+								<div class="section-title" style="font-size: 12px;">Check Delivery Availability</div>
 								<div class="input-group" style="width: 280px; margin-top: 8px;">
-									<input type="text" id="pincode"
-										placeholder="Enter 6-digit Pincode" class="form-control"
-										maxlength="6" /> <span class="input-group-btn">
-										<button onclick="checkDelivery()" class="btn btn-default"
-											style="background: #333; color: #fff; border-color: #333;">Check</button>
+									<input type="text" id="pincode" placeholder="Enter 6-digit Pincode" class="form-control" maxlength="6" /> 
+									<span class="input-group-btn">
+										<button onclick="checkDelivery()" class="btn btn-default" style="background: #333; color: #fff; border-color: #333;">Check</button>
 									</span>
 								</div>
-								<i id="deliveryResult"
-									style="margin-top: 10px; display: inline-block; font-weight: 600; color: #2c3e50;"></i>
+								<i id="deliveryResult" style="margin-top: 10px; display: inline-block; font-weight: 600; color: #2c3e50;"></i>
 							</div>
 						</div>
 
@@ -528,21 +478,15 @@ body {
 			<div class="product-container-card row" style="margin-top: 20px;">
 				<div class="col-xs-12">
 					<div class="description" style="margin-bottom: 25px;">
-						<h4
-							style="font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff9b05; padding-bottom: 8px; display: inline-block;">Product
-							Overview</h4>
-						<p
-							style="margin-top: 15px; line-height: 1.8; color: #555; font-size: 15px;">${item.itemDesc}</p>
+						<h4 style="font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff9b05; padding-bottom: 8px; display: inline-block;">Product Overview</h4>
+						<p style="margin-top: 15px; line-height: 1.8; color: #555; font-size: 15px;">${item.itemDesc}</p>
 					</div>
 					<div class="keyFeatures">
-						<h4
-							style="font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff9b05; padding-bottom: 8px; display: inline-block;">Product
-							Specifications</h4>
+						<h4 style="font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff9b05; padding-bottom: 8px; display: inline-block;">Product Specifications</h4>
 						<ul style="margin-top: 15px; padding-left: 20px; line-height: 2;">
 							<c:forTokens items="${item.keyFeatures}" delims="." var="feature">
 								<c:if test="${not empty fn:trim(feature)}">
-									<li
-										style="color: #555; font-size: 14px; list-style-type: square;">${feature}</li>
+									<li style="color: #555; font-size: 14px; list-style-type: square;">${feature}</li>
 								</c:if>
 							</c:forTokens>
 						</ul>
@@ -554,22 +498,16 @@ body {
 			<div class="product-container-card row">
 				<div class="col-xs-12">
 					<div class="sap_tabs">
-						<div id="horizontalTab1"
-							style="display: block; width: 100%; margin: 0px;">
-							<ul class="resp-tabs-list"
-								style="border-bottom: 2px solid #eee; margin-bottom: 20px;">
-								<li class="resp-tab-item" aria-controls="tab_item-1" role="tab"
-									style="font-weight: 700; font-size: 16px;">Customer
-									Reviews (${fn:length(reviews)})</li>
+						<div id="horizontalTab1" style="display: block; width: 100%; margin: 0px;">
+							<ul class="resp-tabs-list" style="border-bottom: 2px solid #eee; margin-bottom: 20px;">
+								<li class="resp-tab-item" aria-controls="tab_item-1" role="tab" style="font-weight: 700; font-size: 16px;">Customer Reviews (${fn:length(reviews)})</li>
 							</ul>
 
 							<div class="resp-tabs-container">
 								<div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
-									<div class="additional_info_sub_grids"
-										style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+									<div class="additional_info_sub_grids" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
 										<c:forEach var="r" items="${reviews}">
-											<div class="row"
-												style="margin-bottom: 15px; border-bottom: 1px solid #f5f5f5; padding-bottom: 15px;">
+											<div class="row" style="margin-bottom: 15px; border-bottom: 1px solid #f5f5f5; padding-bottom: 15px;">
 												<div class="col-md-9">
 													<h5 style="font-weight: 700; margin: 0 0 5px 0;">
 														<c:choose>
@@ -577,59 +515,47 @@ body {
 															<c:otherwise>${r.guestName}</c:otherwise>
 														</c:choose>
 													</h5>
-													<small class="text-muted" style="font-size: 11px;">Published
-														on ${r.createdAt}</small>
+													<small class="text-muted" style="font-size: 11px;">Published on ${r.createdAt}</small>
 													<p style="margin-top: 8px; color: #555; font-size: 14px;">${r.message}</p>
 												</div>
 												<div class="col-md-3 text-right">
 													<c:forEach begin="1" end="5" var="step">
-														<span
-															style="color: ${step <= r.rating ? '#ffc107' : '#e0e0e0'}; font-size: 16px;">★</span>
+														<span style="color: ${step <= r.rating ? '#ffc107' : '#e0e0e0'}; font-size: 16px;">★</span>
 													</c:forEach>
 												</div>
 											</div>
 										</c:forEach>
 										<c:if test="${empty reviews}">
-											<p class="text-muted">No reviews yet for this product. Be
-												the first to share your experience!</p>
+											<p class="text-muted">No reviews yet for this product. Be the first to share your experience!</p>
 										</c:if>
 									</div>
 
 									<!-- Add Review Area -->
-									<div class="review_grids"
-										style="margin-top: 30px; border-top: 1px dashed #ddd; padding-top: 25px;">
-										<h4
-											style="font-weight: 700; margin-bottom: 20px; color: #2c3e50;">Write
-											a Review</h4>
+									<div class="review_grids" style="margin-top: 30px; border-top: 1px dashed #ddd; padding-top: 25px;">
+										<h4 style="font-weight: 700; margin-bottom: 20px; color: #2c3e50;">Write a Review</h4>
 										<form action="/addReview" method="post">
 											<input type="hidden" name="itemId" value="${item.itemId}">
 											<div class="row" style="margin-bottom: 15px;">
 												<c:choose>
 													<c:when test="${not empty sessionScope.LoggedInUser}">
 														<div class="col-md-6">
-															<input type="text" name="userName"
-																value="${sessionScope.LoggedInUser.userName}"
-																class="form-control" readonly
-																style="background: #f8f9fa;">
+															<input type="text" name="userName" value="${sessionScope.LoggedInUser.userName}" class="form-control" readonly style="background: #f8f9fa;">
 														</div>
 													</c:when>
 													<c:otherwise>
 														<div class="col-md-6" style="margin-bottom: 10px;">
-															<input type="text" name="guestName"
-																placeholder="Your Name" class="form-control" required>
+															<input type="text" name="guestName" placeholder="Your Name" class="form-control" required>
 														</div>
 														<div class="col-md-6">
-															<input type="email" name="guestEmail"
-																placeholder="Your Email Address" class="form-control"
-																required>
+															<input type="email" name="guestEmail" placeholder="Your Email Address" class="form-control" required>
 														</div>
 													</c:otherwise>
 												</c:choose>
 											</div>
 
 											<div class="form-group">
-												<label>Select Rating:</label> <select name="rating"
-													class="form-control" style="width: 180px;" required>
+												<label>Select Rating:</label> 
+												<select name="rating" class="form-control" style="width: 180px;" required>
 													<option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
 													<option value="4">⭐⭐⭐⭐ (4/5)</option>
 													<option value="3">⭐⭐⭐ (3/5)</option>
@@ -639,13 +565,9 @@ body {
 											</div>
 
 											<div class="form-group">
-												<textarea name="message"
-													placeholder="Share your experience with this product..."
-													class="form-control" rows="4" required></textarea>
+												<textarea name="message" placeholder="Share your experience with this product..." class="form-control" rows="4" required></textarea>
 											</div>
-											<input type="submit" value="Submit Review"
-												class="btn btn-success"
-												style="padding: 10px 25px; font-weight: 700;">
+											<input type="submit" value="Submit Review" class="btn btn-success" style="padding: 10px 25px; font-weight: 700;">
 										</form>
 									</div>
 								</div>
@@ -659,17 +581,11 @@ body {
 	</div>
 
 	<!-- Premium Size Chart Modal -->
-	<div id="sizeChartModal" class="modal"
-		style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6);">
-		<div class="modal-content"
-			style="background: #fff; width: 450px; margin: 10% auto; padding: 25px; border-radius: 12px; position: relative;">
-			<span
-				style="position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #aaa;"
-				onclick="closeSizeChart()">&times;</span>
-			<h3 style="font-weight: 700; margin-bottom: 15px; color: #2c3e50;">Standard
-				Size Chart</h3>
-			<table class="table table-bordered table-striped"
-				style="margin-top: 15px;">
+	<div id="sizeChartModal" class="modal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6);">
+		<div class="modal-content" style="background: #fff; width: 450px; margin: 10% auto; padding: 25px; border-radius: 12px; position: relative;">
+			<span style="position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color: #aaa;" onclick="closeSizeChart()">&times;</span>
+			<h3 style="font-weight: 700; margin-bottom: 15px; color: #2c3e50;">Standard Size Chart</h3>
+			<table class="table table-bordered table-striped" style="margin-top: 15px;">
 				<thead style="background: #f8f9fa;">
 					<tr>
 						<th>Size</th>
@@ -678,31 +594,11 @@ body {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td><b>S</b></td>
-						<td>36</td>
-						<td>26</td>
-					</tr>
-					<tr>
-						<td><b>M</b></td>
-						<td>38</td>
-						<td>27</td>
-					</tr>
-					<tr>
-						<td><b>L</b></td>
-						<td>40</td>
-						<td>28</td>
-					</tr>
-					<tr>
-						<td><b>XL</b></td>
-						<td>42</td>
-						<td>29</td>
-					</tr>
-					<tr>
-						<td><b>XXL</b></td>
-						<td>44</td>
-						<td>30</td>
-					</tr>
+					<tr><td><b>S</b></td><td>36</td><td>26</td></tr>
+					<tr><td><b>M</b></td><td>38</td><td>27</td></tr>
+					<tr><td><b>L</b></td><td>40</td><td>28</td></tr>
+					<tr><td><b>XL</b></td><td>42</td><td>29</td></tr>
+					<tr><td><b>XXL</b></td><td>44</td><td>30</td></tr>
 				</tbody>
 			</table>
 		</div>
@@ -739,8 +635,8 @@ body {
 			$(".color-swatch").removeClass("active");
 			$(element).addClass("active");
 
-			// सिर्फ क्लिक किए गए इंडेक्स वाले साइज कंटेनर को एक्टिव करेगा
-			$(".size-wrapper").removeClass("active");
+			// सिर्फ क्लिक किए गए इंडेक्स वाले साइज कंटेनर को एक्टिव करेगा (डबल साइज रो एरर फिक्स)
+			$(".size-wrapper").removeClass("active").addClass("size-wrapper");
 			$("#sizeWrapper_" + index).addClass("active");
 			
 			$('input[name="selectedSize"]').prop('checked', false);
@@ -750,7 +646,7 @@ body {
 				$("#mainProductImg").attr("src", variantImgUrl);
 				$("#mainProductImg").attr("data-zoom-image", variantImgUrl);
 				
-				// प्लगइन इमेज ऑब्जेक्ट को री-फ्रेश करना ताकि सिकुड़े नहीं
+				// लेंस ज़ूम के अंदर इमेज को खिंचने से बचाने के लिए री-फ्रेश लॉजिक
 				if($(".zoomImg").length > 0) {
 					$(".zoomImg").attr("src", variantImgUrl); 
 				}
