@@ -311,33 +311,35 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				order_id: data.id,
 
 				handler: function(response){
-					var form = document.getElementById("paymentForm");
-				
-					var oldMethod = form.querySelector('input[type="hidden"][name="paymentMethod"]');
-					if(oldMethod) oldMethod.remove();
+				    var form = document.getElementById("paymentForm");
 
-					var methodInput = document.createElement("input");
-					methodInput.type = "hidden";
-					methodInput.name = "paymentMethod";
-					methodInput.value = paymentMethod;
+				    var existingRadios = form.querySelectorAll('input[name="paymentMethod"]');
+				    existingRadios.forEach(function(radio) {
+				        radio.remove();
+				    });
 
-					var paymentIdInput = document.createElement("input");
-					paymentIdInput.type = "hidden";
-					paymentIdInput.name = "razorpayPaymentId";
-					paymentIdInput.value = response.razorpay_payment_id;
+				    var methodInput = document.createElement("input");
+				    methodInput.type = "hidden";
+				    methodInput.name = "paymentMethod";
+				    methodInput.value = paymentMethod;
 
-					var orderIdInput = document.createElement("input");
-					orderIdInput.type = "hidden";
-					orderIdInput.name = "razorpayOrderId";
-					orderIdInput.value = response.razorpay_order_id;
+				    var paymentIdInput = document.createElement("input");
+				    paymentIdInput.type = "hidden";
+				    paymentIdInput.name = "razorpayPaymentId";
+				    paymentIdInput.value = response.razorpay_payment_id;
 
-					form.appendChild(methodInput);
-					form.appendChild(paymentIdInput);
-					form.appendChild(orderIdInput);
+				    var orderIdInput = document.createElement("input");
+				    orderIdInput.type = "hidden";
+				    orderIdInput.name = "razorpayOrderId";
+				    orderIdInput.value = response.razorpay_order_id;
 
-					form.action = "/orderPlaced";
-					form.method = "post";
-					form.submit();
+				    form.appendChild(methodInput);
+				    form.appendChild(paymentIdInput);
+				    form.appendChild(orderIdInput);
+
+				    form.action = "/orderPlaced";
+				    form.method = "post";
+				    form.submit();
 				},
 
 				theme: {
