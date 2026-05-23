@@ -83,7 +83,7 @@ body {
 .final-price {
 	font-size: 28px;
 	font-weight: 700;
-	color: #ff3f6c;
+	color: #ff9b05;
 	display: inline-block;
 }
 
@@ -129,13 +129,13 @@ body {
 }
 
 .color-swatch.active {
-	border-color: #ff3f6c;
+	border-color: #ff9b05;
 	background-color: #fff5f7;
-	color: #ff3f6c;
+	color: #ff9b05;
 }
 
 .size-chart-link {
-	color: #ff3f6c;
+	color: #ff9b05;
 	font-weight: 600;
 	text-decoration: none;
 	margin-left: 15px;
@@ -221,8 +221,8 @@ body {
 
 .btn-add-cart {
 	background: #fff;
-	border: 2px solid #ff3f6c;
-	color: #ff3f6c;
+	border: 2px solid #ff9b05;
+	color: #ff9b05;
 }
 
 .btn-add-cart:hover {
@@ -230,8 +230,8 @@ body {
 }
 
 .btn-buy-now {
-	background: #ff3f6c;
-	border: 2px solid #ff3f6c;
+	background: #ff9b05;
+	border: 2px solid #ff9b05;
 	color: #fff;
 }
 
@@ -279,10 +279,10 @@ body {
 		<div
 			style="background: #e9ecef; padding: 12px 0; border-bottom: 1px solid #dee2e6;">
 			<div class="container" style="font-size: 14px; color: #495057;">
-				<span class="glyphicon glyphicon-map-marker" style="color: #ff3f6c;"></span>
+				<span class="glyphicon glyphicon-map-marker" style="color: #ff9b05;"></span>
 				<b>Deliver to:</b> ${defaultAddress.fullName},
 				${defaultAddress.pincode} <a href="/address"
-					style="margin-left: 15px; color: #ff3f6c; font-weight: 600;">Change</a>
+					style="margin-left: 15px; color: #ff9b05; font-weight: 600;">Change</a>
 			</div>
 		</div>
 	</c:if>
@@ -529,14 +529,14 @@ body {
 				<div class="col-xs-12">
 					<div class="description" style="margin-bottom: 25px;">
 						<h4
-							style="font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff3f6c; padding-bottom: 8px; display: inline-block;">Product
+							style="font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff9b05; padding-bottom: 8px; display: inline-block;">Product
 							Overview</h4>
 						<p
 							style="margin-top: 15px; line-height: 1.8; color: #555; font-size: 15px;">${item.itemDesc}</p>
 					</div>
 					<div class="keyFeatures">
 						<h4
-							style="font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff3f6c; padding-bottom: 8px; display: inline-block;">Product
+							style="font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff9b05; padding-bottom: 8px; display: inline-block;">Product
 							Specifications</h4>
 						<ul style="margin-top: 15px; padding-left: 20px; line-height: 2;">
 							<c:forTokens items="${item.keyFeatures}" delims="." var="feature">
