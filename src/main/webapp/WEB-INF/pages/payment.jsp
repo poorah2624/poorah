@@ -120,15 +120,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	color: #fff;
 }
 
-@
-keyframes fadeIn {from { opacity:0;
-	transform: translateY(-10px);
-}
-
-to {
-	opacity: 1;
-	transform: translateY(0);
-}
+@keyframes fadeIn {
+	from { 
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 </style>
 </head>
@@ -142,8 +142,7 @@ to {
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span class="glyphicon glyphicon-home"
-						aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Checkout</li>
 			</ul>
 		</div>
@@ -152,16 +151,12 @@ to {
 
 	<div class="container">
 		<div class="payment-wrapper">
-			<h2 class="text-center"
-				style="margin-bottom: 25px; color: #333; font-weight: 700;">Select
-				Payment Method</h2>
+			<h2 class="text-center" style="margin-bottom: 25px; color: #333; font-weight: 700;">Select Payment Method</h2>
 
 			<!-- Total Amount Display -->
 			<div class="total-amount-box">
 				<h4>
-					Total Amount to Pay: <span
-						style="color: #ff9b05; font-size: 22px; float: right;">₹<fmt:formatNumber
-							value="${finalAmount}" maxFractionDigits="0" /></span>
+					Total Amount to Pay: <span style="color: #ff9b05; font-size: 22px; float: right;">₹<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" /></span>
 				</h4>
 			</div>
 
@@ -171,44 +166,32 @@ to {
 				<!-- PAYMENT OPTIONS -->
 				<div>
 					<!-- Option 1: Pay Online -->
-					<div class="payment-option-card"
-						onclick="document.getElementById('payOnlineRadio').click();">
-						<input type="radio" name="paymentMethod" value="UPI"
-							id="payOnlineRadio"
-							onclick="showOption('upi'); event.stopPropagation();"> <label
-							for="payOnlineRadio">Pay Online Securely</label>
+					<div class="payment-option-card" onclick="document.getElementById('payOnlineRadio').click();">
+						<input type="radio" name="paymentMethod" value="UPI" id="payOnlineRadio" onclick="showOption('upi'); event.stopPropagation();"> 
+						<label for="payOnlineRadio">Pay Online Securely</label>
 
 						<!-- HIGHLIGHTED DISCOUNT BOX -->
-						<div id="discountBox" style="display: none;"
-							onclick="event.stopPropagation();">
+						<div id="discountBox" style="display: none;" onclick="event.stopPropagation();">
 							<div class="discount-premium-box">
-								<label for="noReturnDiscountCheckbox"> <input
-									type="checkbox" id="noReturnDiscountCheckbox"
-									onclick="toggleDiscountValue()"> 🎉 Get Instant ₹50 Off
+								<label for="noReturnDiscountCheckbox"> 
+									<input type="checkbox" id="noReturnDiscountCheckbox" onclick="toggleDiscountValue()"> 🎉 Get Instant ₹50 Off
 									<span class="badge-discount">No Return Only Exchange</span>
 								</label>
 							</div>
 						</div>
 					</div>
 
-					<!-- Option 2: Partial COD -->
-					<div class="payment-option-card"
-						onclick="document.getElementById('partialCodRadio').click();">
-						<input type="radio" name="paymentMethod" value="PARTIAL_COD"
-							id="partialCodRadio"
-							onclick="showOption('partial_cod'); event.stopPropagation();">
-						<label for="partialCodRadio">COD : 50% Advance, Rest on
-							Delivery</label>
+					<!-- Option 2: Partial COD (40% Advance, Rest on Delivery) -->
+					<div class="payment-option-card" onclick="document.getElementById('partialCodRadio').click();">
+						<input type="radio" name="paymentMethod" value="PARTIAL_COD" id="partialCodRadio" onclick="showOption('partial_cod'); event.stopPropagation();">
+						<label for="partialCodRadio">COD : 40% Advance, Rest on Delivery</label>
 					</div>
 
 					<!-- Hidden form values for backend -->
-					<input type="hidden" id="noReturnDiscountHidden"
-						name="noReturnDiscount" value="NO">
+					<input type="hidden" id="noReturnDiscountHidden" name="noReturnDiscount" value="NO">
 				</div>
 
-				<button type="button" onclick="handlePayment()"
-					class="btn btn-success btn-block btn-confirm">Confirm &
-					Place Order</button>
+				<button type="button" onclick="handlePayment()" class="btn btn-success btn-block btn-confirm">Confirm & Place Order</button>
 			</form>
 		</div>
 	</div>
@@ -218,159 +201,153 @@ to {
 	<!-- //footer -->
 
 	<!-- 🌟 Confetti Animation Library Script CDN 🌟 -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 	<!-- payment gateway -->
 	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 	<script>
 	function showOption(type){
-	    var discountBox = document.getElementById("discountBox");
-	    var discountCheckbox = document.getElementById("noReturnDiscountCheckbox");
-	    var discountHidden = document.getElementById("noReturnDiscountHidden");
-	    
-	    document.querySelectorAll('.payment-option-card').forEach(card => {
-	        card.style.borderColor = "#e0e0e0";
-	        card.style.backgroundColor = "#ffffff";
-	    });
+		var discountBox = document.getElementById("discountBox");
+		var discountCheckbox = document.getElementById("noReturnDiscountCheckbox");
+		var discountHidden = document.getElementById("noReturnDiscountHidden");
+		
+		document.querySelectorAll('.payment-option-card').forEach(card => {
+			card.style.borderColor = "#e0e0e0";
+			card.style.backgroundColor = "#ffffff";
+		});
 
-	    if(type === 'partial_cod'){
-	        discountBox.style.display = "none";    
-	        discountCheckbox.checked = false; 
-	        discountHidden.value = "NO";  
-	        document.getElementById('partialCodRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
-	        document.getElementById('partialCodRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
-	    } else {
-	        discountBox.style.display = "block"; 
-	        document.getElementById('payOnlineRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
-	        document.getElementById('payOnlineRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
-	    }
+		if(type === 'partial_cod'){
+			discountBox.style.display = "none";    
+			discountCheckbox.checked = false; 
+			discountHidden.value = "NO";  
+			document.getElementById('partialCodRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
+			document.getElementById('partialCodRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
+		} else {
+			discountBox.style.display = "block"; 
+			document.getElementById('payOnlineRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
+			document.getElementById('payOnlineRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
+		}
 	}
 
 	function toggleDiscountValue() {
-	    var checkbox = document.getElementById("noReturnDiscountCheckbox");
-	    var hiddenInput = document.getElementById("noReturnDiscountHidden");
-	    
-	    if(checkbox.checked) {
-	        hiddenInput.value = "YES";
-	        
-	        // 🌟 इमेज जैसी कॉन्फेटी (Confetti ब्लास्ट) चलाने का फंक्शन 🌟
-	        triggerCelebration();
-	        
-	    } else {
-	        hiddenInput.value = "NO";
-	    }
+		var checkbox = document.getElementById("noReturnDiscountCheckbox");
+		var hiddenInput = document.getElementById("noReturnDiscountHidden");
+		
+		if(checkbox.checked) {
+			hiddenInput.value = "YES";
+			triggerCelebration();
+		} else {
+			hiddenInput.value = "NO";
+		}
 	}
 
-	/* इमेज के जैसा सुंदर रिबन और पेपर ड्रॉप एनीमेशन जनरेटर */
 	function triggerCelebration() {
-	    var duration = 1.5 * 1000;
-	    var end = Date.now() + duration;
+		var duration = 1.5 * 1000;
+		var end = Date.now() + duration;
 
-	    (function frame() {
-	        // बाएं और दाएं दोनों तरफ से रिबन ब्लास्ट करने के लिए
-	        confetti({
-	            particleCount: 4,
-	            angle: 60,
-	            spread: 55,
-	            origin: { x: 0, y: 0.8 },
-	            colors: ['#ff9b05', '#28a745', '#007bff', '#ff3f6c', '#e0a800']
-	        });
-	        confetti({
-	            particleCount: 4,
-	            angle: 120,
-	            spread: 55,
-	            origin: { x: 1, y: 0.8 },
-	            colors: ['#ff9b05', '#28a745', '#007bff', '#ff3f6c', '#e0a800']
-	        });
+		(function frame() {
+			confetti({
+				particleCount: 4,
+				angle: 60,
+				spread: 55,
+				origin: { x: 0, y: 0.8 },
+				colors: ['#ff9b05', '#28a745', '#007bff', '#ff3f6c', '#e0a800']
+			});
+			confetti({
+				particleCount: 4,
+				angle: 120,
+				spread: 55,
+				origin: { x: 1, y: 0.8 },
+				colors: ['#ff9b05', '#28a745', '#007bff', '#ff3f6c', '#e0a800']
+			});
 
-	        if (Date.now() < end) {
-	            requestAnimationFrame(frame);
-	        }
-	    }());
+			if (Date.now() < end) {
+				requestAnimationFrame(frame);
+			}
+		}());
 	}
 
 	function handlePayment(){
-	    var selected = document.querySelector('input[name="paymentMethod"]:checked');
+		var selected = document.querySelector('input[name="paymentMethod"]:checked');
 
-	    if(!selected){
-	        alert("Please select payment method");
-	        return;
-	    }
-	    
-	    payNow();
+		if(!selected){
+			alert("Please select payment method");
+			return;
+		}
+		
+		payNow();
 	}
 
 	function payNow() {
-	    var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-	    var amountToPay = Math.round(${finalAmount});
-	    var checkbox = document.getElementById("noReturnDiscountCheckbox");
+		var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+		var amountToPay = Math.round(${finalAmount});
+		var checkbox = document.getElementById("noReturnDiscountCheckbox");
 
-	    if(paymentMethod === "UPI" && checkbox.checked){
-	        amountToPay = amountToPay - 50;
-	    }
+		if(paymentMethod === "UPI" && checkbox.checked){
+			amountToPay = amountToPay - 50;
+		}
 
-	    if(paymentMethod === "PARTIAL_COD"){
-	        amountToPay = Math.round(amountToPay / 2);
-	    }
+		if(paymentMethod === "PARTIAL_COD"){
+			amountToPay = Math.round(amountToPay * 0.4);
+		}
 
-	    fetch("/create-order", {
-	        method: "POST",
-	        headers: {
-	            "Content-Type": "application/x-www-form-urlencoded"
-	        },
-	        body: "amount=" + amountToPay
-	    })
-	    .then(res => res.json())
-	    .then(data => {
+		fetch("/create-order", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/x-www-form-urlencoded"
+			},
+			body: "amount=" + amountToPay
+		})
+		.then(res => res.json())
+		.then(data => {
 
-	        var options = {
-	            key: "rzp_live_SjF1cX3eDU1byW", 
-	            amount: data.amount,
-	            currency: "INR",
-	            name: "PooRah",
-	            description: "Order Payment",
-	            order_id: data.id,
+			var options = {
+				key: "rzp_live_SjF1cX3eDU1byW", 
+				amount: data.amount,
+				currency: "INR",
+				name: "PooRah",
+				description: "Order Payment",
+				order_id: data.id,
 
-	            handler: function(response){
-	                var form = document.getElementById("paymentForm");
-	            
-	                var oldMethod = form.querySelector('input[type="hidden"][name="paymentMethod"]');
-	                if(oldMethod) oldMethod.remove();
+				handler: function(response){
+					var form = document.getElementById("paymentForm");
+				
+					var oldMethod = form.querySelector('input[type="hidden"][name="paymentMethod"]');
+					if(oldMethod) oldMethod.remove();
 
-	                var methodInput = document.createElement("input");
-	                methodInput.type = "hidden";
-	                methodInput.name = "paymentMethod";
-	                methodInput.value = paymentMethod;
+					var methodInput = document.createElement("input");
+					methodInput.type = "hidden";
+					methodInput.name = "paymentMethod";
+					methodInput.value = paymentMethod;
 
-	                var paymentIdInput = document.createElement("input");
-	                paymentIdInput.type = "hidden";
-	                paymentIdInput.name = "razorpayPaymentId";
-	                paymentIdInput.value = response.razorpay_payment_id;
+					var paymentIdInput = document.createElement("input");
+					paymentIdInput.type = "hidden";
+					paymentIdInput.name = "razorpayPaymentId";
+					paymentIdInput.value = response.razorpay_payment_id;
 
-	                var orderIdInput = document.createElement("input");
-	                orderIdInput.type = "hidden";
-	                orderIdInput.name = "razorpayOrderId";
-	                orderIdInput.value = response.razorpay_order_id;
+					var orderIdInput = document.createElement("input");
+					orderIdInput.type = "hidden";
+					orderIdInput.name = "razorpayOrderId";
+					orderIdInput.value = response.razorpay_order_id;
 
-	                form.appendChild(methodInput);
-	                form.appendChild(paymentIdInput);
-	                form.appendChild(orderIdInput);
+					form.appendChild(methodInput);
+					form.appendChild(paymentIdInput);
+					form.appendChild(orderIdInput);
 
-	                form.action = "/orderPlaced";
-	                form.method = "post";
-	                form.submit();
-	            },
+					form.action = "/orderPlaced";
+					form.method = "post";
+					form.submit();
+				},
 
-	            theme: {
-	                color: "#ff9b05"
-	            }
-	        };
+				theme: {
+					color: "#ff9b05"
+				}
+			};
 
-	        var rzp = new Razorpay(options);
-	        rzp.open();
-	    });
+			var rzp = new Razorpay(options);
+			rzp.open();
+		});
 	}
 	</script>
 </body>
