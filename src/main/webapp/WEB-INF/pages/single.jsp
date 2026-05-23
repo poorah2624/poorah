@@ -10,6 +10,46 @@
 <link rel="stylesheet" href="/css/flexslider.css" type="text/css"
 	media="screen" />
 <style>
+/* --- Product Image & Gallery Fixes --- */
+.single-left {
+	margin-bottom: 20px;
+}
+
+.flexslider {
+	background: #fff;
+	border: 1px solid #eee;
+	border-radius: 8px;
+	position: relative;
+	zoom: 1;
+}
+
+.thumb-image {
+	width: 100%;
+	height: auto;
+	min-height: 400px; /* मुख्य इमेज का न्यूनतम एरिया सेट किया */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #fff;
+	overflow: hidden;
+	position: relative;
+}
+
+#mainProductImg {
+	max-height: 500px;
+	width: auto !important; /* विड्थ को ऑटो किया ताकि इमेज खिंचे नहीं */
+	max-width: 100%;
+	object-fit: contain; /* इमेज का आस्पेक्ट रेशियो सुरक्षित रखने के लिए */
+	margin: 0 auto;
+	display: block;
+}
+/* जूम होने वाली इमेज को सिकुड़ने से रोकने के लिए */
+.zoomImg {
+	background-color: #fff;
+	object-fit: contain !important;
+}
+
+/* --- Color & Size Swatches Styling --- */
 .color-swatch {
 	display: inline-block;
 	padding: 6px 14px;
@@ -73,15 +113,14 @@
 	<div class="single">
 		<div class="container">
 
-			<!-- Left Column: Image Gallery Viewer -->
-			<div class="col-md-4 single-left">
+			<!-- Left Column: Image Gallery Viewer (col-md-5 किया ताकि इमेज बड़ी दिखे) -->
+			<div class="col-md-5 single-left">
 				<div class="flexslider" id="productFlexSlider">
 					<ul class="slides">
 						<!-- Target Main Active Display Container Box -->
 						<li data-thumb="${fn:split(item.itemImage, ',')[0]}"
 							id="mainDisplayLi">
 							<div class="thumb-image">
-								<!-- ID 'mainProductImg' diya hai taaki JS se image url change ho sake -->
 								<img src="${fn:split(item.itemImage, ',')[0]}"
 									id="mainProductImg" data-imagezoom="true"
 									class="img-responsive">
@@ -102,16 +141,14 @@
 				</div>
 			</div>
 
-			<!-- Right Column: Product Management Detail Panel -->
-			<div class="col-md-8 single-right">
+			<!-- Right Column: Product Management Detail Panel (col-md-7 किया संतुलन के लिए) -->
+			<div class="col-md-7 single-right">
 				<h3>${item.itemName}</h3>
-
-
 
 				<div class="color-quality">
 					<div class="color-quality-left" style="width: 100%;">
 
-						<!-- VALIDATION CHECK: Men/Women aur variants present hone par hi variants dikhenge -->
+						<!-- VALIDATION CHECK -->
 						<c:if
 							test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') && not empty item.variants}">
 
@@ -119,7 +156,6 @@
 							<div style="margin-bottom: 20px;">
 								<h5>Select Color:</h5>
 								<c:forEach var="v" items="${item.variants}" varStatus="status">
-									<!-- Custom data attribute lagaya hai data-variant-image taaki JS isko read kar sake -->
 									<span class="color-swatch ${status.first ? 'active' : ''}"
 										data-variant-image="${v.variantImage}"
 										onclick="selectColorBlock(${status.index}, this)">
@@ -127,7 +163,7 @@
 								</c:forEach>
 							</div>
 
-							<!-- 2. SELECT SIZES LAYOUT BASED ON SYSTEM SELECTION -->
+							<!-- 2. SELECT SIZES LAYOUT -->
 							<div
 								style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
 								<h5 style="margin: 0;">Select Size:</h5>
@@ -137,44 +173,35 @@
 
 							<div class="size-options-container" style="margin-bottom: 20px;">
 								<c:forEach var="v" items="${item.variants}" varStatus="status">
-									<div id="sizeWrapper_${status.index}"
+									<div id="sizeWrapper_"
 										class="size-wrapper ${status.first ? 'active' : ''}">
 
 										<c:set var="stockStr" value="${v.variantStock}" />
-
 										<c:set var="sQty"
 											value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
-
 										<c:set var="mQty"
 											value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
-
 										<c:set var="lQty"
 											value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
-
 										<c:set var="xlQty"
 											value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
-
 										<c:set var="xxlQty"
 											value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
 
-										<!-- ================= S SIZE OPTION ================= -->
+										<!-- S SIZE -->
 										<label style="margin-right: 15px;"
 											class="${sQty == '0' ? 'disabled-size' : ''}"> <input
 											type="radio" name="selectedSize" value="S"
-											${sQty == '0' ? 'disabled' : ''}> S <!-- HIGHLIGHT: Stock dynamic representation logic -->
-											<c:choose>
+											${sQty == '0' ? 'disabled' : ''}> S <c:choose>
 												<c:when test="${sQty == '0'}"> (Out of stock)</c:when>
 												<c:when test="${sQty > 0 && sQty <= 5}">
 													<span style="color: red; font-weight: bold;"> (Only
 														${sQty} left!)</span>
 												</c:when>
-												<c:otherwise>
-													<!-- Jab 5 se zyada stock hoga toh kuch nahi dikhega -->
-												</c:otherwise>
 											</c:choose>
 										</label>
 
-										<!-- ================= M SIZE OPTION ================= -->
+										<!-- M SIZE -->
 										<label style="margin-right: 15px;"
 											class="${mQty == '0' ? 'disabled-size' : ''}"> <input
 											type="radio" name="selectedSize" value="M"
@@ -184,11 +211,10 @@
 													<span style="color: red; font-weight: bold;"> (Only
 														${mQty} left!)</span>
 												</c:when>
-												<c:otherwise></c:otherwise>
 											</c:choose>
 										</label>
 
-										<!-- ================= L SIZE OPTION ================= -->
+										<!-- L SIZE -->
 										<label style="margin-right: 15px;"
 											class="${lQty == '0' ? 'disabled-size' : ''}"> <input
 											type="radio" name="selectedSize" value="L"
@@ -198,11 +224,10 @@
 													<span style="color: red; font-weight: bold;"> (Only
 														${lQty} left!)</span>
 												</c:when>
-												<c:otherwise></c:otherwise>
 											</c:choose>
 										</label>
 
-										<!-- ================= XL SIZE OPTION ================= -->
+										<!-- XL SIZE -->
 										<label style="margin-right: 15px;"
 											class="${xlQty == '0' ? 'disabled-size' : ''}"> <input
 											type="radio" name="selectedSize" value="XL"
@@ -212,33 +237,28 @@
 													<span style="color: red; font-weight: bold;"> (Only
 														${xlQty} left!)</span>
 												</c:when>
-												<c:otherwise></c:otherwise>
 											</c:choose>
 										</label>
-										<!-- ================= XXL SIZE OPTION ================= -->
+
+										<!-- XXL SIZE -->
 										<c:if test="${not empty xxlQty}">
 											<label style="margin-right: 15px;"
 												class="${xxlQty eq '0' ? 'disabled-size' : ''}"> <input
 												type="radio" name="selectedSize" value="XXL"
 												${xxlQty eq '0' ? 'disabled' : ''}> XXL <c:choose>
 													<c:when test="${xxlQty eq '0'}">(Out of stock)</c:when>
-
 													<c:when test="${xxlQty > 0 && xxlQty <= 5}">
 														<span style="color: red; font-weight: bold;"> (Only
 															${xxlQty} left!) </span>
 													</c:when>
 												</c:choose>
-
 											</label>
 										</c:if>
-										
-
 									</div>
 								</c:forEach>
 							</div>
 						</c:if>
 
-						<!-- FALLBACK: Agar category Beauty hai ya koi variant nahi hai, toh simple normal text dikhega -->
 						<c:if test="${empty item.variants}">
 							<div
 								style="margin-bottom: 20px; color: #28a745; font-weight: bold;">
@@ -246,7 +266,6 @@
 								(Ready to dispatch)
 							</div>
 						</c:if>
-
 					</div>
 
 					<!-- Pricing and Transaction Buttons -->
@@ -296,13 +315,11 @@
 
 						<div
 							style="margin-top: 15px; padding: 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px;">
-
 							<span style="color: #28a745; font-size: 16px;"> ↩️ 5 Days
 								Easy Returns </span> <small
 								style="display: block; color: #666; margin-top: 4px;">
 								Conditions apply. No returns on products purchased with "No
 								Return Discount". </small>
-
 						</div>
 
 						<div style="margin-top: 25px;">
@@ -327,7 +344,6 @@
 					<h5>
 						<i>Details</i>
 					</h5>
-
 					<ul>
 						<c:forTokens items="${item.keyFeatures}" delims="." var="feature">
 							<li>${feature}</li>
@@ -337,50 +353,17 @@
 			</div>
 		</div>
 
-		<!-- Specifications Tab panel section -->
+		<!-- Reviews Tab Panel Section -->
 		<div class="additional_info">
 			<div class="container">
 				<div class="sap_tabs">
 					<div id="horizontalTab1"
 						style="display: block; width: 100%; margin: 0px;">
 						<ul class="resp-tabs-list">
-							<!--  <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>Product
-									Specification</span></li> -->
 							<li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Reviews</span></li>
 						</ul>
 
 						<div class="resp-tabs-container">
-							<!--  <div class="tab-1 resp-tab-content additional_info_grid"
-								aria-labelledby="tab_item-0">
-								<h3>${item.itemName}</h3>
-								<table class="table table-bordered">
-									<tr>
-										<th>Price</th>
-										<td>₹ ${item.itemPrice}</td>
-									</tr>
-									<tr>
-										<th>Category</th>
-										<td>${item.category.categoryName}</td>
-									</tr>
-									<tr>
-										<th>Sub Category</th>
-										<td>${item.subCategory.subCategoryName}</td>
-									</tr>
-									<tr>
-										<th>Weight</th>
-										<td>${item.weight}</td>
-									</tr>
-									<tr>
-										<th>Fabric</th>
-										<td>${item.fabric}</td>
-									</tr>
-									<tr>
-										<th>Description</th>
-										<td>${item.itemDesc}</td>
-									</tr>
-								</table>
-							</div>  -->
-
 							<div class="tab-2 resp-tab-content additional_info_grid"
 								aria-labelledby="tab_item-1">
 								<h4>(${fn:length(reviews)}) Reviews</h4>
@@ -423,7 +406,6 @@
 										Review</h5>
 									<form action="/addReview" method="post" class="form-vertical">
 										<input type="hidden" name="itemId" value="${item.itemId}">
-
 										<div class="row" style="margin-bottom: 15px;">
 											<c:choose>
 												<c:when test="${not empty sessionScope.LoggedInUser}">
@@ -464,7 +446,6 @@
 												placeholder="Add Your Review Message here..."
 												class="form-control" rows="4" required></textarea>
 										</div>
-
 										<input type="submit" value="Submit Review"
 											class="btn btn-success">
 									</form>
@@ -477,6 +458,7 @@
 		</div>
 	</div>
 
+	<!-- Size Chart Modal -->
 	<div id="sizeChartModal" class="modal"
 		style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);">
 		<div class="modal-content"
@@ -528,14 +510,10 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			// HIGHLIGHT: strict core framework setup structure for responsive tabs
 			$('#horizontalTab1').easyResponsiveTabs({
 				type: 'default',           
 				width: 'auto', 
-				fit: true,
-				activate: function(event) {
-					// Callback function switch if needed
-				}
+				fit: true
 			});
 			
 			let initialImg = $(".color-swatch.active").attr("data-variant-image");
@@ -564,7 +542,11 @@
 			if(variantImgUrl && variantImgUrl.trim() !== "") {
 				$("#mainProductImg").attr("src", variantImgUrl);
 				$("#mainProductImg").attr("data-zoom-image", variantImgUrl);
-				$(".zoomImg").attr("src", variantImgUrl); 
+				
+				// यहाँ पुराना एब्सोल्यूट ज़ूम कंटेनर क्लीन करके नया री-असाइन करता है ताकि पुराना स्ट्रेच साफ़ हो जाए
+				if($(".zoomImg").length > 0) {
+					$(".zoomImg").attr("src", variantImgUrl); 
+				}
 			}
 		}
 
