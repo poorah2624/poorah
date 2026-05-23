@@ -13,9 +13,109 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 <head>
 <%@include file="head.jsp"%>
+<style>
+	/* Custom CSS for modern UI and Highlighting features */
+	.payment-wrapper {
+		max-width: 600px;
+		margin: 40px auto;
+		background: #ffffff;
+		padding: 30px;
+		border-radius: 12px;
+		box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+	}
+	.total-amount-box {
+		background: #fdf2f4;
+		border-left: 5px solid #ff3f6c;
+		padding: 15px;
+		border-radius: 4px;
+		margin-bottom: 25px;
+	}
+	.total-amount-box h4 {
+		margin: 0;
+		color: #333;
+		font-weight: 600;
+	}
+	.payment-option-card {
+		border: 2px solid #e0e0e0;
+		border-radius: 8px;
+		padding: 18px;
+		margin-bottom: 15px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		position: relative;
+	}
+	.payment-option-card:hover {
+		border-color: #ff3f6c;
+		background-color: #fffafb;
+	}
+	.payment-option-card input[type="radio"] {
+		transform: scale(1.2);
+		margin-right: 10px;
+		vertical-align: middle;
+	}
+	.payment-option-card label {
+		font-size: 16px;
+		font-weight: 600;
+		color: #444;
+		cursor: pointer;
+		margin: 0;
+		display: inline-block;
+		width: 90%;
+	}
+	/* Highlighted Offer Box */
+	.discount-premium-box {
+		background: linear-gradient(135deg, #fff3cd 0%, #ffeeba 100%);
+		border: 1px dashed #ffc107;
+		border-radius: 8px;
+		padding: 15px;
+		margin-top: 12px;
+		margin-left: 28px;
+		animation: fadeIn 0.4s ease-in-out;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+	}
+	.discount-premium-box label {
+		color: #856404 !important;
+		font-weight: 700 !important;
+		font-size: 14px;
+		cursor: pointer;
+	}
+	.discount-premium-box input[type="checkbox"] {
+		transform: scale(1.3);
+		margin-right: 8px;
+		accent-color: #ff3f6c;
+	}
+	.badge-discount {
+		background-color: #28a745;
+		color: white;
+		padding: 3px 8px;
+		border-radius: 4px;
+		font-size: 12px;
+		margin-left: 5px;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+	.btn-confirm {
+		background-color: #ff3f6c !important;
+		border-color: #ff3f6c !important;
+		padding: 12px;
+		font-size: 18px;
+		font-weight: 600;
+		border-radius: 8px;
+		transition: opacity 0.2s;
+		margin-top: 15px;
+	}
+	.btn-confirm:hover {
+		opacity: 0.9;
+		color: #fff;
+	}
+	@keyframes fadeIn {
+		from { opacity: 0; transform: translateY(-10px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+</style>
 </head>
 
-<body>
+<body style="background-color: #f8f9fa;">
 	<!-- header -->
 	<%@include file="header1.jsp"%>
 	<!-- //header -->
@@ -24,8 +124,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span class="glyphicon glyphicon-home"
-						aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Checkout</li>
 			</ul>
 		</div>
@@ -33,50 +132,50 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- //breadcrumbs -->
 
 	<div class="container">
-		<h2>Select Payment Method</h2>
+		<div class="payment-wrapper">
+			<h2 class="text-center" style="margin-bottom: 25px; color: #333; font-weight: 700;">Select Payment Method</h2>
 
-		<h4>
-			Total: ₹
-			<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" />
-		</h4>
-
-		<form action="/payment" method="post" id="paymentForm">
-
-			<input type="hidden" name="addressId" value="${selectedAddressId}">
-
-			<!-- PAYMENT OPTIONS -->
-			<div>
-				<label> <input type="radio" name="paymentMethod" value="UPI"
-					onclick="showOption('upi')"> Pay Online
-				</label> <br>
-
-				<div id="discountBox"
-					style="display: none; margin-left: 20px; margin-top: 10px; margin-bottom: 10px;">
-					<label> <input type="checkbox"
-						id="noReturnDiscountCheckbox" onclick="toggleDiscountValue()">
-						Get ₹50 (No Return Only Exchange)
-					</label>
-				</div>
-
-				<br> <label> <input type="radio" name="paymentMethod"
-					value="PARTIAL_COD" onclick="showOption('partial_cod')">
-					COD : 50% Advance, Rest on Delivery
-				</label>
-
-				<input type="hidden" id="noReturnDiscountHidden"
-					name="noReturnDiscount" value="NO">
+			<!-- Total Amount Display -->
+			<div class="total-amount-box">
+				<h4>
+					Total Amount to Pay: <span style="color: #ff3f6c; font-size: 22px; float: right;">₹<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" /></span>
+				</h4>
 			</div>
 
-			<hr>
+			<form action="/payment" method="post" id="paymentForm">
+				<input type="hidden" name="addressId" value="${selectedAddressId}">
 
-			
+				<!-- PAYMENT OPTIONS -->
+				<div>
+					<!-- Option 1: Pay Online -->
+					<div class="payment-option-card" onclick="document.getElementById('payOnlineRadio').click();">
+						<input type="radio" name="paymentMethod" value="UPI" id="payOnlineRadio" onclick="showOption('upi'); event.stopPropagation();">
+						<label for="payOnlineRadio">Pay Online Securely</label>
+						
+						<!-- HIGHLIGHTED DISCOUNT BOX -->
+						<div id="discountBox" style="display: none;" onclick="event.stopPropagation();">
+							<div class="discount-premium-box">
+								<label for="noReturnDiscountCheckbox">
+									<input type="checkbox" id="noReturnDiscountCheckbox" onclick="toggleDiscountValue()">
+									🎉 Get Instant ₹50 Off <span class="badge-discount">No Return Only Exchange</span>
+								</label>
+							</div>
+						</div>
+					</div>
 
-			<br>
+					<!-- Option 2: Partial COD -->
+					<div class="payment-option-card" onclick="document.getElementById('partialCodRadio').click();">
+						<input type="radio" name="paymentMethod" value="PARTIAL_COD" id="partialCodRadio" onclick="showOption('partial_cod'); event.stopPropagation();">
+						<label for="partialCodRadio">COD : 50% Advance, Rest on Delivery</label>
+					</div>
 
-			<button type="button" onclick="handlePayment()"
-				class="btn btn-success btn-block">Confirm Order</button>
+					<!-- Hidden form values for backend -->
+					<input type="hidden" id="noReturnDiscountHidden" name="noReturnDiscount" value="NO">
+				</div>
 
-		</form>
+				<button type="button" onclick="handlePayment()" class="btn btn-success btn-block btn-confirm">Confirm & Place Order</button>
+			</form>
+		</div>
 	</div>
 
 	<!-- footer -->
@@ -87,21 +186,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 	<script>
-
 	function showOption(type){
-	    //var partialBox = document.getElementById("partial_codBox");
 	    var discountBox = document.getElementById("discountBox");
 	    var discountCheckbox = document.getElementById("noReturnDiscountCheckbox");
 	    var discountHidden = document.getElementById("noReturnDiscountHidden");
+	    
+	    document.querySelectorAll('.payment-option-card').forEach(card => {
+	        card.style.borderColor = "#e0e0e0";
+	        card.style.backgroundColor = "#ffffff";
+	    });
 
 	    if(type === 'partial_cod'){
-	       // partialBox.style.display = "block";
 	        discountBox.style.display = "none";    
 	        discountCheckbox.checked = false; 
 	        discountHidden.value = "NO";  
+	        document.getElementById('partialCodRadio').closest('.payment-option-card').style.borderColor = "#ff3f6c";
+	        document.getElementById('partialCodRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
 	    } else {
-	        //partialBox.style.display = "none";
 	        discountBox.style.display = "block"; 
+	        document.getElementById('payOnlineRadio').closest('.payment-option-card').style.borderColor = "#ff3f6c";
+	        document.getElementById('payOnlineRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
 	    }
 	}
 
@@ -123,7 +227,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        return;
 	    }
 	    
-	
 	    payNow();
 	}
 
@@ -136,7 +239,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        amountToPay = amountToPay - 50;
 	    }
 
-	
 	    if(paymentMethod === "PARTIAL_COD"){
 	        amountToPay = Math.round(amountToPay / 2);
 	    }
@@ -161,7 +263,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	            handler: function(response){
 	                var form = document.getElementById("paymentForm");
-
 	            
 	                var oldMethod = form.querySelector('input[type="hidden"][name="paymentMethod"]');
 	                if(oldMethod) oldMethod.remove();
