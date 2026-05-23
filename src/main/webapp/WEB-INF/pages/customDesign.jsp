@@ -478,9 +478,7 @@ textarea.form-control {
 							onchange="changeTshirtColor()" required>
 							<option value="#ffffff">White</option>
 							<option value="#000000">Black</option>
-							<option value="#ff4d4d">Red</option>
-							<option value="#2874f0">Blue</option>
-							<option value="#e0e0e0">Grey</option>
+							
 						</select>
 
 						<div class="studio-group">
