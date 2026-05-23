@@ -25,7 +25,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	}
 	.total-amount-box {
 		background: #fdf2f4;
-		border-left: 5px solid #ff3f6c;
+		border-left: 5px solid #ff9b05;
 		padding: 15px;
 		border-radius: 4px;
 		margin-bottom: 25px;
@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		position: relative;
 	}
 	.payment-option-card:hover {
-		border-color: #ff3f6c;
+		border-color: #ff9b05;
 		background-color: #fffafb;
 	}
 	.payment-option-card input[type="radio"] {
@@ -82,7 +82,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	.discount-premium-box input[type="checkbox"] {
 		transform: scale(1.3);
 		margin-right: 8px;
-		accent-color: #ff3f6c;
+		accent-color: #ff9b05;
 	}
 	.badge-discount {
 		background-color: #28a745;
@@ -95,8 +95,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		letter-spacing: 0.5px;
 	}
 	.btn-confirm {
-		background-color: #ff3f6c !important;
-		border-color: #ff3f6c !important;
+		background-color: #ff9b05 !important;
+		border-color: #ff9b05 !important;
 		padding: 12px;
 		font-size: 18px;
 		font-weight: 600;
@@ -138,7 +138,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<!-- Total Amount Display -->
 			<div class="total-amount-box">
 				<h4>
-					Total Amount to Pay: <span style="color: #ff3f6c; font-size: 22px; float: right;">₹<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" /></span>
+					Total Amount to Pay: <span style="color: #ff9b05; font-size: 22px; float: right;">₹<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" /></span>
 				</h4>
 			</div>
 
@@ -200,11 +200,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	        discountBox.style.display = "none";    
 	        discountCheckbox.checked = false; 
 	        discountHidden.value = "NO";  
-	        document.getElementById('partialCodRadio').closest('.payment-option-card').style.borderColor = "#ff3f6c";
+	        document.getElementById('partialCodRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
 	        document.getElementById('partialCodRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
 	    } else {
 	        discountBox.style.display = "block"; 
-	        document.getElementById('payOnlineRadio').closest('.payment-option-card').style.borderColor = "#ff3f6c";
+	        document.getElementById('payOnlineRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
 	        document.getElementById('payOnlineRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
 	    }
 	}
@@ -292,7 +292,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	            },
 
 	            theme: {
-	                color: "#ff3f6c"
+	                color: "#ff9b05"
 	            }
 	        };
 
