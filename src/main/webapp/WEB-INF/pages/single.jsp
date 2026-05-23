@@ -106,7 +106,7 @@
 			<div class="col-md-8 single-right">
 				<h3>${item.itemName}</h3>
 
-				
+
 
 				<div class="color-quality">
 					<div class="color-quality-left" style="width: 100%;">
@@ -150,7 +150,9 @@
 										<c:set var="lQty"
 											value="${fn:contains(stockStr, 'L:') ? fn:substringBefore(fn:substringAfter(stockStr, 'L:'), ',XL:') : '0'}" />
 										<c:set var="xlQty"
-											value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XXL:') : '0'}" />
+											value="${fn:contains(stockStr, 'XL:') ? fn:substringBefore(fn:substringAfter(stockStr, 'XL:'), ',XXL:') : ''}" />
+										<c:set var="xxlQty"
+											value="${fn:contains(stockStr, 'XXL:') ? fn:substringAfter(stockStr, 'XXL:') : ''}" />
 
 										<!-- ================= S SIZE OPTION ================= -->
 										<label style="margin-right: 15px;"
@@ -211,18 +213,21 @@
 											</c:choose>
 										</label>
 										<!-- ================= XXL SIZE OPTION ================= -->
-										<label style="margin-right: 15px;"
-											class="${xxlQty == '0' ? 'disabled-size' : ''}"> <input
-											type="radio" name="selectedSize" value="XL"
-											${xxlQty == '0' ? 'disabled' : ''}> XXL <c:choose>
-												<c:when test="${xxlQty == '0'}"> (Out of stock)</c:when>
-												<c:when test="${xxlQty > 0 && xxlQty <= 5}">
-													<span style="color: red; font-weight: bold;"> (Only
-														${xxlQty} left!)</span>
-												</c:when>
-												<c:otherwise></c:otherwise>
-											</c:choose>
-										</label>
+										<c:if test="${not empty xxlQty}">
+											<label style="margin-right: 15px;"
+												class="${xxlQty == '0' ? 'disabled-size' : ''}"> <input
+												type="radio" name="selectedSize" value="XXL"
+												${xxlQty == '0' ? 'disabled' : ''}> XXL <c:choose>
+													<c:when test="${xxlQty == '0'}">(Out of stock)</c:when>
+
+													<c:when test="${xxlQty > 0 && xxlQty <= 5}">
+														<span style="color: red; font-weight: bold;"> (Only
+															${xxlQty} left!) </span>
+													</c:when>
+												</c:choose>
+
+											</label>
+										</c:if>
 
 									</div>
 								</c:forEach>
@@ -284,6 +289,17 @@
 								</p>
 							</c:otherwise>
 						</c:choose>
+
+						<div
+							style="margin-top: 15px; padding: 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px;">
+
+							<span style="color: #28a745; font-size: 16px;"> ↩️ 5 Days
+								Easy Returns </span> <small
+								style="display: block; color: #666; margin-top: 4px;">
+								Conditions apply. No returns on products purchased with "No
+								Return Discount". </small>
+
+						</div>
 
 						<div style="margin-top: 25px;">
 							<input type="text" id="pincode" placeholder="Enter Pincode"
