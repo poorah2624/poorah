@@ -365,6 +365,11 @@ body {
 									<fmt:formatNumber value="${item.finalPrice}"
 										maxFractionDigits="0" />
 								</div>
+								<c:if test="${item.order.noReturnOrder}">
+									<div
+										style="background: #fff7e6; color: #d46b08; padding: 6px 10px; border-radius: 6px; margin-top: 8px; display: inline-block; font-size: 12px; font-weight: 600;">
+										₹50 Discount Applied • No Return Order</div>
+								</c:if>
 								<p class="meta-p">
 									<b>Quantity:</b> ${item.quantity}
 								</p>
