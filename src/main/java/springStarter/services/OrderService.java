@@ -324,6 +324,9 @@ public class OrderService {
 	        if ("Cancelled".equalsIgnoreCase(status)) {
 	            item.setIsCancelled(true);
 	        }
+	        if ("Cancel".equalsIgnoreCase(status)) {
+	            item.setIsCancelled(true);
+	        }
 	    }
 
 		if ("Delivered".equalsIgnoreCase(status)) {
@@ -820,12 +823,18 @@ public class OrderService {
 	        item.setRefundStatus("Not Required");
 	        return true;
 	    }
+	    
+	    if (payment == null || payment.getRazorpayPaymentId() == null || payment.getRazorpayPaymentId().isEmpty()) {
+	        System.out.println("⚠️ Cannot process online refund: Razorpay Payment ID is missing.");
+	        item.setRefundStatus("Not Required (Unpaid)");
+	        return true;
+	    }
 
 	    try {
 	        RazorpayClient client = new RazorpayClient("rzp_live_ShQOLUifv4q2NT", "cHeaeKSUiS56d0RH1PYAFba2");
 
 	        JSONObject refundRequest = new JSONObject();
-	        BigDecimal refundAmount;
+	        BigDecimal refundAmount= BigDecimal.ZERO;
 
 	        // ✅ check all items cancelled / returned
 	        boolean allItemsDone = order.getItems().stream()
@@ -835,35 +844,49 @@ public class OrderService {
 	                    i.getId().equals(item.getId())
 	                );
 
-	        if (allItemsDone) {
-	            refundAmount = order.getTotalAmount(); // include delivery
-	        } else {
-	            refundAmount = item.getFinalPrice(); // only item
+	        if ("ONLINE".equalsIgnoreCase(order.getPaymentMethod()) || "UPI".equalsIgnoreCase(order.getPaymentMethod())) {
+	          
+	            if (allItemsDone) {
+	                refundAmount = order.getTotalAmount(); 
+	            } else {
+	                refundAmount = item.getFinalPrice();
+	            }
+	        } 
+	        else if ("PARTIAL_COD".equalsIgnoreCase(order.getPaymentMethod())) {
+	         
+	            if (allItemsDone) {
+	                refundAmount = order.getTotalAmount().multiply(new BigDecimal("0.4"));
+	            } else {
+	                refundAmount = item.getFinalPrice().multiply(new BigDecimal("0.4"));
+	            }
 	        }
 
-	        BigDecimal paidAmount = payment.getAmount();
-
-	        // ✅ rounding fix (important)
+	     
 	        BigDecimal refundAmountRounded = refundAmount.setScale(0, RoundingMode.HALF_UP);
-	        BigDecimal paidAmountRounded = paidAmount.setScale(0, RoundingMode.HALF_UP);
+	        BigDecimal paidAmountRounded = payment.getAmount().setScale(0, RoundingMode.HALF_UP);
 
-	        // NEVER exceed
 	        if (refundAmountRounded.compareTo(paidAmountRounded) > 0) {
 	            refundAmountRounded = paidAmountRounded;
 	        }
 
-	        refundRequest.put("amount",
-	                refundAmountRounded.multiply(new BigDecimal(100)).intValue());
+	        if (refundAmountRounded.compareTo(BigDecimal.ZERO) <= 0) {
+	            item.setRefundStatus("Not Required");
+	            return true;
+	        }
 
-	        System.out.println("Refunding: " + refundAmountRounded);
-	        System.out.println("Payment ID: " + payment.getRazorpayPaymentId());
+	        refundRequest.put("amount", refundAmountRounded.multiply(new BigDecimal(100)).intValue());
 
+	        System.out.println("Processing Refund Amount: " + refundAmountRounded + " for Method: " + order.getPaymentMethod());
+	        System.out.println("Razorpay Payment ID: " + payment.getRazorpayPaymentId());
+
+	    
 	        client.payments.refund(payment.getRazorpayPaymentId(), refundRequest);
 
 	        item.setRefundStatus("Processed");
 	        return true;
 
 	    } catch (Exception e) {
+	        System.out.println("❌ Razorpay Refund Exception: " + e.getMessage());
 	        e.printStackTrace();
 	        item.setRefundStatus("Failed");
 	        return false;
