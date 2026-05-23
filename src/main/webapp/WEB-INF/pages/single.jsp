@@ -142,17 +142,20 @@
 
 										<c:set var="stockStr" value="${v.variantStock}" />
 
-										<!-- Stored formatted string se numbers filter out karenge -->
 										<c:set var="sQty"
-											value="${fn:contains(stockStr, 'S:') ? fn:substringBefore(fn:substringAfter(stockStr, 'S:'), ',M:') : '0'}" />
+											value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
+
 										<c:set var="mQty"
-											value="${fn:contains(stockStr, 'M:') ? fn:substringBefore(fn:substringAfter(stockStr, 'M:'), ',L:') : '0'}" />
+											value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
+
 										<c:set var="lQty"
-											value="${fn:contains(stockStr, 'L:') ? fn:substringBefore(fn:substringAfter(stockStr, 'L:'), ',XL:') : '0'}" />
+											value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
+
 										<c:set var="xlQty"
-											value="${fn:contains(stockStr, 'XL:') ? fn:substringBefore(fn:substringAfter(stockStr, 'XL:'), ',XXL:') : ''}" />
+											value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
+
 										<c:set var="xxlQty"
-											value="${fn:contains(stockStr, 'XXL:') ? fn:substringAfter(stockStr, 'XXL:') : ''}" />
+											value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
 
 										<!-- ================= S SIZE OPTION ================= -->
 										<label style="margin-right: 15px;"
@@ -215,10 +218,10 @@
 										<!-- ================= XXL SIZE OPTION ================= -->
 										<c:if test="${not empty xxlQty}">
 											<label style="margin-right: 15px;"
-												class="${xxlQty == '0' ? 'disabled-size' : ''}"> <input
+												class="${xxlQty eq '0' ? 'disabled-size' : ''}"> <input
 												type="radio" name="selectedSize" value="XXL"
-												${xxlQty == '0' ? 'disabled' : ''}> XXL <c:choose>
-													<c:when test="${xxlQty == '0'}">(Out of stock)</c:when>
+												${xxlQty eq '0' ? 'disabled' : ''}> XXL <c:choose>
+													<c:when test="${xxlQty eq '0'}">(Out of stock)</c:when>
 
 													<c:when test="${xxlQty > 0 && xxlQty <= 5}">
 														<span style="color: red; font-weight: bold;"> (Only
