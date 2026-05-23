@@ -7,79 +7,232 @@
 <html>
 <head>
 <%@include file="head.jsp"%>
-<link rel="stylesheet" href="/css/flexslider.css" type="text/css"
-	media="screen" />
+<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
 <style>
-/* --- Product Image & Gallery Fixes --- */
-.single-left {
-	margin-bottom: 20px;
+/* --- Modern E-commerce Product Page Layout --- */
+body {
+	background-color: #f8f9fa;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-.flexslider {
+.single {
+	padding: 40px 0;
+}
+.product-container-card {
 	background: #fff;
-	border: 1px solid #eee;
-	border-radius: 8px;
-	position: relative;
-	zoom: 1;
+	padding: 30px;
+	border-radius: 16px;
+	box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+	margin-bottom: 30px;
 }
 
-.thumb-image {
+/* --- Anti-Squeeze Professional Image Viewer --- */
+.gallery-wrapper {
+	position: relative;
+	border: 1px solid #f0f0f0;
+	border-radius: 12px;
+	overflow: hidden;
+	background: #fff;
+}
+.thumb-image-container {
 	width: 100%;
-	height: auto;
-	min-height: 400px; /* मुख्य इमेज का न्यूनतम एरिया सेट किया */
+	height: 480px; 
+	overflow: hidden;
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: #fff;
-	overflow: hidden;
-	position: relative;
+	cursor: zoom-in;
 }
-
 #mainProductImg {
-	max-height: 500px;
-	width: auto !important; /* विड्थ को ऑटो किया ताकि इमेज खिंचे नहीं */
+	max-height: 100%;
 	max-width: 100%;
-	object-fit: contain; /* इमेज का आस्पेक्ट रेशियो सुरक्षित रखने के लिए */
-	margin: 0 auto;
-	display: block;
-}
-/* जूम होने वाली इमेज को सिकुड़ने से रोकने के लिए */
-.zoomImg {
-	background-color: #fff;
-	object-fit: contain !important;
+	width: auto !important;
+	height: auto !important;
+	object-fit: contain;
+	transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	transform-origin: center center;
 }
 
-/* --- Color & Size Swatches Styling --- */
+.thumb-image-container:hover #mainProductImg {
+	transform: scale(1.5); 
+}
+
+/* --- Typography & Badges --- */
+.product-title {
+	font-size: 26px;
+	font-weight: 700;
+	color: #2c3e50;
+	margin-bottom: 15px;
+}
+.price-box {
+	background: #fff5f7;
+	padding: 15px;
+	border-radius: 8px;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+.final-price {
+	font-size: 28px;
+	font-weight: 700;
+	color: #ff3f6c;
+	display: inline-block;
+}
+.old-price {
+	text-decoration: line-through;
+	color: #7f8c8d;
+	margin-left: 10px;
+	font-size: 16px;
+}
+.discount-badge {
+	background: #27ae60;
+	color: #fff;
+	padding: 4px 8px;
+	border-radius: 4px;
+	font-size: 14px;
+	font-weight: 600;
+	margin-left: 10px;
+}
+
+/* --- Interactive Swatches --- */
+.section-title {
+	font-size: 14px;
+	font-weight: 700;
+	color: #34495e;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+	letter-spacing: 0.5px;
+}
 .color-swatch {
 	display: inline-block;
-	padding: 6px 14px;
-	margin-right: 8px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
+	padding: 10px 20px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border: 2px solid #e0e0e0;
+	border-radius: 25px; 
 	cursor: pointer;
 	background: #fff;
+	font-weight: 600;
+	color: #555;
 	transition: all 0.2s ease;
 }
-
 .color-swatch.active {
-	border-color: #28a745;
-	background-color: #e2f0d9;
-	font-weight: bold;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-color: #ff3f6c;
+	background-color: #fff5f7;
+	color: #ff3f6c;
+}
+.size-chart-link {
+	color: #ff3f6c;
+	font-weight: 600;
+	text-decoration: none;
+	margin-left: 15px;
+}
+.size-chart-link:hover {
+	text-decoration: underline;
+	color: #d11a4a;
 }
 
-.size-wrapper {
-	display: none;
+/* Size Radio Styles */
+.size-option-label {
+	display: inline-block;
+	position: relative;
+	margin-right: 12px;
+	margin-bottom: 12px;
+	cursor: pointer;
 }
-
-.size-wrapper.active {
-	display: block;
+.size-option-label input[type="radio"] {
+	display: none; 
 }
-
-.disabled-size {
-	color: #ccc;
+.size-custom-box {
+	display: inline-block;
+	padding: 10px 22px;
+	border: 2px solid #e0e0e0;
+	border-radius: 8px;
+	font-weight: 600;
+	color: #333;
+	transition: all 0.2s;
+}
+.size-option-label input[type="radio"]:checked + .size-custom-box {
+	border-color: #000;
+	background: #000;
+	color: #fff;
+}
+.disabled-size .size-custom-box {
+	color: #b2bec3;
+	background: #f1f2f6;
+	border-color: #dfe6e9;
 	text-decoration: line-through;
 	cursor: not-allowed;
+}
+.stock-warning {
+	display: block;
+	font-size: 11px;
+	color: #e74c3c;
+	margin-top: 4px;
+	text-align: center;
+	font-weight: 600;
+}
+
+/* --- Action Buttons --- */
+.btn-action-group {
+	margin-top: 25px;
+	display: flex;
+	gap: 15px;
+}
+.btn-custom {
+	padding: 14px 30px;
+	font-size: 16px;
+	font-weight: 700;
+	border-radius: 8px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	transition: all 0.2s;
+	flex: 1;
+}
+.btn-add-cart {
+	background: #fff;
+	border: 2px solid #ff3f6c;
+	color: #ff3f6c;
+}
+.btn-add-cart:hover {
+	background: #fff5f7;
+}
+.btn-buy-now {
+	background: #ff3f6c;
+	border: 2px solid #ff3f6c;
+	color: #fff;
+}
+.btn-buy-now:hover {
+	opacity: 0.9;
+}
+.btn-success-go {
+	background: #27ae60;
+	border: 2px solid #27ae60;
+	color: #fff;
+}
+
+/* Trust Banner */
+.trust-banner {
+	margin-top: 20px;
+	padding: 12px;
+	background: #f0f9f4;
+	border: 1px solid #c2ebd4;
+	border-radius: 8px;
+	color: #1e7e34;
+}
+
+/* Pincode Box */
+.pincode-section {
+	margin-top: 25px;
+	background: #fdfdfd;
+	padding: 15px;
+	border: 1px solid #eee;
+	border-radius: 8px;
+}
+
+/* Modal Fixes */
+.modal-content {
+	border-radius: 12px !important;
+	box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 </style>
 </head>
@@ -88,12 +241,11 @@
 	<%@include file="header1.jsp"%>
 
 	<c:if test="${not empty defaultAddress}">
-		<div
-			style="background: #f5f5f5; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
-			<div class="container">
-				<b>Deliver to:</b> ${defaultAddress.fullName},
-				${defaultAddress.pincode} <a href="/address"
-					style="margin-left: 10px;">Change</a>
+		<div style="background: #e9ecef; padding: 12px 0; border-bottom: 1px solid #dee2e6;">
+			<div class="container" style="font-size: 14px; color: #495057;">
+				<span class="glyphicon glyphicon-map-marker" style="color: #ff3f6c;"></span> 
+				<b>Deliver to:</b> ${defaultAddress.fullName}, ${defaultAddress.pincode} 
+				<a href="/address" style="margin-left: 15px; color: #ff3f6c; font-weight: 600;">Change</a>
 			</div>
 		</div>
 	</c:if>
@@ -102,8 +254,7 @@
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span class="glyphicon glyphicon-home"
-						aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Product Detail</li>
 			</ul>
 		</div>
@@ -112,400 +263,306 @@
 	<!-- Single Product View Detail -->
 	<div class="single">
 		<div class="container">
+			<div class="product-container-card row">
 
-			<!-- Left Column: Image Gallery Viewer (col-md-5 किया ताकि इमेज बड़ी दिखे) -->
-			<div class="col-md-5 single-left">
-				<div class="flexslider" id="productFlexSlider">
-					<ul class="slides">
-						<!-- Target Main Active Display Container Box -->
-						<li data-thumb="${fn:split(item.itemImage, ',')[0]}"
-							id="mainDisplayLi">
-							<div class="thumb-image">
-								<img src="${fn:split(item.itemImage, ',')[0]}"
-									id="mainProductImg" data-imagezoom="true"
-									class="img-responsive">
-							</div>
-						</li>
-						<!-- Remaining fallback dynamic slider tabs -->
-						<c:forEach var="img" items="${fn:split(item.itemImage, ',')}"
-							varStatus="loop">
-							<c:if test="${!loop.first}">
-								<li data-thumb="${img}">
-									<div class="thumb-image">
-										<img src="${img}" data-imagezoom="true" class="img-responsive">
-									</div>
-								</li>
-							</c:if>
+				<!-- Left Column: Image Area (5 Columns for big premium image) -->
+				<div class="col-md-5 single-left">
+					<div class="gallery-wrapper">
+						<div class="thumb-image-container" id="zoomContainer">
+							<!-- No-distort Image Setup -->
+							<img src="${fn:split(item.itemImage, ',')[0]}" id="mainProductImg" class="img-responsive">
+						</div>
+					</div>
+					
+					
+					<div style="margin-top: 15px; display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px;">
+						<c:forEach var="img" items="${fn:split(item.itemImage, ',')}" varStatus="loop">
+							<img src="${img}" style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;" 
+								 onclick="document.getElementById('mainProductImg').src='${img}'">
 						</c:forEach>
-					</ul>
+					</div>
 				</div>
-			</div>
 
-			<!-- Right Column: Product Management Detail Panel (col-md-7 किया संतुलन के लिए) -->
-			<div class="col-md-7 single-right">
-				<h3>${item.itemName}</h3>
+				<!-- Right Column: Product Operations Section -->
+				<div class="col-md-7 single-right">
+					<h3 class="product-title">${item.itemName}</h3>
 
-				<div class="color-quality">
-					<div class="color-quality-left" style="width: 100%;">
-
-						<!-- VALIDATION CHECK -->
-						<c:if
-							test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') && not empty item.variants}">
-
-							<!-- 1. SELECT COLOR CONFIGURATION -->
-							<div style="margin-bottom: 20px;">
-								<h5>Select Color:</h5>
-								<c:forEach var="v" items="${item.variants}" varStatus="status">
-									<span class="color-swatch ${status.first ? 'active' : ''}"
-										data-variant-image="${v.variantImage}"
-										onclick="selectColorBlock(${status.index}, this)">
-										${v.variantColor} </span>
-								</c:forEach>
-							</div>
-
-							<!-- 2. SELECT SIZES LAYOUT -->
-							<div
-								style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
-								<h5 style="margin: 0;">Select Size:</h5>
-								<a href="javascript:void(0);" class="size-chart-link"
-									onclick="openSizeChart()">Size Chart</a>
-							</div>
-
-							<div class="size-options-container" style="margin-bottom: 20px;">
-								<c:forEach var="v" items="${item.variants}" varStatus="status">
-									<div id="sizeWrapper_"
-										class="size-wrapper ${status.first ? 'active' : ''}">
-
-										<c:set var="stockStr" value="${v.variantStock}" />
-										<c:set var="sQty"
-											value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
-										<c:set var="mQty"
-											value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
-										<c:set var="lQty"
-											value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
-										<c:set var="xlQty"
-											value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
-										<c:set var="xxlQty"
-											value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
-
-										<!-- S SIZE -->
-										<label style="margin-right: 15px;"
-											class="${sQty == '0' ? 'disabled-size' : ''}"> <input
-											type="radio" name="selectedSize" value="S"
-											${sQty == '0' ? 'disabled' : ''}> S <c:choose>
-												<c:when test="${sQty == '0'}"> (Out of stock)</c:when>
-												<c:when test="${sQty > 0 && sQty <= 5}">
-													<span style="color: red; font-weight: bold;"> (Only
-														${sQty} left!)</span>
-												</c:when>
-											</c:choose>
-										</label>
-
-										<!-- M SIZE -->
-										<label style="margin-right: 15px;"
-											class="${mQty == '0' ? 'disabled-size' : ''}"> <input
-											type="radio" name="selectedSize" value="M"
-											${mQty == '0' ? 'disabled' : ''}> M <c:choose>
-												<c:when test="${mQty == '0'}"> (Out of stock)</c:when>
-												<c:when test="${mQty > 0 && mQty <= 5}">
-													<span style="color: red; font-weight: bold;"> (Only
-														${mQty} left!)</span>
-												</c:when>
-											</c:choose>
-										</label>
-
-										<!-- L SIZE -->
-										<label style="margin-right: 15px;"
-											class="${lQty == '0' ? 'disabled-size' : ''}"> <input
-											type="radio" name="selectedSize" value="L"
-											${lQty == '0' ? 'disabled' : ''}> L <c:choose>
-												<c:when test="${lQty == '0'}"> (Out of stock)</c:when>
-												<c:when test="${lQty > 0 && lQty <= 5}">
-													<span style="color: red; font-weight: bold;"> (Only
-														${lQty} left!)</span>
-												</c:when>
-											</c:choose>
-										</label>
-
-										<!-- XL SIZE -->
-										<label style="margin-right: 15px;"
-											class="${xlQty == '0' ? 'disabled-size' : ''}"> <input
-											type="radio" name="selectedSize" value="XL"
-											${xlQty == '0' ? 'disabled' : ''}> XL <c:choose>
-												<c:when test="${xlQty == '0'}"> (Out of stock)</c:when>
-												<c:when test="${xlQty > 0 && xlQty <= 5}">
-													<span style="color: red; font-weight: bold;"> (Only
-														${xlQty} left!)</span>
-												</c:when>
-											</c:choose>
-										</label>
-
-										<!-- XXL SIZE -->
-										<c:if test="${not empty xxlQty}">
-											<label style="margin-right: 15px;"
-												class="${xxlQty eq '0' ? 'disabled-size' : ''}"> <input
-												type="radio" name="selectedSize" value="XXL"
-												${xxlQty eq '0' ? 'disabled' : ''}> XXL <c:choose>
-													<c:when test="${xxlQty eq '0'}">(Out of stock)</c:when>
-													<c:when test="${xxlQty > 0 && xxlQty <= 5}">
-														<span style="color: red; font-weight: bold;"> (Only
-															${xxlQty} left!) </span>
-													</c:when>
-												</c:choose>
-											</label>
-										</c:if>
-									</div>
-								</c:forEach>
-							</div>
-						</c:if>
-
-						<c:if test="${empty item.variants}">
-							<div
-								style="margin-bottom: 20px; color: #28a745; font-weight: bold;">
-								<span class="glyphicon glyphicon-ok-sign"></span> In Stock
-								(Ready to dispatch)
-							</div>
-						</c:if>
+					<!-- Pricing Details Container -->
+					<div class="price-box">
+						<div class="final-price">₹<fmt:formatNumber value="${item.discountedPrice}" maxFractionDigits="0" />/-</div>
+						<span class="old-price">₹<fmt:formatNumber value="${item.itemPrice}" maxFractionDigits="0" />/-</span> 
+						<span class="discount-badge">${fn:split(item.discount, '.')[0]}% OFF</span>
 					</div>
 
-					<!-- Pricing and Transaction Buttons -->
-					<div class="simpleCart_shelfItem"
-						style="clear: both; margin-top: 20px;">
-						<div class="price-section">
-							<div class="final-price">
-								₹
-								<c:if test="${not empty item.discountedPrice}">
-									<fmt:formatNumber value="${item.discountedPrice}"
-										maxFractionDigits="0" />/-</c:if>
-							</div>
-							<div class="price-meta">
-								<span class="old-price">₹<fmt:formatNumber
-										value="${item.itemPrice}" maxFractionDigits="0" />/-
-								</span> <span class="discount">${fn:split(item.discount, '.')[0]}%
-									OFF</span>
-							</div>
+					<div class="color-quality">
+						<div class="color-quality-left" style="width: 100%;">
+
+							<!-- Variants Check Logic -->
+							<c:if test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') && not empty item.variants}">
+
+								<!-- 1. COLOR SELECTION SECTION -->
+								<div style="margin-bottom: 25px;">
+									<div class="section-title">Select Color</div>
+									<c:forEach var="v" items="${item.variants}" varStatus="status">
+										<span class="color-swatch ${status.first ? 'active' : ''}"
+											data-variant-image="${v.variantImage}"
+											onclick="selectColorBlock(${status.index}, this)">
+											${v.variantColor} </span>
+									</c:forEach>
+								</div>
+
+								<!-- 2. SIZE SELECTION SECTION -->
+								<div style="margin-bottom: 15px;">
+									<span class="section-title">Select Size</span>
+									<a href="javascript:void(0);" class="size-chart-link" onclick="openSizeChart()">
+										<span class="glyphicon glyphicon-list-alt"></span> Size Chart
+									</a>
+								</div>
+
+								<div class="size-options-container" style="margin-bottom: 25px;">
+									<c:forEach var="v" items="${item.variants}" varStatus="status">
+										<div id="sizeWrapper_${status.index}" class="size-wrapper ${status.first ? 'active' : ''}">
+
+											<c:set var="stockStr" value="${v.variantStock}" />
+											<c:set var="sQty" value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
+											<c:set var="mQty" value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
+											<c:set var="lQty" value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
+											<c:set var="xlQty" value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
+											<c:set var="xxlQty" value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
+
+											<!-- S Size Card -->
+											<label class="size-option-label ${sQty == '0' ? 'disabled-size' : ''}"> 
+												<input type="radio" name="selectedSize" value="S" ${sQty == '0' ? 'disabled' : ''}> 
+												<span class="size-custom-box">S</span>
+												<c:if test="${sQty > 0 && sQty <= 5}">
+													<span class="stock-warning">${sQty} Left!</span>
+												</c:if>
+											</label>
+
+											<!-- M Size Card -->
+											<label class="size-option-label ${mQty == '0' ? 'disabled-size' : ''}"> 
+												<input type="radio" name="selectedSize" value="M" ${mQty == '0' ? 'disabled' : ''}> 
+												<span class="size-custom-box">M</span>
+												<c:if test="${mQty > 0 && mQty <= 5}">
+													<span class="stock-warning">${mQty} Left!</span>
+												</c:if>
+											</label>
+
+											<!-- L Size Card -->
+											<label class="size-option-label ${lQty == '0' ? 'disabled-size' : ''}"> 
+												<input type="radio" name="selectedSize" value="L" ${lQty == '0' ? 'disabled' : ''}> 
+												<span class="size-custom-box">L</span>
+												<c:if test="${lQty > 0 && lQty <= 5}">
+													<span class="stock-warning">${lQty} Left!</span>
+												</c:if>
+											</label>
+
+											<!-- XL Size Card -->
+											<label class="size-option-label ${xlQty == '0' ? 'disabled-size' : ''}"> 
+												<input type="radio" name="selectedSize" value="XL" ${xlQty == '0' ? 'disabled' : ''}> 
+												<span class="size-custom-box">XL</span>
+												<c:if test="${xlQty > 0 && xlQty <= 5}">
+													<span class="stock-warning">${xlQty} Left!</span>
+												</c:if>
+											</label>
+
+											<!-- XXL Size Card -->
+											<c:if test="${not empty xxlQty}">
+												<label class="size-option-label ${xxlQty eq '0' ? 'disabled-size' : ''}"> 
+													<input type="radio" name="selectedSize" value="XXL" ${xxlQty eq '0' ? 'disabled' : ''}> 
+													<span class="size-custom-box">XXL</span>
+													<c:if test="${xxlQty > 0 && xxlQty <= 5}">
+														<span class="stock-warning">${xxlQty} Left!</span>
+													</c:if>
+												</label>
+											</c:if>
+										</div>
+									</c:forEach>
+								</div>
+							</c:if>
+
+							<c:if test="${empty item.variants}">
+								<div style="margin-bottom: 20px; color: #27ae60; font-weight: bold; font-size: 16px;">
+									<span class="glyphicon glyphicon-ok-sign"></span> In Stock (Ready to dispatch)
+								</div>
+							</c:if>
 						</div>
 
-						<c:choose>
-							<c:when test="${not empty sessionScope.LoggedInUser}">
+						<!-- Action Buttons Setup -->
+						<div class="simpleCart_shelfItem" style="clear: both;">
+							<div class="btn-action-group">
 								<c:choose>
-									<c:when test="${item.inCart}">
-										<button onclick="goToCart()" class="btn btn-success">Go
-											to Cart</button>
+									<c:when test="${not empty sessionScope.LoggedInUser}">
+										<c:choose>
+											<c:when test="${item.inCart}">
+												<button onclick="goToCart()" class="btn btn-custom btn-success-go">Go to Cart</button>
+											</c:when>
+											<c:otherwise>
+												<button onclick="handleCartAction('add', ${item.itemId}, this)" class="btn btn-custom btn-add-cart">Add to Cart</button>
+												<button onclick="handleCartAction('buy', ${item.itemId}, this)" class="btn btn-custom btn-buy-now">Buy Now</button>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<button
-											onclick="handleCartAction('add', ${item.itemId}, this)"
-											class="btn btn-primary">Add to Cart</button>
-										<button
-											onclick="handleCartAction('buy', ${item.itemId}, this)"
-											class="btn btn-primary"
-											style="background: orange; border: none;">Buy Now</button>
+										<a class="btn btn-custom btn-buy-now text-center" style="line-height:24px;" 
+										   onclick="alert('Please login first to manage shopping cart operations.'); return false;" href="/login">Add to cart</a>
 									</c:otherwise>
 								</c:choose>
-							</c:when>
-							<c:otherwise>
-								<p>
-									<a class="item_add"
-										onclick="alert('Please login first to manage shopping cart operations.'); return false;"
-										href="/login">Add to cart</a>
-								</p>
-							</c:otherwise>
-						</c:choose>
+							</div>
 
-						<div
-							style="margin-top: 15px; padding: 10px; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 5px;">
-							<span style="color: #28a745; font-size: 16px;"> ↩️ 5 Days
-								Easy Returns </span> <small
-								style="display: block; color: #666; margin-top: 4px;">
-								Conditions apply. No returns on products purchased with "No
-								Return Discount". </small>
+							<!-- Policy Guard Alert -->
+							<div class="trust-banner">
+								<b style="font-size: 15px;">↩️ 5 Days Easy Returns Available</b>
+								<small style="display: block; color: #555; margin-top: 4px;">
+									No returns applicable if purchased using "No Return Discount Offer".
+								</small>
+							</div>
+
+							<!-- Pincode Checker UI Section -->
+							<div class="pincode-section">
+								<div class="section-title" style="font-size:12px;">Check Delivery Availability</div>
+								<div class="input-group" style="width: 280px; margin-top: 8px;">
+									<input type="text" id="pincode" placeholder="Enter 6-digit Pincode" class="form-control" maxlength="6" />
+									<span class="input-group-btn">
+										<button onclick="checkDelivery()" class="btn btn-default" style="background:#333; color:#fff; border-color:#333;">Check</button>
+									</span>
+								</div>
+								<i id="deliveryResult" style="margin-top: 10px; display: inline-block; font-weight: 600; color:#2c3e50;"></i>
+							</div>
 						</div>
 
-						<div style="margin-top: 25px;">
-							<input type="text" id="pincode" placeholder="Enter Pincode"
-								class="form-control"
-								style="width: 200px; display: inline-block;" />
-							<button onclick="checkDelivery()" class="btn btn-primary">Check</button>
-							<br> <i id="deliveryResult"
-								style="margin-top: 10px; display: inline-block;"></i>
-						</div>
 					</div>
-
-				</div>
-				<div class="clearfix"></div>
-				<div class="description">
-					<h5>
-						<i>Overview</i>
-					</h5>
-					<p>${item.itemDesc}</p>
-				</div>
-				<div class="keyFeatures">
-					<h5>
-						<i>Details</i>
-					</h5>
-					<ul>
-						<c:forTokens items="${item.keyFeatures}" delims="." var="feature">
-							<li>${feature}</li>
-						</c:forTokens>
-					</ul>
 				</div>
 			</div>
-		</div>
 
-		<!-- Reviews Tab Panel Section -->
-		<div class="additional_info">
-			<div class="container">
-				<div class="sap_tabs">
-					<div id="horizontalTab1"
-						style="display: block; width: 100%; margin: 0px;">
-						<ul class="resp-tabs-list">
-							<li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>Reviews</span></li>
+			<!-- Product Details & Features -->
+			<div class="product-container-card row" style="margin-top: 20px;">
+				<div class="col-xs-12">
+					<div class="description" style="margin-bottom: 25px;">
+						<h4 style="font-weight:700; color:#2c3e50; border-bottom:2px solid #ff3f6c; padding-bottom:8px; display:inline-block;">Product Overview</h4>
+						<p style="margin-top:15px; line-height:1.8; color:#555; font-size:15px;">${item.itemDesc}</p>
+					</div>
+					<div class="keyFeatures">
+						<h4 style="font-weight:700; color:#2c3e50; border-bottom:2px solid #ff3f6c; padding-bottom:8px; display:inline-block;">Product Specifications</h4>
+						<ul style="margin-top:15px; padding-left:20px; line-height:2;">
+							<c:forTokens items="${item.keyFeatures}" delims="." var="feature">
+								<c:if test="${not empty fn:trim(feature)}">
+									<li style="color:#555; font-size:14px; list-style-type: square;">${feature}</li>
+								</c:if>
+							</c:forTokens>
 						</ul>
+					</div>
+				</div>
+			</div>
 
-						<div class="resp-tabs-container">
-							<div class="tab-2 resp-tab-content additional_info_grid"
-								aria-labelledby="tab_item-1">
-								<h4>(${fn:length(reviews)}) Reviews</h4>
-								<div class="additional_info_sub_grids"
-									style="margin-top: 15px; max-height: 400px; overflow-y: auto;">
-									<c:forEach var="r" items="${reviews}">
-										<div class="col-xs-12 additional_info_sub_grid_right"
-											style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-											<div class="col-md-9 additional_info_sub_grid_rightl">
-												<h5>
-													<c:choose>
-														<c:when test="${not empty r.user}">${r.user.userName}</c:when>
-														<c:otherwise>${r.guestName}</c:otherwise>
-													</c:choose>
-												</h5>
-												<small class="text-muted">${r.createdAt}</small>
-												<p style="margin-top: 5px; color: #555;">${r.message}</p>
-											</div>
-											<div class="col-md-3 additional_info_sub_grid_rightr"
-												style="text-align: right;">
-												<div class="rating">
+			<!-- Reviews Section Container Layout -->
+			<div class="product-container-card row">
+				<div class="col-xs-12">
+					<div class="sap_tabs">
+						<div id="horizontalTab1" style="display: block; width: 100%; margin: 0px;">
+							<ul class="resp-tabs-list" style="border-bottom: 2px solid #eee; margin-bottom: 20px;">
+								<li class="resp-tab-item" aria-controls="tab_item-1" role="tab" style="font-weight:700; font-size:16px;">Customer Reviews (${fn:length(reviews)})</li>
+							</ul>
+
+							<div class="resp-tabs-container">
+								<div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
+									<div class="additional_info_sub_grids" style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+										<c:forEach var="r" items="${reviews}">
+											<div class="row" style="margin-bottom: 15px; border-bottom: 1px solid #f5f5f5; padding-bottom: 15px;">
+												<div class="col-md-9">
+													<h5 style="font-weight:700; margin:0 0 5px 0;">
+														<c:choose>
+															<c:when test="${not empty r.user}">${r.user.userName}</c:when>
+															<c:otherwise>${r.guestName}</c:otherwise>
+														</c:choose>
+													</h5>
+													<small class="text-muted" style="font-size:11px;">Published on ${r.createdAt}</small>
+													<p style="margin-top: 8px; color: #555; font-size:14px;">${r.message}</p>
+												</div>
+												<div class="col-md-3 text-right">
 													<c:forEach begin="1" end="5" var="step">
-														<span
-															style="color: ${step <= r.rating ? 'gold' : 'lightgray'}; font-size: 18px;">★</span>
+														<span style="color: ${step <= r.rating ? '#ffc107' : '#e0e0e0'}; font-size: 16px;">★</span>
 													</c:forEach>
 												</div>
 											</div>
-											<div class="clearfix"></div>
-										</div>
-									</c:forEach>
-									<c:if test="${empty reviews}">
-										<p class="text-muted" style="margin-top: 10px;">No reviews
-											yet for this product. Be the first one to review!</p>
-									</c:if>
-								</div>
+										</c:forEach>
+										<c:if test="${empty reviews}">
+											<p class="text-muted">No reviews yet for this product. Be the first to share your experience!</p>
+										</c:if>
+									</div>
 
-								<div class="review_grids"
-									style="margin-top: 30px; border-top: 1px dashed #ccc; padding-top: 20px;">
-									<h5 style="font-weight: bold; margin-bottom: 15px;">Add A
-										Review</h5>
-									<form action="/addReview" method="post" class="form-vertical">
-										<input type="hidden" name="itemId" value="${item.itemId}">
-										<div class="row" style="margin-bottom: 15px;">
-											<c:choose>
-												<c:when test="${not empty sessionScope.LoggedInUser}">
-													<div class="col-md-6">
-														<input type="text" name="userName"
-															value="${sessionScope.LoggedInUser.userName}"
-															class="form-control" readonly style="background: #eee;">
-													</div>
-												</c:when>
-												<c:otherwise>
-													<div class="col-md-6" style="margin-bottom: 10px;">
-														<input type="text" name="guestName"
-															placeholder="Your Name" class="form-control" required>
-													</div>
-													<div class="col-md-6">
-														<input type="email" name="guestEmail"
-															placeholder="Your Email Address" class="form-control"
-															required>
-													</div>
-												</c:otherwise>
-											</c:choose>
-										</div>
+									<!-- Add Review Area -->
+									<div class="review_grids" style="margin-top: 30px; border-top: 1px dashed #ddd; padding-top: 25px;">
+										<h4 style="font-weight: 700; margin-bottom: 20px; color:#2c3e50;">Write a Review</h4>
+										<form action="/addReview" method="post">
+											<input type="hidden" name="itemId" value="${item.itemId}">
+											<div class="row" style="margin-bottom: 15px;">
+												<c:choose>
+													<c:when test="${not empty sessionScope.LoggedInUser}">
+														<div class="col-md-6">
+															<input type="text" name="userName" value="${sessionScope.LoggedInUser.userName}" class="form-control" readonly style="background: #f8f9fa;">
+														</div>
+													</c:when>
+													<c:otherwise>
+														<div class="col-md-6" style="margin-bottom: 10px;">
+															<input type="text" name="guestName" placeholder="Your Name" class="form-control" required>
+														</div>
+														<div class="col-md-6">
+															<input type="email" name="guestEmail" placeholder="Your Email Address" class="form-control" required>
+														</div>
+													</c:otherwise>
+												</c:choose>
+											</div>
 
-										<div class="form-group" style="margin-bottom: 15px;">
-											<label style="display: block; margin-bottom: 5px;">Your
-												Rating:</label> <select name="rating" class="form-control"
-												style="width: 150px;" required>
-												<option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
-												<option value="4">⭐⭐⭐⭐ (4/5)</option>
-												<option value="3">⭐⭐⭐ (3/5)</option>
-												<option value="2">⭐⭐ (2/5)</option>
-												<option value="1">⭐ (1/5)</option>
-											</select>
-										</div>
+											<div class="form-group">
+												<label>Select Rating:</label> 
+												<select name="rating" class="form-control" style="width: 180px;" required>
+													<option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+													<option value="4">⭐⭐⭐⭐ (4/5)</option>
+													<option value="3">⭐⭐⭐ (3/5)</option>
+													<option value="2">⭐⭐ (2/5)</option>
+													<option value="1">⭐ (1/5)</option>
+												</select>
+											</div>
 
-										<div class="form-group" style="margin-bottom: 15px;">
-											<textarea name="message"
-												placeholder="Add Your Review Message here..."
-												class="form-control" rows="4" required></textarea>
-										</div>
-										<input type="submit" value="Submit Review"
-											class="btn btn-success">
-									</form>
+											<div class="form-group">
+												<textarea name="message" placeholder="Share your experience with this product..." class="form-control" rows="4" required></textarea>
+											</div>
+											<input type="submit" value="Submit Review" class="btn btn-success" style="padding:10px 25px; font-weight:700;">
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 
-	<!-- Size Chart Modal -->
-	<div id="sizeChartModal" class="modal"
-		style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);">
-		<div class="modal-content"
-			style="background: #fff; width: 400px; margin: 15% auto; padding: 20px; border-radius: 5px; position: relative;">
-			<span
-				style="position: absolute; right: 15px; top: 10px; font-size: 24px; cursor: pointer;"
-				onclick="closeSizeChart()">&times;</span>
-			<h3>Size Chart</h3>
-			<table class="table table-striped" style="margin-top: 15px;">
-				<tr>
-					<th>Size</th>
-					<th>Chest (inch)</th>
-					<th>Length (inch)</th>
-				</tr>
-				<tr>
-					<td>S</td>
-					<td>36</td>
-					<td>26</td>
-				</tr>
-				<tr>
-					<td>M</td>
-					<td>38</td>
-					<td>27</td>
-				</tr>
-				<tr>
-					<td>L</td>
-					<td>40</td>
-					<td>28</td>
-				</tr>
-				<tr>
-					<td>XL</td>
-					<td>42</td>
-					<td>29</td>
-				</tr>
-				<tr>
-					<td>XXL</td>
-					<td>44</td>
-					<td>30</td>
-				</tr>
+	<!-- Premium Size Chart Modal -->
+	<div id="sizeChartModal" class="modal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6);">
+		<div class="modal-content" style="background: #fff; width: 450px; margin: 10% auto; padding: 25px; border-radius: 12px; position: relative;">
+			<span style="position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; color:#aaa;" onclick="closeSizeChart()">&times;</span>
+			<h3 style="font-weight:700; margin-bottom:15px; color:#2c3e50;">Standard Size Chart</h3>
+			<table class="table table-bordered table-striped" style="margin-top: 15px;">
+				<thead style="background:#f8f9fa;">
+					<tr><th>Size</th><th>Chest (inch)</th><th>Length (inch)</th></tr>
+				</thead>
+				<tbody>
+					<tr><td><b>S</b></td><td>36</td><td>26</td></tr>
+					<tr><td><b>M</b></td><td>38</td><td>27</td></tr>
+					<tr><td><b>L</b></td><td>40</td><td>28</td></tr>
+					<tr><td><b>XL</b></td><td>42</td><td>29</td></tr>
+					<tr><td><b>XXL</b></td><td>44</td><td>30</td></tr>
+				</tbody>
 			</table>
 		</div>
 	</div>
 
 	<%@include file="footer.jsp"%>
 
-	<script defer src="/js/jquery.flexslider.js"></script>
-	<script src="/js/imagezoom.js"></script>
 	<script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
@@ -520,12 +577,20 @@
 			if(initialImg && initialImg.trim() !== "") {
 				$("#mainProductImg").attr("src", initialImg);
 			}
-		});
-		
-		$(window).load(function() {
-			$('.flexslider').flexslider({
-				animation : "slide",
-				controlNav : "thumbnails"
+
+			
+			const container = document.getElementById('zoomContainer');
+			const img = document.getElementById('mainProductImg');
+			
+			container.addEventListener('mousemove', function(e) {
+				const rect = e.target.getBoundingClientRect();
+				const x = e.clientX - rect.left;
+				const y = e.clientY - rect.top;
+				img.style.transformOrigin = `${(x / rect.width) * 100}% ${(y / rect.height) * 100}%`;
+			});
+
+			container.addEventListener('mouseleave', function() {
+				img.style.transformOrigin = 'center center';
 			});
 		});
 
@@ -541,12 +606,6 @@
 			let variantImgUrl = $(element).attr("data-variant-image");
 			if(variantImgUrl && variantImgUrl.trim() !== "") {
 				$("#mainProductImg").attr("src", variantImgUrl);
-				$("#mainProductImg").attr("data-zoom-image", variantImgUrl);
-				
-				// यहाँ पुराना एब्सोल्यूट ज़ूम कंटेनर क्लीन करके नया री-असाइन करता है ताकि पुराना स्ट्रेच साफ़ हो जाए
-				if($(".zoomImg").length > 0) {
-					$(".zoomImg").attr("src", variantImgUrl); 
-				}
 			}
 		}
 
@@ -560,14 +619,15 @@
 			if(!errorDiv){
 				errorDiv = document.createElement("div");
 				errorDiv.id = errorId;
-				errorDiv.style.color = "red";
+				errorDiv.style.color = "#e74c3c";
+				errorDiv.style.fontWeight = "600";
 				errorDiv.style.marginTop = "8px";
 				btn.parentElement.appendChild(errorDiv);
 			}
 			errorDiv.innerHTML = "";
 
 			if (activeWrapper.length > 0 && !selectedSize) {
-				errorDiv.innerHTML = "Please select a size for the chosen color.";
+				errorDiv.innerHTML = "⚠️ Please select a size for the chosen color.";
 				return;
 			}
 
@@ -579,7 +639,7 @@
 				fetch('https://www.poorah.com' + url)
 				.then(() => {
 					btn.innerText = "Go to Cart";
-					btn.className = "btn btn-success";
+					btn.className = "btn btn-custom btn-success-go";
 					btn.onclick = goToCart;
 				})
 				.catch(err => console.log(err));
@@ -595,6 +655,7 @@
 		function checkDelivery(){
 			let pincode = document.getElementById("pincode").value;
 			if(pincode.length !== 6){ alert("Enter valid pincode"); return; }
+			document.getElementById("deliveryResult").innerText = "Checking...";
 			fetch('https://www.poorah.com/checkDelivery?pincode=' + pincode)
 			.then(res => res.text())
 			.then(data => { document.getElementById("deliveryResult").innerText = data; })
