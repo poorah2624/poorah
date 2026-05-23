@@ -47,20 +47,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<!-- PAYMENT OPTIONS -->
 			<div>
 				<label> <input type="radio" name="paymentMethod" value="UPI"
-					onclick="showOption('upi')"> Pay Full Amount Online
+					onclick="showOption('upi')"> Pay Online
 				</label> <br>
 
 				<div id="discountBox"
 					style="display: none; margin-left: 20px; margin-top: 10px; margin-bottom: 10px;">
 					<label> <input type="checkbox"
 						id="noReturnDiscountCheckbox" onclick="toggleDiscountValue()">
-						Get ₹50 Discount (No Return After Delivery)
+						Get ₹50 (No Return Only Exchange)
 					</label>
 				</div>
 
 				<br> <label> <input type="radio" name="paymentMethod"
 					value="PARTIAL_COD" onclick="showOption('partial_cod')">
-					Pay 50% Now & 50% On Delivery
+					COD : 50% Advance, Rest on Delivery
 				</label>
 
 				<input type="hidden" id="noReturnDiscountHidden"
@@ -69,10 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 			<hr>
 
-			<div id="partial_codBox" style="display: none;">
-				<p>Pay only 50% now. Remaining 50% will be collected at
-					delivery.</p>
-			</div>
+			
 
 			<br>
 
@@ -92,18 +89,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script>
 
 	function showOption(type){
-	    var partialBox = document.getElementById("partial_codBox");
+	    //var partialBox = document.getElementById("partial_codBox");
 	    var discountBox = document.getElementById("discountBox");
 	    var discountCheckbox = document.getElementById("noReturnDiscountCheckbox");
 	    var discountHidden = document.getElementById("noReturnDiscountHidden");
 
 	    if(type === 'partial_cod'){
-	        partialBox.style.display = "block";
+	       // partialBox.style.display = "block";
 	        discountBox.style.display = "none";    
 	        discountCheckbox.checked = false; 
 	        discountHidden.value = "NO";  
 	    } else {
-	        partialBox.style.display = "none";
+	        //partialBox.style.display = "none";
 	        discountBox.style.display = "block"; 
 	    }
 	}
