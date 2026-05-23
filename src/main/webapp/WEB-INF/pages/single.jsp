@@ -299,13 +299,13 @@
 				<div class="clearfix"></div>
 				<div class="description">
 					<h5>
-						<i>Description</i>
+						<i>Overview</i>
 					</h5>
 					<p>${item.itemDesc}</p>
 				</div>
 				<div class="keyFeatures">
 					<h5>
-						<i>Key Features</i>
+						<i>Details</i>
 					</h5>
 
 					<ul>
