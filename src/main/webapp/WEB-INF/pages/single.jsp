@@ -231,11 +231,7 @@
 
 											</label>
 										</c:if>
-										<div style="color:red">
-    STOCK = ${stockStr}
-    <br>
-    XXL = ${xxlQty}
-</div>
+										
 
 									</div>
 								</c:forEach>
