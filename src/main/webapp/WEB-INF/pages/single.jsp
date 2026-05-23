@@ -150,7 +150,7 @@
 										<c:set var="lQty"
 											value="${fn:contains(stockStr, 'L:') ? fn:substringBefore(fn:substringAfter(stockStr, 'L:'), ',XL:') : '0'}" />
 										<c:set var="xlQty"
-											value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XL:') : '0'}" />
+											value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XXL:') : '0'}" />
 
 										<!-- ================= S SIZE OPTION ================= -->
 										<label style="margin-right: 15px;"
