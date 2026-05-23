@@ -509,9 +509,7 @@ body {
 							<!-- Policy Guard Alert -->
 							<div class="trust-banner">
 								<b style="font-size: 15px;">↩️ 5 Days Easy Returns Available</b>
-								<small style="display: block; color: #555; margin-top: 4px;">No
-									returns applicable if purchased using "No Return Discount
-									Offer". </small>
+								<small style="display: block; color: #555; margin-top: 4px;">(Conditions apply. No return on products purchased with "No Return Discount".) </small>
 							</div>
 
 							<!-- Pincode Checker UI Section -->
