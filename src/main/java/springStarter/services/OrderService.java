@@ -171,15 +171,20 @@ public class OrderService {
 	    }
 
 	    // ✅ DELIVERY CHARGE LOGIC
+	 // ✅ DELIVERY CHARGE LOGIC
 	    BigDecimal deliveryCharge = total.compareTo(BigDecimal.valueOf(500)) > 0 ? BigDecimal.ZERO : BigDecimal.valueOf(50);
 
 	    BigDecimal finalAmount = total.add(deliveryCharge);
 
+	    // 🌟 सुरक्षा चक्र: फाइनल अमाउंट को यहीं पर पूरी तरह राउंड (No Decimals) कर दें 🌟
+	    // इससे 91.4 ऑटोमैटिकली 91 हो जाएगा, जिससे आपके गेटवे और डेटाबेस की वैल्यू 100% मैच करेगी
+	    finalAmount = finalAmount.setScale(0, RoundingMode.HALF_UP);
+
 	    // ✅ SET ORDER VALUES
 	    order.setItems(orderItems);
-	    order.setDiscountedPrice(total);
+	    order.setDiscountedPrice(total.setScale(0, RoundingMode.HALF_UP));
 	    order.setQuantity(totalQty);
-	    order.setTotalAmount(finalAmount);
+	    order.setTotalAmount(finalAmount); // अब यहाँ परफेक्ट राउंडेड अमाउंट (जैसे ₹87 या ₹91) जाएगा
 	    order.setDeliveryCharge(deliveryCharge);
 	    order.setCategory(category);
 
@@ -190,12 +195,14 @@ public class OrderService {
 	    payment.setPaymentDate(LocalDateTime.now());
 	    
 	    if ("PARTIAL_COD".equals(paymentMethod)) {
+	    	// 40% एडवांस भी अब परफेक्ट राउंड फिगर में सेव होगा
 	    	BigDecimal advanceAmount = finalAmount.multiply(new BigDecimal("0.4")).setScale(0, RoundingMode.HALF_UP);
 	        payment.setAmount(advanceAmount);
 	        payment.setPaymentStatus("Partially Paid");
 	        order.setPaymentMethod("PARTIAL_COD");
 	        order.setPaymentStatus("Partially Paid");
 	    } else {
+	    	// फुल ऑनलाइन पेमेंट में भी अब .8 वाला कचरा साफ़ होकर पूरा राउंड अमाउंट सेव होगा
 	    	payment.setAmount(finalAmount);
 	        if (razorpayPaymentId != null && !razorpayPaymentId.isEmpty()) {
 	            payment.setRazorpayPaymentId(razorpayPaymentId);
