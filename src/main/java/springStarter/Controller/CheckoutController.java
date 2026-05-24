@@ -1,6 +1,8 @@
 package springStarter.Controller;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -102,6 +104,7 @@ public class CheckoutController {
 	
 	@PostMapping("/payment")
 	public String placeOrder(@RequestParam Long addressId,
+	                         @RequestParam(value = "noReturnDiscount", defaultValue = "NO") String noReturnDiscount,
 	                         HttpSession session,
 	                         Model model){
 
@@ -111,27 +114,55 @@ public class CheckoutController {
 	        return "redirect:/userlogin";
 	    }
 	   
-
-	 // selected address save
-	    model.addAttribute("selectedAddressId", addressId);
-
-	    // cart items
-	    List<Cart> cartItems = cartService.getCartByUser(user);
-	    model.addAttribute("cartItems", cartItems);
-
-	    // total
-	    BigDecimal grandTotal = BigDecimal.ZERO;
-
-	    for(Cart cart : cartItems){
-	        grandTotal = grandTotal.add(cart.getTotalPrice());
-	    }
-	    
 	    if(addressId == null){
 	        throw new RuntimeException("Address not selected!");
 	    }
 
+	    Long buyNowItemId = (Long) session.getAttribute("buyNowItemId");
+	    List<Cart> cartItems = new ArrayList<>();
+
+	    if (buyNowItemId != null) {
+	        String size = (String) session.getAttribute("buyNowSize");
+	        Cart temp = cartService.getTempCartItem(buyNowItemId, user, size);
+	        if (temp != null) {
+	            cartItems.add(temp);
+	        }
+	    } else {
+	        cartItems = cartService.getCartByUser(user);
+	    }
+
+	    String[] discountFlags = noReturnDiscount.split(",");
+
+	    BigDecimal grandTotal = BigDecimal.ZERO;
+
+	    for (int i = 0; i < cartItems.size(); i++) {
+	        Cart cart = cartItems.get(i);
+	        if (cart.getTotalPrice() != null) {
+	            BigDecimal itemRowTotal = cart.getTotalPrice();
+
+	            if (i < discountFlags.length && "YES".equalsIgnoreCase(discountFlags[i].trim())) {
+	               
+	                BigDecimal itemDiscount = itemRowTotal.multiply(new BigDecimal("0.08"));
+	                itemRowTotal = itemRowTotal.subtract(itemDiscount);
+	            }
+
+	            grandTotal = grandTotal.add(itemRowTotal);
+	        }
+	    }
+
+	
+	    BigDecimal deliveryCharge = (grandTotal.compareTo(BigDecimal.valueOf(500)) > 0 || grandTotal.compareTo(BigDecimal.ZERO) == 0) 
+	                                ? BigDecimal.ZERO : BigDecimal.valueOf(50);
+	    
+	    BigDecimal finalAmount = grandTotal.add(deliveryCharge).setScale(0, RoundingMode.HALF_UP);
+	    grandTotal = grandTotal.setScale(0, RoundingMode.HALF_UP);
+
+	
 	    session.setAttribute("grandTotal", grandTotal);
+	    session.setAttribute("deliveryCharge", deliveryCharge);
+	    session.setAttribute("finalAmount", finalAmount);
 	    session.setAttribute("selectedAddressId", addressId);
+	    session.setAttribute("noReturnDiscount", noReturnDiscount); 
 
 	    return "redirect:/payment";
 	}
