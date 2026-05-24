@@ -17,8 +17,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.razorpay.RazorpayClient;
-import com.razorpay.Refund;
-
 import springStarter.models.Address;
 import springStarter.models.Cart;
 import springStarter.models.ExchangeRequest;
@@ -63,20 +61,26 @@ public class OrderService {
 	@Autowired
 	private DelhiveryService delhiveryService;
 
+	@Autowired
+	private OrderItemRepo orderItemRepo;
+
+	@Autowired
+	private ReturnRequestRepo returnRequestRepo;
+
+	@Autowired
+	private ExchangeRequestRepo exchangeRequestRepo;
+
 	public void placeOrder(User user, Long addressId, String paymentMethod, HttpSession session,
 	        String razorpayPaymentId, String razorpayOrderId, String noReturnDiscount) {
 
 	    Long buyNowItemId = (Long) session.getAttribute("buyNowItemId");
-
 	    List<Cart> cartItems = new ArrayList<>();
 
 	    if (buyNowItemId != null) {
 	        Cart temp = cartService.getTempCartItem(buyNowItemId, user, null);
-
 	        if (temp == null) {
 	            throw new RuntimeException("Buy Now item not found");
 	        }
-
 	        cartItems.add(temp);
 	    } else {
 	        cartItems = cartRepo.findByUser(user);
@@ -99,34 +103,25 @@ public class OrderService {
 	    order.setOrderDate(LocalDateTime.now());
 	    order.setEstimatedDeliveryDate(LocalDate.now().plusDays(5).toString());
 	    order.setAddress(address);
+	    order.setNoReturnOrder("YES".equals(noReturnDiscount));
 
 	    BigDecimal total = BigDecimal.ZERO;
 	    List<Order_item> orderItems = new ArrayList<>();
 	    int totalQty = 0;
-
 	    String category = null;
+
 	    // ✅ ITEMS LOOP
 	    for (Cart cart : cartItems) {
-	    	
 	    	if (category == null) {
-
 	    	    if (cart.getItem() != null && cart.getItem().getCategory() != null) {
-
-	    	        category = cart.getItem()
-	    	                       .getCategory()
-	    	                       .getCategoryName();
-
+	    	        category = cart.getItem().getCategory().getCategoryName();
 	    	    } else {
 	    	        category = "CUSTOM";
 	    	    }
 	    	}
-	    
 
 	        Order_item item = new Order_item();
-	        
-
 	        item.setOrder(order);
-	        //item.setItem(cart.getItem());
 	        item.setQuantity(cart.getQuantity());
 	        item.setSize(cart.getSize());
 	        item.setAge(cart.getAge());
@@ -135,74 +130,50 @@ public class OrderService {
 	        item.setRefundStatus("None");
 	        
 	        if (cart.getIsCustom() != null && cart.getIsCustom()) {
-
 	            item.setIsCustom(true);
 	            item.setItem(null);
-
 	            item.setCustomImage(cart.getCustomImage());
 	            item.setColor(cart.getColor());
 	            item.setTshirtType(cart.getTshirtType());
 	            item.setGender(cart.getGender());
 	            item.setCustomNote(cart.getCustomNote());
-
 	        } else {
-
 	            item.setIsCustom(false);
 	            item.setItem(cart.getItem());
 	        }
 	        
-	        BigDecimal price;
-	        BigDecimal discountAmount;
-	        BigDecimal finalPrice;
-
-	        if (cart.getIsCustom() != null && cart.getIsCustom()) {
-	            price = cart.getTotalPrice();
-	        } else {
-	            price = cart.getItem().getItemPrice();
-	        }
-	        
-	        BigDecimal discountPercent;
+	        BigDecimal basePrice = (cart.getIsCustom() != null && cart.getIsCustom()) ? cart.getTotalPrice() : cart.getItem().getItemPrice();
 	        BigDecimal quantity = BigDecimal.valueOf(cart.getQuantity());  
-          
-	        if (cart.getIsCustom() != null && cart.getIsCustom()) {
-	            discountPercent = new BigDecimal("10"); 
-	        } else {
-	            discountPercent = cart.getItem().getDiscount();
+	        BigDecimal discountPercent = (cart.getIsCustom() != null && cart.getIsCustom()) ? new BigDecimal("10") : cart.getItem().getDiscount();
+
+	        // 1. सामान्य डिस्काउंट लगाएं
+	        BigDecimal normalDiscountAmount = basePrice.multiply(discountPercent).divide(BigDecimal.valueOf(100));
+	        BigDecimal priceAfterNormalDiscount = basePrice.subtract(normalDiscountAmount);
+
+	        // 🌟 2. अगर 'No Return Offer' सक्रिय है तो इस आइटम पर अतिरिक्त 8% डिस्काउंट दें
+	        BigDecimal noReturnDiscountAmount = BigDecimal.ZERO;
+	        if (order.getNoReturnOrder()) {
+	            noReturnDiscountAmount = priceAfterNormalDiscount.multiply(new BigDecimal("8")).divide(BigDecimal.valueOf(100));
+	            priceAfterNormalDiscount = priceAfterNormalDiscount.subtract(noReturnDiscountAmount);
 	        }
 
-	        discountAmount = price.multiply(discountPercent)
-	                .divide(BigDecimal.valueOf(100));
+	        // फाइनल कैलकुलेशन (प्रति यूनिट डिस्काउंट और कुल प्राइस)
+	        BigDecimal totalItemDiscount = normalDiscountAmount.add(noReturnDiscountAmount);
+	        BigDecimal finalItemPrice = priceAfterNormalDiscount.multiply(quantity);
 
-	        BigDecimal discountedPrice = price.subtract(discountAmount);
-	        finalPrice = discountedPrice.multiply(quantity);
+	        item.setPrice(basePrice);
+	        item.setDiscount(totalItemDiscount);
+	        item.setFinalPrice(finalItemPrice);
 
-	        item.setPrice(price);
-	        item.setDiscount(discountAmount);
-	        item.setFinalPrice(finalPrice);
-
-	        total = total.add(finalPrice);
+	        total = total.add(finalItemPrice);
 	        totalQty += cart.getQuantity();
-
 	        orderItems.add(item);
 	    }
 
 	    // ✅ DELIVERY CHARGE LOGIC
-	    BigDecimal deliveryCharge;
-	    if (total.compareTo(BigDecimal.valueOf(500)) > 0) {
-	        deliveryCharge = BigDecimal.ZERO;
-	    } else {
-	        deliveryCharge = BigDecimal.valueOf(50);
-	    }
+	    BigDecimal deliveryCharge = total.compareTo(BigDecimal.valueOf(500)) > 0 ? BigDecimal.ZERO : BigDecimal.valueOf(50);
 
 	    BigDecimal finalAmount = total.add(deliveryCharge);
-	    
-	    if("YES".equals(noReturnDiscount)) {
-	        finalAmount = finalAmount.subtract(BigDecimal.valueOf(50));
-	        order.setNoReturnOrder(true);
-	    }else{
-
-	        order.setNoReturnOrder(false);
-	    }
 
 	    // ✅ SET ORDER VALUES
 	    order.setItems(orderItems);
@@ -210,77 +181,46 @@ public class OrderService {
 	    order.setQuantity(totalQty);
 	    order.setTotalAmount(finalAmount);
 	    order.setDeliveryCharge(deliveryCharge);
-	    
 	    order.setCategory(category);
 
-
 	    Payment payment = new Payment();
-
 	    payment.setOrder(order);
 	    order.setPayment(payment); 
-
 	    payment.setPaymentMethod(paymentMethod);
 	    payment.setPaymentDate(LocalDateTime.now());
-	    //payment.setAmount(finalAmount); 
 	    
 	    if ("PARTIAL_COD".equals(paymentMethod)) {
-	    	BigDecimal advanceAmount = finalAmount.multiply(new BigDecimal("0.4"))
-	                .setScale(0, RoundingMode.HALF_UP);
-
+	    	BigDecimal advanceAmount = finalAmount.multiply(new BigDecimal("0.4")).setScale(0, RoundingMode.HALF_UP);
 	        payment.setAmount(advanceAmount);
 	        payment.setPaymentStatus("Partially Paid");
-
 	        order.setPaymentMethod("PARTIAL_COD");
 	        order.setPaymentStatus("Partially Paid");
-
 	    } else {
-
 	    	payment.setAmount(finalAmount);
-	        
 	        if (razorpayPaymentId != null && !razorpayPaymentId.isEmpty()) {
 	            payment.setRazorpayPaymentId(razorpayPaymentId);
 	            payment.setRazorpayOrderId(razorpayOrderId);
 	            payment.setPaymentStatus("Paid");
-
 	            order.setPaymentMethod("ONLINE");
 	            order.setPaymentStatus("Paid");
 	        } else {
 	            System.out.println("⚠️ Razorpay Payment ID missing");
 	        }
 	    }
-
-	    
 	    
 	    orderRepo.save(order);
 
-	    StringBuilder items = new StringBuilder();
-
+	    StringBuilder itemsDetails = new StringBuilder();
 	    for (Order_item i : order.getItems()) {
-	        String price = i.getFinalPrice()
-	                .setScale(0, RoundingMode.HALF_UP)
-	                .toPlainString();
+	        String priceStr = i.getFinalPrice().setScale(0, RoundingMode.HALF_UP).toPlainString();
 	        if (i.getIsCustom() != null && i.getIsCustom()) {
-
-	            items.append("• Custom T-Shirt")
-	                    .append(" (Qty: ").append(i.getQuantity()).append(")")
-	                    .append(" - ₹").append(price)
-	                    .append("\n");
-
-	        }
-	        else
-	        {
-	        items.append("• ")
-	                .append(i.getItem().getItemName())
-	                .append(" (Qty: ")
-	                .append(i.getQuantity())
-	                .append(")")
-	                .append(" - ₹")
-	                .append(price)
-	                .append("\n");
+	            itemsDetails.append("• Custom T-Shirt (Qty: ").append(i.getQuantity()).append(") - ₹").append(priceStr).append("\n");
+	        } else {
+	            itemsDetails.append("• ").append(i.getItem().getItemName()).append(" (Qty: ").append(i.getQuantity()).append(") - ₹").append(priceStr).append("\n");
 	        }
 	    }
 
-	    emailService.sendOrderMail(order, items.toString());
+	    emailService.sendOrderMail(order, itemsDetails.toString());
 
 	    if (buyNowItemId == null) {
 	        cartRepo.deleteAll(cartItems);
@@ -290,39 +230,24 @@ public class OrderService {
 	}
 
 	public void updateOrderStatus(Long orderId, String status) {
-
 		Orders order = orderRepo.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
 
-	
 		if ("Cancel".equalsIgnoreCase(status)) {
 			status = "Cancelled";
 		}
-
 		order.setStatus(status);
 		
 		if ("Packed".equalsIgnoreCase(status)) {
 			shiprocketService.createOrder(order);
-		}
-		
-		if ("Packed".equalsIgnoreCase(status)) {
 			delhiveryService.createShipment(order);
 		}
 
 		// ITEMS LOOP
 		for (Order_item item : order.getItems()) {
 			item.setStatus(status);
-
-			if ("Packed".equalsIgnoreCase(status)) {
-				order.setPackedDate(LocalDateTime.now());
-			}
-
-			if ("Shipped".equalsIgnoreCase(status)) {
-				order.setShippedDate(LocalDateTime.now());
-			}
-
-			if ("Delivered".equalsIgnoreCase(status)) {
-				order.setDeliveredDate(LocalDateTime.now());
-			}
+			if ("Packed".equalsIgnoreCase(status)) order.setPackedDate(LocalDateTime.now());
+			if ("Shipped".equalsIgnoreCase(status)) order.setShippedDate(LocalDateTime.now());
+			if ("Delivered".equalsIgnoreCase(status)) order.setDeliveredDate(LocalDateTime.now());
 
 			if ("Cancelled".equalsIgnoreCase(status)) {
 				item.setIsCancelled(true);
@@ -333,17 +258,12 @@ public class OrderService {
 		}
 
 		if ("Delivered".equalsIgnoreCase(status)) {
-			if ("PARTIAL_COD".equals(order.getPaymentMethod())) {
-				order.setPaymentStatus("COD Partial");
-			} else {
-				order.setPaymentStatus("Paid");
-			}
+			order.setPaymentStatus("PARTIAL_COD".equals(order.getPaymentMethod()) ? "COD Partial" : "Paid");
 		}
 
 		if ("Cancelled".equalsIgnoreCase(status)) {
 			order.setPaymentStatus("Cancelled");
 			orderRepo.save(order); 
-
 			for (Order_item item : order.getItems()) {
 				processRefund(item, order, order.getPayment());
 			}
@@ -352,525 +272,42 @@ public class OrderService {
 		}
 	}
 
-	public Orders getOrderById(Long id) {
-		return orderRepo.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
-	}
-
-	public Order_item getOrderItemById(Long orderItemId) {
-		return orderItemRepo.findById(orderItemId).orElseThrow(() -> new RuntimeException("Order Item not found"));
-	}
-
-	public boolean cancelOrderItem(Long orderItemId, Long userId) {
-
-		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
-
-		if (!optionalItem.isPresent())
-			return false;
-
-		Order_item item = optionalItem.get();
-
-		// user validation
-		if (!item.getOrder().getUser().getId().equals(userId))
-			return false;
-
-		// status check
-		if (!item.getStatus().equals("Pending") && !item.getStatus().equals("Processing") && !item.getStatus().equals("Packed")) {
-			return false;
-		}
-
-		Orders order = item.getOrder();
-		
-		if (!"COD".equals(order.getPaymentMethod())) {
-	        item.setRefundStatus("Pending");
-	        item.setCancelledAt(LocalDateTime.now()); 
-	    } else {
-	        item.setRefundStatus("Not Required");
-	    }
-
-		item.setStatus("Cancelled");
-		item.setIsCancelled(true);
-
-		orderItemRepo.save(item);
-
-		updateOrderStatusAfterItemChange(item.getOrder());
-
-		return true;
-	}
-
-	private void updateOrderStatusAfterItemChange(Orders order) {
-
-		List<Order_item> items = order.getItems();
-
-		boolean allCancelled = true;
-		boolean allDelivered = true;
-		boolean allCompleted = true; 
-
-		for (Order_item item : items) {
-			String status = item.getStatus();
-
-			if (!"Cancelled".equals(item.getStatus())) {
-				allCancelled = false;
-			}
-
-			if (!"Delivered".equals(item.getStatus())) {
-				allDelivered = false;
-			}
-			if (!(status.equalsIgnoreCase("Delivered") ||
-		              status.equalsIgnoreCase("Returned") ||
-		              status.equalsIgnoreCase("Cancelled"))) {
-
-		            allCompleted = false;
-		        }
-		}
-
-		if (allCancelled) {
-			order.setStatus("Cancelled");
-		} else if (allDelivered) {
-			order.setStatus("Delivered");
-		} else if (allCompleted) {
-	        order.setStatus("Completed");
-	    } else {
-	        order.setStatus("Active");
-	    }
-
-		orderRepo.save(order);
-	}
-
-	@Autowired
-	private ReturnRequestRepo returnRequestRepo;
-
-	public boolean returnOrderItem(Long orderItemId, Long userId, String reason) {
-
-		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
-
-		if (!optionalItem.isPresent())
-			return false;
-
-		Order_item item = optionalItem.get();
-		
-		if(Boolean.TRUE.equals(
-		        item.getOrder().getNoReturnOrder())){
-
-		    return false;
-		}
-
-		if (!item.getOrder().getUser().getId().equals(userId))
-			return false;
-
-		if (!"Delivered".equals(item.getOrder().getStatus()))
-			return false;
-		
-		if (item.getOrder().getNoReturnOrder())
-		    return false;
-
-		List<ReturnRequest> existing = returnRequestRepo.findByOrderItem(item);
-
-	    ReturnRequest req;
-
-	    if (!existing.isEmpty()) {
-	        req = existing.get(0);
-	        if ("Cancelled by User".equals(req.getStatus()) || "Rejected".equals(req.getStatus())) 
-	        {
-	            req.setStatus("Requested");
-	            req.setReason(reason);
-	        } else {
-	            return false;
-	        }
-
-	    } else {
-	        req = new ReturnRequest();
-	        req.setOrderItem(item);
-	        req.setReason(reason);
-	        req.setStatus("Requested");
-	    }
-	    
-	    item.setReturnRequested(true);
-	    item.setReturnStatus("Requested");
-	    item.setReturnPickupDate(LocalDate.now().plusDays(2).toString());
-
-	    returnRequestRepo.save(req);
-	    orderItemRepo.save(item);
-
-	    return true;
-	}
-
-	@Autowired
-	private OrderItemRepo orderItemRepo;
-
-	@Autowired
-	private ExchangeRequestRepo exchangeRequestRepo;
-
-	public boolean exchangeOrderItem(Long orderItemId, Long userId, String newSize) {
-
-		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
-
-		if (!optionalItem.isPresent())
-			return false;
-
-		Order_item item = optionalItem.get();
-
-		if (!item.getOrder().getUser().getId().equals(userId))
-			return false;
-
-		if (!"Delivered".equals(item.getOrder().getStatus()))
-			return false;
-
-		ExchangeRequest req = new ExchangeRequest();
-		req.setOrderItem(item);
-		req.setNewSize(newSize);
-		req.setStatus("Requested");
-
-		item.setExchangeRequested(true);
-		item.setNewSize(newSize);
-		item.setExchangeStatus("Requested");
-
-		// Delivery (5 days)
-		item.setExchangeDeliveryDate(LocalDate.now().plusDays(5).toString());
-
-		exchangeRequestRepo.save(req);
-
-		return true;
-	}
-
-	// return approve
-	public boolean approveReturn(Long orderItemId) {
-
-		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
-
-		if (!optionalItem.isPresent())
-			return false;
-
-		Order_item item = optionalItem.get();
-
-		if (!"Requested".equals(item.getReturnStatus()))
-			return false;
-
-		item.setReturnStatus("Approved");
-
-		item.setReturnPickupDate(LocalDate.now().plusDays(2).toString());
-
-		orderItemRepo.save(item);
-
-		List<ReturnRequest> requests = returnRequestRepo.findByOrderItem(item);
-
-		if (!requests.isEmpty()) {
-			ReturnRequest req = requests.get(0);
-			req.setStatus("Approved"); // or Picked / Rejected
-			returnRequestRepo.save(req);
-		}
-
-		return true;
-	}
-
-	// return refund
-	public boolean markReturnPicked(Long orderItemId) {
-
-		Order_item item = orderItemRepo.findById(orderItemId).get();
-
-		if (!"Approved".equals(item.getReturnStatus()))
-			return false;
-
-		// double refund protection
-		if ("Processed".equals(item.getRefundStatus()))
-			return false;
-
-		Orders order = item.getOrder();
-		Payment payment = order.getPayment();
-
-		if (payment == null) {
-		    System.out.println("⚠️ Payment not found");
-		    return false;
-		}
-
-		System.out.println("Payment: " + payment);
-		System.out.println("Razorpay ID: " + (payment != null ? payment.getRazorpayPaymentId() : "NULL"));
-
-		if (!processRefund(item, order, payment)) {
-	        return false;
-	    }
-
-		item.setReturnStatus("Picked");
-		item.setStatus("Returned");
-
-		List<ReturnRequest> requests = returnRequestRepo.findByOrderItem(item);
-
-		if (!requests.isEmpty()) {
-			ReturnRequest req = requests.get(0);
-			req.setStatus("Picked");
-			returnRequestRepo.save(req);
-		}
-		updateOrderStatusAfterItemChange(order);
-		orderItemRepo.save(item);
-
-		return true;
-	}
-
-	public boolean rejectReturn(Long orderItemId) {
-
-		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
-
-		if (!optionalItem.isPresent())
-			return false;
-
-		Order_item item = optionalItem.get();
-
-		if (!"Requested".equals(item.getReturnStatus()))
-			return false;
-
-		item.setReturnStatus("Rejected");
-		item.setRefundStatus("Not Applicable");
-
-		orderItemRepo.save(item);
-
-		List<ReturnRequest> requests = returnRequestRepo.findByOrderItem(item);
-
-		if (!requests.isEmpty()) {
-			ReturnRequest req = requests.get(0);
-			req.setStatus("Rejected");
-			returnRequestRepo.save(req);
-		}
-
-		return true;
-	}
-	
-	public boolean revertCancel(Long orderItemId, Long userId) {
-
-	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
-
-	    if(item == null) return false;
-
-	    if(!item.getOrder().getUser().getId().equals(userId)) return false;
-
-	    // only before refund
-	    if(!"Cancelled".equals(item.getStatus()) 
-	       || "Processed".equals(item.getRefundStatus())) {
-	        return false;
-	    }
-
-	    // revert
-	    item.setStatus("Pending");
-	    item.setIsCancelled(false);
-	    item.setRefundStatus("None");
-
-	    orderItemRepo.save(item);
-
-	    updateOrderStatusAfterItemChange(item.getOrder());
-
-	    return true;
-	}
-	
-	public boolean revertReturn(Long orderItemId, Long userId) {
-
-	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
-
-	    if(item == null) return false;
-
-	    if(!item.getOrder().getUser().getId().equals(userId)) return false;
-
-	    if(!"Requested".equals(item.getReturnStatus()) 
-	       && !"Approved".equals(item.getReturnStatus())) {
-	        return false;
-	    }
-
-	    item.setReturnRequested(false);
-	    item.setReturnStatus("Cancelled by User");
-	    item.setReturnPickupDate(null);
-
-	    orderItemRepo.save(item);
-	    
-	    List<ReturnRequest> requests = returnRequestRepo.findByOrderItem(item);
-
-	    if (!requests.isEmpty()) {
-	        ReturnRequest req = requests.get(0);
-
-	        req.setStatus("Cancelled by User");
-
-	        returnRequestRepo.save(req);
-	    }
-
-	    return true;
-	}
-	
-	public boolean revertExchange(Long orderItemId, Long userId) {
-
-	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
-
-	    if(item == null) return false;
-
-	    if(!item.getOrder().getUser().getId().equals(userId)) return false;
-
-	    if(!"Requested".equals(item.getExchangeStatus()) 
-	       && !"Approved".equals(item.getExchangeStatus())) {
-	        return false;
-	    }
-
-	    item.setExchangeRequested(false);
-	    item.setExchangeStatus(null);
-	    item.setNewSize(null);
-	    item.setExchangeDeliveryDate(null);
-
-	    orderItemRepo.save(item);
-
-	    return true;
-	}
-	
-	public boolean approveExchange(Long orderItemId) {
-
-	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
-
-	    if (item == null) return false;
-
-	    if (!"Requested".equals(item.getExchangeStatus())) return false;
-
-	    item.setExchangeStatus("Approved");
-
-	    orderItemRepo.save(item);
-
-	    List<ExchangeRequest> requests = exchangeRequestRepo.findByOrderItem(item);
-
-	    if (!requests.isEmpty()) {
-	        ExchangeRequest req = requests.get(0);
-	        req.setStatus("Approved");
-	        exchangeRequestRepo.save(req);
-	    }
-
-	    return true;
-	}
-	
-	public boolean rejectExchange(Long orderItemId) {
-
-	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
-
-	    if (item == null) return false;
-
-	    if (!"Requested".equals(item.getExchangeStatus())) return false;
-
-	    item.setExchangeStatus("Rejected");
-
-	    orderItemRepo.save(item);
-
-	    List<ExchangeRequest> requests = exchangeRequestRepo.findByOrderItem(item);
-
-	    if (!requests.isEmpty()) {
-	        ExchangeRequest req = requests.get(0);
-	        req.setStatus("Rejected");
-	        exchangeRequestRepo.save(req);
-	    }
-
-	    return true;
-	}
-	
-	public boolean shipExchange(Long orderItemId) {
-
-	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
-
-	    if (item == null) return false;
-
-	    if (!"Approved".equals(item.getExchangeStatus())) return false;
-
-	    item.setExchangeStatus("Shipped");
-
-	    orderItemRepo.save(item);
-
-	    List<ExchangeRequest> requests = exchangeRequestRepo.findByOrderItem(item);
-
-	    if (!requests.isEmpty()) {
-	        ExchangeRequest req = requests.get(0);
-	        req.setStatus("Shipped");
-	        exchangeRequestRepo.save(req);
-	    }
-
-	    return true;
-	}
-	
-	public boolean deliverExchange(Long orderItemId) {
-
-	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
-
-	    if (item == null) return false;
-
-	    if (!"Shipped".equals(item.getExchangeStatus())) return false;
-
-	    item.setExchangeStatus("Delivered");
-
-	    orderItemRepo.save(item);
-
-	    List<ExchangeRequest> requests = exchangeRequestRepo.findByOrderItem(item);
-
-	    if (!requests.isEmpty()) {
-	        ExchangeRequest req = requests.get(0);
-	        req.setStatus("Delivered");
-	        exchangeRequestRepo.save(req);
-	    }
-
-	    return true;
-	}
-	
-	@Scheduled(fixedDelay = 900000)
-	public void processPendingRefunds() {
-
-	    List<Order_item> items = orderItemRepo.findByRefundStatusAndStatus("Pending","Cancelled");
-
-	    for (Order_item item : items) {
-
-	        Orders order = item.getOrder();
-	        Payment payment = order.getPayment();
-
-	        processRefund(item, order, payment);
-	    }
-	}
-	
 	private boolean processRefund(Order_item item, Orders order, Payment payment) {
-
 	    if ("COD".equals(order.getPaymentMethod())) {
 	        item.setRefundStatus("Not Required");
 	        return true;
 	    }
 	    
 	    if (payment == null || payment.getRazorpayPaymentId() == null || payment.getRazorpayPaymentId().isEmpty()) {
-	        System.out.println("⚠️ Cannot process online refund: Razorpay Payment ID is missing.");
 	        item.setRefundStatus("Not Required (Unpaid)");
 	        return true;
 	    }
 
 	    try {
 	        RazorpayClient client = new RazorpayClient("rzp_live_ShQOLUifv4q2NT", "cHeaeKSUiS56d0RH1PYAFba2");
-
 	        JSONObject refundRequest = new JSONObject();
-	        BigDecimal refundAmount= BigDecimal.ZERO;
+	        BigDecimal refundAmount = BigDecimal.ZERO;
 
+	        // चेक करें कि क्या सभी आइटम्स ख़त्म हो चुके हैं
 	        boolean allItemsDone = order.getItems().stream()
-	                .allMatch(i -> 
-	                    i.getIsCancelled() || 
-	                    "Returned".equals(i.getStatus()) ||
-	                    i.getId().equals(item.getId())
-	                );
+	                .allMatch(i -> i.getIsCancelled() || "Returned".equals(i.getStatus()) || i.getId().equals(item.getId()));
 
+	        // 🌟 मल्टी-आइटम सेफ रिफंड कैलकुलेशन (8% मॉडल के आधार पर)
 	        if ("ONLINE".equalsIgnoreCase(order.getPaymentMethod()) || "UPI".equalsIgnoreCase(order.getPaymentMethod())) {
 	            if (allItemsDone) {
-	                refundAmount = order.getTotalAmount(); 
+	                refundAmount = order.getTotalAmount(); // पूरा बचा हुआ अमाउंट (डिलीवरी चार्ज सहित)
 	            } else {
-	             
-	                if (Boolean.TRUE.equals(order.getNoReturnOrder())) {
-	                    refundAmount = item.getFinalPrice().subtract(BigDecimal.valueOf(50));
-	                } else {
-	                    refundAmount = item.getFinalPrice();
-	                }
+	                refundAmount = item.getFinalPrice(); // सिर्फ उसी आइटम का डिडक्टेड प्राइस
 	            }
 	        } 
 	        else if ("PARTIAL_COD".equalsIgnoreCase(order.getPaymentMethod())) {
 	            if (allItemsDone) {
-	                refundAmount = order.getTotalAmount().multiply(new BigDecimal("0.4"));
+	                refundAmount = order.getTotalAmount().multiply(new BigDecimal("0.4")); // पूरा 40%
 	            } else {
-	                if (Boolean.TRUE.equals(order.getNoReturnOrder())) {
-	                    refundAmount = item.getFinalPrice().subtract(BigDecimal.valueOf(50)).multiply(new BigDecimal("0.4"));
-	                } else {
-	                    refundAmount = item.getFinalPrice().multiply(new BigDecimal("0.4"));
-	                }
+	                refundAmount = item.getFinalPrice().multiply(new BigDecimal("0.4")); // सिर्फ इस आइटम का 40% एडवांस हिस्सा
 	            }
 	        }
 
-	       
 	        BigDecimal refundAmountRounded = refundAmount.setScale(0, RoundingMode.HALF_UP);
 	        BigDecimal paidAmountRounded = payment.getAmount().setScale(0, RoundingMode.HALF_UP);
 
@@ -884,11 +321,6 @@ public class OrderService {
 	        }
 
 	        refundRequest.put("amount", refundAmountRounded.multiply(new BigDecimal(100)).intValue());
-
-	        System.out.println("Processing Refund Amount: " + refundAmountRounded + " for Method: " + order.getPaymentMethod());
-	        System.out.println("Razorpay Payment ID: " + payment.getRazorpayPaymentId());
-
-	    
 	        client.payments.refund(payment.getRazorpayPaymentId(), refundRequest);
 
 	        item.setRefundStatus("Processed");
@@ -896,12 +328,322 @@ public class OrderService {
 
 	    } catch (Exception e) {
 	        System.out.println("❌ Razorpay Refund Exception: " + e.getMessage());
-	        e.printStackTrace();
 	        item.setRefundStatus("Failed");
 	        return false;
 	    }
 	}
-	
-	
 
+	public Orders getOrderById(Long id) {
+		return orderRepo.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
+	}
+
+	public Order_item getOrderItemById(Long orderItemId) {
+		return orderItemRepo.findById(orderItemId).orElseThrow(() -> new RuntimeException("Order Item not found"));
+	}
+
+	public boolean cancelOrderItem(Long orderItemId, Long userId) {
+		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
+		if (!optionalItem.isPresent()) return false;
+
+		Order_item item = optionalItem.get();
+		if (!item.getOrder().getUser().getId().equals(userId)) return false;
+
+		if (!item.getStatus().equals("Pending") && !item.getStatus().equals("Processing") && !item.getStatus().equals("Packed")) {
+			return false;
+		}
+
+		Orders order = item.getOrder();
+		item.setRefundStatus(!"COD".equals(order.getPaymentMethod()) ? "Pending" : "Not Required");
+		if (!"COD".equals(order.getPaymentMethod())) item.setCancelledAt(LocalDateTime.now());
+
+		item.setStatus("Cancelled");
+		item.setIsCancelled(true);
+		orderItemRepo.save(item);
+
+		// 🌟 सिंगल आइटम कैंसिल होने पर तुरंत रिफंड चलाएं
+		processRefund(item, order, order.getPayment());
+
+		updateOrderStatusAfterItemChange(order);
+		return true;
+	}
+
+	private void updateOrderStatusAfterItemChange(Orders order) {
+		List<Order_item> items = order.getItems();
+		boolean allCancelled = true;
+		boolean allDelivered = true;
+		boolean allCompleted = true; 
+
+		for (Order_item item : items) {
+			String status = item.getStatus();
+			if (!"Cancelled".equals(status)) allCancelled = false;
+			if (!"Delivered".equals(status)) allDelivered = false;
+			if (!(status.equalsIgnoreCase("Delivered") || status.equalsIgnoreCase("Returned") || status.equalsIgnoreCase("Cancelled"))) {
+				allCompleted = false;
+			}
+		}
+
+		if (allCancelled) order.setStatus("Cancelled");
+		else if (allDelivered) order.setStatus("Delivered");
+		else if (allCompleted) order.setStatus("Completed");
+		else order.setStatus("Active");
+
+		orderRepo.save(order);
+	}
+
+	public boolean returnOrderItem(Long orderItemId, Long userId, String reason) {
+		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
+		if (!optionalItem.isPresent()) return false;
+
+		Order_item item = optionalItem.get();
+		if (Boolean.TRUE.equals(item.getOrder().getNoReturnOrder())) return false;
+		if (!item.getOrder().getUser().getId().equals(userId)) return false;
+		if (!"Delivered".equals(item.getOrder().getStatus())) return false;
+
+		List<ReturnRequest> existing = returnRequestRepo.findByOrderItem(item);
+	    ReturnRequest req;
+
+	    if (!existing.isEmpty()) {
+	        req = existing.get(0);
+	        if ("Cancelled by User".equals(req.getStatus()) || "Rejected".equals(req.getStatus())) {
+	            req.setStatus("Requested");
+	            req.setReason(reason);
+	        } else {
+	            return false;
+	        }
+	    } else {
+	        req = new ReturnRequest();
+	        req.setOrderItem(item);
+	        req.setReason(reason);
+	        req.setStatus("Requested");
+	    }
+	    
+	    item.setReturnRequested(true);
+	    item.setReturnStatus("Requested");
+	    item.setReturnPickupDate(LocalDate.now().plusDays(2).toString());
+
+	    returnRequestRepo.save(req);
+	    orderItemRepo.save(item);
+	    return true;
+	}
+
+	public boolean exchangeOrderItem(Long orderItemId, Long userId, String newSize) {
+		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
+		if (!optionalItem.isPresent()) return false;
+
+		Order_item item = optionalItem.get();
+		if (!item.getOrder().getUser().getId().equals(userId)) return false;
+		if (!"Delivered".equals(item.getOrder().getStatus())) return false;
+
+		ExchangeRequest req = new ExchangeRequest();
+		req.setOrderItem(item);
+		req.setNewSize(newSize);
+		req.setStatus("Requested");
+
+		item.setExchangeRequested(true);
+		item.setNewSize(newSize);
+		item.setExchangeStatus("Requested");
+		item.setExchangeDeliveryDate(LocalDate.now().plusDays(5).toString());
+
+		exchangeRequestRepo.save(req);
+		return true;
+	}
+
+	public boolean approveReturn(Long orderItemId) {
+		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
+		if (!optionalItem.isPresent()) return false;
+
+		Order_item item = optionalItem.get();
+		if (!"Requested".equals(item.getReturnStatus())) return false;
+
+		item.setReturnStatus("Approved");
+		item.setReturnPickupDate(LocalDate.now().plusDays(2).toString());
+		orderItemRepo.save(item);
+
+		List<ReturnRequest> requests = returnRequestRepo.findByOrderItem(item);
+		if (!requests.isEmpty()) {
+			ReturnRequest req = requests.get(0);
+			req.setStatus("Approved");
+			returnRequestRepo.save(req);
+		}
+		return true;
+	}
+
+	public boolean markReturnPicked(Long orderItemId) {
+		Order_item item = orderItemRepo.findById(orderItemId).get();
+		if (!"Approved".equals(item.getReturnStatus())) return false;
+		if ("Processed".equals(item.getRefundStatus())) return false;
+
+		Orders order = item.getOrder();
+		Payment payment = order.getPayment();
+		if (payment == null) return false;
+
+		if (!processRefund(item, order, payment)) return false;
+
+		item.setReturnStatus("Picked");
+		item.setStatus("Returned");
+
+		List<ReturnRequest> requests = returnRequestRepo.findByOrderItem(item);
+		if (!requests.isEmpty()) {
+			ReturnRequest req = requests.get(0);
+			req.setStatus("Picked");
+			returnRequestRepo.save(req);
+		}
+		updateOrderStatusAfterItemChange(order);
+		orderItemRepo.save(item);
+		return true;
+	}
+
+	public boolean rejectReturn(Long orderItemId) {
+		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
+		if (!optionalItem.isPresent()) return false;
+
+		Order_item item = optionalItem.get();
+		if (!"Requested".equals(item.getReturnStatus())) return false;
+
+		item.setReturnStatus("Rejected");
+		item.setRefundStatus("Not Applicable");
+		orderItemRepo.save(item);
+
+		List<ReturnRequest> requests = returnRequestRepo.findByOrderItem(item);
+		if (!requests.isEmpty()) {
+			ReturnRequest req = requests.get(0);
+			req.setStatus("Rejected");
+			returnRequestRepo.save(req);
+		}
+		return true;
+	}
+	
+	public boolean revertCancel(Long orderItemId, Long userId) {
+	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
+	    if(item == null) return false;
+	    if(!item.getOrder().getUser().getId().equals(userId)) return false;
+
+	    if(!"Cancelled".equals(item.getStatus()) || "Processed".equals(item.getRefundStatus())) {
+	        return false;
+	    }
+
+	    item.setStatus("Pending");
+	    item.setIsCancelled(false);
+	    item.setRefundStatus("None");
+	    orderItemRepo.save(item);
+
+	    updateOrderStatusAfterItemChange(item.getOrder());
+	    return true;
+	}
+	
+	public boolean revertReturn(Long orderItemId, Long userId) {
+	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
+	    if(item == null) return false;
+	    if(!item.getOrder().getUser().getId().equals(userId)) return false;
+
+	    if(!"Requested".equals(item.getReturnStatus()) && !"Approved".equals(item.getReturnStatus())) {
+	        return false;
+	    }
+
+	    item.setReturnRequested(false);
+	    item.setReturnStatus("Cancelled by User");
+	    item.setReturnPickupDate(null);
+	    orderItemRepo.save(item);
+	    
+	    List<ReturnRequest> requests = returnRequestRepo.findByOrderItem(item);
+	    if (!requests.isEmpty()) {
+	        ReturnRequest req = requests.get(0);
+	        req.setStatus("Cancelled by User");
+	        returnRequestRepo.save(req);
+	    }
+	    return true;
+	}
+	
+	public boolean revertExchange(Long orderItemId, Long userId) {
+	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
+	    if(item == null) return false;
+	    if(!item.getOrder().getUser().getId().equals(userId)) return false;
+
+	    if(!"Requested".equals(item.getExchangeStatus()) && !"Approved".equals(item.getExchangeStatus())) {
+	        return false;
+	    }
+
+	    item.setExchangeRequested(false);
+	    item.setExchangeStatus(null);
+	    item.setNewSize(null);
+	    item.setExchangeDeliveryDate(null);
+	    orderItemRepo.save(item);
+	    return true;
+	}
+	
+	public boolean approveExchange(Long orderItemId) {
+	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
+	    if (item == null) return false;
+	    if (!"Requested".equals(item.getExchangeStatus())) return false;
+
+	    item.setExchangeStatus("Approved");
+	    orderItemRepo.save(item);
+
+	    List<ExchangeRequest> requests = exchangeRequestRepo.findByOrderItem(item);
+	    if (!requests.isEmpty()) {
+	        ExchangeRequest req = requests.get(0);
+	        req.setStatus("Approved");
+	        exchangeRequestRepo.save(req);
+	    }
+	    return true;
+	}
+	
+	public boolean rejectExchange(Long orderItemId) {
+	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
+	    if (item == null) return false;
+	    if (!"Requested".equals(item.getExchangeStatus())) return false;
+
+	    item.setExchangeStatus("Rejected");
+	    orderItemRepo.save(item);
+
+	    List<ExchangeRequest> requests = exchangeRequestRepo.findByOrderItem(item);
+	    if (!requests.isEmpty()) {
+	        ExchangeRequest req = requests.get(0);
+	        req.setStatus("Rejected");
+	        exchangeRequestRepo.save(req);
+	    }
+	    return true;
+	}
+	
+	public boolean shipExchange(Long orderItemId) {
+	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
+	    if (item == null) return false;
+	    if (!"Approved".equals(item.getExchangeStatus())) return false;
+
+	    item.setExchangeStatus("Shipped");
+	    orderItemRepo.save(item);
+
+	    List<ExchangeRequest> requests = exchangeRequestRepo.findByOrderItem(item);
+	    if (!requests.isEmpty()) {
+	        ExchangeRequest req = requests.get(0);
+	        req.setStatus("Shipped");
+	        exchangeRequestRepo.save(req);
+	    }
+	    return true;
+	}
+	
+	public boolean deliverExchange(Long orderItemId) {
+	    Order_item item = orderItemRepo.findById(orderItemId).orElse(null);
+	    if (item == null) return false;
+	    if (!"Shipped".equals(item.getExchangeStatus())) return false;
+
+	    item.setExchangeStatus("Delivered");
+	    orderItemRepo.save(item);
+
+	    List<ExchangeRequest> requests = exchangeRequestRepo.findByOrderItem(item);
+	    if (!requests.isEmpty()) {
+	        ExchangeRequest req = requests.get(0);
+	        req.setStatus("Delivered");
+	        exchangeRequestRepo.save(req);
+	    }
+	    return true;
+	}
+	
+	@Scheduled(fixedDelay = 900000)
+	public void processPendingRefunds() {
+	    List<Order_item> items = orderItemRepo.findByRefundStatusAndStatus("Pending","Cancelled");
+	    for (Order_item item : items) {
+	        processRefund(item, item.getOrder(), item.getOrder().getPayment());
+	    }
+	}
 }

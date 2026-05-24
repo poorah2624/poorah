@@ -174,8 +174,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<div id="discountBox" style="display: none;" onclick="event.stopPropagation();">
 							<div class="discount-premium-box">
 								<label for="noReturnDiscountCheckbox"> 
-									<input type="checkbox" id="noReturnDiscountCheckbox" onclick="toggleDiscountValue()"> 🎉 Get Instant ₹50 Off
-									<span class="badge-discount">No Return Only Exchange</span>
+									<input type="checkbox" id="noReturnDiscountCheckbox" onclick="toggleDiscountValue()"> 
+									<!-- 🌟 टेक्स्ट को बदलकर 8% ऑफ़ कर दिया गया है ताकि बैकएंड मॉडल से मैच हो 🌟 -->
+									🎉 Get Extra 8% Off <span class="badge-discount">No Return Only Exchange</span>
 								</label>
 							</div>
 						</div>
@@ -207,6 +208,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 	<script>
+	// आपके बैकएंड से आ रहे डिलीवरी चार्ज और ग्रैंड टोटल की वैल्यू को JS वेरिएबल में स्टोर करना ताकि सटीक 8% डिस्काउंट निकल सके
+	var backendGrandTotal = parseFloat("${grandTotal}");
+	var backendDeliveryCharge = parseFloat("${deliveryCharge}");
+
 	function showOption(type){
 		var discountBox = document.getElementById("discountBox");
 		var discountCheckbox = document.getElementById("noReturnDiscountCheckbox");
@@ -281,15 +286,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	function payNow() {
 		var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-		var amountToPay = Math.round(${finalAmount});
 		var checkbox = document.getElementById("noReturnDiscountCheckbox");
+		
+		var amountToPay = 0;
 
-		if(paymentMethod === "UPI" && checkbox.checked){
-			amountToPay = amountToPay - 50;
-		}
-
-		if(paymentMethod === "PARTIAL_COD"){
-			amountToPay = Math.round(amountToPay * 0.4);
+		// 🌟 नया 8% प्रोपोर्शनल कैलकुलेटर इंजन ताकि गेटवे पर ₹1 का भी अंतर न आए 🌟
+		if (paymentMethod === "UPI") {
+			if (checkbox.checked) {
+				// सिर्फ ग्रैंड टोटल पर 8% कम करें, डिलीवरी चार्ज वैसा ही रहेगा
+				var productPriceAfterDiscount = backendGrandTotal - (backendGrandTotal * 0.08);
+				amountToPay = Math.round(productPriceAfterDiscount + backendDeliveryCharge);
+			} else {
+				amountToPay = Math.round(backendGrandTotal + backendDeliveryCharge);
+			}
+		} 
+		else if (paymentMethod === "PARTIAL_COD") {
+			// चूंकि आंशिक कैश ऑन डिलीवरी में चेकबॉक्स हाइड रहता है, इसलिए कुल फाइनल अमाउंट का फ्लैट 40% चार्ज करें
+			var totalOrderAmount = backendGrandTotal + backendDeliveryCharge;
+			amountToPay = Math.round(totalOrderAmount * 0.4);
 		}
 
 		fetch("/create-order", {
