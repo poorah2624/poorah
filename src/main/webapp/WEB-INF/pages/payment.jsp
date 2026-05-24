@@ -14,68 +14,76 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <head>
 <%@include file="head.jsp"%>
 <style>
-	/* Custom CSS for modern UI and Highlighting features */
-	.payment-wrapper {
-		max-width: 600px;
-		margin: 40px auto;
-		background: #ffffff;
-		padding: 30px;
-		border-radius: 12px;
-		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-	}
-	.total-amount-box {
-		background: #fdf2f4;
-		border-left: 5px solid #ff9b05;
-		padding: 15px;
-		border-radius: 4px;
-		margin-bottom: 25px;
-	}
-	.total-amount-box h4 {
-		margin: 0;
-		color: #333;
-		font-weight: 600;
-	}
-	.payment-option-card {
-		border: 2px solid #e0e0e0;
-		border-radius: 8px;
-		padding: 18px;
-		margin-bottom: 15px;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		position: relative;
-	}
-	.payment-option-card:hover {
-		border-color: #ff9b05;
-		background-color: #fffafb;
-	}
-	.payment-option-card input[type="radio"] {
-		transform: scale(1.2);
-		margin-right: 10px;
-		vertical-align: middle;
-	}
-	.payment-option-card label {
-		font-size: 16px;
-		font-weight: 600;
-		color: #444;
-		cursor: pointer;
-		margin: 0;
-		display: inline-block;
-		width: 90%;
-	}
-	.btn-confirm {
-		background-color: #ff9b05 !important;
-		border-color: #ff9b05 !important;
-		padding: 12px;
-		font-size: 18px;
-		font-weight: 600;
-		border-radius: 8px;
-		transition: opacity 0.2s;
-		margin-top: 15px;
-	}
-	.btn-confirm:hover {
-		opacity: 0.9;
-		color: #fff;
-	}
+/* Custom CSS for modern UI and Highlighting features */
+.payment-wrapper {
+	max-width: 600px;
+	margin: 40px auto;
+	background: #ffffff;
+	padding: 30px;
+	border-radius: 12px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.total-amount-box {
+	background: #fdf2f4;
+	border-left: 5px solid #ff9b05;
+	padding: 15px;
+	border-radius: 4px;
+	margin-bottom: 25px;
+}
+
+.total-amount-box h4 {
+	margin: 0;
+	color: #333;
+	font-weight: 600;
+}
+
+.payment-option-card {
+	border: 2px solid #e0e0e0;
+	border-radius: 8px;
+	padding: 18px;
+	margin-bottom: 15px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	position: relative;
+}
+
+.payment-option-card:hover {
+	border-color: #ff9b05;
+	background-color: #fffafb;
+}
+
+.payment-option-card input[type="radio"] {
+	transform: scale(1.2);
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+.payment-option-card label {
+	font-size: 16px;
+	font-weight: 600;
+	color: #444;
+	cursor: pointer;
+	margin: 0;
+	display: inline-block;
+	width: 90%;
+}
+
+.btn-confirm {
+	background-color: #ff9b05 !important;
+	border-color: #ff9b05 !important;
+	padding: 12px;
+	font-size: 18px;
+	font-weight: 600;
+	border-radius: 8px;
+	transition: opacity 0.2s;
+	margin-top: 15px;
+}
+
+.btn-confirm:hover {
+	opacity: 0.9;
+	color: #fff;
+}
 </style>
 </head>
 
@@ -88,7 +96,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="breadcrumb_dress">
 		<div class="container">
 			<ul>
-				<li><a href="/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a> <i>/</i></li>
+				<li><a href="/home"><span class="glyphicon glyphicon-home"
+						aria-hidden="true"></span> Home</a> <i>/</i></li>
 				<li>Checkout</li>
 			</ul>
 		</div>
@@ -97,34 +106,48 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<div class="container">
 		<div class="payment-wrapper">
-			<h2 class="text-center" style="margin-bottom: 25px; color: #333; font-weight: 700;">Select Payment Method</h2>
+			<h2 class="text-center"
+				style="margin-bottom: 25px; color: #333; font-weight: 700;">Select
+				Payment Method</h2>
 
 			<!-- Total Amount Display -->
 			<div class="total-amount-box">
 				<h4>
-					Total Amount to Pay: <span style="color: #ff9b05; font-size: 22px; float: right;">₹<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" /></span>
+					Total Amount to Pay: <span
+						style="color: #ff9b05; font-size: 22px; float: right;">₹<fmt:formatNumber
+							value="${finalAmount}" maxFractionDigits="0" /></span>
 				</h4>
 			</div>
 
 			<form action="/payment" method="post" id="paymentForm">
 				<input type="hidden" name="addressId" value="${selectedAddressId}">
-
+				<input type="hidden" name="noReturnDiscount"
+					value="${sessionScope.noReturnDiscount}">
 				<!-- PAYMENT OPTIONS -->
 				<div>
 					<!-- Option 1: Pay Online -->
-					<div class="payment-option-card" onclick="document.getElementById('payOnlineRadio').click();">
-						<input type="radio" name="paymentMethod" value="UPI" id="payOnlineRadio" onclick="showOption('upi'); event.stopPropagation();"> 
-						<label for="payOnlineRadio">Pay Online Securely</label>
+					<div class="payment-option-card"
+						onclick="document.getElementById('payOnlineRadio').click();">
+						<input type="radio" name="paymentMethod" value="UPI"
+							id="payOnlineRadio"
+							onclick="showOption('upi'); event.stopPropagation();"> <label
+							for="payOnlineRadio">Pay Online Securely</label>
 					</div>
 
 					<!-- Option 2: Partial COD (40% Advance, Rest on Delivery) -->
-					<div class="payment-option-card" onclick="document.getElementById('partialCodRadio').click();">
-						<input type="radio" name="paymentMethod" value="PARTIAL_COD" id="partialCodRadio" onclick="showOption('partial_cod'); event.stopPropagation();">
-						<label for="partialCodRadio">COD : 40% Advance, Rest on Delivery</label>
+					<div class="payment-option-card"
+						onclick="document.getElementById('partialCodRadio').click();">
+						<input type="radio" name="paymentMethod" value="PARTIAL_COD"
+							id="partialCodRadio"
+							onclick="showOption('partial_cod'); event.stopPropagation();">
+						<label for="partialCodRadio">COD : 40% Advance, Rest on
+							Delivery</label>
 					</div>
 				</div>
 
-				<button type="button" onclick="handlePayment()" class="btn btn-success btn-block btn-confirm">Confirm & Place Order</button>
+				<button type="button" onclick="handlePayment()"
+					class="btn btn-success btn-block btn-confirm">Confirm &
+					Place Order</button>
 			</form>
 		</div>
 	</div>
@@ -137,95 +160,103 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 	<script>
-	function showOption(type){
-		document.querySelectorAll('.payment-option-card').forEach(card => {
-			card.style.borderColor = "#e0e0e0";
-			card.style.backgroundColor = "#ffffff";
-		});
+function showOption(type){
+	document.querySelectorAll('.payment-option-card').forEach(card => {
+		card.style.borderColor = "#e0e0e0";
+		card.style.backgroundColor = "#ffffff";
+	});
 
-		if(type === 'partial_cod'){
-			document.getElementById('partialCodRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
-			document.getElementById('partialCodRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
-		} else {
-			document.getElementById('payOnlineRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
-			document.getElementById('payOnlineRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
-		}
+	if(type === 'partial_cod'){
+		document.getElementById('partialCodRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
+		document.getElementById('partialCodRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
+	} else {
+		document.getElementById('payOnlineRadio').closest('.payment-option-card').style.borderColor = "#ff9b05";
+		document.getElementById('payOnlineRadio').closest('.payment-option-card').style.backgroundColor = "#fffafb";
 	}
+}
 
-	function handlePayment(){
-		var selected = document.querySelector('input[name="paymentMethod"]:checked');
+function handlePayment(){
+	var selected = document.querySelector('input[name="paymentMethod"]:checked');
 
-		if(!selected){
-			alert("Please select payment method");
-			return;
-		}
+	if(!selected){
+		alert("Please select payment method");
+		return;
+	}
+	
+	payNow();
+}
+
+function payNow() {
+	var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+	var amountToPay = Math.round(${finalAmount});
+
+	if (paymentMethod === "PARTIAL_COD") {
 		
-		payNow();
+		if (amountToPay == Math.round(${sessionScope.grandTotal} + ${sessionScope.deliveryCharge})) {
+			amountToPay = Math.round(amountToPay * 0.4);
+		}
 	}
 
-	function payNow() {
-		var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-		var amountToPay = Math.round(${finalAmount});
+	fetch("/create-order", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded"
+		},
+		body: "amount=" + amountToPay
+	})
+	.then(res => res.json())
+	.then(data => {
 
-		fetch("/create-order", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded"
+		var options = {
+			key: "rzp_live_SjF1cX3eDU1byW", 
+			amount: data.amount,
+			currency: "INR",
+			name: "PooRah",
+			description: paymentMethod === "PARTIAL_COD" ? "40% COD Advance Payment" : "Full Online Payment",
+			order_id: data.id,
+
+			handler: function(response){
+			    var form = document.getElementById("paymentForm");
+
+			    var existingRadios = form.querySelectorAll('input[name="paymentMethod"]');
+			    existingRadios.forEach(function(radio) {
+			        radio.remove();
+			    });
+
+			    var methodInput = document.createElement("input");
+			    methodInput.type = "hidden";
+			    methodInput.name = "paymentMethod";
+			    methodInput.value = paymentMethod;
+
+			    var paymentIdInput = document.createElement("input");
+			    paymentIdInput.type = "hidden";
+			    paymentIdInput.name = "razorpayPaymentId";
+			    paymentIdInput.value = response.razorpay_payment_id;
+
+			    var orderIdInput = document.createElement("input");
+			    orderIdInput.type = "hidden";
+			    orderIdInput.name = "razorpayOrderId";
+			    orderIdInput.value = response.razorpay_order_id;
+
+			    form.appendChild(methodInput);
+			    form.appendChild(paymentIdInput);
+			    form.appendChild(orderIdInput);
+
+			    form.action = "/orderPlaced";
+			    form.method = "post";
+			    form.submit();
 			},
-			body: "amount=" + amountToPay
-		})
-		.then(res => res.json())
-		.then(data => {
 
-			var options = {
-				key: "rzp_live_SjF1cX3eDU1byW", 
-				amount: data.amount,
-				currency: "INR",
-				name: "PooRah",
-				description: "Order Payment",
-				order_id: data.id,
+			theme: {
+				color: "#ff9b05"
+			}
+		};
 
-				handler: function(response){
-				    var form = document.getElementById("paymentForm");
-
-				    var existingRadios = form.querySelectorAll('input[name="paymentMethod"]');
-				    existingRadios.forEach(function(radio) {
-				        radio.remove();
-				    });
-
-				    var methodInput = document.createElement("input");
-				    methodInput.type = "hidden";
-				    methodInput.name = "paymentMethod";
-				    methodInput.value = paymentMethod;
-
-				    var paymentIdInput = document.createElement("input");
-				    paymentIdInput.type = "hidden";
-				    paymentIdInput.name = "razorpayPaymentId";
-				    paymentIdInput.value = response.razorpay_payment_id;
-
-				    var orderIdInput = document.createElement("input");
-				    orderIdInput.type = "hidden";
-				    orderIdInput.name = "razorpayOrderId";
-				    orderIdInput.value = response.razorpay_order_id;
-
-				    form.appendChild(methodInput);
-				    form.appendChild(paymentIdInput);
-				    form.appendChild(orderIdInput);
-
-				    form.action = "/orderPlaced";
-				    form.method = "post";
-				    form.submit();
-				},
-
-				theme: {
-					color: "#ff9b05"
-				}
-			};
-
-			var rzp = new Razorpay(options);
-			rzp.open();
-		});
-	}
-	</script>
+		var rzp = new Razorpay(options);
+		rzp.open();
+	});
+}
+</script>
 </body>
 </html>
