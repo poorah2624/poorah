@@ -56,7 +56,6 @@ public class PaymentController {
 	        return "redirect:/userlogin";
 	    }
 
-	    // ❗ address validation (IMPORTANT)
 	    Long sessionAddressId = (Long) session.getAttribute("selectedAddressId");
 
 	    if(addressId == null && sessionAddressId == null){
@@ -68,61 +67,42 @@ public class PaymentController {
 	    }
 
 	    model.addAttribute("selectedAddressId", addressId);
-
-	    // categories
 	    List<Category> categories = categoryService.getAllCategories();
 	    model.addAttribute("categories", categories);
 
-	    // contact details
 	    ContactDetails cDetails = cDetailsService.getContactDetails();
 	    model.addAttribute("cDetails", cDetails);
-
-	    // cart items
+	    
 	    List<Cart> cartItems = new ArrayList<>();
-
 	    Long buyNowItemId = (Long) session.getAttribute("buyNowItemId");
 
 	    if(buyNowItemId != null){
-
 	        String buyNowSize = (String) session.getAttribute("buyNowSize");
-
-	        Cart temp = cartService.getTempCartItem(
-	                buyNowItemId,
-	                user,
-	                buyNowSize
-	        );
-
-	        if(temp != null){
-	            cartItems.add(temp);
-	        }
-
+	        Cart temp = cartService.getTempCartItem(buyNowItemId, user, buyNowSize);
+	        if(temp != null) cartItems.add(temp);
 	    } else {
-
 	        cartItems = cartService.getCartByUser(user);
 	    }
-
 	    model.addAttribute("cartItems", cartItems);
+	    
+	    BigDecimal grandTotal = (BigDecimal) session.getAttribute("grandTotal");
+	    BigDecimal deliveryCharge = (BigDecimal) session.getAttribute("deliveryCharge");
+	    BigDecimal finalAmount = (BigDecimal) session.getAttribute("finalAmount");
 
-	    // total calculation
-	    BigDecimal grandTotal = BigDecimal.ZERO;
-
-	    for(Cart cart : cartItems){
-	        if(cart.getTotalPrice() != null){
-	            grandTotal = grandTotal.add(cart.getTotalPrice());
+	    if (finalAmount == null) {
+	        grandTotal = BigDecimal.ZERO;
+	        for(Cart cart : cartItems){
+	            if(cart.getTotalPrice() != null){
+	                grandTotal = grandTotal.add(cart.getTotalPrice());
+	            }
 	        }
+	        deliveryCharge = grandTotal.compareTo(new BigDecimal("500")) > 0 ? BigDecimal.ZERO : new BigDecimal("50");
+	        finalAmount = grandTotal.add(deliveryCharge);
 	    }
 
-	    BigDecimal deliveryCharge = new BigDecimal("50");
-
-	    if(grandTotal.compareTo(new BigDecimal("500")) > 0){
-	        deliveryCharge = BigDecimal.ZERO;
-	    }
-
-	    BigDecimal finalAmount = grandTotal.add(deliveryCharge);
-
-	    model.addAttribute("grandTotal", grandTotal);
-	    model.addAttribute("deliveryCharge", deliveryCharge);
-	    model.addAttribute("finalAmount", finalAmount);
+	    model.addAttribute("grandTotal", grandTotal.setScale(0, java.math.RoundingMode.HALF_UP));
+	    model.addAttribute("deliveryCharge", deliveryCharge.setScale(0, java.math.RoundingMode.HALF_UP));
+	    model.addAttribute("finalAmount", finalAmount.setScale(0, java.math.RoundingMode.HALF_UP));
 
 	    return "payment";
 	}
