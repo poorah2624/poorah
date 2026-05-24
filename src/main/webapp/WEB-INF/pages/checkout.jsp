@@ -290,17 +290,15 @@ body {
 										</c:otherwise>
 									</c:choose>
 
-									<!-- 🌟 ITEM LEVEL NO RETURN OPTION CHECKBOX 🌟 -->
+									<!-- 🌟 ITEM LEVEL NO RETURN OPTION CHECKBOX WITH LIVE EFFECT🌟 -->
 									<div class="item-discount-toggle-box">
 										<label>
-											<input type="checkbox" class="no-return-item-trigger" onchange="recalculateSummaryPrice()">
+											<input type="checkbox" class="no-return-item-trigger" onchange="recalculateSummaryPrice(this)">
 											🔒 Extra 8% Off (No Return Only Exchange)
 										</label>
 									</div>
 
-									
 									<div id="itemDisplayPrice_${loop.index}" style="text-align: right; font-weight: 600; color: #2c3e50; margin-top: -22px;">
-										
 										₹<fmt:formatNumber value="${resolvedPrice * c.quantity}" maxFractionDigits="0" />/-
 									</div>
 								</div>
@@ -343,13 +341,19 @@ body {
 	<%@include file="footer.jsp"%>
 	<!-- //footer -->
 
+	<!-- 🌟 Confetti Animation Script 🌟 -->
+	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 	<script>
-		
-		function recalculateSummaryPrice() {
+		function recalculateSummaryPrice(checkboxElement) {
 			let grandTotal = 0;
 			let selectedOfferFlags = [];
 
-		
+			
+			if (checkboxElement && checkboxElement.checked) {
+				triggerCelebration();
+			}
+
 			document.querySelectorAll('.item-calculation-bucket').forEach(function(bucket) {
 				let index = bucket.getAttribute('data-index');
 				let originalTotal = parseFloat(bucket.getAttribute('data-original-total'));
@@ -358,25 +362,21 @@ body {
 				let effectiveItemTotal = originalTotal;
 
 				if (checkbox.checked) {
-			
 					effectiveItemTotal = originalTotal - (originalTotal * 0.08);
 					selectedOfferFlags.push("YES");
 				} else {
 					selectedOfferFlags.push("NO");
 				}
 
-		
 				effectiveItemTotal = Math.round(effectiveItemTotal);
 				document.getElementById('itemDisplayPrice_' + index).innerText = "₹" + effectiveItemTotal + "/-";
 				
 				grandTotal += effectiveItemTotal;
 			});
 
-		
 			let deliveryCharge = (grandTotal > 500 || grandTotal === 0) ? 0 : 50;
 			let finalAmount = grandTotal + deliveryCharge;
 
-		
 			document.getElementById('summarySubtotal').innerText = "₹" + grandTotal + "/-";
 			
 			let deliveryElement = document.getElementById('summaryDelivery');
@@ -391,9 +391,33 @@ body {
 			}
 
 			document.getElementById('summaryFinalAmount').innerText = "₹" + finalAmount + "/-";
-
-		
 			document.getElementById('noReturnDiscountHidden').value = selectedOfferFlags.join(",");
+		}
+
+		function triggerCelebration() {
+			var duration = 1.2 * 1000;
+			var end = Date.now() + duration;
+
+			(function frame() {
+				confetti({
+					particleCount: 4,
+					angle: 60,
+					spread: 55,
+					origin: { x: 0, y: 0.8 },
+					colors: ['#ff9b05', '#28a745', '#007bff', '#ff3f6c', '#e0a800']
+				});
+				confetti({
+					particleCount: 4,
+					angle: 120,
+					spread: 55,
+					origin: { x: 1, y: 0.8 },
+					colors: ['#ff9b05', '#28a745', '#007bff', '#ff3f6c', '#e0a800']
+				});
+
+				if (Date.now() < end) {
+					requestAnimationFrame(frame);
+				}
+			}());
 		}
 
 		document.getElementById("checkoutForm").addEventListener("submit", function(e) {
@@ -404,7 +428,6 @@ body {
 			}
 		});
 
-	
 		document.querySelectorAll('input[name="addressId"]').forEach(radio => {
 			radio.addEventListener('change', function() {
 				document.querySelectorAll('.address-card').forEach(card => {
