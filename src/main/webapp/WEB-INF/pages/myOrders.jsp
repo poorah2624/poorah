@@ -369,7 +369,7 @@ body {
 													</c:if>
 
 													<c:if
-														test="${!item.returnRequested && item.order.status == 'Delivered' && !item.order.noReturnOrder}">
+														test="${!item.returnRequested && item.order.status == 'Delivered' && !item.noReturnOrder}">
 														<button type="button"
 															onclick="openReturnModal('${item.id}')"
 															class="btn btn-action-blue"
