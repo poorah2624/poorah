@@ -260,7 +260,7 @@ body {
 								
 								<c:set var="resolvedPrice" value="0" />
 								<c:choose>
-									<c:when var="isCustom" test="${c.isCustom}">
+									<c:when test="${c.isCustom}">
 										<c:set var="resolvedPrice" value="${c.totalPrice}" />
 									</c:when>
 									<c:otherwise>
