@@ -839,7 +839,6 @@ public class OrderService {
 	        JSONObject refundRequest = new JSONObject();
 	        BigDecimal refundAmount= BigDecimal.ZERO;
 
-	        // ✅ check all items cancelled / returned
 	        boolean allItemsDone = order.getItems().stream()
 	                .allMatch(i -> 
 	                    i.getIsCancelled() || 
@@ -848,28 +847,35 @@ public class OrderService {
 	                );
 
 	        if ("ONLINE".equalsIgnoreCase(order.getPaymentMethod()) || "UPI".equalsIgnoreCase(order.getPaymentMethod())) {
-	          
 	            if (allItemsDone) {
 	                refundAmount = order.getTotalAmount(); 
 	            } else {
-	                refundAmount = item.getFinalPrice();
+	             
+	                if (Boolean.TRUE.equals(order.getNoReturnOrder())) {
+	                    refundAmount = item.getFinalPrice().subtract(BigDecimal.valueOf(50));
+	                } else {
+	                    refundAmount = item.getFinalPrice();
+	                }
 	            }
 	        } 
 	        else if ("PARTIAL_COD".equalsIgnoreCase(order.getPaymentMethod())) {
-	         
 	            if (allItemsDone) {
 	                refundAmount = order.getTotalAmount().multiply(new BigDecimal("0.4"));
 	            } else {
-	                refundAmount = item.getFinalPrice().multiply(new BigDecimal("0.4"));
+	                if (Boolean.TRUE.equals(order.getNoReturnOrder())) {
+	                    refundAmount = item.getFinalPrice().subtract(BigDecimal.valueOf(50)).multiply(new BigDecimal("0.4"));
+	                } else {
+	                    refundAmount = item.getFinalPrice().multiply(new BigDecimal("0.4"));
+	                }
 	            }
 	        }
 
-	     
+	       
 	        BigDecimal refundAmountRounded = refundAmount.setScale(0, RoundingMode.HALF_UP);
 	        BigDecimal paidAmountRounded = payment.getAmount().setScale(0, RoundingMode.HALF_UP);
 
 	        if (refundAmountRounded.compareTo(paidAmountRounded) > 0) {
-	            refundAmountRounded = paidAmountRounded;
+	            refundAmountRounded = paidAmountRounded; 
 	        }
 
 	        if (refundAmountRounded.compareTo(BigDecimal.ZERO) <= 0) {
