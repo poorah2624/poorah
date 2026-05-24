@@ -326,6 +326,8 @@ public class OrderService {
 	        }
 	        if ("Cancel".equalsIgnoreCase(status)) {
 	            item.setIsCancelled(true);
+	            order.setStatus("Cancelled");
+	            item.setStatus("Cancelled");
 	        }
 	    }
 
