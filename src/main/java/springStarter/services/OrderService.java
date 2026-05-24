@@ -103,7 +103,9 @@ public class OrderService {
 	    order.setOrderDate(LocalDateTime.now());
 	    order.setEstimatedDeliveryDate(LocalDate.now().plusDays(5).toString());
 	    order.setAddress(address);
-	    order.setNoReturnOrder("YES".equals(noReturnDiscount));
+
+	    // फ्रंटएंड चेकबॉक्स से आ रहे कॉमा-सेपरेटेड फ्लैग्स को एरे में बदलें ("YES,NO")
+	    String[] discountFlags = (noReturnDiscount != null) ? noReturnDiscount.split(",") : new String[0];
 
 	    BigDecimal total = BigDecimal.ZERO;
 	    List<Order_item> orderItems = new ArrayList<>();
@@ -111,7 +113,9 @@ public class OrderService {
 	    String category = null;
 
 	    // ✅ ITEMS LOOP
-	    for (Cart cart : cartItems) {
+	    for (int i = 0; i < cartItems.size(); i++) {
+	        Cart cart = cartItems.get(i);
+	    	
 	    	if (category == null) {
 	    	    if (cart.getItem() != null && cart.getItem().getCategory() != null) {
 	    	        category = cart.getItem().getCategory().getCategoryName();
@@ -147,45 +151,41 @@ public class OrderService {
 	        BigDecimal discountPercent = (cart.getIsCustom() != null && cart.getIsCustom()) ? new BigDecimal("10") : cart.getItem().getDiscount();
 
 	        // 1. सामान्य डिस्काउंट लगाएं
-	        BigDecimal normalDiscountAmount = basePrice.multiply(discountPercent).divide(BigDecimal.valueOf(100));
-	        BigDecimal priceAfterNormalDiscount = basePrice.subtract(normalDiscountAmount);
+	        BigDecimal discountAmount = basePrice.multiply(discountPercent).divide(BigDecimal.valueOf(100));
+	        BigDecimal finalPriceBeforeNoReturn = basePrice.subtract(discountAmount);
 
-	        // 🌟 2. अगर 'No Return Offer' सक्रिय है तो इस आइटम पर अतिरिक्त 8% डिस्काउंट दें
-	        BigDecimal noReturnDiscountAmount = BigDecimal.ZERO;
-	        if (order.getNoReturnOrder()) {
-	            noReturnDiscountAmount = priceAfterNormalDiscount.multiply(new BigDecimal("8")).divide(BigDecimal.valueOf(100));
-	            priceAfterNormalDiscount = priceAfterNormalDiscount.subtract(noReturnDiscountAmount);
+	        // 2. आइटम लेवल 'No Return' 8% डिस्काउंट लॉजिक फिक्स
+	        boolean isItemNoReturn = false;
+	        if (i < discountFlags.length && "YES".equalsIgnoreCase(discountFlags[i].trim())) {
+	            isItemNoReturn = true;
+	            BigDecimal noReturnDiscountAmt = finalPriceBeforeNoReturn.multiply(new BigDecimal("8")).divide(BigDecimal.valueOf(100));
+	            discountAmount = discountAmount.add(noReturnDiscountAmt);
+	            finalPriceBeforeNoReturn = finalPriceBeforeNoReturn.subtract(noReturnDiscountAmt);
 	        }
+	        item.setNoReturnOrder(isItemNoReturn);
 
-	        // फाइनल कैलकुलेशन (प्रति यूनिट डिस्काउंट और कुल प्राइस)
-	        BigDecimal totalItemDiscount = normalDiscountAmount.add(noReturnDiscountAmount);
-	        BigDecimal finalItemPrice = priceAfterNormalDiscount.multiply(quantity);
+	        BigDecimal finalPrice = finalPriceBeforeNoReturn.multiply(quantity).setScale(0, RoundingMode.HALF_UP);
 
-	        item.setPrice(basePrice);
-	        item.setDiscount(totalItemDiscount);
-	        item.setFinalPrice(finalItemPrice);
+	        item.setPrice(basePrice.setScale(0, RoundingMode.HALF_UP));
+	        item.setDiscount(discountAmount.setScale(0, RoundingMode.HALF_UP));
+	        item.setFinalPrice(finalPrice);
 
-	        total = total.add(finalItemPrice);
+	        total = total.add(finalPrice);
 	        totalQty += cart.getQuantity();
+
 	        orderItems.add(item);
 	    }
 
 	    // ✅ DELIVERY CHARGE LOGIC
-	 // ✅ DELIVERY CHARGE LOGIC
 	    BigDecimal deliveryCharge = total.compareTo(BigDecimal.valueOf(500)) > 0 ? BigDecimal.ZERO : BigDecimal.valueOf(50);
-
-	    BigDecimal finalAmount = total.add(deliveryCharge);
-
-	    // 🌟 सुरक्षा चक्र: फाइनल अमाउंट को यहीं पर पूरी तरह राउंड (No Decimals) कर दें 🌟
-	    // इससे 91.4 ऑटोमैटिकली 91 हो जाएगा, जिससे आपके गेटवे और डेटाबेस की वैल्यू 100% मैच करेगी
-	    finalAmount = finalAmount.setScale(0, RoundingMode.HALF_UP);
+	    BigDecimal finalAmount = total.add(deliveryCharge).setScale(0, RoundingMode.HALF_UP); // 🌟 शुद्ध पूर्णांक लॉक
 
 	    // ✅ SET ORDER VALUES
 	    order.setItems(orderItems);
 	    order.setDiscountedPrice(total.setScale(0, RoundingMode.HALF_UP));
 	    order.setQuantity(totalQty);
-	    order.setTotalAmount(finalAmount); // अब यहाँ परफेक्ट राउंडेड अमाउंट (जैसे ₹87 या ₹91) जाएगा
-	    order.setDeliveryCharge(deliveryCharge);
+	    order.setTotalAmount(finalAmount);
+	    order.setDeliveryCharge(deliveryCharge.setScale(0, RoundingMode.HALF_UP));
 	    order.setCategory(category);
 
 	    Payment payment = new Payment();
@@ -195,15 +195,13 @@ public class OrderService {
 	    payment.setPaymentDate(LocalDateTime.now());
 	    
 	    if ("PARTIAL_COD".equals(paymentMethod)) {
-	    	// 40% एडवांस भी अब परफेक्ट राउंड फिगर में सेव होगा
 	    	BigDecimal advanceAmount = finalAmount.multiply(new BigDecimal("0.4")).setScale(0, RoundingMode.HALF_UP);
 	        payment.setAmount(advanceAmount);
 	        payment.setPaymentStatus("Partially Paid");
 	        order.setPaymentMethod("PARTIAL_COD");
 	        order.setPaymentStatus("Partially Paid");
 	    } else {
-	    	// फुल ऑनलाइन पेमेंट में भी अब .8 वाला कचरा साफ़ होकर पूरा राउंड अमाउंट सेव होगा
-	    	payment.setAmount(finalAmount);
+	    	payment.setAmount(finalAmount); // डेसिमल पूरी तरह साफ
 	        if (razorpayPaymentId != null && !razorpayPaymentId.isEmpty()) {
 	            payment.setRazorpayPaymentId(razorpayPaymentId);
 	            payment.setRazorpayOrderId(razorpayOrderId);
@@ -217,17 +215,17 @@ public class OrderService {
 	    
 	    orderRepo.save(order);
 
-	    StringBuilder itemsDetails = new StringBuilder();
+	    StringBuilder items = new StringBuilder();
 	    for (Order_item i : order.getItems()) {
 	        String priceStr = i.getFinalPrice().setScale(0, RoundingMode.HALF_UP).toPlainString();
 	        if (i.getIsCustom() != null && i.getIsCustom()) {
-	            itemsDetails.append("• Custom T-Shirt (Qty: ").append(i.getQuantity()).append(") - ₹").append(priceStr).append("\n");
+	            items.append("• Custom T-Shirt (Qty: ").append(i.getQuantity()).append(") - ₹").append(priceStr).append("\n");
 	        } else {
-	            itemsDetails.append("• ").append(i.getItem().getItemName()).append(" (Qty: ").append(i.getQuantity()).append(") - ₹").append(priceStr).append("\n");
+	            items.append("• ").append(i.getItem().getItemName()).append(" (Qty: ").append(i.getQuantity()).append(") - ₹").append(priceStr).append("\n");
 	        }
 	    }
 
-	    emailService.sendOrderMail(order, itemsDetails.toString());
+	    emailService.sendOrderMail(order, items.toString());
 
 	    if (buyNowItemId == null) {
 	        cartRepo.deleteAll(cartItems);
@@ -249,7 +247,6 @@ public class OrderService {
 			delhiveryService.createShipment(order);
 		}
 
-		// ITEMS LOOP
 		for (Order_item item : order.getItems()) {
 			item.setStatus(status);
 			if ("Packed".equalsIgnoreCase(status)) order.setPackedDate(LocalDateTime.now());
@@ -295,23 +292,22 @@ public class OrderService {
 	        JSONObject refundRequest = new JSONObject();
 	        BigDecimal refundAmount = BigDecimal.ZERO;
 
-	        // चेक करें कि क्या सभी आइटम्स ख़त्म हो चुके हैं
 	        boolean allItemsDone = order.getItems().stream()
 	                .allMatch(i -> i.getIsCancelled() || "Returned".equals(i.getStatus()) || i.getId().equals(item.getId()));
 
-	        // 🌟 मल्टी-आइटम सेफ रिफंड कैलकुलेशन (8% मॉडल के आधार पर)
+	        // आइटम लेवल रिफंड कैलकुलेशन
 	        if ("ONLINE".equalsIgnoreCase(order.getPaymentMethod()) || "UPI".equalsIgnoreCase(order.getPaymentMethod())) {
 	            if (allItemsDone) {
-	                refundAmount = order.getTotalAmount(); // पूरा बचा हुआ अमाउंट (डिलीवरी चार्ज सहित)
+	                refundAmount = order.getTotalAmount(); 
 	            } else {
-	                refundAmount = item.getFinalPrice(); // सिर्फ उसी आइटम का डिडक्टेड प्राइस
+	                refundAmount = item.getFinalPrice(); 
 	            }
 	        } 
 	        else if ("PARTIAL_COD".equalsIgnoreCase(order.getPaymentMethod())) {
 	            if (allItemsDone) {
-	                refundAmount = order.getTotalAmount().multiply(new BigDecimal("0.4")); // पूरा 40%
+	                refundAmount = order.getTotalAmount().multiply(new BigDecimal("0.4")); 
 	            } else {
-	                refundAmount = item.getFinalPrice().multiply(new BigDecimal("0.4")); // सिर्फ इस आइटम का 40% एडवांस हिस्सा
+	                refundAmount = item.getFinalPrice().multiply(new BigDecimal("0.4")); 
 	            }
 	        }
 
@@ -367,9 +363,7 @@ public class OrderService {
 		item.setIsCancelled(true);
 		orderItemRepo.save(item);
 
-		// 🌟 सिंगल आइटम कैंसिल होने पर तुरंत रिफंड चलाएं
 		processRefund(item, order, order.getPayment());
-
 		updateOrderStatusAfterItemChange(order);
 		return true;
 	}
@@ -402,7 +396,7 @@ public class OrderService {
 		if (!optionalItem.isPresent()) return false;
 
 		Order_item item = optionalItem.get();
-		if (Boolean.TRUE.equals(item.getOrder().getNoReturnOrder())) return false;
+		if (Boolean.TRUE.equals(item.getNoReturnOrder())) return false;
 		if (!item.getOrder().getUser().getId().equals(userId)) return false;
 		if (!"Delivered".equals(item.getOrder().getStatus())) return false;
 

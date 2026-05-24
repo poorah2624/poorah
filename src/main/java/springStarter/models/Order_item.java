@@ -82,6 +82,17 @@ public class Order_item {
     private String gender;
     
     private String customNote;
+    
+    @Column(name="noReturnOrder")
+    private Boolean noReturnOrder = false;
+
+	public Boolean getNoReturnOrder() {
+		return noReturnOrder;
+	}
+
+	public void setNoReturnOrder(Boolean noReturnOrder) {
+		this.noReturnOrder = noReturnOrder;
+	}
 
 	public Long getId() {
 		return id;

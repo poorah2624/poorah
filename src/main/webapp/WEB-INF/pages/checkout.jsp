@@ -120,7 +120,7 @@ body {
 }
 
 .cart-item-row {
-	padding: 12px 0;
+	padding: 15px 0;
 	border-bottom: 1px solid #f5f5f5;
 }
 
@@ -134,6 +134,28 @@ body {
 .cart-item-price-meta {
 	font-size: 13px;
 	color: #7f8c8d;
+}
+
+/* 🌟 Item Level No Return Feature UI 🌟 */
+.item-discount-toggle-box {
+	background: #fffdf2;
+	border: 1px dashed #ffeaa7;
+	border-radius: 6px;
+	padding: 6px 10px;
+	margin-top: 8px;
+	display: inline-block;
+}
+.item-discount-toggle-box label {
+	font-size: 11px !important;
+	font-weight: 700 !important;
+	color: #b38200 !important;
+	cursor: pointer;
+	margin: 0;
+}
+.item-discount-toggle-box input[type="checkbox"] {
+	margin-right: 5px;
+	vertical-align: middle;
+	accent-color: #ff9b05;
 }
 
 .price-breakdown {
@@ -203,7 +225,6 @@ body {
 					<h3 class="checkout-title">Select Delivery Address</h3>
 
 					<c:forEach var="addr" items="${addresses}" varStatus="status">
-						<!-- कार्ड पर कहीं भी क्लिक करने से एड्रेस सेलेक्ट हो जाएगा -->
 						<div class="address-card" onclick="document.getElementById('addr_${addr.addressId}').click();">
 							<input type="radio" name="addressId" id="addr_${addr.addressId}" value="${addr.addressId}" ${addr.defaultAddress ? 'checked' : ''} onclick="event.stopPropagation();">
 							
@@ -234,37 +255,54 @@ body {
 
 					<div class="summary-card">
 						<!-- Items List Wrapper -->
-						<div style="max-height: 240px; overflow-y: auto; padding-right: 5px;">
-							<c:forEach var="c" items="${cartItems}">
-								<div class="cart-item-row">
+						<div style="max-height: 320px; overflow-y: auto; padding-right: 5px;">
+							<c:forEach var="c" items="${cartItems}" varStatus="loop">
+								
+								<c:set var="resolvedPrice" value="0" />
+								<c:choose>
+									<c:when var="isCustom" test="${c.isCustom}">
+										<c:set var="resolvedPrice" value="${c.totalPrice}" />
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${not empty c.item.discountedPrice}">
+												<c:set var="resolvedPrice" value="${c.item.discountedPrice}" />
+											</c:when>
+											<c:otherwise>
+												<c:set var="resolvedPrice" value="${c.item.itemPrice}" />
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+
+								<div class="cart-item-row item-calculation-bucket" 
+									 data-index="${loop.index}" 
+									 data-original-total="${resolvedPrice * c.quantity}">
+									
 									<c:choose>
 										<c:when test="${c.isCustom}">
 											<div class="cart-item-name">Custom T-Shirt</div>
 											<div class="cart-item-meta text-muted" style="font-size:13px;">Qty: ${c.quantity}</div>
-											<div style="text-align: right; font-weight: 600; color: #2c3e50; margin-top: -15px;">
-												<c:if test="${not empty c.totalPrice}">
-													₹<fmt:formatNumber value="${c.totalPrice}" maxFractionDigits="0" />/-
-												</c:if>
-											</div>
 										</c:when>
 										<c:otherwise>
 											<div class="cart-item-name">${c.item.itemName}</div>
-											<div class="cart-item-price-meta">
-												Qty: ${c.quantity} &times; 
-												<c:choose>
-													<c:when test="${not empty c.item.discountedPrice}">
-														₹<fmt:formatNumber value="${c.item.discountedPrice}" maxFractionDigits="0" />
-													</c:when>
-													<c:otherwise>
-														₹<fmt:formatNumber value="${c.item.itemPrice}" maxFractionDigits="0" />
-													</c:otherwise>
-												</c:choose>
-											</div>
-											<div style="text-align: right; font-weight: 600; color: #2c3e50; margin-top: -15px;">
-												₹<fmt:formatNumber value="${c.totalPrice}" maxFractionDigits="0" />/-
-											</div>
+											<div class="cart-item-price-meta">Qty: ${c.quantity} &times; ₹<fmt:formatNumber value="${resolvedPrice}" maxFractionDigits="0" /></div>
 										</c:otherwise>
 									</c:choose>
+
+									<!-- 🌟 ITEM LEVEL NO RETURN OPTION CHECKBOX 🌟 -->
+									<div class="item-discount-toggle-box">
+										<label>
+											<input type="checkbox" class="no-return-item-trigger" onchange="recalculateSummaryPrice()">
+											🔒 Extra 8% Off (No Return Only Exchange)
+										</label>
+									</div>
+
+									
+									<div id="itemDisplayPrice_${loop.index}" style="text-align: right; font-weight: 600; color: #2c3e50; margin-top: -22px;">
+										
+										₹<fmt:formatNumber value="${resolvedPrice * c.quantity}" maxFractionDigits="0" />/-
+									</div>
 								</div>
 							</c:forEach>
 						</div>
@@ -273,11 +311,11 @@ body {
 						<div class="price-breakdown">
 							<div class="price-row">
 								<span>Subtotal</span>
-								<span>₹<fmt:formatNumber value="${grandTotal}" maxFractionDigits="0" />/-</span>
+								<span id="summarySubtotal">₹<fmt:formatNumber value="${grandTotal}" maxFractionDigits="0" />/-</span>
 							</div>
 							<div class="price-row">
 								<span>Delivery Charges</span>
-								<span style="color: ${deliveryCharge == 0 ? '#27ae60' : '#555'}; font-weight: ${deliveryCharge == 0 ? '700' : 'normal'};">
+								<span id="summaryDelivery" style="color: ${deliveryCharge == 0 ? '#27ae60' : '#555'}; font-weight: ${deliveryCharge == 0 ? '700' : 'normal'};">
 									<c:choose>
 										<c:when test="${deliveryCharge == 0}">FREE</c:when>
 										<c:otherwise>₹${deliveryCharge}/-</c:otherwise>
@@ -287,9 +325,11 @@ body {
 							
 							<div class="price-row final-total">
 								<span>Total Amount</span>
-								<span style="color: #ff9b05;">₹<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" />/-</span>
+								<span id="summaryFinalAmount" style="color: #ff9b05;">₹<fmt:formatNumber value="${finalAmount}" maxFractionDigits="0" />/-</span>
 							</div>
 						</div>
+
+						<input type="hidden" id="noReturnDiscountHidden" name="noReturnDiscount" value="NO">
 
 						<button type="submit" class="btn btn-success btn-block btn-place-order">Proceed to Payment</button>
 					</div>
@@ -303,8 +343,59 @@ body {
 	<%@include file="footer.jsp"%>
 	<!-- //footer -->
 
-	<!-- Custom Script to ensure validation styling matching earlier themes -->
 	<script>
+		
+		function recalculateSummaryPrice() {
+			let grandTotal = 0;
+			let selectedOfferFlags = [];
+
+		
+			document.querySelectorAll('.item-calculation-bucket').forEach(function(bucket) {
+				let index = bucket.getAttribute('data-index');
+				let originalTotal = parseFloat(bucket.getAttribute('data-original-total'));
+				let checkbox = bucket.querySelector('.no-return-item-trigger');
+				
+				let effectiveItemTotal = originalTotal;
+
+				if (checkbox.checked) {
+			
+					effectiveItemTotal = originalTotal - (originalTotal * 0.08);
+					selectedOfferFlags.push("YES");
+				} else {
+					selectedOfferFlags.push("NO");
+				}
+
+		
+				effectiveItemTotal = Math.round(effectiveItemTotal);
+				document.getElementById('itemDisplayPrice_' + index).innerText = "₹" + effectiveItemTotal + "/-";
+				
+				grandTotal += effectiveItemTotal;
+			});
+
+		
+			let deliveryCharge = (grandTotal > 500 || grandTotal === 0) ? 0 : 50;
+			let finalAmount = grandTotal + deliveryCharge;
+
+		
+			document.getElementById('summarySubtotal').innerText = "₹" + grandTotal + "/-";
+			
+			let deliveryElement = document.getElementById('summaryDelivery');
+			if (deliveryCharge === 0) {
+				deliveryElement.innerText = "FREE";
+				deliveryElement.style.color = "#27ae60";
+				deliveryElement.style.fontWeight = "700";
+			} else {
+				deliveryElement.innerText = "₹" + deliveryCharge + "/-";
+				deliveryElement.style.color = "#555";
+				deliveryElement.style.fontWeight = "normal";
+			}
+
+			document.getElementById('summaryFinalAmount').innerText = "₹" + finalAmount + "/-";
+
+		
+			document.getElementById('noReturnDiscountHidden').value = selectedOfferFlags.join(",");
+		}
+
 		document.getElementById("checkoutForm").addEventListener("submit", function(e) {
 			let selectedAddress = document.querySelector('input[name="addressId"]:checked');
 			if (!selectedAddress) {
@@ -313,7 +404,7 @@ body {
 			}
 		});
 
-		
+	
 		document.querySelectorAll('input[name="addressId"]').forEach(radio => {
 			radio.addEventListener('change', function() {
 				document.querySelectorAll('.address-card').forEach(card => {
