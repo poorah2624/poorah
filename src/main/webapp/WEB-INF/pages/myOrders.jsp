@@ -358,7 +358,7 @@ body {
 													</c:if>
 
 													<c:if
-														test="${item.status == 'Cancelled' && item.refundStatus != 'Processed'}">
+														test="${item.status == 'Cancelled' && item.refundStatus != 'Processed' && order.status != 'Cancelled'}">
 														<form action="/order/revert-cancel" method="post"
 															style="margin: 0;">
 															<input type="hidden" name="orderItemId"
@@ -482,13 +482,13 @@ body {
 			document.getElementById("exchangeOrderItemId").value = orderItemId;
 		}
 		function openReturnModal(orderItemId) {
-		    document.getElementById("returnModal").style.display = "block";
-		    document.getElementById("returnOrderItemId").value = orderItemId;
+			document.getElementById("returnModal").style.display = "block";
+			document.getElementById("returnOrderItemId").value = orderItemId;
 		}
 
 		function closeModal() {
-		    document.getElementById("returnModal").style.display = "none";
-		    document.getElementById("exchangeModal").style.display = "none";
+			document.getElementById("returnModal").style.display = "none";
+			document.getElementById("exchangeModal").style.display = "none";
 		}
 	</script>
 </body>

@@ -104,7 +104,7 @@ public class OrderService {
 	    order.setEstimatedDeliveryDate(LocalDate.now().plusDays(5).toString());
 	    order.setAddress(address);
 
-	    // फ्रंटएंड चेकबॉक्स से आ रहे कॉमा-सेपरेटेड फ्लैग्स को एरे में बदलें ("YES,NO")
+	 
 	    String[] discountFlags = (noReturnDiscount != null) ? noReturnDiscount.split(",") : new String[0];
 
 	    BigDecimal total = BigDecimal.ZERO;
@@ -150,11 +150,10 @@ public class OrderService {
 	        BigDecimal quantity = BigDecimal.valueOf(cart.getQuantity());  
 	        BigDecimal discountPercent = (cart.getIsCustom() != null && cart.getIsCustom()) ? new BigDecimal("10") : cart.getItem().getDiscount();
 
-	        // 1. सामान्य डिस्काउंट लगाएं
+	      
 	        BigDecimal discountAmount = basePrice.multiply(discountPercent).divide(BigDecimal.valueOf(100));
 	        BigDecimal finalPriceBeforeNoReturn = basePrice.subtract(discountAmount);
 
-	        // 2. आइटम लेवल 'No Return' 8% डिस्काउंट लॉजिक फिक्स
 	        boolean isItemNoReturn = false;
 	        if (i < discountFlags.length && "YES".equalsIgnoreCase(discountFlags[i].trim())) {
 	            isItemNoReturn = true;
@@ -178,7 +177,7 @@ public class OrderService {
 
 	    // ✅ DELIVERY CHARGE LOGIC
 	    BigDecimal deliveryCharge = total.compareTo(BigDecimal.valueOf(500)) > 0 ? BigDecimal.ZERO : BigDecimal.valueOf(50);
-	    BigDecimal finalAmount = total.add(deliveryCharge).setScale(0, RoundingMode.HALF_UP); // 🌟 शुद्ध पूर्णांक लॉक
+	    BigDecimal finalAmount = total.add(deliveryCharge).setScale(0, RoundingMode.HALF_UP); 
 
 	    // ✅ SET ORDER VALUES
 	    order.setItems(orderItems);
@@ -201,7 +200,7 @@ public class OrderService {
 	        order.setPaymentMethod("PARTIAL_COD");
 	        order.setPaymentStatus("Partially Paid");
 	    } else {
-	    	payment.setAmount(finalAmount); // डेसिमल पूरी तरह साफ
+	    	payment.setAmount(finalAmount);
 	        if (razorpayPaymentId != null && !razorpayPaymentId.isEmpty()) {
 	            payment.setRazorpayPaymentId(razorpayPaymentId);
 	            payment.setRazorpayOrderId(razorpayOrderId);
@@ -295,7 +294,7 @@ public class OrderService {
 	        boolean allItemsDone = order.getItems().stream()
 	                .allMatch(i -> i.getIsCancelled() || "Returned".equals(i.getStatus()) || i.getId().equals(item.getId()));
 
-	        // आइटम लेवल रिफंड कैलकुलेशन
+	     
 	        if ("ONLINE".equalsIgnoreCase(order.getPaymentMethod()) || "UPI".equalsIgnoreCase(order.getPaymentMethod())) {
 	            if (allItemsDone) {
 	                refundAmount = order.getTotalAmount(); 

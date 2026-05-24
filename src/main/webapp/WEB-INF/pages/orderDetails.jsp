@@ -439,7 +439,7 @@ body {
 									</c:if>
 
 									<c:if
-										test="${item.status == 'Cancelled' && item.refundStatus != 'Processed'}">
+										test="${item.status == 'Cancelled' && item.refundStatus != 'Processed' && item.order.status != 'Cancelled'}">
 										<form action="/order/revert-cancel" method="post">
 											<input type="hidden" name="orderItemId" value="${item.id}">
 											<button class="btn-action btn-undo">Undo Cancel</button>
