@@ -293,62 +293,63 @@ public class OrderService {
 
 		Orders order = orderRepo.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
 
+	
+		if ("Cancel".equalsIgnoreCase(status)) {
+			status = "Cancelled";
+		}
+
 		order.setStatus(status);
 		
-		 if ("Packed".equalsIgnoreCase(status)) {
-			 shiprocketService.createOrder(order);
-		    }
+		if ("Packed".equalsIgnoreCase(status)) {
+			shiprocketService.createOrder(order);
+		}
 		
 		if ("Packed".equalsIgnoreCase(status)) {
-
-		    delhiveryService.createShipment(order);
+			delhiveryService.createShipment(order);
 		}
 
-		// optional logic
+		// ITEMS LOOP
 		for (Order_item item : order.getItems()) {
-	        item.setStatus(status);
+			item.setStatus(status);
 
-	        // optional item level timestamps
-	        if ("Packed".equalsIgnoreCase(status)) {
-	            order.setPackedDate(LocalDateTime.now());
-	        }
+			if ("Packed".equalsIgnoreCase(status)) {
+				order.setPackedDate(LocalDateTime.now());
+			}
 
-	        if ("Shipped".equalsIgnoreCase(status)) {
-	            order.setShippedDate(LocalDateTime.now());
-	        }
+			if ("Shipped".equalsIgnoreCase(status)) {
+				order.setShippedDate(LocalDateTime.now());
+			}
 
-	        if ("Delivered".equalsIgnoreCase(status)) {
-	            order.setDeliveredDate(LocalDateTime.now());
-	        }
+			if ("Delivered".equalsIgnoreCase(status)) {
+				order.setDeliveredDate(LocalDateTime.now());
+			}
 
-	        if ("Cancelled".equalsIgnoreCase(status)) {
-	            item.setIsCancelled(true);
-	        }
-	        if ("Cancel".equalsIgnoreCase(status)) {
-	            item.setIsCancelled(true);
-	            order.setStatus("Cancelled");
-	            item.setStatus("Cancelled");
-	        }
-	    }
+			if ("Cancelled".equalsIgnoreCase(status)) {
+				item.setIsCancelled(true);
+				item.setStatus("Cancelled");
+				item.setRefundStatus("Pending");
+				item.setCancelledAt(LocalDateTime.now());
+			}
+		}
 
 		if ("Delivered".equalsIgnoreCase(status)) {
-
-		    if ("PARTIAL_COD".equals(order.getPaymentMethod())) {
-
-		        order.setPaymentStatus("COD Partial");
-
-		    } else {
-
-		        order.setPaymentStatus("Paid");
-		    }
+			if ("PARTIAL_COD".equals(order.getPaymentMethod())) {
+				order.setPaymentStatus("COD Partial");
+			} else {
+				order.setPaymentStatus("Paid");
+			}
 		}
 
-	    if ("Cancelled".equalsIgnoreCase(status)) {
-	        order.setPaymentStatus("Cancelled");
-	    }
+		if ("Cancelled".equalsIgnoreCase(status)) {
+			order.setPaymentStatus("Cancelled");
+			orderRepo.save(order); 
 
-	    orderRepo.save(order);
-
+			for (Order_item item : order.getItems()) {
+				processRefund(item, order, order.getPayment());
+			}
+		} else {
+			orderRepo.save(order);
+		}
 	}
 
 	public Orders getOrderById(Long id) {
