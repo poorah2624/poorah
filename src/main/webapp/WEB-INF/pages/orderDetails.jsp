@@ -365,7 +365,7 @@ body {
 									<fmt:formatNumber value="${item.finalPrice}"
 										maxFractionDigits="0" />
 								</div>
-								<c:if test="${item.order.noReturnOrder}">
+								<c:if test="${item.noReturnOrder}">
 									<div
 										style="background: #fff7e6; color: #d46b08; padding: 6px 10px; border-radius: 6px; margin-top: 8px; display: inline-block; font-size: 12px; font-weight: 600;">
 										₹50 Discount Applied • No Return Order</div>
@@ -448,17 +448,17 @@ body {
 
 									<c:if
 										test="${!item.returnRequested 
-              && item.order.status == 'Delivered'
-              && !item.order.noReturnOrder}">
+        && item.order.status == 'Delivered'
+        && !item.noReturnOrder}">
 										<button onclick="openReturnModal('${item.id}')"
 											class="btn-action btn-return">Return Item</button>
 									</c:if>
 
-									<c:if test="${item.order.noReturnOrder}">
+									<c:if test="${item.noReturnOrder}">
 										<div class="alert-banner"
 											style="background: #fff7e6; border-left: 4px solid #fa8c16;">
-											₹50 discount applied. This order is not eligible for return.
-										</div>
+											Extra 8% discount was applied. This item is not eligible for
+											return.</div>
 									</c:if>
 
 									<c:if
