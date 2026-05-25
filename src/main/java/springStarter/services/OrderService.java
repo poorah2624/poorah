@@ -196,9 +196,17 @@ public class OrderService {
 	    if ("PARTIAL_COD".equals(paymentMethod)) {
 	    	BigDecimal advanceAmount = finalAmount.multiply(new BigDecimal("0.4")).setScale(0, RoundingMode.HALF_UP);
 	        payment.setAmount(advanceAmount);
-	        payment.setPaymentStatus("Partially Paid");
-	        order.setPaymentMethod("PARTIAL_COD");
-	        order.setPaymentStatus("Partially Paid");
+	        if (razorpayPaymentId != null && !razorpayPaymentId.isEmpty()) {
+	        	payment.setRazorpayPaymentId(razorpayPaymentId);
+	            payment.setRazorpayOrderId(razorpayOrderId);
+	            payment.setPaymentStatus("Partially Paid");
+		        order.setPaymentMethod("PARTIAL_COD");
+		        order.setPaymentStatus("Partially Paid");
+	        }
+	        else {
+	            System.out.println("⚠️ Razorpay Payment ID missing for partial COD.");
+	        }
+	        
 	    } else {
 	    	payment.setAmount(finalAmount);
 	        if (razorpayPaymentId != null && !razorpayPaymentId.isEmpty()) {
