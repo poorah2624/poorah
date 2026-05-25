@@ -7,8 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,38 +23,24 @@
 
 <!-- Bootstrap core CSS -->
 
-<link
-	href="/admin/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-<link
-	href="/admin/fonts/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="/admin/css/animate.min.css"
-	rel="stylesheet">
+<link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+<link href="/admin/css/animate.min.css" rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<link href="/admin/css/custom.css"
-	rel="stylesheet">
-<link
-	href="/admin/css/icheck/flat/green.css"
-	rel="stylesheet">
+<link href="/admin/css/custom.css" rel="stylesheet">
+<link href="/admin/css/icheck/flat/green.css" rel="stylesheet">
 
-<link
-	href="/admin/js/datatables/jquery.dataTables.min.css"
+<link href="/admin/js/datatables/jquery.dataTables.min.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/buttons.bootstrap.min.css"
+<link href="/admin/js/datatables/buttons.bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/fixedHeader.bootstrap.min.css"
+<link href="/admin/js/datatables/fixedHeader.bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/responsive.bootstrap.min.css"
+<link href="/admin/js/datatables/responsive.bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
-<link
-	href="/admin/js/datatables/scroller.bootstrap.min.css"
+<link href="/admin/js/datatables/scroller.bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
 
 <script src="/admin/js/jquery.min.js"></script>
@@ -107,8 +93,7 @@
 							<div class="row x_title">
 								<div class="col-md-6">
 									<h3>
-										Returns<small><a
-											href="/order_History"><button
+										Returns<small><a href="/order_History"><button
 													class="btn-lg btn btn-outline btn-success">Order
 													History</button></a></small>
 									</h3>
@@ -151,82 +136,80 @@
 
 
 											<tbody>
-
 												<c:forEach var="r" items="${returns}">
-													<tr>
-														<td>${r.returnId}</td>
-														<td>${r.orderItem.order.orderNumber}</td>
-														<td>${r.orderItem.order.user.userName}</td>
+												
+													<c:if
+														test="${not empty r.orderItem && not empty r.orderItem.order}">
+														<tr>
+															<td>${r.returnId}</td>
+															<td>${r.orderItem.order.orderNumber}</td>
+															<td>${r.orderItem.order.user.userName}</td>
+															<td><c:choose>
+																	<c:when test="${r.orderItem.isCustom}">
+							Custom T-Shirt (${r.orderItem.tshirtType})
+						</c:when>
+																	<c:otherwise>
+							${r.orderItem.item.itemName}
+						</c:otherwise>
+																</c:choose></td>
 
-														<td>${r.orderItem.item.itemName}</td>
-														<td><img
-															src="/uploads/${fn:split(r.orderItem.item.itemImage, ',')[0]}"
-															style="width: 60px; height: 70px; border-radius: 5px;" />
-														</td>
-														<td>₹ ${r.orderItem.finalPrice}</td>
-														<td>${r.orderItem.quantity}</td>
+															<td><c:choose>
+																	<c:when test="${r.orderItem.isCustom}">
+																		<img src="/uploads/${r.orderItem.customImage}"
+																			style="width: 60px; height: 70px; border-radius: 5px;" />
+																	</c:when>
+																	<c:otherwise>
+																		<img
+																			src="/uploads/${fn:split(r.orderItem.item.itemImage, ',')[0]}"
+																			style="width: 60px; height: 70px; border-radius: 5px;" />
+																	</c:otherwise>
+																</c:choose></td>
 
-														<td>${r.reason}</td>
+															<td>₹ ${r.orderItem.finalPrice}</td>
+															<td>${r.orderItem.quantity}</td>
+															<td>${r.reason}</td>
+															<td>${r.orderItem.returnStatus}</td>
+															<td>${r.orderItem.refundStatus}</td>
+															<td>${r.orderItem.returnPickupDate}</td>
 
-														<td>${r.orderItem.returnStatus}</td>
+															<td><c:choose>
+																	<c:when
+																		test="${r.orderItem.returnStatus == 'Requested'}">
+																		<form action="/admin/approve-return" method="post">
+																			<input type="hidden" name="orderItemId"
+																				value="${r.orderItem.id}">
+																			<button class="btn btn-success btn-sm">Approve</button>
+																		</form>
+																		<form action="/admin/reject-return" method="post"
+																			style="margin-top: 5px;">
+																			<input type="hidden" name="orderItemId"
+																				value="${r.orderItem.id}">
+																			<button class="btn btn-danger btn-sm">Reject</button>
+																		</form>
+																	</c:when>
 
-														<td>${r.orderItem.refundStatus}</td>
+																	<c:when
+																		test="${r.orderItem.returnStatus == 'Approved'}">
+																		<form action="/admin/mark-picked" method="post">
+																			<input type="hidden" name="orderItemId"
+																				value="${r.orderItem.id}">
+																			<button class="btn btn-primary btn-sm">Mark
+																				Picked</button>
+																		</form>
+																	</c:when>
 
-														<td>${r.orderItem.returnPickupDate}</td>
+																	<c:when test="${r.orderItem.returnStatus == 'Picked'}">
+																		<span class="btn btn-info btn-sm disabled">Picked</span>
+																	</c:when>
 
-														<td><c:choose>
-
-															
-																<c:when test="${r.orderItem.returnStatus == 'Requested'}">
-
-																	<form
-																		action="/admin/approve-return"
-																		method="post">
-																		<input type="hidden" name="orderItemId"
-																			value="${r.orderItem.id}">
-																		<button class="btn btn-success btn-sm">Approve</button>
-																	</form>
-
-																	<form
-																		action="/admin/reject-return"
-																		method="post" style="margin-top: 5px;">
-																		<input type="hidden" name="orderItemId"
-																			value="${r.orderItem.id}">
-																		<button class="btn btn-danger btn-sm">Reject</button>
-																	</form>
-
-																</c:when>
-
-																
-																<c:when test="${r.orderItem.returnStatus == 'Approved'}">
-
-																	
-																	<form
-																		action="/admin/mark-picked"
-																		method="post">
-																		<input type="hidden" name="orderItemId"
-																			value="${r.orderItem.id}">
-																		<button class="btn btn-primary btn-sm">Mark
-																			Picked</button>
-																	</form>
-
-																</c:when>
-
-																
-																<c:when test="${r.orderItem.returnStatus == 'Picked'}">
-																	<span class="btn btn-info btn-sm disabled">Picked</span>
-																</c:when>
-
-																
-																<c:when test="${r.orderItem.returnStatus == 'Rejected'}">
-																	<span class="btn btn-danger btn-sm disabled">Rejected</span>
-																</c:when>
-
-															</c:choose></td>
-													</tr>
+																	<c:when
+																		test="${r.orderItem.returnStatus == 'Rejected'}">
+																		<span class="btn btn-danger btn-sm disabled">Rejected</span>
+																	</c:when>
+																</c:choose></td>
+														</tr>
+													</c:if>
 												</c:forEach>
-
-
 											</tbody>
 										</table>
 									</div>
@@ -257,17 +240,13 @@
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	<script
-		src="/admin/js/bootstrap.min.js"></script>
+	<script src="/admin/js/bootstrap.min.js"></script>
 
 	<!-- bootstrap progress js -->
-	<script
-		src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-	<script
-		src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+	<script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+	<script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
-	<script
-		src="/admin/js/icheck/icheck.min.js"></script>
+	<script src="/admin/js/icheck/icheck.min.js"></script>
 
 	<script src="/admin/js/custom.js"></script>
 
@@ -277,39 +256,24 @@
   <script src="js/datatables/tools/js/dataTables.tableTools.js"></script> -->
 
 	<!-- Datatables-->
-	<script
-		src="/admin/js/datatables/jquery.dataTables.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.bootstrap.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.buttons.min.js"></script>
-	<script
-		src="/admin/js/datatables/buttons.bootstrap.min.js"></script>
-	<script
-		src="/admin/js/datatables/jszip.min.js"></script>
-	<script
-		src="/admin/js/datatables/pdfmake.min.js"></script>
-	<script
-		src="/admin/js/datatables/vfs_fonts.js"></script>
-	<script
-		src="/admin/js/datatables/buttons.html5.min.js"></script>
-	<script
-		src="/admin/js/datatables/buttons.print.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.keyTable.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.responsive.min.js"></script>
-	<script
-		src="/admin/js/datatables/responsive.bootstrap.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.scroller.min.js"></script>
+	<script src="/admin/js/datatables/jquery.dataTables.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.bootstrap.js"></script>
+	<script src="/admin/js/datatables/dataTables.buttons.min.js"></script>
+	<script src="/admin/js/datatables/buttons.bootstrap.min.js"></script>
+	<script src="/admin/js/datatables/jszip.min.js"></script>
+	<script src="/admin/js/datatables/pdfmake.min.js"></script>
+	<script src="/admin/js/datatables/vfs_fonts.js"></script>
+	<script src="/admin/js/datatables/buttons.html5.min.js"></script>
+	<script src="/admin/js/datatables/buttons.print.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.fixedHeader.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.keyTable.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.responsive.min.js"></script>
+	<script src="/admin/js/datatables/responsive.bootstrap.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.scroller.min.js"></script>
 
 
 	<!-- pace -->
-	<script
-		src="/admin/js/pace/pace.min.js"></script>
+	<script src="/admin/js/pace/pace.min.js"></script>
 	<script>
 		var handleDataTableButtons = function() {
 			"use strict";
