@@ -1,0 +1,101 @@
+package springStarter.Controller;
+
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RestController;
+import springStarter.models.Orders;
+import springStarter.models.Order_item;
+import springStarter.repository.OrderRepo;
+import java.time.LocalDateTime;
+
+@RestController
+public class ShiprocketWebhookController {
+
+	@Autowired
+	private OrderRepo orderRepo;
+
+	@PostMapping("/api/webhook/shiprocket")
+    public ResponseEntity<String> handleShiprocketUpdate(
+           
+            @RequestBody(required = false) String requestBody,
+            @RequestHeader(value = "X-Api-Key", required = false) String webhookSecret) {
+        
+        try {
+          
+            if (requestBody == null || requestBody.trim().isEmpty()) {
+                System.out.println("ℹ️ Shiprocket Test Ping Received & Passed Successfully!");
+                return new ResponseEntity<>("PING_SUCCESS", HttpStatus.OK);
+            }
+
+            if (!"PooRahSecret2026".equals(webhookSecret)) {
+                System.out.println("❌ Unauthorized webhook attempt blocked! Invalid Token.");
+                return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+            }
+
+            JSONObject json = new JSONObject(requestBody);
+		
+			String orderNumber = json.optString("order_id");
+			String shiprocketStatus = json.optString("current_status").toLowerCase();
+
+			Orders order = orderRepo.findByOrderNumber(orderNumber);
+			if (order == null) {
+				return new ResponseEntity<>("Order not found in database", HttpStatus.NOT_FOUND);
+			}
+
+			String targetStatus = order.getStatus();
+
+			
+			switch (shiprocketStatus) {
+			case "shipped":
+			case "dispatched":
+				targetStatus = "Shipped";
+				order.setShippedDate(LocalDateTime.now());
+				break;
+			case "out for delivery":
+				targetStatus = "Out for delivery";
+				break;
+			case "delivered":
+				targetStatus = "Delivered";
+				order.setDeliveredDate(LocalDateTime.now());
+
+				if ("PARTIAL_COD".equals(order.getPaymentMethod())) {
+					order.setPaymentStatus("COD Partial");
+				} else {
+					order.setPaymentStatus("Paid");
+				}
+				break;
+			case "cancelled":
+				targetStatus = "Cancelled";
+				order.setPaymentStatus("Cancelled");
+				break;
+			}
+
+			
+			if (!targetStatus.equals(order.getStatus())) {
+				order.setStatus(targetStatus);
+
+				for (Order_item item : order.getItems()) {
+					item.setStatus(targetStatus);
+					if ("Cancelled".equals(targetStatus)) {
+						item.setIsCancelled(true);
+						item.setRefundStatus("Pending");
+					}
+				}
+
+				orderRepo.save(order);
+				System.out.println("✅ Live Order " + orderNumber + " successfully auto-updated to " + targetStatus);
+			}
+
+			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+
+		} catch (Exception e) {
+			System.out.println("❌ Webhook Internal Error: " + e.getMessage());
+			return new ResponseEntity<>("Error processing webhook", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+}
