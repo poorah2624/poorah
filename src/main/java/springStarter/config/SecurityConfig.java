@@ -14,20 +14,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf().disable()
+    
+            .csrf(csrf -> csrf
+                .ignoringAntMatchers("/api/webhook/shiprocket")
+            )
             .authorizeRequests(auth -> auth
-            		.antMatchers("/css/**", "/js/**", "/images/**", "/assets/**", "/uploads/**").permitAll()
+                .antMatchers("/css/**", "/js/**", "/images/**", "/assets/**", "/uploads/**").permitAll()
+               
+                .antMatchers("/api/webhook/shiprocket").permitAll() 
                 .anyRequest().permitAll()
             )
             .formLogin().disable()
             .httpBasic().disable();
-        
-        
 
         return http.build();
     }
-    
-    
-    
-    
 }
