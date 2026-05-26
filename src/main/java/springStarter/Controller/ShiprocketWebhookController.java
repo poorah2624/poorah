@@ -4,9 +4,10 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping; 
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import springStarter.models.Orders;
 import springStarter.models.Order_item;
@@ -19,27 +20,31 @@ public class ShiprocketWebhookController {
 	@Autowired
 	private OrderRepo orderRepo;
 
-	@PostMapping("/api/webhook/shiprocket")
-    public ResponseEntity<String> handleShiprocketUpdate(
-           
-            @RequestBody(required = false) String requestBody,
-            @RequestHeader(value = "X-Api-Key", required = false) String webhookSecret) {
+	@RequestMapping(value = "/api/webhook/shiprocket", method = {RequestMethod.POST, RequestMethod.GET})
+	public ResponseEntity<String> handleShiprocketUpdate(
+			@RequestBody(required = false) String requestBody,
+			@RequestHeader(value = "X-Api-Key", required = false) String webhookSecret) {
         
-        try {
+		try {
           
-            if (requestBody == null || requestBody.trim().isEmpty()) {
-                System.out.println("ℹ️ Shiprocket Test Ping Received & Passed Successfully!");
-                return new ResponseEntity<>("PING_SUCCESS", HttpStatus.OK);
-            }
+			if (requestBody == null || requestBody.trim().isEmpty()) {
+				System.out.println("ℹ️ Shiprocket Test Ping Received & Passed Successfully!");
+				return new ResponseEntity<>("PING_SUCCESS", HttpStatus.OK);
+			}
 
-            if (!"PooRahSecret2026".equals(webhookSecret)) {
-                System.out.println("❌ Unauthorized webhook attempt blocked! Invalid Token.");
-                return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
-            }
+			if (!"PooRahSecret2026".equals(webhookSecret)) {
+				System.out.println("❌ Unauthorized webhook attempt blocked! Invalid Token.");
+				return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+			}
 
-            JSONObject json = new JSONObject(requestBody);
+			JSONObject json = new JSONObject(requestBody);
 		
-			String orderNumber = json.optString("order_id");
+		
+			String orderNumber = json.optString("channel_order_id");
+			if (orderNumber == null || orderNumber.trim().isEmpty()) {
+				orderNumber = json.optString("order_id");
+			}
+			
 			String shiprocketStatus = json.optString("current_status").toLowerCase();
 
 			Orders order = orderRepo.findByOrderNumber(orderNumber);
@@ -49,7 +54,6 @@ public class ShiprocketWebhookController {
 
 			String targetStatus = order.getStatus();
 
-			
 			switch (shiprocketStatus) {
 			case "shipped":
 			case "dispatched":
@@ -59,7 +63,8 @@ public class ShiprocketWebhookController {
 			case "out for delivery":
 				targetStatus = "Out for delivery";
 				break;
-			case "DELIVERED":
+			
+			case "delivered":
 				targetStatus = "Delivered";
 				order.setDeliveredDate(LocalDateTime.now());
 
@@ -75,7 +80,6 @@ public class ShiprocketWebhookController {
 				break;
 			}
 
-			
 			if (!targetStatus.equals(order.getStatus())) {
 				order.setStatus(targetStatus);
 
