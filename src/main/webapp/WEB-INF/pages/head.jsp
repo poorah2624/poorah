@@ -49,6 +49,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SKFPYVYF4Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SKFPYVYF4Y');
+</script>
+
+
 <!-- start-smooth-scrolling -->
 <!--  <script type="text/javascript">
 	jQuery(document).ready(function($) {
