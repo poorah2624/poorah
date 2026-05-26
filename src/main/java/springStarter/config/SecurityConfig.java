@@ -14,13 +14,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-    
-            .csrf(csrf -> csrf
-                .ignoringAntMatchers("/api/webhook/shiprocket")
-            )
+            
+            .csrf(csrf -> csrf.disable()) 
+            
             .authorizeRequests(auth -> auth
                 .antMatchers("/css/**", "/js/**", "/images/**", "/assets/**", "/uploads/**").permitAll()
-               
                 .antMatchers("/api/webhook/shiprocket").permitAll() 
                 .anyRequest().permitAll()
             )
