@@ -59,7 +59,7 @@ public class ShiprocketWebhookController {
 			case "out for delivery":
 				targetStatus = "Out for delivery";
 				break;
-			case "delivered":
+			case "DELIVERED":
 				targetStatus = "Delivered";
 				order.setDeliveredDate(LocalDateTime.now());
 
