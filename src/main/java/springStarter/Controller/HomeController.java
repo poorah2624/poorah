@@ -179,43 +179,50 @@ public class HomeController {
 
 	@PostMapping("/dologin")
 	public String login(@RequestParam String userEmail, @RequestParam String userPassword, Model model,
-			HttpSession session) {
-		List<Banner> banner = bannerService.getAllBanners();
-		model.addAttribute("banner", banner);
+	        HttpSession session) {
+	    try {
+	        List<Banner> banner = bannerService.getAllBanners();
+	        model.addAttribute("banner", banner);
 
-		List<SocialLinks> social = socialLinkService.getAllSocialLinks();
-		model.addAttribute("social", social);
+	        List<SocialLinks> social = socialLinkService.getAllSocialLinks();
+	        model.addAttribute("social", social);
 
-		ContactDetails cDetails = cDetailsService.getContactDetails();
-		model.addAttribute("cDetails", cDetails);
+	        ContactDetails cDetails = cDetailsService.getContactDetails();
+	        model.addAttribute("cDetails", cDetails);
 
-		List<Category> categories = categoryService.getAllCategories();
-		model.addAttribute("categories", categories);
+	        List<Category> categories = categoryService.getAllCategories();
+	        model.addAttribute("categories", categories);
 
-		List<Item> mixedItems = new ArrayList<>();
+	        List<Item> mixedItems = new ArrayList<>();
+	        for (Category cat : categories) {
+	            List<Item> items = itemService.getTop2Items(cat.getCategoryId());
+	            if (items != null) { 
+	                mixedItems.addAll(items);
+	            }
+	        }
+	        model.addAttribute("mixedItems", mixedItems);
 
-		for (Category cat : categories) {
-			List<Item> items = itemService.getTop2Items(cat.getCategoryId());
-			mixedItems.addAll(items);
-		}
+	        User user = userService.login(userEmail, userPassword);
+	        if (user == null) {
+	            model.addAttribute("Error", "Invalid email or password.");
+	            return "userlogin";
+	        }
+	        session.setAttribute("LoggedInUser", user);
 
-		model.addAttribute("mixedItems", mixedItems);
+	        String redirectUrl = (String) session.getAttribute("redirectUrl");
+	        if (redirectUrl != null) {
+	            session.removeAttribute("redirectUrl"); 
+	            return "redirect:" + redirectUrl;
+	        }
+	        return "home";
 
-		User user = userService.login(userEmail, userPassword);
-		if (user == null) {
-			model.addAttribute("Error", "Invalid email or password.");
-			return "userlogin";
-		}
-		session.setAttribute("LoggedInUser", user);
-
-		// redirect logic
-		String redirectUrl = (String) session.getAttribute("redirectUrl");
-
-		if (redirectUrl != null) {
-			session.removeAttribute("redirectUrl"); // clean session
-			return "redirect:" + redirectUrl;
-		}
-		return "home";
+	    } catch (Exception e) {
+	      
+	        System.out.println("❌❌ LOGIN EXCEPTION CAUGHT HERE ❌❌");
+	        e.printStackTrace(); 
+	        model.addAttribute("Error", "Internal Server Error: " + e.getMessage());
+	        return "userlogin";
+	    }
 	}
 
 	@GetMapping("/userlogin")
