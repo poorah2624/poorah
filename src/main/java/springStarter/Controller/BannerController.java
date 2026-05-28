@@ -55,7 +55,7 @@ public class BannerController {
 	    	);
 	        String imageUrl = (String) uploadResult.get("secure_url");*/
 	    	
-	    	String uploadDir = "/var/www/html/uploads/banner/";
+	    	String uploadDir = "/opt/uploads/banner/";
 
 	    	String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
@@ -129,7 +129,7 @@ public class BannerController {
 
 	    	    String imageUrl = (String) uploadResult.get("secure_url");*/
 	    		
-	    		String uploadDir = "/var/www/html/uploads/banner/";
+	    		String uploadDir = "/opt/uploads/banner/";
 
 	    		String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
