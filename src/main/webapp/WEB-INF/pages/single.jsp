@@ -28,6 +28,7 @@ body {
 	margin-bottom: 30px;
 }
 
+
 .gallery-wrapper {
 	position: relative;
 	border: 1px solid #f0f0f0;
@@ -36,23 +37,26 @@ body {
 	overflow: hidden;
 }
 
+#productFlexSlider .slides li {
+    height: 720px !important;
+    background: #fff !important;
+}
+
 .thumb-image {
 	width: 100% !important;
-	height: auto !important; 
-	min-height: 550px !important; 
+	height: 100% !important;
 	display: flex !important;
 	align-items: center !important;
 	justify-content: center !important;
 	background: #fff !important;
 	position: relative;
-	padding: 10px; /* Safe boundaries */
 }
 
 #mainProductImg {
-	max-width: 100% !important;
-	height: auto !important;
-	max-height: 680px !important;
-	object-fit: contain !important;
+	width: auto !important;
+	height: 100% !important; 
+	max-height: 100% !important;
+	object-fit: cover !important; 
 	margin: 0 auto;
 	display: block;
 }
