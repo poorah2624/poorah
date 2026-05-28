@@ -172,7 +172,7 @@ public class ShiprocketService {
 	public void cancelOrderInShiprocket(String orderNumber) {
 	    try {
 	       
-	        String url = "https://apiv2.shiprocket.in/v1/external/orders/cancel";
+	    	String url = "https://apiv2.shiprocket.in/v1/external/orders/cancel/channel/with-ids";
 	        RestTemplate restTemplate = new RestTemplate();
 	        
 	        HttpHeaders headers = new HttpHeaders();
