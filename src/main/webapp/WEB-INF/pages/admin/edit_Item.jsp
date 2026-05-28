@@ -71,9 +71,12 @@
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<select name="subCategory.subCategoryId"
 												id="subCategorySelect" class="form-control" required>
+												<option value="">Select Sub Category</option>
+
 												<c:forEach var="s" items="${subcategories}">
 													<option value="${s.subCategoryId}"
-														${s.subCategoryId == item.subCategory.subCategoryId ? 'selected' : ''}>${s.subCategoryName}</option>
+														${s.subCategoryId == item.subCategory.subCategoryId ? 'selected' : ''}>
+														${s.subCategoryName}</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -278,7 +281,7 @@
 									<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">Key
 											Features</label>
-										
+
 										<div class="col-md-6 col-sm-6 col-xs-12">
 											<textarea name="keyFeatures" class="form-control" rows="6"
 												placeholder="Enter one feature per line">${item.keyFeatures}</textarea>
@@ -304,76 +307,103 @@
 	</div>
 
 	<script>
-		function toggleCategoryFields(){
-			var categoryName = $("#category option:selected").text().toLowerCase();
-			$("#genderDiv, #variantDiv, #fabricDiv").hide();
-			$("#stockDiv").show();
+    function toggleCategoryFields(){
+        var categoryName = $("#category option:selected").text().toLowerCase();
+        $("#genderDiv, #variantDiv, #fabricDiv").hide();
+        $("#stockDiv").show();
 
-			if(categoryName.includes("men") || categoryName.includes("women") || categoryName.includes("clothing")){
-				$("#genderDiv, #variantDiv, #fabricDiv").show();
-				$("#stockDiv").hide();
-			}
-		}
+        if(categoryName.includes("men") || categoryName.includes("women") || categoryName.includes("clothing")){
+            $("#genderDiv, #variantDiv, #fabricDiv").show();
+            $("#stockDiv").hide();
+        }
+    }
 
-		$(document).ready(function(){
-			toggleCategoryFields();
+    $(document).ready(function(){
+       
+        toggleCategoryFields();
 
-			$("#category").change(function(){
-				toggleCategoryFields();
-			});
+        $("#category").change(function(){
+            toggleCategoryFields();
+        });
 
-			// FIX: Stocks wala indexing logic samjhiye yahan
-			// Pehle se screen par jitne color blocks hain, count wahin se shuru hoga
-			let variantCount = $(".colorBlock").length;
+       
+        $("#category").change(function() {
+            var categoryId = $(this).val();
+            var subCategorySelect = $("#subCategorySelect");
 
-			// ADD VARIANT (DYNAMIC COLOURED BLOCK)
-			$("#addVariantBtn").click(function(){
-				$("#variantContainer").append(`
-					<div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
-						<input type="hidden" name="variantId[]" value=""/>
+            // Purane options clear karein
+            subCategorySelect.html("");
+            subCategorySelect.append("<option value=''>Select Sub Category</option>");
 
-						<label>Color</label>
-						<input type="text" name="color[]" class="form-control" placeholder="Enter Color" required/>
+            if (categoryId != "") {
+                $.ajax({
+                    url : "/getSubCategories",
+                    type : "GET",
+                    data : {
+                        categoryId : categoryId
+                    },
+                    success : function(result) {
+                        $.each(result, function(i, sub) {
+                            subCategorySelect.append("<option value='" + sub.subCategoryId + "'>" + sub.subCategoryName + "</option>");
+                        });
+                    },
+                    error: function(err) {
+                        console.log("Error fetching subcategories:", err);
+                    }
+                });
+            }
+        });
 
-						<label style="margin-top:10px;">Variant Image</label>
-						<input type="file" name="variantImage[]" class="form-control"/>
+       
+        let variantCount = $(".colorBlock").length;
 
-						<hr>
-						<label>Sizes & Stock</label>
+        // ADD VARIANT (DYNAMIC COLOURED BLOCK)
+        $("#addVariantBtn").click(function(){
+            $("#variantContainer").append(`
+                <div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
+                    <input type="hidden" name="variantId[]" value=""/>
 
-						<!-- Naye blocks jab click hoke aayenge toh unka naam stockS_1, stockS_2 banega matching variantCount -->
-						<div>
-							<label>S</label>
-							<input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0">
-						</div>
-						<div>
-							<label>M</label>
-							<input type="number" name="stockM_\${variantCount}" class="form-control" value="0" min="0">
-						</div>
-						<div>
-							<label>L</label>
-							<input type="number" name="stockL_\${variantCount}" class="form-control" value="0" min="0">
-						</div>
-						<div>
-							<label>XL</label>
-							<input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
-						</div>
-						<div>
-						<label>XXL</label>
-						<input type="number" name="stockXXL_\${variantCount}" class="form-control" value="0" min="0">
-					</div>
+                    <label>Color</label>
+                    <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required/>
 
-						<button type="button" class="btn btn-danger btn-sm removeVariant" style="margin-top:10px;">Remove Color</button>
-					</div>
-				`);
-				variantCount++; // Agle naye block ke liye index number badhayein
-			});
+                    <label style="margin-top:10px;">Variant Image</label>
+                    <input type="file" name="variantImage[]" class="form-control"/>
 
-			// REMOVE VARIANT BLOCK
-			$(document).on("click", ".removeVariant", function(){
-				$(this).closest(".colorBlock").remove();
-			});
-		});
-	</script>
+                    <hr>
+                    <label>Sizes & Stock</label>
+
+                    <div>
+                        <label>S</label>
+                        <input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0">
+                    </div>
+                    <div>
+                        <label>M</label>
+                        <input type="number" name="stockM_\${variantCount}" class="form-control" value="0" min="0">
+                    </div>
+                    <div>
+                        <label>L</label>
+                        <input type="number" name="stockL_\${variantCount}" class="form-control" value="0" min="0">
+                    </div>
+                    <div>
+                        <label>XL</label>
+                        <input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
+                    </div>
+                    <div>
+                        <label>XXL</label>
+                        <input type="number" name="stockXXL_\${variantCount}" class="form-control" value="0" min="0">
+                    </div>
+
+                    <button type="button" class="btn btn-danger btn-sm removeVariant" style="margin-top:10px;">Remove Color</button>
+                </div>
+            `);
+            variantCount++; 
+        });
+
+        // REMOVE VARIANT BLOCK
+        $(document).on("click", ".removeVariant", function(){
+            $(this).closest(".colorBlock").remove();
+        });
+    });
+</script>
 </body>
 </html>
