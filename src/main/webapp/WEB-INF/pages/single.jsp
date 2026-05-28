@@ -39,7 +39,7 @@ body {
 
 .thumb-image {
 	width: 100% !important;
-	height: 500px !important;
+	height: 620px !important; 
 	display: flex !important;
 	align-items: center !important;
 	justify-content: center !important;
@@ -55,6 +55,23 @@ body {
 	object-fit: contain !important;
 	margin: 0 auto;
 	display: block;
+}
+.flex-control-nav.flex-control-thumbs li {
+   
+    width: 60px !important; 
+    margin: 8px 4px 0 4px !important;
+}
+
+.flex-control-nav.flex-control-thumbs img {
+   
+    height: 75px !important; 
+    object-fit: cover !important;
+    border-radius: 6px !important;
+    transition: all 0.2s ease;
+}
+
+.flex-control-nav.flex-control-thumbs img.flex-active {
+    border: 2px solid #ff9b05 !important; /* Active indicator grid */
 }
 
 .zoomImg {
@@ -313,16 +330,14 @@ body {
 			<div class="product-container-card row">
 
 				<!-- Left Column: Image Area -->
-				<div class="col-md-5 single-left">
+				<div class="col-md-6 col-sm-12 single-left">
 					<div class="gallery-wrapper">
 						<div class="flexslider" id="productFlexSlider">
 							<ul class="slides">
 								<li data-thumb="${fn:split(item.itemImage, ',')[0]}"
 									id="mainDisplayLi">
 									<div class="thumb-image">
-										<img src="${fn:split(item.itemImage, ',')[0]}"
-											id="mainProductImg" data-imagezoom="true"
-											class="img-responsive">
+										<img src="${fn:split(item.itemImage, ',')[0]}" id="mainProductImg" class="img-responsive">
 									</div>
 								</li>
 								<c:forEach var="img" items="${fn:split(item.itemImage, ',')}"
@@ -330,8 +345,7 @@ body {
 									<c:if test="${!loop.first}">
 										<li data-thumb="${img}">
 											<div class="thumb-image">
-												<img src="${img}" data-imagezoom="true"
-													class="img-responsive">
+												<img src="${img}" class="img-responsive">
 											</div>
 										</li>
 									</c:if>
@@ -342,7 +356,7 @@ body {
 				</div>
 
 				<!-- Right Column: Product Operations Section -->
-				<div class="col-md-7 single-right">
+				<div class="col-md-6 col-sm-12 single-right">
 					<h3 class="product-title">${item.itemName}</h3>
 
 					<!-- Pricing Details Container -->
@@ -561,7 +575,7 @@ body {
 	<%@include file="footer.jsp"%>
 
 	<script defer src="/js/jquery.flexslider.js"></script>
-	<script src="/js/imagezoom.js"></script>
+	<!--  <script src="/js/imagezoom.js"></script> -->
 	<script src="/js/easyResponsiveTabs.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
@@ -580,23 +594,19 @@ body {
 		});
 
 		function selectColorBlock(index, element) {
-			$(".color-swatch").removeClass("active");
-			$(element).addClass("active");
+		    $(".color-swatch").removeClass("active");
+		    $(element).addClass("active");
 
-			$(".size-wrapper").removeClass("active").addClass("size-wrapper");
-			$("#sizeWrapper_" + index).addClass("active");
-			
-			$('input[name="selectedSize"]').prop('checked', false);
+		    $(".size-wrapper").removeClass("active").addClass("size-wrapper");
+		    $("#sizeWrapper_" + index).addClass("active");
+		    
+		    $('input[name="selectedSize"]').prop('checked', false);
 
-			let variantImgUrl = $(element).attr("data-variant-image");
-			if(variantImgUrl && variantImgUrl.trim() !== "") {
-				$("#mainProductImg").attr("src", variantImgUrl);
-				$("#mainProductImg").attr("data-zoom-image", variantImgUrl);
-				
-				if($(".zoomImg").length > 0) {
-					$(".zoomImg").attr("src", variantImgUrl); 
-				}
-			}
+		    let variantImgUrl = $(element).attr("data-variant-image");
+		    if(variantImgUrl && variantImgUrl.trim() !== "") {
+		       
+		        $("#mainProductImg").attr("src", variantImgUrl);
+		    }
 		}
 
 		function handleCartAction(action, itemId, btn) {

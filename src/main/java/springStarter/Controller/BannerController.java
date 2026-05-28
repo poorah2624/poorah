@@ -55,7 +55,7 @@ public class BannerController {
 	    	);
 	        String imageUrl = (String) uploadResult.get("secure_url");*/
 	    	
-	    	String uploadDir = System.getProperty("java.io.tmpdir") + "/banner/";
+	    	String uploadDir = System.getProperty("user.dir") + "/uploads/banner/";
 
 	    	File dir = new File(uploadDir);
 
@@ -69,7 +69,7 @@ public class BannerController {
 
 	    	file.transferTo(dest);
 
-	    	String imageUrl = "/banner/" + fileName;
+	    	String imageUrl = "/uploads/banner/" + fileName;
 
 	        if(imageUrl == null){
 	            model.addAttribute("Error","Upload failed (no URL)");
@@ -135,7 +135,7 @@ public class BannerController {
 
 	    	    String imageUrl = (String) uploadResult.get("secure_url");*/
 	    		
-	    		String uploadDir = System.getProperty("java.io.tmpdir") + "/banner/";
+	    		String uploadDir = System.getProperty("user.dir") + "/uploads/banner/";
 
 	    		File dir = new File(uploadDir);
 
@@ -149,7 +149,7 @@ public class BannerController {
 
 	    		file.transferTo(dest);
 
-	    		String imageUrl = "/banner/" + fileName;
+	    		String imageUrl = "/uploads/banner/" + fileName;
 
 	    	    existingBanner.setBannerName(imageUrl);  
 

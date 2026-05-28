@@ -10,7 +10,7 @@ public class FileConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.addResourceHandler("/banner/**")
-                .addResourceLocations("file:/tmp/banner/");
+        registry.addResourceHandler("/uploads/**")
+                .addResourceLocations("file:/opt/poorah/uploads/");
     }
 }
