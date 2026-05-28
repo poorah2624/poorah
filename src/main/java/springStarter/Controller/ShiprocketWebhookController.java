@@ -22,88 +22,96 @@ public class ShiprocketWebhookController {
 
 	@RequestMapping(value = "/api/webhook/shiprocket", method = {RequestMethod.POST, RequestMethod.GET})
 	public ResponseEntity<String> handleShiprocketUpdate(
-			@RequestBody(required = false) String requestBody,
-			@RequestHeader(value = "x-api-key", required = false) String webhookSecret) {
-        
-		try {
-			System.out.println("📩 Webhook Received! Token: " + webhookSecret);
+	        @RequestBody(required = false) String requestBody,
+	        @RequestHeader(value = "x-api-key", required = false) String webhookSecret) {
+	    
+	    try {
+	        System.out.println("📩 Webhook Received! Token: " + webhookSecret);
 	        System.out.println("📦 Payload: " + requestBody);
 
-	      
 	        if (requestBody == null || requestBody.trim().isEmpty()) {
 	            System.out.println("ℹ️ Shiprocket Test Ping Received & Passed Successfully!");
 	            return new ResponseEntity<>("PING_SUCCESS", HttpStatus.OK);
 	        }
 
-	       
 	        if (webhookSecret == null || !webhookSecret.equalsIgnoreCase("PooRahSecret2026")) {
 	            System.out.println("❌ Unauthorized webhook attempt blocked! Invalid Token.");
 	            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
 	        }
 
-			JSONObject json = new JSONObject(requestBody);
-		
-		
-			String orderNumber = json.optString("channel_order_id");
-			if (orderNumber == null || orderNumber.trim().isEmpty()) {
-				orderNumber = json.optString("order_id");
-			}
-			
-			String shiprocketStatus = json.optString("current_status").toLowerCase();
+	        JSONObject json = new JSONObject(requestBody);
+	        Long shiprocketId = json.optLong("order_id");
 
-			Orders order = orderRepo.findByOrderNumber(orderNumber);
-			if (order == null) {
-				return new ResponseEntity<>("Order not found in database", HttpStatus.NOT_FOUND);
-			}
+	        Orders order = null;
+	        if (shiprocketId != 0) {
+	            order = orderRepo.findByShiprocketOrderId(shiprocketId);
+	        }
+	        
+	        if (order == null) {
+	            String orderNumberFallback = json.optString("channel_order_id");
+	            if (orderNumberFallback == null || orderNumberFallback.trim().isEmpty()) {
+	                orderNumberFallback = json.optString("order_id"); // backup fallback
+	            }
+	            if (orderNumberFallback != null && !orderNumberFallback.trim().isEmpty()) {
+	                order = orderRepo.findByOrderNumber(orderNumberFallback);
+	            }
+	        }
 
-			String targetStatus = order.getStatus();
+	        if (order == null) {
+	            return new ResponseEntity<>("Order not found in database", HttpStatus.NOT_FOUND);
+	        }
+	        
+	        String orderNumber = order.getOrderNumber();
+	        String shiprocketStatus = json.optString("current_status").toLowerCase();
 
-			switch (shiprocketStatus) {
-			case "shipped":
-			case "dispatched":
-				targetStatus = "Shipped";
-				order.setShippedDate(LocalDateTime.now());
-				break;
-			case "out for delivery":
-				targetStatus = "Out for delivery";
-				break;
-			
-			case "delivered":
-				targetStatus = "Delivered";
-				order.setDeliveredDate(LocalDateTime.now());
+	        String targetStatus = order.getStatus();
 
-				if ("PARTIAL_COD".equals(order.getPaymentMethod())) {
-					order.setPaymentStatus("COD Partial");
-				} else {
-					order.setPaymentStatus("Paid");
-				}
-				break;
-			case "cancelled":
-				targetStatus = "Cancelled";
-				order.setPaymentStatus("Cancelled");
-				break;
-			}
+	        switch (shiprocketStatus) {
+	            case "shipped":
+	            case "dispatched":
+	                targetStatus = "Shipped";
+	                order.setShippedDate(LocalDateTime.now());
+	                break;
+	            case "out for delivery":
+	                targetStatus = "Out for delivery";
+	                break;
+	            
+	            case "delivered":
+	                targetStatus = "Delivered";
+	                order.setDeliveredDate(LocalDateTime.now());
 
-			if (!targetStatus.equals(order.getStatus())) {
-				order.setStatus(targetStatus);
+	                if ("PARTIAL_COD".equals(order.getPaymentMethod())) {
+	                    order.setPaymentStatus("COD Partial");
+	                } else {
+	                    order.setPaymentStatus("Paid");
+	                }
+	                break;
+	            case "cancelled":
+	                targetStatus = "Cancelled";
+	                order.setPaymentStatus("Cancelled");
+	                break;
+	        }
 
-				for (Order_item item : order.getItems()) {
-					item.setStatus(targetStatus);
-					if ("Cancelled".equals(targetStatus)) {
-						item.setIsCancelled(true);
-						item.setRefundStatus("Pending");
-					}
-				}
+	        if (!targetStatus.equals(order.getStatus())) {
+	            order.setStatus(targetStatus);
 
-				orderRepo.save(order);
-				System.out.println("✅ Live Order " + orderNumber + " successfully auto-updated to " + targetStatus);
-			}
+	            for (Order_item item : order.getItems()) {
+	                item.setStatus(targetStatus);
+	                if ("Cancelled".equals(targetStatus)) {
+	                    item.setIsCancelled(true);
+	                    item.setRefundStatus("Pending");
+	                }
+	            }
 
-			return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+	            orderRepo.save(order);
+	            System.out.println("✅ Live Order " + orderNumber + " successfully auto-updated to " + targetStatus);
+	        }
 
-		} catch (Exception e) {
-			System.out.println("❌ Webhook Internal Error: " + e.getMessage());
-			return new ResponseEntity<>("Error processing webhook", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+	        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+
+	    } catch (Exception e) {
+	        System.out.println("❌ Webhook Internal Error: " + e.getMessage());
+	        return new ResponseEntity<>("Error processing webhook", HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
 }

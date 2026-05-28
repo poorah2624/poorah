@@ -46,11 +46,13 @@ public class BannerController {
 	    }
 
 	    try {
-	        Map uploadResult = cloudinary.uploader().upload(
-	                file.getBytes(),
-	                ObjectUtils.asMap("folder", "poorah/banner")
-	        );
-
+	    	Map uploadResult = cloudinary.uploader().upload(
+	    	        file.getBytes(),
+	    	        ObjectUtils.asMap(
+	    	                "folder", "poorah/banner",
+	    	                "resource_type", "auto"
+	    	        )
+	    	);
 	        String imageUrl = (String) uploadResult.get("secure_url");
 
 	        if(imageUrl == null){
@@ -107,10 +109,13 @@ public class BannerController {
 
 	    	 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
 	    	try {
-	    	    Map uploadResult = cloudinary.uploader().upload(
-	    	            file.getBytes(),
-	    	            ObjectUtils.asMap("folder", "poorah/banner") 
-	    	    );
+	    		Map uploadResult = cloudinary.uploader().upload(
+	    		        file.getBytes(),
+	    		        ObjectUtils.asMap(
+	    		                "folder", "poorah/banner",
+	    		                "resource_type", "auto"
+	    		        )
+	    		);
 
 	    	    String imageUrl = (String) uploadResult.get("secure_url");
 

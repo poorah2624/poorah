@@ -29,5 +29,7 @@ public interface OrderRepo extends JpaRepository<Orders, Long> {
 	Orders findByAwbCode(String awbCode);
 	
 	Orders findByOrderNumber(String orderNumber);
+	
+	Orders findByShiprocketOrderId(Long shiprocketOrderId);
 
 }

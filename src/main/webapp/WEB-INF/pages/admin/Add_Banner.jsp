@@ -138,6 +138,7 @@ function fileValidation(){
                       </label>
                       <div class="col-md-6 col-sm-6 col-xs-12">
                         <input type="file" id="file" name="bannerName" required="required" class="form-control col-md-7 col-xs-12" onchange="return fileValidation()">
+                        <div id="imagePreview" style="margin-top:10px;"></div>
                       </div>
                     </div>
                     <div class="form-group">

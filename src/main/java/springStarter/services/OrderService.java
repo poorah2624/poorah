@@ -290,7 +290,7 @@ public class OrderService {
 			order.setPaymentStatus("Cancelled");
 			orderRepo.save(order); 
 			try {
-	            shiprocketService.cancelOrderInShiprocket(order.getOrderNumber());
+	            shiprocketService.cancelOrderInShiprocket(order);
 	            System.out.println("🛑 Successfully triggered full cancellation in Shiprocket for: " + order.getOrderNumber());
 	        } catch (Exception e) {
 	            System.out.println("⚠️ Shiprocket API automation error: " + e.getMessage());
@@ -397,7 +397,7 @@ public class OrderService {
 	                .allMatch(i -> "Cancelled".equalsIgnoreCase(i.getStatus()));
 
 	        if (isWholeOrderCancelled) {
-	            shiprocketService.cancelOrderInShiprocket(order.getOrderNumber());
+	            shiprocketService.cancelOrderInShiprocket(order);
 	            System.out.println("🛑 All items cancelled by user. Order " + order.getOrderNumber() + " cancelled in Shiprocket.");
 	        } else {
 	            System.out.println("ℹ️ Partial cancellation done. Shiprocket order kept active for remaining items.");

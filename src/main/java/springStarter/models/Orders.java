@@ -110,6 +110,8 @@ public class Orders {
     
 	private String category;
 	
+	private Long shiprocketOrderId;
+	
 	public String getCategory() { return category; }
 	public void setCategory(String category) { this.category = category; }
 	public Long getId() {
@@ -273,6 +275,12 @@ public class Orders {
 	}
 	public void setAwbCode(String awbCode) {
 		this.awbCode = awbCode;
+	}
+	public Long getShiprocketOrderId() {
+		return shiprocketOrderId;
+	}
+	public void setShiprocketOrderId(Long shiprocketOrderId) {
+		this.shiprocketOrderId = shiprocketOrderId;
 	}
 	
 	
