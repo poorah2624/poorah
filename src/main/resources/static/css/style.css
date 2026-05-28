@@ -5985,7 +5985,7 @@ input[type="radio"]:invalid {
 
 @media ( min-width : 769px) {
 	.hero_area {
-		height: 90vh;
+		height: 115vh;
 	}
 	.bg-box img {
 		width: 100%;
