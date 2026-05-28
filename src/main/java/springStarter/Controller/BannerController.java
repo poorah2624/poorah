@@ -46,14 +46,24 @@ public class BannerController {
 	    }
 
 	    try {
-	    	Map uploadResult = cloudinary.uploader().upload(
+	    	/*Map uploadResult = cloudinary.uploader().upload(
 	    	        file.getBytes(),
 	    	        ObjectUtils.asMap(
 	    	                "folder", "poorah/banner",
 	    	                "resource_type", "auto"
 	    	        )
 	    	);
-	        String imageUrl = (String) uploadResult.get("secure_url");
+	        String imageUrl = (String) uploadResult.get("secure_url");*/
+	    	
+	    	String uploadDir = "/var/www/html/uploads/banner/";
+
+	    	String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+	    	File dest = new File(uploadDir + fileName);
+
+	    	file.transferTo(dest);
+
+	    	String imageUrl = "/uploads/banner/" + fileName;
 
 	        if(imageUrl == null){
 	            model.addAttribute("Error","Upload failed (no URL)");
@@ -109,7 +119,7 @@ public class BannerController {
 
 	    	 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
 	    	try {
-	    		Map uploadResult = cloudinary.uploader().upload(
+	    		/*Map uploadResult = cloudinary.uploader().upload(
 	    		        file.getBytes(),
 	    		        ObjectUtils.asMap(
 	    		                "folder", "poorah/banner",
@@ -117,7 +127,17 @@ public class BannerController {
 	    		        )
 	    		);
 
-	    	    String imageUrl = (String) uploadResult.get("secure_url");
+	    	    String imageUrl = (String) uploadResult.get("secure_url");*/
+	    		
+	    		String uploadDir = "/var/www/html/uploads/banner/";
+
+	    		String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+	    		File dest = new File(uploadDir + fileName);
+
+	    		file.transferTo(dest);
+
+	    		String imageUrl = "/uploads/banner/" + fileName;
 
 	    	    existingBanner.setBannerName(imageUrl);  
 

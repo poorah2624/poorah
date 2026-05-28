@@ -54,18 +54,17 @@ public class BannerService {
         // delete image file
         /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
         try {
-            String imageUrl = banner.getBannerName();
 
-            if (imageUrl != null && imageUrl.contains("/upload/")) {
+            String imagePath = banner.getBannerName();
 
-                String publicId = imageUrl
-                        .substring(imageUrl.indexOf("/upload/") + 8)
-                        .replaceAll("v[0-9]+/", "")   // remove version
-                        .replaceAll("\\.[^.]+$", ""); // remove extension
+            if (imagePath != null) {
 
-                cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+                File file = new File("/var/www/html" + imagePath);
 
-                System.out.println("Deleted from Cloudinary: " + publicId);
+                if (file.exists()) {
+                    file.delete();
+                    System.out.println("File deleted: " + file.getAbsolutePath());
+                }
             }
 
         } catch (Exception e) {
