@@ -162,7 +162,7 @@
 
 
 															<img style="width: 100%; display: block;"
-																src="${b.bannerName}"
+																src="${pageContext.request.contextPath}${b.bannerName}"
 																alt="image" />
 															<div class="mask">
 																<p>${b.bannerStatus}</p>
