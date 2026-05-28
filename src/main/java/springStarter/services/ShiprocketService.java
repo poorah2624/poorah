@@ -168,5 +168,37 @@ public class ShiprocketService {
             e.printStackTrace();
         }
     }
+	
+	public void cancelOrderInShiprocket(String orderNumber) {
+	    try {
+	       
+	        String url = "https://apiv2.shiprocket.in/v1/external/orders/cancel";
+	        RestTemplate restTemplate = new RestTemplate();
+	        
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.APPLICATION_JSON);
+	   
+	        String token = getToken(); 
+	        if (token == null) {
+	            System.out.println("❌ Cancellation stopped: Token generate nahi ho paya.");
+	            return;
+	        }
+	        headers.set("Authorization", "Bearer " + token);
+
+	        JSONObject payload = new JSONObject();
+	        JSONArray idsArray = new JSONArray();
+	        idsArray.put(orderNumber);
+	        payload.put("ids", idsArray);
+
+	        HttpEntity<String> entity = new HttpEntity<>(payload.toString(), headers);
+
+	        String response = restTemplate.postForObject(url, entity, String.class);
+	        System.out.println("🤖 Shiprocket Cancel API Response: " + response);
+
+	    } catch (Exception e) {
+	        System.out.println("❌ Shiprocket ke andar order cancel nahi ho paya: " + e.getMessage());
+	      
+	    }
+	}
 
 }

@@ -289,6 +289,12 @@ public class OrderService {
 		if ("Cancelled".equalsIgnoreCase(status)) {
 			order.setPaymentStatus("Cancelled");
 			orderRepo.save(order); 
+			try {
+	            shiprocketService.cancelOrderInShiprocket(order.getOrderNumber());
+	            System.out.println("🛑 Successfully triggered full cancellation in Shiprocket for: " + order.getOrderNumber());
+	        } catch (Exception e) {
+	            System.out.println("⚠️ Shiprocket API automation error: " + e.getMessage());
+	        }
 			for (Order_item item : order.getItems()) {
 				processRefund(item, order, order.getPayment());
 			}
@@ -386,6 +392,19 @@ public class OrderService {
 
 		processRefund(item, order, order.getPayment());
 		updateOrderStatusAfterItemChange(order);
+		try {
+	         boolean isWholeOrderCancelled = order.getItems().stream()
+	                .allMatch(i -> "Cancelled".equalsIgnoreCase(i.getStatus()));
+
+	        if (isWholeOrderCancelled) {
+	            shiprocketService.cancelOrderInShiprocket(order.getOrderNumber());
+	            System.out.println("🛑 All items cancelled by user. Order " + order.getOrderNumber() + " cancelled in Shiprocket.");
+	        } else {
+	            System.out.println("ℹ️ Partial cancellation done. Shiprocket order kept active for remaining items.");
+	        }
+	    } catch (Exception e) {
+	        System.out.println("⚠️ Shiprocket item cancellation sync failed: " + e.getMessage());
+	    }
 		return true;
 	}
 
