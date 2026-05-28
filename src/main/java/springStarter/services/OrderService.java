@@ -439,6 +439,12 @@ public class OrderService {
 		if (Boolean.TRUE.equals(item.getNoReturnOrder())) return false;
 		if (!item.getOrder().getUser().getId().equals(userId)) return false;
 		if (!"Delivered".equals(item.getOrder().getStatus())) return false;
+        
+        // 🟢 SERVICE LAYER POLICY CHECK
+        if (item.getOrder().getDeliveredDate() != null && 
+            item.getOrder().getDeliveredDate().plusDays(5).isBefore(LocalDateTime.now())) {
+            return false;
+        }
 
 		List<ReturnRequest> existing = returnRequestRepo.findByOrderItem(item);
 	    ReturnRequest req;
@@ -474,6 +480,12 @@ public class OrderService {
 		Order_item item = optionalItem.get();
 		if (!item.getOrder().getUser().getId().equals(userId)) return false;
 		if (!"Delivered".equals(item.getOrder().getStatus())) return false;
+        
+        // 🟢 SERVICE LAYER POLICY CHECK
+        if (item.getOrder().getDeliveredDate() != null && 
+            item.getOrder().getDeliveredDate().plusDays(5).isBefore(LocalDateTime.now())) {
+            return false;
+        }
 
 		ExchangeRequest req = new ExchangeRequest();
 		req.setOrderItem(item);

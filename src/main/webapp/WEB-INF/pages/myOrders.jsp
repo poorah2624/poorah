@@ -370,19 +370,21 @@ body {
 														</form>
 													</c:if>
 
-												
-													<c:set var="orderTime" value="${item.order.orderDate}" />
+													<!-- 🌟 CHANGES START HERE: Now Tracking From Delivered Date 🌟 -->
+													<c:set var="deliveredTime"
+														value="${item.order.deliveredDate}" />
 
 													<%
-													
-													java.time.LocalDateTime oDate = (java.time.LocalDateTime) pageContext.getAttribute("orderTime");
+													java.time.LocalDateTime dDate = (java.time.LocalDateTime) pageContext.getAttribute("deliveredTime");
 													boolean isExpired = false;
-													if (oDate != null) {
-													
-														isExpired = oDate.plusDays(5).isBefore(java.time.LocalDateTime.now());
+													if (dDate != null) {
+														// Delivery hone ke exact 5 days (120 hours) baad expired 'true' hoga
+														isExpired = dDate.plusDays(5).isBefore(java.time.LocalDateTime.now());
 													}
 													pageContext.setAttribute("isExpired", isExpired);
 													%>
+
+													<!-- Return Button Check -->
 													<c:if
 														test="${!item.returnRequested && item.order.status == 'Delivered' && !item.noReturnOrder && !isExpired}">
 														<button type="button"
@@ -392,13 +394,13 @@ body {
 															Return Item</button>
 													</c:if>
 
-													
+													<!-- Exchange Button Check -->
 													<c:if
 														test="${!item.exchangeRequested && item.order.status == 'Delivered' && !isExpired}">
 														<button type="button"
 															onclick="openExchangeModal('${item.id}')"
 															class="btn btn-action-blue"
-															style="background: #2874f0; color: #fff; border: none;">
+															style="background: #2874f0; color: #fff; border: none; margin-bottom: 8px;">
 															Exchange Item</button>
 													</c:if>
 
@@ -419,6 +421,15 @@ body {
 															style="color: #e53e3e; font-size: 12px; font-weight: bold; margin-top: 5px;">Refund:
 															${item.refundStatus}</p>
 													</c:if>
+
+													<!-- 📢 5 Din Poore Hone Par Customer Ko Yeh Info Message Dikhega -->
+													<c:if
+														test="${isExpired && item.order.status == 'Delivered' && !item.returnRequested && !item.exchangeRequested}">
+														<p
+															style="color: #a0aec0; font-size: 11px; font-weight: 600; margin-top: 8px; text-align: right; font-style: italic;">
+															ℹ️ Return/Exchange period closed (5 days over)</p>
+													</c:if>
+													<!-- 🌟 CHANGES END HERE 🌟 -->
 												</div>
 
 											</div>

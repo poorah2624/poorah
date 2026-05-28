@@ -444,13 +444,15 @@ body {
                                         </form>
                                     </c:if>
 
-                                    <c:set var="orderTime" value="${item.order.orderDate}" />
+                                    <c:set var="deliveredTime" value="${item.order.deliveredDate}" />
                                     <%
-                                        java.time.LocalDateTime oDate = (java.time.LocalDateTime) pageContext.getAttribute("orderTime");
+                                        java.time.LocalDateTime dDate = (java.time.LocalDateTime) pageContext.getAttribute("deliveredTime");
                                         boolean isExpired = false;
-                                        if(oDate != null) {
-                                           
-                                            isExpired = oDate.plusDays(5).isBefore(java.time.LocalDateTime.now());
+                                        if(dDate != null) {
+                                            isExpired = dDate.plusDays(5).isBefore(java.time.LocalDateTime.now());
+                                        } else {
+                                            
+                                            isExpired = false;
                                         }
                                         pageContext.setAttribute("isExpired", isExpired);
                                     %>
@@ -485,7 +487,7 @@ body {
                                     
                                     <c:if test="${isExpired && item.order.status == 'Delivered' && !item.returnRequested && !item.exchangeRequested}">
                                         <div class="alert-banner" style="background: #f5f5f5; border-left: 4px solid #8c8c8c; color: #555;">
-                                            ℹ️ The 5-day return and exchange window for this item has closed.
+                                            ℹ️ The 5-day delivery window has passed, so this item can no longer be returned or exchanged.
                                         </div>
                                     </c:if>
                                 </div>

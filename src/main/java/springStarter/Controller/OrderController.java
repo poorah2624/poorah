@@ -255,8 +255,9 @@ public class OrderController {
             springStarter.models.Order_item item = orderItemRepo.findById(orderItemId)
                     .orElseThrow(() -> new RuntimeException("Item not found"));
             
-            if (item.getOrder().getOrderDate().plusDays(5).isBefore(LocalDateTime.now())) {
-                redirectAttrs.addFlashAttribute("msg", "Return period expired! (Max 5 days allowed)");
+            if (item.getOrder().getDeliveredDate() != null && 
+                item.getOrder().getDeliveredDate().plusDays(5).isBefore(LocalDateTime.now())) {
+                redirectAttrs.addFlashAttribute("msg", "Return period expired! (5 days from delivery max)");
                 return "redirect:/myOrders";
             }
         } catch (Exception e) {
@@ -266,7 +267,6 @@ public class OrderController {
 
         boolean success = orderService.returnOrderItem(orderItemId, user.getId(), reason);
         redirectAttrs.addFlashAttribute("msg", success ? "Return requested" : "Error");
-
         return "redirect:/myOrders";
     }
 
@@ -281,9 +281,10 @@ public class OrderController {
         try {
             springStarter.models.Order_item item = orderItemRepo.findById(orderItemId)
                     .orElseThrow(() -> new RuntimeException("Item not found"));
-            
-            if (item.getOrder().getOrderDate().plusDays(5).isBefore(LocalDateTime.now())) {
-                redirectAttrs.addFlashAttribute("msg", "Exchange period expired! (Max 5 days allowed)");
+          
+            if (item.getOrder().getDeliveredDate() != null && 
+                item.getOrder().getDeliveredDate().plusDays(5).isBefore(LocalDateTime.now())) {
+                redirectAttrs.addFlashAttribute("msg", "Exchange period expired! (5 days from delivery max)");
                 return "redirect:/myOrders";
             }
         } catch (Exception e) {
@@ -293,7 +294,6 @@ public class OrderController {
 
         boolean success = orderService.exchangeOrderItem(orderItemId, user.getId(), newSize);
         redirectAttrs.addFlashAttribute("msg", success ? "Exchange requested" : "Error");
-
         return "redirect:/myOrders";
     }
 	

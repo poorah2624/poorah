@@ -39,7 +39,7 @@ body {
 
 .thumb-image {
 	width: 100% !important;
-	height: 500px !important; /* फिक्स्ड फ्रेम हाइट */
+	height: 500px !important;
 	display: flex !important;
 	align-items: center !important;
 	justify-content: center !important;
@@ -53,24 +53,20 @@ body {
 	width: auto !important;
 	height: auto !important;
 	object-fit: contain !important;
-	/* फ्रेम के अंदर इमेज का अनुपात सुरक्षित रखता है */
 	margin: 0 auto;
 	display: block;
 }
 
-/* ⚡ ज़ूम करने पर इमेज को लंबा (Stretch) होने से रोकने का अचूक CSS फिक्स ⚡ */
 .zoomImg {
 	background-color: #fff !important;
 	width: auto !important;
-	/* इसे ऑटो पर रखना ज़रूरी है ताकि प्लगइन इमेज को ज़बर्दस्ती खींचे नहीं */
 	height: auto !important;
-	max-width: none !important; /* इमेजज़ूम प्लगइन के लिए डिफ़ॉल्ट रीसेट */
+	max-width: none !important; 
 	max-height: none !important;
 	object-fit: scale-down !important;
-	/* अगर इमेज बड़ी है तो वो अपने सही रेशियो में ही ज़ूम होगी */
+	
 }
 
-/* ज़ूम लेंस बॉक्स का ओवरफ़्लो कंट्रोल */
 .imagezoom-viewer {
 	overflow: hidden !important;
 	background-color: #fff !important;
@@ -508,7 +504,7 @@ body {
 
 							<!-- Policy Guard Alert -->
 							<div class="trust-banner">
-								<b style="font-size: 15px;">↩️ 5 Days Easy Returns Available</b>
+								<b style="font-size: 15px;">↩️ 5 Days Easy Returns and Exchange Available</b>
 								<small style="display: block; color: #555; margin-top: 4px;">(Conditions apply. No return on products purchased with "No Return Discount".) </small>
 							</div>
 
@@ -597,7 +593,6 @@ body {
 				$("#mainProductImg").attr("src", variantImgUrl);
 				$("#mainProductImg").attr("data-zoom-image", variantImgUrl);
 				
-				// लेंस री-असाइनमेंट क्लीनिंग: यह सुनिश्चित करेगा कि ज़ूम होने वाली छवि कभी विकृत न हो
 				if($(".zoomImg").length > 0) {
 					$(".zoomImg").attr("src", variantImgUrl); 
 				}
