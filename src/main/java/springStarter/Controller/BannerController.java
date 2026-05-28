@@ -55,7 +55,13 @@ public class BannerController {
 	    	);
 	        String imageUrl = (String) uploadResult.get("secure_url");*/
 	    	
-	    	String uploadDir = "/opt/uploads/banner/";
+	    	String uploadDir = System.getProperty("java.io.tmpdir") + "/banner/";
+
+	    	File dir = new File(uploadDir);
+
+	    	if (!dir.exists()) {
+	    	    dir.mkdirs();
+	    	}
 
 	    	String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
@@ -63,7 +69,7 @@ public class BannerController {
 
 	    	file.transferTo(dest);
 
-	    	String imageUrl = "/uploads/banner/" + fileName;
+	    	String imageUrl = "/banner/" + fileName;
 
 	        if(imageUrl == null){
 	            model.addAttribute("Error","Upload failed (no URL)");
@@ -129,7 +135,13 @@ public class BannerController {
 
 	    	    String imageUrl = (String) uploadResult.get("secure_url");*/
 	    		
-	    		String uploadDir = "/opt/uploads/banner/";
+	    		String uploadDir = System.getProperty("java.io.tmpdir") + "/banner/";
+
+	    		File dir = new File(uploadDir);
+
+	    		if (!dir.exists()) {
+	    		    dir.mkdirs();
+	    		}
 
 	    		String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
@@ -137,7 +149,7 @@ public class BannerController {
 
 	    		file.transferTo(dest);
 
-	    		String imageUrl = "/uploads/banner/" + fileName;
+	    		String imageUrl = "/banner/" + fileName;
 
 	    	    existingBanner.setBannerName(imageUrl);  
 
