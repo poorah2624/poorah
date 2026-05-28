@@ -221,6 +221,20 @@ public class OrderService {
 	    }
 	    
 	    orderRepo.save(order);
+	    
+	    try {
+          
+            if ("ONLINE".equals(paymentMethod) && (razorpayPaymentId == null || razorpayPaymentId.isEmpty())) {
+                System.out.println("⚠️ Order " + order.getOrderNumber() + " is ONLINE but Razorpay ID missing. Postponing Shiprocket sync.");
+            } else {
+                shiprocketService.createOrder(order);
+                delhiveryService.createShipment(order);
+                System.out.println("🚀 Order " + order.getOrderNumber() + " automatically synced to Shiprocket!");
+            }
+        } catch (Exception e) {
+            
+            System.out.println("❌ Automatic Shiprocket Sync Failed: " + e.getMessage());
+        }
 
 	    StringBuilder items = new StringBuilder();
 	    for (Order_item i : order.getItems()) {
@@ -249,10 +263,10 @@ public class OrderService {
 		}
 		order.setStatus(status);
 		
-		if ("Packed".equalsIgnoreCase(status)) {
+		/* if ("Packed".equalsIgnoreCase(status)) {
 			shiprocketService.createOrder(order);
 			delhiveryService.createShipment(order);
-		}
+		} */
 
 		for (Order_item item : order.getItems()) {
 			item.setStatus(status);
