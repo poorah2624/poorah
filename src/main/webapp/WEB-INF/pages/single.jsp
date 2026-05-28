@@ -28,7 +28,6 @@ body {
 	margin-bottom: 30px;
 }
 
-/* --- Anti-Squeeze Professional Image Viewer Fix --- */
 .gallery-wrapper {
 	position: relative;
 	border: 1px solid #f0f0f0;
@@ -39,19 +38,20 @@ body {
 
 .thumb-image {
 	width: 100% !important;
-	height: 620px !important; 
+	height: auto !important; 
+	min-height: 550px !important; 
 	display: flex !important;
 	align-items: center !important;
 	justify-content: center !important;
 	background: #fff !important;
 	position: relative;
+	padding: 10px; /* Safe boundaries */
 }
 
 #mainProductImg {
-	max-height: 100% !important;
 	max-width: 100% !important;
-	width: auto !important;
 	height: auto !important;
+	max-height: 680px !important;
 	object-fit: contain !important;
 	margin: 0 auto;
 	display: block;
