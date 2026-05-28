@@ -23,19 +23,23 @@ public class ShiprocketWebhookController {
 	@RequestMapping(value = "/api/webhook/shiprocket", method = {RequestMethod.POST, RequestMethod.GET})
 	public ResponseEntity<String> handleShiprocketUpdate(
 			@RequestBody(required = false) String requestBody,
-			@RequestHeader(value = "X-Api-Key", required = false) String webhookSecret) {
+			@RequestHeader(value = "x-api-key", required = false) String webhookSecret) {
         
 		try {
-          
-			if (requestBody == null || requestBody.trim().isEmpty()) {
-				System.out.println("ℹ️ Shiprocket Test Ping Received & Passed Successfully!");
-				return new ResponseEntity<>("PING_SUCCESS", HttpStatus.OK);
-			}
+			System.out.println("📩 Webhook Received! Token: " + webhookSecret);
+	        System.out.println("📦 Payload: " + requestBody);
 
-			if (!"PooRahSecret2026".equals(webhookSecret)) {
-				System.out.println("❌ Unauthorized webhook attempt blocked! Invalid Token.");
-				return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
-			}
+	      
+	        if (requestBody == null || requestBody.trim().isEmpty()) {
+	            System.out.println("ℹ️ Shiprocket Test Ping Received & Passed Successfully!");
+	            return new ResponseEntity<>("PING_SUCCESS", HttpStatus.OK);
+	        }
+
+	       
+	        if (webhookSecret == null || !webhookSecret.equalsIgnoreCase("PooRahSecret2026")) {
+	            System.out.println("❌ Unauthorized webhook attempt blocked! Invalid Token.");
+	            return new ResponseEntity<>("Unauthorized", HttpStatus.UNAUTHORIZED);
+	        }
 
 			JSONObject json = new JSONObject(requestBody);
 		
