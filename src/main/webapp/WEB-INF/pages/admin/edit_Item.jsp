@@ -287,6 +287,25 @@
 												placeholder="Enter one feature per line">${item.keyFeatures}</textarea>
 										</div>
 									</div>
+									
+									<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<div id="status" class="btn-group" data-toggle="buttons">
+														<label class="btn btn-default"
+															data-toggle-class="btn-primary"
+															data-toggle-passive-class="btn-default"> <input
+															type="radio" name="status" value="active"> &nbsp;
+															Active &nbsp;
+														</label> <label class="btn btn-primary active"
+															data-toggle-class="btn-primary"
+															data-toggle-passive-class="btn-default"> <input
+															type="radio" name="status" value="inactive" checked=""
+															required=""> In-Active
+														</label>
+													</div>
+												</div>
+											</div>
 
 									<div class="ln_solid"></div>
 									<div class="form-group">

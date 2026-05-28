@@ -1,5 +1,6 @@
 package springStarter.Controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -243,34 +244,58 @@ public class OrderController {
 	}
 
 	@PostMapping("/order/return")
-	public String returnOrder(@RequestParam Long orderItemId,
-	                          @RequestParam String reason,
-	                          HttpSession session,
-	                          RedirectAttributes redirectAttrs) {
+    public String returnOrder(@RequestParam Long orderItemId,
+                              @RequestParam String reason,
+                              HttpSession session,
+                              RedirectAttributes redirectAttrs) {
 
-	    User user = (User) session.getAttribute("LoggedInUser");
+        User user = (User) session.getAttribute("LoggedInUser");
+     
+        try {
+            springStarter.models.Order_item item = orderItemRepo.findById(orderItemId)
+                    .orElseThrow(() -> new RuntimeException("Item not found"));
+            
+            if (item.getOrder().getOrderDate().plusDays(5).isBefore(LocalDateTime.now())) {
+                redirectAttrs.addFlashAttribute("msg", "Return period expired! (Max 5 days allowed)");
+                return "redirect:/myOrders";
+            }
+        } catch (Exception e) {
+            redirectAttrs.addFlashAttribute("msg", "Error validating order");
+            return "redirect:/myOrders";
+        }
 
-	    boolean success = orderService.returnOrderItem(orderItemId, user.getId(), reason);
+        boolean success = orderService.returnOrderItem(orderItemId, user.getId(), reason);
+        redirectAttrs.addFlashAttribute("msg", success ? "Return requested" : "Error");
 
-	    redirectAttrs.addFlashAttribute("msg", success ? "Return requested" : "Error");
+        return "redirect:/myOrders";
+    }
 
-	    return "redirect:/myOrders";
-	}
+    @PostMapping("/order/exchange")
+    public String exchangeOrder(@RequestParam Long orderItemId,
+                                @RequestParam String newSize,
+                                HttpSession session,
+                                RedirectAttributes redirectAttrs) {
 
-	@PostMapping("/order/exchange")
-	public String exchangeOrder(@RequestParam Long orderItemId,
-	                            @RequestParam String newSize,
-	                            HttpSession session,
-	                            RedirectAttributes redirectAttrs) {
+        User user = (User) session.getAttribute("LoggedInUser");
 
-	    User user = (User) session.getAttribute("LoggedInUser");
+        try {
+            springStarter.models.Order_item item = orderItemRepo.findById(orderItemId)
+                    .orElseThrow(() -> new RuntimeException("Item not found"));
+            
+            if (item.getOrder().getOrderDate().plusDays(5).isBefore(LocalDateTime.now())) {
+                redirectAttrs.addFlashAttribute("msg", "Exchange period expired! (Max 5 days allowed)");
+                return "redirect:/myOrders";
+            }
+        } catch (Exception e) {
+            redirectAttrs.addFlashAttribute("msg", "Error validating order");
+            return "redirect:/myOrders";
+        }
 
-	    boolean success = orderService.exchangeOrderItem(orderItemId, user.getId(), newSize);
+        boolean success = orderService.exchangeOrderItem(orderItemId, user.getId(), newSize);
+        redirectAttrs.addFlashAttribute("msg", success ? "Exchange requested" : "Error");
 
-	    redirectAttrs.addFlashAttribute("msg", success ? "Exchange requested" : "Error");
-
-	    return "redirect:/myOrders";
-	}
+        return "redirect:/myOrders";
+    }
 	
 	
 	@PostMapping("/admin/approve-return")

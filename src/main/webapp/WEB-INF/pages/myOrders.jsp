@@ -237,6 +237,8 @@ body {
 			</ul>
 		</div>
 	</div>
+	<jsp:useBean id="now" class="java.util.Date" />
+	<c:set var="currentDateTime" value="${now.time}" />
 
 	<div class="user-profile profile-container">
 		<div class="container">
@@ -368,8 +370,21 @@ body {
 														</form>
 													</c:if>
 
+												
+													<c:set var="orderTime" value="${item.order.orderDate}" />
+
+													<%
+													
+													java.time.LocalDateTime oDate = (java.time.LocalDateTime) pageContext.getAttribute("orderTime");
+													boolean isExpired = false;
+													if (oDate != null) {
+													
+														isExpired = oDate.plusDays(5).isBefore(java.time.LocalDateTime.now());
+													}
+													pageContext.setAttribute("isExpired", isExpired);
+													%>
 													<c:if
-														test="${!item.returnRequested && item.order.status == 'Delivered' && !item.noReturnOrder}">
+														test="${!item.returnRequested && item.order.status == 'Delivered' && !item.noReturnOrder && !isExpired}">
 														<button type="button"
 															onclick="openReturnModal('${item.id}')"
 															class="btn btn-action-blue"
@@ -377,22 +392,23 @@ body {
 															Return Item</button>
 													</c:if>
 
-													<c:if test="${!item.exchangeRequested}">
-														<c:if test="${item.order.status == 'Delivered'}">
-															<button type="button"
-																onclick="openExchangeModal('${item.id}')"
-																class="btn btn-action-blue"
-																style="background: #2874f0; color: #fff; border: none;">
-																Exchange Item</button>
-														</c:if>
+													
+													<c:if
+														test="${!item.exchangeRequested && item.order.status == 'Delivered' && !isExpired}">
+														<button type="button"
+															onclick="openExchangeModal('${item.id}')"
+															class="btn btn-action-blue"
+															style="background: #2874f0; color: #fff; border: none;">
+															Exchange Item</button>
 													</c:if>
+
 													<c:if
 														test="${item.exchangeStatus == 'Requested' || item.exchangeStatus == 'Approved'}">
 														<form action="/order/revert-exchange" method="post"
 															style="margin: 0;">
 															<input type="hidden" name="orderItemId"
 																value="${item.id}">
-															<button type="submit" class="btn btn-action-cancel btn"
+															<button type="submit" class="btn-action-cancel btn"
 																style="background: #fffaf0; color: #dd6b20; border-color: #ffeebc;">Cancel
 																Exchange</button>
 														</form>

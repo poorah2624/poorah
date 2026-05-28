@@ -430,60 +430,65 @@ body {
 								</c:if>
 
 								<div class="action-group">
-									<c:if
-										test="${item.status == 'Pending' || item.status == 'Processing' || item.status == 'Packed'}">
-										<form method="post" action="/order/cancel-item">
-											<input type="hidden" name="orderItemId" value="${item.id}">
-											<button class="btn-action btn-cancel">Cancel Order</button>
-										</form>
-									</c:if>
+                                    <c:if test="${item.status == 'Pending' || item.status == 'Processing' || item.status == 'Packed'}">
+                                        <form method="post" action="/order/cancel-item">
+                                            <input type="hidden" name="orderItemId" value="${item.id}">
+                                            <button class="btn-action btn-cancel">Cancel Order</button>
+                                        </form>
+                                    </c:if>
 
-									<c:if
-										test="${item.status == 'Cancelled' && item.refundStatus != 'Processed' && item.order.status != 'Cancelled'}">
-										<form action="/order/revert-cancel" method="post">
-											<input type="hidden" name="orderItemId" value="${item.id}">
-											<button class="btn-action btn-undo">Undo Cancel</button>
-										</form>
-									</c:if>
+                                    <c:if test="${item.status == 'Cancelled' && item.refundStatus != 'Processed' && item.order.status != 'Cancelled'}">
+                                        <form action="/order/revert-cancel" method="post">
+                                            <input type="hidden" name="orderItemId" value="${item.id}">
+                                            <button class="btn-action btn-undo">Undo Cancel</button>
+                                        </form>
+                                    </c:if>
 
-									<c:if
-										test="${!item.returnRequested 
-        && item.order.status == 'Delivered'
-        && !item.noReturnOrder}">
-										<button onclick="openReturnModal('${item.id}')"
-											class="btn-action btn-return">Return Item</button>
-									</c:if>
+                                    <c:set var="orderTime" value="${item.order.orderDate}" />
+                                    <%
+                                        java.time.LocalDateTime oDate = (java.time.LocalDateTime) pageContext.getAttribute("orderTime");
+                                        boolean isExpired = false;
+                                        if(oDate != null) {
+                                           
+                                            isExpired = oDate.plusDays(5).isBefore(java.time.LocalDateTime.now());
+                                        }
+                                        pageContext.setAttribute("isExpired", isExpired);
+                                    %>
 
-									<c:if test="${item.noReturnOrder}">
-										<div class="alert-banner"
-											style="background: #fff7e6; border-left: 4px solid #fa8c16;">
-											Extra 8% discount was applied. This item is not eligible for
-											return.</div>
-									</c:if>
+                                    <c:if test="${!item.returnRequested && item.order.status == 'Delivered' && !item.noReturnOrder && !isExpired}">
+                                        <button onclick="openReturnModal('${item.id}')" class="btn-action btn-return">Return Item</button>
+                                    </c:if>
 
-									<c:if
-										test="${item.returnStatus == 'Requested' || item.returnStatus == 'Approved'}">
-										<form action="/order/revert-return" method="post">
-											<input type="hidden" name="orderItemId" value="${item.id}">
-											<button class="btn-action btn-undo">Cancel Return
-												Request</button>
-										</form>
-									</c:if>
+                                    <c:if test="${item.noReturnOrder}">
+                                        <div class="alert-banner" style="background: #fff7e6; border-left: 4px solid #fa8c16;">
+                                            Extra 8% discount was applied. This item is not eligible for return.
+                                        </div>
+                                    </c:if>
 
-									<c:if
-										test="${!item.exchangeRequested && item.order.status == 'Delivered'}">
-										<button onclick="openExchangeModal('${item.id}')"
-											class="btn-action btn-exchange">Exchange Item</button>
-									</c:if>
+                                    <c:if test="${item.returnStatus == 'Requested' || item.returnStatus == 'Approved'}">
+                                        <form action="/order/revert-return" method="post">
+                                            <input type="hidden" name="orderItemId" value="${item.id}">
+                                            <button class="btn-action btn-undo">Cancel Return Request</button>
+                                        </form>
+                                    </c:if>
 
-									<c:if
-										test="${item.exchangeStatus == 'Requested' || item.exchangeStatus == 'Approved'}">
-										<form action="/order/revert-exchange" method="post">
-											<input type="hidden" name="orderItemId" value="${item.id}">
-											<button class="btn-action btn-undo">Cancel Exchange</button>
-										</form>
-									</c:if>
-								</div>
+                                    <c:if test="${!item.exchangeRequested && item.order.status == 'Delivered' && !isExpired}">
+                                        <button onclick="openExchangeModal('${item.id}')" class="btn-action btn-exchange">Exchange Item</button>
+                                    </c:if>
+
+                                    <c:if test="${item.exchangeStatus == 'Requested' || item.exchangeStatus == 'Approved'}">
+                                        <form action="/order/revert-exchange" method="post">
+                                            <input type="hidden" name="orderItemId" value="${item.id}">
+                                            <button class="btn-action btn-undo">Cancel Exchange</button>
+                                        </form>
+                                    </c:if>
+                                    
+                                    <c:if test="${isExpired && item.order.status == 'Delivered' && !item.returnRequested && !item.exchangeRequested}">
+                                        <div class="alert-banner" style="background: #f5f5f5; border-left: 4px solid #8c8c8c; color: #555;">
+                                            ℹ️ The 5-day return and exchange window for this item has closed.
+                                        </div>
+                                    </c:if>
+                                </div>
 							</div>
 						</div>
 					</div>
