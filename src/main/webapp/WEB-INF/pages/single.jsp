@@ -36,9 +36,8 @@ body {
 	background: #fff;
 	overflow: hidden;
 }
-
 #productFlexSlider .slides li {
-    height: 600px !important;
+    height: 600px !important; 
     background: #fff !important;
     display: flex !important;
     align-items: center !important;
@@ -46,11 +45,9 @@ body {
 }
 
 #productFlexSlider .slides li img {
-	max-width: 100% !important;
-	max-height: 100% !important;
-	width: auto !important;
-	height: auto !important;
-	object-fit: contain !important; 
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover !important; 
 	margin: 0 auto !important;
 	display: block !important;
 }
