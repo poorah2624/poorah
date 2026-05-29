@@ -55,7 +55,7 @@ public class BannerController {
 	    	);
 	        String imageUrl = (String) uploadResult.get("secure_url");*/
 	    	
-	    	String uploadDir = System.getProperty("user.dir") + "/uploads/banner/";
+	    	String uploadDir = "/opt/uploads/banner/";
 
 	    	File dir = new File(uploadDir);
 
@@ -135,7 +135,7 @@ public class BannerController {
 
 	    	    String imageUrl = (String) uploadResult.get("secure_url");*/
 	    		
-	    		String uploadDir = System.getProperty("user.dir") + "/uploads/banner/";
+	    		String uploadDir = "/opt/uploads/banner/";
 
 	    		File dir = new File(uploadDir);
 
@@ -151,7 +151,7 @@ public class BannerController {
 
 	    		String imageUrl = "/uploads/banner/" + fileName;
 
-	    	    existingBanner.setBannerName(imageUrl);  
+	    		existingBanner.setBannerName(imageUrl);
 
 	    	} catch (Exception e) {
 	    	    e.printStackTrace();

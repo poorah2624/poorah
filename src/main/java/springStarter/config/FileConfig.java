@@ -11,6 +11,6 @@ public class FileConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:/opt/poorah/uploads/");
+                .addResourceLocations("file:/opt/uploads/");
     }
 }
