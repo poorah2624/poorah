@@ -309,6 +309,37 @@ body {
 	border-radius: 12px !important;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
+/* 📱 --- Dedicated Responsive Breakpoint for Mobile Overrides --- */
+@media (max-width: 767px) {
+    .single .product-container-card {
+        padding: 15px 0 !important; 
+    }   
+    .single-left {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-bottom: 20px;
+    }
+    .gallery-wrapper {
+        border: none !important;
+        border-radius: 0 !important;
+    }
+    #productFlexSlider .slides li {
+        height: 500px !important; 
+    }
+    .thumb-image {
+        padding: 0 !important; 
+    }
+
+    #productFlexSlider .slides li img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+    .single-right {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+}
 </style>
 </head>
 
