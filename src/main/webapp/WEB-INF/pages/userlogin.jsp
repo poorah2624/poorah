@@ -81,7 +81,7 @@
 														required=""> <input placeholder="Confirm Password"
 														name="confirmPassword" type="password" required="">
 													<input placeholder="Mobile" name="userMobile" type="text"
-														required="">
+														>
 													<div class="sign-up">
 														<input type="submit" value="Create Account" />
 													</div>

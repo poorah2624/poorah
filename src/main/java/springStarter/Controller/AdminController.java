@@ -68,10 +68,7 @@ public class AdminController {
 			return "admin/registerAdmin";
 		}
 
-		String fileName = "default.png";
-		
-		
-
+		String fileName = "default.png"; 
 		String imageUrl = null;
 
 		if (!file.isEmpty()) {
@@ -87,13 +84,20 @@ public class AdminController {
 		        e.printStackTrace();
 		    }
 		}
+		
 		Admin admin = new Admin();
 		admin.setName(name);
 		admin.setEmail(email);
-		admin.setPassword(password); // service me encode hoga
+		admin.setPassword(password); 
 		admin.setAddress(address);
 		admin.setMobile(mobile);
-		admin.setImage(fileName);
+		
+	
+		if (imageUrl != null) {
+		    admin.setImage(imageUrl);
+		} else {
+		    admin.setImage(fileName);
+		}
 
 		adminService.registerAdmin(admin);
 
