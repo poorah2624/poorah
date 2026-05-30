@@ -475,11 +475,15 @@ textarea.form-control {
 						</div>
 
 						<!-- IS LINE KO UPDATE KAREIN -->
+						<div class="studio-group">
+							<label> <span>Color</span>
 						<select class="form-control" name="color" id="tshirtColorSelect"
 							onchange="changeTshirtColorGender()" required>
 							<option value="#ffffff">White</option>
 							<option value="#000000">Black</option>
 						</select>
+						</div>
+						<br>
 
 						<div class="studio-group">
 							<label>T-Shirt Fit Type</label>
