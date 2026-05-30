@@ -476,7 +476,7 @@ textarea.form-control {
 
 						<!-- IS LINE KO UPDATE KAREIN -->
 						<div class="studio-group">
-							<label> <span>Color</span>
+							<label> <span>Color</span></label>
 						<select class="form-control" name="color" id="tshirtColorSelect"
 							onchange="changeTshirtColorGender()" required>
 							<option value="#ffffff">White</option>
