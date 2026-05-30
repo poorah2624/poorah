@@ -191,7 +191,7 @@
 																	style="width: 80px; height: 80px; margin-bottom: 10px; border: 1px solid #ccc;" />
 															</div>
 														</c:if>
-														<input type="file" name="variantImage[]"
+														<input type="file" name="variantImage_${st.index}"
 															class="form-control" />
 
 														<hr>
@@ -287,25 +287,25 @@
 												placeholder="Enter one feature per line">${item.keyFeatures}</textarea>
 										</div>
 									</div>
-									
+
 									<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<div id="status" class="btn-group" data-toggle="buttons">
-														<label class="btn btn-default"
-															data-toggle-class="btn-primary"
-															data-toggle-passive-class="btn-default"> <input
-															type="radio" name="status" value="active"> &nbsp;
-															Active &nbsp;
-														</label> <label class="btn btn-primary active"
-															data-toggle-class="btn-primary"
-															data-toggle-passive-class="btn-default"> <input
-															type="radio" name="status" value="inactive" checked=""
-															required=""> In-Active
-														</label>
-													</div>
-												</div>
+										<label class="control-label col-md-3 col-sm-3 col-xs-12">Status</label>
+										<div class="col-md-6 col-sm-6 col-xs-12">
+											<div id="status" class="btn-group" data-toggle="buttons">
+												<label class="btn btn-default"
+													data-toggle-class="btn-primary"
+													data-toggle-passive-class="btn-default"> <input
+													type="radio" name="status" value="active"> &nbsp;
+													Active &nbsp;
+												</label> <label class="btn btn-primary active"
+													data-toggle-class="btn-primary"
+													data-toggle-passive-class="btn-default"> <input
+													type="radio" name="status" value="inactive" checked=""
+													required=""> In-Active
+												</label>
 											</div>
+										</div>
+									</div>
 
 									<div class="ln_solid"></div>
 									<div class="form-group">
@@ -376,43 +376,25 @@
        
         let variantCount = $(".colorBlock").length;
 
-        // ADD VARIANT (DYNAMIC COLOURED BLOCK)
         $("#addVariantBtn").click(function(){
             $("#variantContainer").append(`
                 <div class="colorBlock" style="border:1px solid #ddd; padding:15px; margin-bottom:15px; border-radius:5px; background:#fafafa;">
                     <input type="hidden" name="variantId[]" value=""/>
-
                     <label>Color</label>
                     <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required/>
 
                     <label style="margin-top:10px;">Variant Image</label>
-                    <input type="file" name="variantImage[]" class="form-control"/>
+                    <input type="file" name="variantImage_\${variantCount}" class="form-control"/>
 
                     <hr>
                     <label>Sizes & Stock</label>
+                    <div><label>S</label><input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0"></div>
+                    <div><label>M</label><input type="number" name="stockM_\${variantCount}" class="form-control" value="0" min="0"></div>
+                    <div><label>L</label><input type="number" name="stockL_\${variantCount}" class="form-control" value="0" min="0"></div>
+                    <div><label>XL</label><input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0"></div>
+                    <div><label>XXL</label><input type="number" name="stockXXL_\${variantCount}" class="form-control" value="0" min="0"></div>
 
-                    <div>
-                        <label>S</label>
-                        <input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0">
-                    </div>
-                    <div>
-                        <label>M</label>
-                        <input type="number" name="stockM_\${variantCount}" class="form-control" value="0" min="0">
-                    </div>
-                    <div>
-                        <label>L</label>
-                        <input type="number" name="stockL_\${variantCount}" class="form-control" value="0" min="0">
-                    </div>
-                    <div>
-                        <label>XL</label>
-                        <input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
-                    </div>
-                    <div>
-                        <label>XXL</label>
-                        <input type="number" name="stockXXL_\${variantCount}" class="form-control" value="0" min="0">
-                    </div>
-
-                    <button type="button" class="btn btn-danger btn-sm removeVariant" style="margin-top:10px;">Remove Color</button>
+                    <button type="button" class="btn btn-danger btn-sm removeVariant" style="margin-top: 10px;">Remove Color</button>
                 </div>
             `);
             variantCount++; 

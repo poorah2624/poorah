@@ -280,7 +280,7 @@
 																class="form-control" placeholder="Enter Color" required>
 
 															<label style="margin-top: 10px;">Variant Image</label> <input
-																type="file" name="variantImage[]" class="form-control">
+																type="file" name="variantImage_0" class="form-control">
 
 															<hr>
 
@@ -759,57 +759,49 @@
 
 	<script>
     
-	// Pehla block pehle se 0 lekar baitha hai, toh agla index 1 hoga
+	
 	let variantCount = 1; 
 
-	function addVariant(){
-	    let html = `
-	      <div class="colorBlock" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
+function addVariant(){
+    let html = `
+      <div class="colorBlock" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
+        <label>Color</label>
+        <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required>
 
-	        <label>Color</label>
-	        <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required>
+        <label style="margin-top: 10px;">Variant Image</label>
+        <input type="file" name="variantImage_\${variantCount}" class="form-control">
 
-	        <label style="margin-top: 10px;">Variant Image</label>
-	        <input type="file" name="variantImage[]" class="form-control">
+        <hr>
+        <label>Sizes & Stock</label>
+        <div>
+          <label>S</label>
+          <input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0">
+        </div>
+        <div>
+          <label>M</label>
+          <input type="number" name="stockM_\${variantCount}" class="form-control" value="0" min="0">
+        </div>
+        <div>
+          <label>L</label>
+          <input type="number" name="stockL_\${variantCount}" class="form-control" value="0" min="0">
+        </div>
+        <div>
+          <label>XL</label>
+          <input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
+        </div>
+        <div>
+          <label>XXL</label>
+          <input type="number" name="stockXXL_\${variantCount}" class="form-control" value="0" min="0">
+        </div>
 
-	        <hr>
-
-	        <label>Sizes & Stock</label>
-
-	        <div>
-	          <label>S</label>
-	          <input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0">
-	        </div>
-
-	        <div>
-	          <label>M</label>
-	          <input type="number" name="stockM_\${variantCount}" class="form-control" value="0" min="0">
-	        </div>
-
-	        <div>
-	          <label>L</label>
-	          <input type="number" name="stockL_\${variantCount}" class="form-control" value="0" min="0">
-	        </div>
-
-	        <div>
-	          <label>XL</label>
-	          <input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
-	        </div>
-	        <div>
-	          <label>XXL</label>
-	          <input type="number" name="stockXXL_\${variantCount}" class="form-control" value="0" min="0">
-	        </div>
-
-	        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top: 10px;">
-	          Remove Color
-	        </button>
-
-	      </div>
-	    `;
-
-	    document.getElementById("variantContainer").insertAdjacentHTML("beforeend", html);
-	    variantCount++; // Click counter plus hotey rahega
-	}
+        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top: 10px;">
+          Remove Color
+        </button>
+      </div>
+    `;
+    document.getElementById("variantContainer").insertAdjacentHTML("beforeend", html);
+    variantCount++;
+}
 
 	function removeVariant(btn){
 	    btn.closest(".colorBlock").remove();

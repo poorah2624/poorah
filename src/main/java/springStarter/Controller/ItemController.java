@@ -27,206 +27,155 @@ import springStarter.services.SubCategoryService;
 
 @Controller
 public class ItemController {
-	
+
 	@Autowired
 	ItemService itemService;
-	
+
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private SubCategoryService subCategoryService;
-	
+
 	@Autowired
 	private Cloudinary cloudinary;
-	
+
 	@GetMapping("/Add_Item")
 	public String addItem(Model model) {
 		model.addAttribute("item", new Item());
 		model.addAttribute("subcategories", subCategoryService.getAllSubCategories());
-	    model.addAttribute("categories", categoryService.getAllCategories());
+		model.addAttribute("categories", categoryService.getAllCategories());
 		return "admin/Add_Item";
 	}
-	
+
 	@PostMapping("/Add_Item")
-	public String add_Item(
-	        @RequestParam Long categoryId,
-	        @RequestParam Long subCategoryId,
-	        @RequestParam("itemName") String itemName,
-	        @RequestParam("itemImage") MultipartFile[] files,
-	        @RequestParam("itemPrice") BigDecimal itemPrice,
-	        @RequestParam("stock") String stock,
-	        @RequestParam("discount") BigDecimal discount,
-	        @RequestParam("featuredProduct") String featuredProduct,
-	        @RequestParam("itemDesc") String itemDesc,
-	        @RequestParam("keyFeatures") String keyFeatures,
-	        @RequestParam("status") String status,
+	public String add_Item(@RequestParam Long categoryId, @RequestParam Long subCategoryId,
+			@RequestParam("itemName") String itemName, @RequestParam("itemImage") MultipartFile[] files,
+			@RequestParam("itemPrice") BigDecimal itemPrice, @RequestParam("stock") String stock,
+			@RequestParam("discount") BigDecimal discount, @RequestParam("featuredProduct") String featuredProduct,
+			@RequestParam("itemDesc") String itemDesc, @RequestParam("keyFeatures") String keyFeatures,
+			@RequestParam("status") String status, @RequestParam(value = "weight", required = false) String weight,
+			@RequestParam(value = "fabric", required = false) String fabric,
+			@RequestParam(value = "gender", required = false) String gender,
+			@RequestParam(value = "color[]", required = false) List<String> colors,
+			org.springframework.web.multipart.MultipartHttpServletRequest multiRequest, // <-- Added for individual
+																						// handling
+			javax.servlet.http.HttpServletRequest request, Model model) throws IOException {
 
-	        @RequestParam(value="weight", required=false) String weight,
-	        @RequestParam(value="fabric", required=false) String fabric,
-	        @RequestParam(value="gender", required=false) String gender,
+		// Main Images Upload Logic same rahega...
+		StringBuilder imageUrls = new StringBuilder();
+		for (MultipartFile file : files) {
+			if (file != null && !file.isEmpty()) {
+				Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
+						ObjectUtils.asMap("folder", "poorah/products"));
+				imageUrls.append(uploadResult.get("secure_url")).append(",");
+			}
+		}
+		String finalImages = imageUrls.toString().replaceAll(",$", "");
 
-	        @RequestParam(value="color[]", required=false) List<String> colors,
-	        @RequestParam(value="variantImage[]", required=false) MultipartFile[] variantImages,
-	        
-	        javax.servlet.http.HttpServletRequest request,
+		Item item = new Item();
+		String skuId = "SKU-" + System.currentTimeMillis();
+		item.setSkuId(skuId.substring(0, Math.min(skuId.length(), 50)));
+		item.setItemName(itemName);
+		item.setItemImage(finalImages);
+		item.setItemPrice(itemPrice);
+		item.setDiscount(discount);
+		item.setFeaturedProduct(featuredProduct);
+		item.setItemDesc(itemDesc);
+		item.setKeyFeatures(keyFeatures);
+		item.setStatus(status);
+		item.setWeight(weight);
+		item.setFabric(fabric);
+		item.setGender(gender);
+		item.setStock(stock != null && !stock.trim().isEmpty() ? stock : "0");
+		item.setCategory(categoryService.getCategoryById(categoryId));
+		item.setSubCategory(subCategoryService.getSubCategoryById(subCategoryId));
+		item.setInCart(false);
 
-	        Model model
-	) throws IOException {
+		List<ItemVariant> variants = new ArrayList<>();
+		if (colors != null && !colors.isEmpty()) {
+			long baseTimestamp = System.currentTimeMillis();
 
-	    // ================= 1. MAIN IMAGES UPLOAD =================
-	    StringBuilder imageUrls = new StringBuilder();
-	    for (MultipartFile file : files) {
-	        if (file != null && !file.isEmpty()) {
-	            Map uploadResult = cloudinary.uploader().upload(
-	                    file.getBytes(),
-	                    ObjectUtils.asMap("folder", "poorah/products")
-	            );
-	            imageUrls.append(uploadResult.get("secure_url")).append(",");
-	        }
-	    }
-	    String finalImages = imageUrls.toString().replaceAll(",$", "");
+			for (int i = 0; i < colors.size(); i++) {
+				String color = colors.get(i);
+				if (color == null || color.trim().isEmpty())
+					continue;
 
-	    // ================= 2. CREATE ITEM OBJECT =================
-	    Item item = new Item();
-	    String skuId = "SKU-" + System.currentTimeMillis();
-	    item.setSkuId(skuId.substring(0, Math.min(skuId.length(), 50)));
-	    item.setItemName(itemName);
-	    item.setItemImage(finalImages);
-	    item.setItemPrice(itemPrice);
-	    item.setDiscount(discount);
-	    item.setFeaturedProduct(featuredProduct);
-	    item.setItemDesc(itemDesc);
-	    item.setKeyFeatures(keyFeatures);
-	    item.setStatus(status);
-	    item.setWeight(weight);
-	    item.setFabric(fabric);
-	    item.setGender(gender);
-	    item.setStock(stock != null && !stock.trim().isEmpty() ? stock : "0");
+				String imageUrl = "";
+				// FIX: Target specific file map dynamically
+				MultipartFile vFile = multiRequest.getFile("variantImage_" + i);
+				if (vFile != null && !vFile.isEmpty()) {
+					Map uploadResult = cloudinary.uploader().upload(vFile.getBytes(),
+							ObjectUtils.asMap("folder", "poorah/variants"));
+					imageUrl = (String) uploadResult.get("secure_url");
+				}
 
-	    item.setCategory(categoryService.getCategoryById(categoryId));
-	    item.setSubCategory(subCategoryService.getSubCategoryById(subCategoryId));
-	    item.setInCart(false);
+				String sStock = request.getParameter("stockS_" + i);
+				String mStock = request.getParameter("stockM_" + i);
+				String lStock = request.getParameter("stockL_" + i);
+				String xlStock = request.getParameter("stockXL_" + i);
+				String xxlStock = request.getParameter("stockXXL_" + i);
 
-	    // ================= 3. VARIANTS PROCESSING (1 row per color) =================
-	    List<ItemVariant> variants = new ArrayList<>();
+				sStock = (sStock != null && !sStock.trim().isEmpty()) ? sStock.trim() : "0";
+				mStock = (mStock != null && !mStock.trim().isEmpty()) ? mStock.trim() : "0";
+				lStock = (lStock != null && !lStock.trim().isEmpty()) ? lStock.trim() : "0";
+				xlStock = (xlStock != null && !xlStock.trim().isEmpty()) ? xlStock.trim() : "0";
+				xxlStock = (xxlStock != null && !xxlStock.trim().isEmpty()) ? xxlStock.trim() : "0";
 
-	    if (colors != null && !colors.isEmpty()) {
-	        long baseTimestamp = System.currentTimeMillis(); 
+				String combinedStockString = "S:" + sStock + ",M:" + mStock + ",L:" + lStock + ",XL:" + xlStock
+						+ ",XXL:" + xxlStock;
 
-	        for (int i = 0; i < colors.size(); i++) {
-	            String color = colors.get(i);
-	            if (color == null || color.trim().isEmpty()) {
-	                continue;
-	            }
+				ItemVariant v = new ItemVariant();
+				v.setVariantColor(color);
+				v.setVariantStock(combinedStockString);
+				v.setVariantImage(imageUrl);
+				v.setVariantSku("VAR-" + baseTimestamp + "-C" + i);
+				v.setItem(item);
 
-	            String imageUrl = "";
-	            if (variantImages != null && variantImages.length > i && !variantImages[i].isEmpty()) {
-	                Map uploadResult = cloudinary.uploader().upload(
-	                        variantImages[i].getBytes(),
-	                        ObjectUtils.asMap("folder", "poorah/variants")
-	                );
-	                imageUrl = (String) uploadResult.get("secure_url");
-	            }
-
-	            String sStock = request.getParameter("stockS_" + i);
-	            String mStock = request.getParameter("stockM_" + i);
-	            String lStock = request.getParameter("stockL_" + i);
-	            String xlStock = request.getParameter("stockXL_" + i);
-	            
-	            sStock = (sStock != null && !sStock.trim().isEmpty()) ? sStock.trim() : "0";
-	            mStock = (mStock != null && !mStock.trim().isEmpty()) ? mStock.trim() : "0";
-	            lStock = (lStock != null && !lStock.trim().isEmpty()) ? lStock.trim() : "0";
-	            xlStock = (xlStock != null && !xlStock.trim().isEmpty()) ? xlStock.trim() : "0";
-	            
-	            String combinedStockString = "S:" + sStock + ",M:" + mStock + ",L:" + lStock + ",XL:" + xlStock;
-
-	            ItemVariant v = new ItemVariant();
-	            v.setVariantColor(color);
-	            v.setVariantStock(combinedStockString); 
-	            v.setVariantImage(imageUrl);
-	            v.setVariantSku("VAR-" + baseTimestamp + "-C" + i); 
-	            v.setItem(item);
-
-	            variants.add(v);
-	        }
-	    }
-
-	    item.setVariants(variants);
-	    itemService.saveItem(item);
-
-	    return "redirect:/view_Item";
+				variants.add(v);
+			}
+		}
+		item.setVariants(variants);
+		itemService.saveItem(item);
+		return "redirect:/view_Item";
 	}
-	
+
 	@GetMapping("/view_Item")
 	public String view_Item(Model model) {
-	    List<Item> item = itemService.getAllItems(); 
-	    
-	   
-	    System.out.println("====== BACKEND DATA ORDER START ======");
-	    for(Item i : item) {
-	        System.out.println("Item ID: " + i.getItemId() + " | Name: " + i.getItemName() + " | CreatedAt: " + i.getCreatedAt());
-	    }
-	    System.out.println("====== BACKEND DATA ORDER END ======");
+		List<Item> item = itemService.getAllItems();
 
-	    model.addAttribute("items", item); 
-	    return "admin/view_Item";
+		System.out.println("====== BACKEND DATA ORDER START ======");
+		for (Item i : item) {
+			System.out.println(
+					"Item ID: " + i.getItemId() + " | Name: " + i.getItemName() + " | CreatedAt: " + i.getCreatedAt());
+		}
+		System.out.println("====== BACKEND DATA ORDER END ======");
+
+		model.addAttribute("items", item);
+		return "admin/view_Item";
 	}
-	
+
 	@GetMapping("/edit_Item/{itemId}")
 	public String edit_Item(@PathVariable Long itemId, Model model) {
 		Item item = itemService.getItemById(itemId);
-	    model.addAttribute("item", item);
-	    model.addAttribute("categories", categoryService.getAllCategories());
-	    model.addAttribute("subcategories", subCategoryService.getAllSubCategories());
-	    return "admin/edit_Item";
+		model.addAttribute("item", item);
+		model.addAttribute("categories", categoryService.getAllCategories());
+		model.addAttribute("subcategories", subCategoryService.getAllSubCategories());
+		return "admin/edit_Item";
 	}
-	
+
 	@PostMapping("/edit_Item")
 	public String updateItem(
 	        @ModelAttribute Item item,
 	        @RequestParam(value= "file", required = false) MultipartFile[] files,
 	        @RequestParam(value = "variantId[]", required = false) List<Long> variantIds,
 	        @RequestParam(value = "color[]", required = false) List<String> colors,
-	        @RequestParam(value = "variantImage[]", required = false) MultipartFile[] variantImages,
+	        org.springframework.web.multipart.MultipartHttpServletRequest multiRequest, // <-- Added here too
 	        javax.servlet.http.HttpServletRequest request
 	) throws IOException {
 
 	    Item existingItem = itemService.getItemById(item.getItemId());
-
-	    // Main image upload logic waise hi rahega...
-	    try {
-	        StringBuilder imageUrls = new StringBuilder();
-	        if (files != null) {
-	            for (MultipartFile file : files) {
-	                if (!file.isEmpty()) {
-	                    Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("folder", "poorah/products"));
-	                    imageUrls.append(uploadResult.get("secure_url")).append(",");
-	                }
-	            }
-	        }
-	        if (imageUrls.length() > 0) {
-	            existingItem.setItemImage(imageUrls.toString().replaceAll(",$", ""));
-	        }
-	    } catch (Exception e) { e.printStackTrace(); }
-
-	    // Basic Fields Sync
-	    existingItem.setItemName(item.getItemName());
-	    existingItem.setSkuId(item.getSkuId());
-	    existingItem.setItemPrice(item.getItemPrice());
-	    existingItem.setDiscount(item.getDiscount());
-	    existingItem.setFeaturedProduct(item.getFeaturedProduct() != null ? item.getFeaturedProduct() : "No");
-	    existingItem.setItemDesc(item.getItemDesc());
-	    existingItem.setKeyFeatures(item.getKeyFeatures());
-	    existingItem.setStatus(item.getStatus() != null ? item.getStatus() : "active");
-	    existingItem.setWeight(item.getWeight());
-	    existingItem.setFabric(item.getFabric());
-	    existingItem.setGender(item.getGender());
-	    existingItem.setStock(item.getStock());
-	    existingItem.setCategory(item.getCategory());
-	    existingItem.setSubCategory(item.getSubCategory());
-
-	    // ================= VARIANTS PREPARATION =================
+       
 	    List<ItemVariant> tempVariants = new ArrayList<>();
 	    long baseTimestamp = System.currentTimeMillis();
 
@@ -236,8 +185,6 @@ public class ItemController {
 	            if (color == null || color.trim().isEmpty()) continue;
 
 	            ItemVariant variant = new ItemVariant();
-	            
-	            // Naye detached object me hum data bind kar rahe hain
 	            if (variantIds != null && variantIds.size() > i) {
 	                variant.setVariantId(variantIds.get(i));
 	            }
@@ -247,18 +194,21 @@ public class ItemController {
 	            String mStock = request.getParameter("stockM_" + i);
 	            String lStock = request.getParameter("stockL_" + i);
 	            String xlStock = request.getParameter("stockXL_" + i);
+	            String xxlStock = request.getParameter("stockXXL_" + i);
 
 	            sStock = (sStock != null && !sStock.trim().isEmpty()) ? sStock.trim() : "0";
 	            mStock = (mStock != null && !mStock.trim().isEmpty()) ? mStock.trim() : "0";
 	            lStock = (lStock != null && !lStock.trim().isEmpty()) ? lStock.trim() : "0";
 	            xlStock = (xlStock != null && !xlStock.trim().isEmpty()) ? xlStock.trim() : "0";
+	            xxlStock = (xxlStock != null && !xxlStock.trim().isEmpty()) ? xxlStock.trim() : "0";
 
-	            variant.setVariantStock("S:" + sStock + ",M:" + mStock + ",L:" + lStock + ",XL:" + xlStock);
+	            variant.setVariantStock("S:" + sStock + ",M:" + mStock + ",L:" + lStock + ",XL:" + xlStock + ",XXL:" + xxlStock);
 
-	            // Image Logic
+	            // Image Extraction Fix
 	            String imageUrl = "";
-	            if (variantImages != null && variantImages.length > i && !variantImages[i].isEmpty()) {
-	                Map uploadResult = cloudinary.uploader().upload(variantImages[i].getBytes(), ObjectUtils.asMap("folder", "poorah/variants"));
+	            MultipartFile vFile = multiRequest.getFile("variantImage_" + i);
+	            if (vFile != null && !vFile.isEmpty()) {
+	                Map uploadResult = cloudinary.uploader().upload(vFile.getBytes(), ObjectUtils.asMap("folder", "poorah/variants"));
 	                imageUrl = (String) uploadResult.get("secure_url");
 	            } else {
 	                if (variantIds != null && variantIds.size() > i && variantIds.get(i) != null) {
@@ -272,23 +222,18 @@ public class ItemController {
 	            }
 	            variant.setVariantImage(imageUrl);
 	            variant.setVariantSku("VAR-" + baseTimestamp + "-C" + i);
-
 	            tempVariants.add(variant);
 	        }
 	    }
 
-	   
 	    item.setVariants(tempVariants);
-
-	  
 	    itemService.updateItem(existingItem, item);
-
 	    return "redirect:/view_Item";
 	}
-	
+
 	@GetMapping("/Delete_Item/{itemId}")
 	public String deleteItem(@PathVariable("itemId") Long itemId) {
-	    itemService.deleteItem(itemId);
-	    return "redirect:/view_Item";
+		itemService.deleteItem(itemId);
+		return "redirect:/view_Item";
 	}
 }
