@@ -479,7 +479,7 @@ textarea.form-control {
 							onchange="changeTshirtColorGender()" required>
 							<option value="#ffffff">White</option>
 							<option value="#000000">Black</option>
-						</select>F
+						</select>
 
 						<div class="studio-group">
 							<label>T-Shirt Fit Type</label>
