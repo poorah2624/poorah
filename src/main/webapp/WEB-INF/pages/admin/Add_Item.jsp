@@ -272,12 +272,12 @@
 
 													<div id="variantContainer">
 
-														<!-- PEHLA COLOR BLOCK (Hamesha Index 0 ke liye fixed rahega) -->
+														
 														<div class="colorBlock"
 															style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
 
 															<label>Color</label> <input type="text" name="color[]"
-																class="form-control" placeholder="Enter Color" required>
+																class="form-control" placeholder="Enter Color">
 
 															<label style="margin-top: 10px;">Variant Image</label> <input
 																type="file" name="variantImage_0" class="form-control">
@@ -286,7 +286,7 @@
 
 															<label>Sizes & Stock</label>
 
-															<!-- Explicit indexing _0 setup taaki Controller default block ko target kar sake -->
+															
 															<div>
 																<label> S </label> <input type="number" name="stockS_0"
 																	placeholder="Stock for S" class="form-control"
@@ -766,7 +766,7 @@ function addVariant(){
     let html = `
       <div class="colorBlock" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
         <label>Color</label>
-        <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required>
+        <input type="text" name="color[]" class="form-control" placeholder="Enter Color">
 
         <label style="margin-top: 10px;">Variant Image</label>
         <input type="file" name="variantImage_\${variantCount}" class="form-control">

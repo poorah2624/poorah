@@ -62,7 +62,7 @@ public class ItemController {
 																						// handling
 			javax.servlet.http.HttpServletRequest request, Model model) throws IOException {
 
-		// Main Images Upload Logic same rahega...
+		
 		StringBuilder imageUrls = new StringBuilder();
 		for (MultipartFile file : files) {
 			if (file != null && !file.isEmpty()) {
