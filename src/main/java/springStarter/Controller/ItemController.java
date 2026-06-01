@@ -142,8 +142,10 @@ public class ItemController {
 
 	@GetMapping("/view_Item")
 	public String view_Item(Model model) {
-		List<Item> item = itemService.getAllItems();
+		
 
+		List<Item> item = itemService.getActiveItems(); 
+		
 		System.out.println("====== BACKEND DATA ORDER START ======");
 		for (Item i : item) {
 			System.out.println(
@@ -151,8 +153,8 @@ public class ItemController {
 		}
 		System.out.println("====== BACKEND DATA ORDER END ======");
 
-		model.addAttribute("items", item);
-		return "admin/view_Item";
+	    model.addAttribute("items", item);
+	    return "admin/view_Item";
 	}
 
 	@GetMapping("/edit_Item/{itemId}")

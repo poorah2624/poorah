@@ -84,14 +84,12 @@ public class ItemService {
 	}
 	
 	public void deleteItem(Long id) {
-
-	    Item item = itemRepo.findById(id)
-	            .orElseThrow(() -> new RuntimeException("Item not found"));
-	    
-	    
-
-	    item.setStatus("inactive");   // soft delete
-	    itemRepo.save(item);
+		
+		Item item = itemRepo.findById(id)
+				.orElseThrow(() -> new RuntimeException("Item not found"));
+		
+		
+		itemRepo.delete(item);
 	}
 
 	public List<Item> getItemsBySubCategoryAndActiveStatus(Long subCategoryId) {

@@ -183,7 +183,7 @@
 															value="${variant.variantId}" /> <label>Color</label> <input
 															type="text" name="color[]"
 															value="${variant.variantColor}" class="form-control"
-															required /> <label style="margin-top: 10px;">Variant
+															 /> <label style="margin-top: 10px;">Variant
 															Image</label>
 														<c:if test="${not empty variant.variantImage}">
 															<div>
@@ -222,7 +222,7 @@
 														</div>
 														<div>
 															<label>XXL</label> <input type="number"
-																name="stockXL_${st.index}" class="form-control" min="0"
+																name="stockXXL_${st.index}" class="form-control" min="0"
 																value="${fn:contains(stockStr, 'XXL:') ? fn:substringAfter(stockStr, 'XXL:') : '0'}">
 														</div>
 
@@ -325,17 +325,93 @@
 		</div>
 	</div>
 
-	<script>
-    function toggleCategoryFields(){
-        var categoryName = $("#category option:selected").text().toLowerCase();
-        $("#genderDiv, #variantDiv, #fabricDiv").hide();
-        $("#stockDiv").show();
+	<div id="custom_notifications" class="custom-notifications dsp_none">
+		<ul class="list-unstyled notifications clearfix"
+			data-tabbed_notifications="notif-group">
+		</ul>
+		<div class="clearfix"></div>
+		<div id="notif-group" class="tabbed_notifications"></div>
+	</div>
 
-        if(categoryName.includes("men") || categoryName.includes("women") || categoryName.includes("clothing")){
-            $("#genderDiv, #variantDiv, #fabricDiv").show();
-            $("#stockDiv").hide();
-        }
-    }
+	<script src="/admin/js/bootstrap.min.js"></script>
+
+	<!-- bootstrap progress js -->
+	<script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+	<script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+	<!-- icheck -->
+	<script src="/admin/js/icheck/icheck.min.js"></script>
+	<!-- tags -->
+	<script src="/admin/js/tags/jquery.tagsinput.min.js"></script>
+	<!-- switchery -->
+	<script src="/admin/js/switchery/switchery.min.js"></script>
+	<!-- daterangepicker -->
+	<script type="text/javascript" src="/admin/js/moment/moment.min.js"></script>
+	<script type="text/javascript"
+		src="/admin/js/datepicker/daterangepicker.js"></script>
+	<!-- richtext editor -->
+	<script src="/admin/js/editor/bootstrap-wysiwyg.js"></script>
+	<script src="/admin/js/editor/external/jquery.hotkeys.js"></script>
+	<script
+		src="/admin/js/editor/external/google-code-prettify/prettify.js"></script>
+	<!-- select2 -->
+	<script src="/admin/js/select/select2.full.js"></script>
+	<!-- form validation -->
+	<script type="text/javascript" src="/admin/js/parsley/parsley.min.js"></script>
+	<!-- textarea resize -->
+	<script src="/admin/js/textarea/autosize.min.js"></script>
+	<script>
+		autosize($('.resizable_textarea'));
+	</script>
+	<!-- Autocomplete -->
+	<script type="text/javascript"
+		src="/admin/js/autocomplete/countries.js"></script>
+	<script src="/admin/js/autocomplete/jquery.autocomplete.js"></script>
+	<!-- pace -->
+	<script src="/admin/js/pace/pace.min.js"></script>
+	<!--  <script type="text/javascript">
+		$(function() {
+			'use strict';
+			var countriesArray = $.map(countries, function(value, key) {
+				return {
+					value : value,
+					data : key
+				};
+			});
+			// Initialize autocomplete with custom appendTo:
+			$('#autocomplete-custom-append').autocomplete({
+				lookup : countriesArray,
+				appendTo : '#autocomplete-container'
+			});
+		});
+	</script>-->
+	<script src="/admin/js/custom.js"></script>
+
+	<script>
+	function toggleCategoryFields(){
+	    var categoryName = $("#category option:selected").text().toLowerCase();
+	    
+	    $("#genderDiv, #variantDiv, #fabricDiv").hide();
+	    $("#stockDiv").show();
+	    $("#stock").attr("required", "required");
+	    
+	    var variantColorInputs = document.querySelectorAll("#variantContainer input[name='color[]']");
+
+	    if(categoryName.includes("men") || categoryName.includes("women")){
+	        $("#genderDiv, #variantDiv, #fabricDiv").show();
+	        $("#stockDiv").hide();
+	        
+	        $("#stock").removeAttr("required");
+	        
+	        variantColorInputs.forEach(function(input) {
+	            input.setAttribute("required", "required");
+	        });
+	    } else {
+	       
+	        variantColorInputs.forEach(function(input) {
+	            input.removeAttribute("required");
+	        });
+	    }
+	}
 
     $(document).ready(function(){
        
