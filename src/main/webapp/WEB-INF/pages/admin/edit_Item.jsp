@@ -133,15 +133,15 @@
 
 											<c:if test="${not empty item.itemImage}">
 												<div
-													style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;">
+													style="margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 10px;">
 													<c:forEach var="img"
 														items="${fn:split(item.itemImage, ',')}" varStatus="loop">
 														<div class="existing-main-img-wrap" data-img-url="${img}"
 															style="position: relative; display: inline-block;">
 															<img src="${img}"
-																style="width: 70px; height: 70px; border: 1px solid #ccc; object-fit: cover; border-radius: 4px;">
+																style="width: 75px; height: 75px; border: 1px solid #ccc; object-fit: cover; border-radius: 4px;">
 															<span onclick="removeExistingMainImage(this)"
-																style="position: absolute; top: -5px; right: -5px; background: #d9534f; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; font-weight: bold;">×</span>
+																style="position: absolute; top: -5px; right: -5px; background: #d9534f; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">×</span>
 														</div>
 													</c:forEach>
 												</div>
@@ -150,12 +150,13 @@
 											<input type="hidden" name="removedMainImages"
 												id="removedMainImagesInput" value=""> <input
 												type="file" id="mainImageInput" name="file"
-												class="form-control col-md-7 col-xs-12" multiple>
+												class="form-control" style="width: 100%;" multiple>
 
 											<div id="mainImagePreviewContainer"
-												style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
-											<small class="text-muted">Choose more files to append
-												from any folder</small>
+												style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+											<small class="text-muted"
+												style="display: block; margin-top: 5px;">Choose more
+												files to append from any folder</small>
 										</div>
 									</div>
 
@@ -194,20 +195,30 @@
 															value="${variant.variantId}" /> <label>Color</label> <input
 															type="text" name="color[]"
 															value="${variant.variantColor}" class="form-control" />
-														<label style="margin-top: 10px;">Variant Image</label>
-														<c:if test="${not empty variant.variantImage}">
-															<div
-																style="margin-bottom: 5px; display: inline-block; position: relative;">
-																<img src="${variant.variantImage}"
-																	style="width: 80px; height: 80px; border: 1px solid #ccc; object-fit: cover; border-radius: 4px;" />
-															</div>
-														</c:if>
+														<div style="margin-top: 10px;">
+															<label>Variant Image</label>
 
-														<input type="file" name="variantImage_${st.index}"
-															id="vInput_${st.index}" class="form-control" multiple
-															onchange="accumulateVariantFiles(this, ${st.index})" />
-														<div id="vPreview_${st.index}"
-															style="margin-top: 5px; display: flex; gap: 5px; flex-wrap: wrap;"></div>
+															<c:if test="${not empty variant.variantImage}">
+																<div class="existing-variant-img-wrap"
+																	style="margin-bottom: 8px; display: inline-block; position: relative;">
+																	<img src="${variant.variantImage}"
+																		style="width: 80px; height: 80px; border: 1px solid #ccc; object-fit: cover; border-radius: 4px;" />
+																	<span onclick="clearVariantImage(this, ${st.index})"
+																		style="position: absolute; top: -5px; right: -5px; background: #d9534f; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; font-weight: bold; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">×</span>
+																	<input type="hidden"
+																		name="variantImageStatus_${st.index}"
+																		id="vImageStatus_${st.index}" value="RETAINED">
+																</div>
+															</c:if>
+
+															<input type="file" name="variantImage_${st.index}"
+																id="vInput_${st.index}" class="form-control"
+																style="width: 100%;" multiple
+																onchange="accumulateVariantFiles(this, ${st.index})" />
+
+															<div id="vPreview_${st.index}"
+																style="margin-top: 8px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
+														</div>
 
 														<hr>
 														<label>Sizes & Stock</label>
@@ -412,7 +423,15 @@
 	    var variantColorInputs = document.querySelectorAll("#variantContainer input[name='color[]']");
 
 	    if(categoryName.includes("men") || categoryName.includes("women") || categoryName.includes("couple")){
-	        $("#genderDiv, #variantDiv, #fabricDiv").show();
+           if(categoryName.includes("couple"))
+        	   {
+        	   $("#genderDiv").hide();
+               }
+           else
+        	   {
+        	   $("#genderDiv").show();
+              }
+	        $("#variantDiv, #fabricDiv").show();
 	        $("#stockDiv").hide();
 	        
 	        $("#stock").removeAttr("required");
@@ -560,7 +579,16 @@
         input.dispatchEvent(new Event('change')); // UI re-render trigger
     }
 
-    // 3. Variant Image multi-folder processing accumulator
+ 
+    function clearVariantImage(btnElement, index) {
+        const statusInput = document.getElementById("vImageStatus_" + index);
+        if(statusInput) {
+            statusInput.value = "DELETED"; // Mark it for backend reference if needed
+        }
+        btnElement.closest('.existing-variant-img-wrap').remove();
+    }
+
+   
     function accumulateVariantFiles(inputElement, index) {
         if (!varBaskets[index]) {
             varBaskets[index] = new DataTransfer();
@@ -580,8 +608,8 @@
                 const wrapper = document.createElement("div");
                 wrapper.style.cssText = "position: relative; display: inline-block;";
                 wrapper.innerHTML = `
-                    <img src="${e.target.result}" style="width: 50px; height: 50px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px;">
-                    <span onclick="removeNewVariantFile(${index}, ${fileIdx})" style="position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; font-size: 8px; cursor: pointer; font-weight: bold;">×</span>
+                    <img src="${e.target.result}" style="width: 65px; height: 65px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px;">
+                    <span onclick="removeNewVariantFile(${index}, ${fileIdx})" style="position: absolute; top: -5px; right: -5px; background: #d9534f; color: white; border-radius: 50%; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-size: 9px; cursor: pointer; font-weight: bold;">×</span>
                 `;
                 previewDiv.appendChild(wrapper);
             };
@@ -593,7 +621,7 @@
         const input = document.getElementById("vInput_" + variantIdx);
         const newBasket = new DataTransfer();
         
-        Array.from(input.files).forEach((file, i) => {
+        Array.from(varBaskets[variantIdx].files).forEach((file, i) => {
             if (i !== fileIdx) newBasket.items.add(file);
         });
         
@@ -601,7 +629,7 @@
         Array.from(newBasket.files).forEach(file => varBaskets[variantIdx].items.add(file));
         
         input.files = varBaskets[variantIdx].files;
-        accumulateVariantFiles(input, variantIdx); // UI refresh
+        accumulateVariantFiles(input, variantIdx); // UI components synchronized state rendering
     }
 </script>
 </body>

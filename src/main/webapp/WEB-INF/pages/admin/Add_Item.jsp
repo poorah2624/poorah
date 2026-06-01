@@ -744,11 +744,20 @@
 					variantDiv.style.display = "none";
 					fabricDiv.style.display = "none";
 					stockDiv.style.display = "block";
+					
+					
 
 					if (categoryName.toLowerCase().includes("men")
 							|| categoryName.toLowerCase().includes("women") || categoryName.toLowerCase().includes("couple")) {
-					
-						genderDiv.style.display = "block";
+                       if(categoryName.toLowerCase().includes("couple"))
+					{
+                    	   genderDiv.style.display = "none";
+                    }
+                       else
+                    	   {
+                    	   genderDiv.style.display = "block";
+                          }
+						//genderDiv.style.display = "block";
 						variantDiv.style.display = "block";
 						fabricDiv.style.display = "block";
 						stockDiv.style.display = "none";
