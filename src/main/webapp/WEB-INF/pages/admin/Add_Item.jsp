@@ -280,7 +280,7 @@
 																class="form-control" placeholder="Enter Color">
 
 															<label style="margin-top: 10px;">Variant Image</label> <input
-																type="file" name="variantImage_0" class="form-control">
+																type="file" name="variantImage_0" class="form-control" multiple>
 
 															<hr>
 
@@ -768,7 +768,7 @@ function addVariant(){
         <input type="text" name="color[]" class="form-control" placeholder="Enter Color">
 
         <label style="margin-top: 10px;">Variant Image</label>
-        <input type="file" name="variantImage_\${variantCount}" class="form-control">
+        <input type="file" name="variantImage_\${variantCount}" class="form-control" multiple>
 
         <hr>
         <label>Sizes & Stock</label>

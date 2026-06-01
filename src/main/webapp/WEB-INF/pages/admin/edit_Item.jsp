@@ -192,7 +192,7 @@
 															</div>
 														</c:if>
 														<input type="file" name="variantImage_${st.index}"
-															class="form-control" />
+															class="form-control" multiple/>
 
 														<hr>
 														<label>Sizes & Stock</label>
@@ -460,7 +460,7 @@
                     <input type="text" name="color[]" class="form-control" placeholder="Enter Color" required/>
 
                     <label style="margin-top:10px;">Variant Image</label>
-                    <input type="file" name="variantImage_\${variantCount}" class="form-control"/>
+                    <input type="file" name="variantImage_\${variantCount}" class="form-control" multiple/>
 
                     <hr>
                     <label>Sizes & Stock</label>
