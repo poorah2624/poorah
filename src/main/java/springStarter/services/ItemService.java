@@ -42,7 +42,7 @@ public class ItemService {
 		            .orElseThrow(() -> new RuntimeException("Item not found"));
 	}
 
-	public void updateItem(Item existingItem, Item incomingItem) {
+	/*public void updateItem(Item existingItem, Item incomingItem) {
 	    
 	    if(incomingItem.getSkuId() != null &&
 	       itemRepo.existsBySkuId(incomingItem.getSkuId()) &&
@@ -81,6 +81,58 @@ public class ItemService {
 	    
 	    
 	    itemRepo.save(existingItem);
+	} */
+	
+    public void updateItem(Item existingItem, Item incomingItem) {
+	    
+	    if(incomingItem.getSkuId() != null &&
+	       itemRepo.existsBySkuId(incomingItem.getSkuId()) &&
+	       !existingItem.getSkuId().equals(incomingItem.getSkuId())){
+	        throw new RuntimeException("SKU already exists");
+	    }
+
+	   
+	    existingItem.setItemName(incomingItem.getItemName());
+	    existingItem.setSkuId(incomingItem.getSkuId());
+	    existingItem.setItemPrice(incomingItem.getItemPrice());
+	    existingItem.setDiscount(incomingItem.getDiscount());
+	    existingItem.setFeaturedProduct(incomingItem.getFeaturedProduct());
+	    existingItem.setItemDesc(incomingItem.getItemDesc());
+	    existingItem.setKeyFeatures(incomingItem.getKeyFeatures());
+	    existingItem.setStatus(incomingItem.getStatus()); // Active/Inactive toggle fix
+	    existingItem.setWeight(incomingItem.getWeight());
+	    existingItem.setFabric(incomingItem.getFabric());
+	    existingItem.setGender(incomingItem.getGender());
+	    existingItem.setStock(incomingItem.getStock());
+	    existingItem.setCategory(incomingItem.getCategory());
+	    existingItem.setSubCategory(incomingItem.getSubCategory());
+
+	   
+	    if(incomingItem.getItemImage() != null && !incomingItem.getItemImage().isEmpty()) {
+	        existingItem.setItemImage(incomingItem.getItemImage());
+	    }
+	   
+	    if (existingItem.getVariants() != null) {
+	        existingItem.getVariants().clear();
+	    } else {
+	        existingItem.setVariants(new ArrayList<>());
+	    }
+
+	    if (incomingItem.getVariants() != null) {
+	        for (ItemVariant v : incomingItem.getVariants()) {
+	            ItemVariant newVariant = new ItemVariant();
+	            newVariant.setVariantColor(v.getVariantColor());
+	            newVariant.setVariantStock(v.getVariantStock());
+	            newVariant.setVariantImage(v.getVariantImage()); 
+	            newVariant.setVariantSku(v.getVariantSku());
+	            
+	            newVariant.setItem(existingItem); 
+	            existingItem.getVariants().add(newVariant);
+	        }
+	    }
+	    
+	    // Final Save
+	    itemRepo.save(existingItem); 
 	}
 	
 	public void deleteItem(Long id) {
