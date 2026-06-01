@@ -126,25 +126,36 @@
 										</div>
 									</div>
 
-									<!-- ADDED: MAIN ITEM IMAGE UPLOAD SECTION (Yeh missing tha) -->
 									<div class="form-group">
 										<label class="control-label col-md-3 col-sm-3 col-xs-12">Main
 											Item Image</label>
 										<div class="col-md-6 col-sm-6 col-xs-12">
-											<!-- Puraani images ka preview dikhane ke liye -->
+
 											<c:if test="${not empty item.itemImage}">
-												<div style="margin-bottom: 10px;">
+												<div
+													style="margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 10px;">
 													<c:forEach var="img"
-														items="${fn:split(item.itemImage, ',')}">
-														<img src="${img}"
-															style="width: 70px; height: 70px; margin-right: 5px; border: 1px solid #ccc; object-fit: cover;">
+														items="${fn:split(item.itemImage, ',')}" varStatus="loop">
+														<div class="existing-main-img-wrap" data-img-url="${img}"
+															style="position: relative; display: inline-block;">
+															<img src="${img}"
+																style="width: 70px; height: 70px; border: 1px solid #ccc; object-fit: cover; border-radius: 4px;">
+															<span onclick="removeExistingMainImage(this)"
+																style="position: absolute; top: -5px; right: -5px; background: #d9534f; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; font-weight: bold;">×</span>
+														</div>
 													</c:forEach>
 												</div>
 											</c:if>
-											<!-- Input field jo controller me "file" ke naam se map hogi -->
-											<input type="file" name="file"
-												class="form-control col-md-7 col-xs-12" multiple> <small
-												class="text-muted">Change Image</small>
+
+											<input type="hidden" name="removedMainImages"
+												id="removedMainImagesInput" value=""> <input
+												type="file" id="mainImageInput" name="file"
+												class="form-control col-md-7 col-xs-12" multiple>
+
+											<div id="mainImagePreviewContainer"
+												style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+											<small class="text-muted">Choose more files to append
+												from any folder</small>
 										</div>
 									</div>
 
@@ -182,17 +193,21 @@
 														<input type="hidden" name="variantId[]"
 															value="${variant.variantId}" /> <label>Color</label> <input
 															type="text" name="color[]"
-															value="${variant.variantColor}" class="form-control"
-															 /> <label style="margin-top: 10px;">Variant
-															Image</label>
+															value="${variant.variantColor}" class="form-control" />
+														<label style="margin-top: 10px;">Variant Image</label>
 														<c:if test="${not empty variant.variantImage}">
-															<div>
+															<div
+																style="margin-bottom: 5px; display: inline-block; position: relative;">
 																<img src="${variant.variantImage}"
-																	style="width: 80px; height: 80px; margin-bottom: 10px; border: 1px solid #ccc;" />
+																	style="width: 80px; height: 80px; border: 1px solid #ccc; object-fit: cover; border-radius: 4px;" />
 															</div>
 														</c:if>
+
 														<input type="file" name="variantImage_${st.index}"
-															class="form-control" multiple/>
+															id="vInput_${st.index}" class="form-control" multiple
+															onchange="accumulateVariantFiles(this, ${st.index})" />
+														<div id="vPreview_${st.index}"
+															style="margin-top: 5px; display: flex; gap: 5px; flex-wrap: wrap;"></div>
 
 														<hr>
 														<label>Sizes & Stock</label>
@@ -396,7 +411,7 @@
 	    
 	    var variantColorInputs = document.querySelectorAll("#variantContainer input[name='color[]']");
 
-	    if(categoryName.includes("men") || categoryName.includes("women")){
+	    if(categoryName.includes("men") || categoryName.includes("women") || categoryName.includes("couple")){
 	        $("#genderDiv, #variantDiv, #fabricDiv").show();
 	        $("#stockDiv").hide();
 	        
@@ -481,6 +496,113 @@
             $(this).closest(".colorBlock").remove();
         });
     });
+    
+ // ================= FIXED MULTI-FOLDER ACCUMULATOR SYSTEM =================
+
+    const mainFileBasket = new DataTransfer();
+    const varBaskets = {};
+    const removedMainImagesArray = [];
+
+   
+    function removeExistingMainImage(element) {
+        const wrapper = element.closest('.existing-main-img-wrap');
+        const imgUrl = wrapper.getAttribute('data-img-url');
+        
+      
+        removedMainImagesArray.push(imgUrl);
+        document.getElementById('removedMainImagesInput').value = removedMainImagesArray.join(',');
+      
+        wrapper.remove();
+    }
+
+   
+    document.getElementById("mainImageInput").addEventListener("change", function(e) {
+        const files = e.target.files;
+        const previewContainer = document.getElementById("mainImagePreviewContainer");
+
+       
+        for (let i = 0; i < files.length; i++) {
+            mainFileBasket.items.add(files[i]);
+        }
+      
+        this.files = mainFileBasket.files;
+
+       
+        previewContainer.innerHTML = "";
+        Array.from(mainFileBasket.files).forEach((file, index) => {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imgDiv = document.createElement("div");
+                imgDiv.style.position = "relative";
+                imgDiv.innerHTML = `
+                    <img src="${event.target.result}" style="width: 70px; height: 70px; object-fit: cover; border: 1px solid #ccc; border-radius: 4px;">
+                    <span onclick="removeNewMainFile(${index})" style="position: absolute; top: -5px; right: -5px; background: #d9534f; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; font-weight: bold;">×</span>
+                `;
+                previewContainer.appendChild(imgDiv);
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+   
+    function removeNewMainFile(index) {
+        const input = document.getElementById("mainImageInput");
+        const newBasket = new DataTransfer();
+        
+        Array.from(input.files).forEach((file, i) => {
+            if (i !== index) newBasket.items.add(file);
+        });
+        
+        mainFileBasket.items.clear();
+        Array.from(newBasket.files).forEach(file => mainFileBasket.items.add(file));
+        
+        input.files = mainFileBasket.files;
+        input.dispatchEvent(new Event('change')); // UI re-render trigger
+    }
+
+    // 3. Variant Image multi-folder processing accumulator
+    function accumulateVariantFiles(inputElement, index) {
+        if (!varBaskets[index]) {
+            varBaskets[index] = new DataTransfer();
+        }
+        const incomingFiles = inputElement.files;
+        const previewDiv = document.getElementById("vPreview_" + index);
+        
+        for (let i = 0; i < incomingFiles.length; i++) {
+            varBaskets[index].items.add(incomingFiles[i]);
+        }
+        inputElement.files = varBaskets[index].files;
+        
+        previewDiv.innerHTML = "";
+        Array.from(inputElement.files).forEach((file, fileIdx) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const wrapper = document.createElement("div");
+                wrapper.style.cssText = "position: relative; display: inline-block;";
+                wrapper.innerHTML = `
+                    <img src="${e.target.result}" style="width: 50px; height: 50px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px;">
+                    <span onclick="removeNewVariantFile(${index}, ${fileIdx})" style="position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; width: 14px; height: 14px; display: flex; align-items: center; justify-content: center; font-size: 8px; cursor: pointer; font-weight: bold;">×</span>
+                `;
+                previewDiv.appendChild(wrapper);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function removeNewVariantFile(variantIdx, fileIdx) {
+        const input = document.getElementById("vInput_" + variantIdx);
+        const newBasket = new DataTransfer();
+        
+        Array.from(input.files).forEach((file, i) => {
+            if (i !== fileIdx) newBasket.items.add(file);
+        });
+        
+        varBaskets[variantIdx].items.clear();
+        Array.from(newBasket.files).forEach(file => varBaskets[variantIdx].items.add(file));
+        
+        input.files = varBaskets[variantIdx].files;
+        accumulateVariantFiles(input, variantIdx); // UI refresh
+    }
 </script>
 </body>
 </html>

@@ -214,12 +214,12 @@
 											</div>
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
-													for="file">Item Image <span class="required">*</span>
-												</label>
+													for="file">Item Image <span class="required">*</span></label>
 												<div class="col-md-6 col-sm-6 col-xs-12">
-													<input type="file" id="file" name="itemImage"
-														class="form-control col-md-7 col-xs-12"
-														onchange="return fileValidation()" multiple>
+													<input type="file" id="mainImageInput" name="itemImage"
+														class="form-control col-md-7 col-xs-12" multiple>
+													<div id="mainImagePreviewContainer"
+														style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
 												</div>
 											</div>
 											<div class="form-group">
@@ -272,7 +272,7 @@
 
 													<div id="variantContainer">
 
-														
+
 														<div class="colorBlock"
 															style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
 
@@ -280,13 +280,14 @@
 																class="form-control" placeholder="Enter Color">
 
 															<label style="margin-top: 10px;">Variant Image</label> <input
-																type="file" name="variantImage_0" class="form-control" multiple>
+																type="file" name="variantImage_0" class="form-control"
+																multiple>
 
 															<hr>
 
 															<label>Sizes & Stock</label>
 
-															
+
 															<div>
 																<label> S </label> <input type="number" name="stockS_0"
 																	placeholder="Stock for S" class="form-control"
@@ -745,7 +746,7 @@
 					stockDiv.style.display = "block";
 
 					if (categoryName.toLowerCase().includes("men")
-							|| categoryName.toLowerCase().includes("women")) {
+							|| categoryName.toLowerCase().includes("women") || categoryName.toLowerCase().includes("couple")) {
 					
 						genderDiv.style.display = "block";
 						variantDiv.style.display = "block";
@@ -767,8 +768,10 @@ function addVariant(){
         <label>Color</label>
         <input type="text" name="color[]" class="form-control" placeholder="Enter Color">
 
+     
         <label style="margin-top: 10px;">Variant Image</label>
-        <input type="file" name="variantImage_\${variantCount}" class="form-control" multiple>
+        <input type="file" name="variantImage_\${variantCount}" id="vInput_\${variantCount}" class="form-control" multiple onchange="accumulateVariantFiles(this, \${variantCount})">
+        <div id="vPreview_\${variantCount}" style="margin-top: 5px; display: flex; gap: 5px; flex-wrap: wrap;"></div>
 
         <hr>
         <label>Sizes & Stock</label>
@@ -804,6 +807,69 @@ function addVariant(){
 
 	function removeVariant(btn){
 	    btn.closest(".colorBlock").remove();
+	}
+	
+	
+	const mainFileBasket = new DataTransfer();
+	const varBaskets = {};
+
+	
+	document.getElementById("mainImageInput").addEventListener("change", function(e) {
+	    const files = e.target.files;
+	    const previewContainer = document.getElementById("mainImagePreviewContainer");
+
+	    for (let i = 0; i < files.length; i++) {
+	        mainFileBasket.items.add(files[i]); 
+	    }
+	    this.files = mainFileBasket.files; 
+	    previewContainer.innerHTML = "";
+	    Array.from(mainFileBasket.files).forEach((file, index) => {
+	        const reader = new FileReader();
+	        reader.onload = function(event) {
+	            const imgDiv = document.createElement("div");
+	            imgDiv.style.position = "relative";
+	            imgDiv.innerHTML = `
+	                <img src="${event.target.result}" style="width: 70px; height: 70px; object-fit: cover; border: 1px solid #ccc; border-radius: 4px;">
+	                <span onclick="removeMainFileFromBasket(${index})" style="position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer;">X</span>
+	            `;
+	            previewContainer.appendChild(imgDiv);
+	        };
+	        reader.readAsDataURL(file);
+	    });
+	});
+
+	function removeMainFileFromBasket(index) {
+	    const input = document.getElementById("mainImageInput");
+	    const newBasket = new DataTransfer();
+	    Array.from(input.files).forEach((file, i) => { if (i !== index) newBasket.items.add(file); });
+	    mainFileBasket.items.clear();
+	    Array.from(newBasket.files).forEach(file => mainFileBasket.items.add(file));
+	    input.files = mainFileBasket.files;
+	    input.dispatchEvent(new Event('change'));
+	}
+
+	
+	function accumulateVariantFiles(inputElement, index) {
+	    if (!varBaskets[index]) varBaskets[index] = new DataTransfer();
+	    const incomingFiles = inputElement.files;
+	    const previewDiv = document.getElementById("vPreview_" + index);
+	    
+	    for (let i = 0; i < incomingFiles.length; i++) {
+	        varBaskets[index].items.add(incomingFiles[i]);
+	    }
+	    inputElement.files = varBaskets[index].files;
+	    
+	    previewDiv.innerHTML = "";
+	    Array.from(inputElement.files).forEach((file) => {
+	        const reader = new FileReader();
+	        reader.onload = function(e) {
+	            const img = document.createElement("img");
+	            img.src = e.target.result;
+	            img.style.cssText = "width: 50px; height: 50px; object-fit: cover; border: 1px solid #ddd; border-radius: 4px;";
+	            previewDiv.appendChild(img);
+	        };
+	        reader.readAsDataURL(file);
+	    });
 	}
 </script>
 </body>

@@ -170,14 +170,59 @@ public class ItemController {
 	public String updateItem(
 	        @ModelAttribute Item item,
 	        @RequestParam(value= "file", required = false) MultipartFile[] files,
+	        @RequestParam(value = "removedMainImages", required = false) String removedMainImages, 
 	        @RequestParam(value = "variantId[]", required = false) List<Long> variantIds,
 	        @RequestParam(value = "color[]", required = false) List<String> colors,
-	        org.springframework.web.multipart.MultipartHttpServletRequest multiRequest, // <-- Added here too
+	        org.springframework.web.multipart.MultipartHttpServletRequest multiRequest, 
 	        javax.servlet.http.HttpServletRequest request
 	) throws IOException {
 
 	    Item existingItem = itemService.getItemById(item.getItemId());
        
+	   
+	    String currentImages = existingItem.getItemImage(); 
+	    
+	
+	    if (removedMainImages != null && !removedMainImages.trim().isEmpty()) {
+	        String[] removedUrls = removedMainImages.split(",");
+	        for (String removedUrl : removedUrls) {
+	            if (currentImages != null && !removedUrl.trim().isEmpty()) {
+	              
+	                currentImages = currentImages.replace(removedUrl, "")
+	                                             .replaceAll(",,", ",")  
+	                                             .replaceAll("^,", "")  
+	                                             .replaceAll(",$", "");  
+	            }
+	        }
+	    }
+
+	
+	    StringBuilder newUploadsBuilder = new StringBuilder();
+	    if (files != null) {
+	        for (MultipartFile file : files) {
+	            if (!file.isEmpty()) {
+	                Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("folder", "poorah/products"));
+	                newUploadsBuilder.append(uploadResult.get("secure_url")).append(",");
+	            }
+	        }
+	    }
+
+	   
+	    String finalImageString = (currentImages != null) ? currentImages.trim() : "";
+	    String newUploads = newUploadsBuilder.toString().replaceAll(",$", "");
+
+	    if (!newUploads.isEmpty()) {
+	        if (!finalImageString.isEmpty()) {
+	            finalImageString += ","; 
+	        }
+	        finalImageString += newUploads; 
+	    }
+	    
+	   
+	    item.setItemImage(finalImageString);
+
+
+	  
 	    List<ItemVariant> tempVariants = new ArrayList<>();
 	    long baseTimestamp = System.currentTimeMillis();
 
@@ -229,6 +274,8 @@ public class ItemController {
 	    }
 
 	    item.setVariants(tempVariants);
+	    
+	   
 	    itemService.updateItem(existingItem, item);
 	    return "redirect:/view_Item";
 	}
