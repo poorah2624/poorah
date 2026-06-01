@@ -423,7 +423,7 @@ body {
 
 							<!-- Variants Check Logic -->
 							<c:if
-								test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') && not empty item.variants}">
+								test="${(item.category.categoryName == 'Men' || item.category.categoryName == 'Women') || item.category.categoryName == 'Couple Wear') && not empty item.variants}">
 
 								<!-- 1. COLOR SELECTION SECTION -->
 								<div style="margin-bottom: 25px;">

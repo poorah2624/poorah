@@ -422,8 +422,8 @@
 	    
 	    var variantColorInputs = document.querySelectorAll("#variantContainer input[name='color[]']");
 
-	    if(categoryName.includes("men") || categoryName.includes("women") || categoryName.includes("couple")){
-           if(categoryName.includes("couple"))
+	    if(categoryName.includes("men") || categoryName.includes("women") || categoryName.includes("couple wear")){
+           if(categoryName.includes("couple wear"))
         	   {
         	   $("#genderDiv").hide();
                }

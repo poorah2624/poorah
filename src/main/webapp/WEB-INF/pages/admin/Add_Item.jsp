@@ -748,8 +748,8 @@
 					
 
 					if (categoryName.toLowerCase().includes("men")
-							|| categoryName.toLowerCase().includes("women") || categoryName.toLowerCase().includes("couple")) {
-                       if(categoryName.toLowerCase().includes("couple"))
+							|| categoryName.toLowerCase().includes("women") || categoryName.toLowerCase().includes("couple wear")) {
+                       if(categoryName.toLowerCase().includes("couple wear"))
 					{
                     	   genderDiv.style.display = "none";
                     }
