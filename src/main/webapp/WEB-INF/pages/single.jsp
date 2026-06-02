@@ -620,6 +620,123 @@ body {
 
 	<%@include file="footer.jsp"%>
 
+	<div class="product-container-card row"
+		style="margin-top: 20px; padding: 25px;">
+		<div class="col-xs-12">
+			<h3
+				style="font-size: 22px; font-weight: 700; color: #2c3e50; margin-bottom: 25px; border-bottom: 2px solid #ff9b05; padding-bottom: 10px;">
+				Product Reviews & Ratings (${fn:length(reviews)})</h3>
+
+			<div class="row">
+				<div class="col-md-7 col-sm-12"
+					style="border-right: 1px solid #eee; max-height: 500px; overflow-y: auto; padding-right: 20px; margin-bottom: 25px;">
+					<h4 style="font-weight: 700; margin-bottom: 20px; color: #34495e;">User
+						Feedback</h4>
+
+					<c:if test="${empty reviews}">
+						<p style="color: #7f8c8d; font-style: italic; padding: 10px;">No
+							reviews yet for this product. Be the first to share your
+							experience!</p>
+					</c:if>
+
+					<c:forEach var="r" items="${reviews}">
+						<div
+							style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ff9b05; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);">
+							<div class="row">
+								<div class="col-xs-8">
+									<h5
+										style="margin: 0 0 5px 0; font-weight: 700; color: #2c3e50;">
+										<c:choose>
+											<c:when test="${not empty r.user}">${r.user.userName}</c:when>
+											<c:otherwise>${r.guestName}</c:otherwise>
+										</c:choose>
+									</h5>
+									<small
+										style="color: #95a5a6; display: block; margin-bottom: 8px;">${r.createdAt}</small>
+								</div>
+								<div class="col-xs-4 text-right">
+									<c:forEach begin="1" end="5" var="i">
+										<span
+											style="font-size: 16px; color: ${i <= r.rating ? 'gold' : 'lightgray'};">★</span>
+									</c:forEach>
+								</div>
+							</div>
+							<p
+								style="margin: 0; color: #555; line-height: 1.5; font-size: 14px;">${r.message}</p>
+						</div>
+					</c:forEach>
+				</div>
+
+				<div class="col-md-5 col-sm-12" style="padding-left: 25px;">
+					<h4 style="font-weight: 700; margin-bottom: 20px; color: #34495e;">Add
+						A Review</h4>
+					<form action="/addReview" method="post"
+						style="background: #fff; border: 1px solid #eef0f2; padding: 20px; border-radius: 10px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);">
+						<input type="hidden" name="itemId" value="${item.itemId}">
+
+						<div class="form-group">
+							<label
+								style="font-weight: 600; color: #555; display: block; margin-bottom: 5px;">Your
+								Rating:</label>
+							<div class="modern-star-rating">
+								<input type="radio" name="rating" id="mstar5" value="5" checked /><label
+									for="mstar5">★</label> <input type="radio" name="rating"
+									id="mstar4" value="4" /><label for="mstar4">★</label> <input
+									type="radio" name="rating" id="mstar3" value="3" /><label
+									for="mstar3">★</label> <input type="radio" name="rating"
+									id="mstar2" value="2" /><label for="mstar2">★</label> <input
+									type="radio" name="rating" id="mstar1" value="1" /><label
+									for="mstar1">★</label>
+							</div>
+						</div>
+
+						<c:choose>
+							<c:when test="${not empty sessionScope.LoggedInUser}">
+								<div class="form-group">
+									<label
+										style="font-size: 12px; color: #7f8c8d; margin-bottom: 2px;">Name</label>
+									<input type="text" name="userName"
+										value="${sessionScope.LoggedInUser.userName}"
+										class="form-control" readonly
+										style="background: #f1f2f6; cursor: not-allowed;" required>
+								</div>
+								<div class="form-group">
+									<label
+										style="font-size: 12px; color: #7f8c8d; margin-bottom: 2px;">Email</label>
+									<input type="email" name="userEmail"
+										value="${sessionScope.LoggedInUser.userEmail}"
+										class="form-control" readonly
+										style="background: #f1f2f6; cursor: not-allowed;" required>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="form-group">
+									<input type="text" name="guestName" placeholder="Your Name"
+										class="form-control" required>
+								</div>
+								<div class="form-group">
+									<input type="email" name="guestEmail" placeholder="Your Email"
+										class="form-control" required>
+								</div>
+							</c:otherwise>
+						</c:choose>
+
+						<div class="form-group">
+							<textarea name="message"
+								placeholder="Write your valuable review here..."
+								class="form-control" rows="4" style="resize: none;" required></textarea>
+						</div>
+
+						<button type="submit" class="btn btn-block"
+							style="background: #ff9b05; color: #fff; font-weight: 700; text-transform: uppercase; padding: 11px; border-radius: 6px; border: none; font-size: 14px; letter-spacing: 0.5px;">
+							Submit Review</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 	<div id="sizeChartModal" class="modal"
 		style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.5);">
 		<div class="modal-content"
@@ -675,8 +792,8 @@ body {
 				Measurements may vary slightly by 0.5 inches due to manual auditing.</p>
 		</div>
 	</div>
-	
-	
+
+
 
 	<script defer src="/js/jquery.flexslider.js"></script>
 	<!--  <script src="/js/imagezoom.js"></script> -->

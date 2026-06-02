@@ -6668,3 +6668,26 @@ table th, table td {
 	transform: translateY(0) scale(1);
 	visibility: visible;
 }
+
+/* --- Modern CSS Star Rating System --- */
+.modern-star-rating {
+    direction: rtl;
+    display: inline-block;
+    padding: 0;
+}
+.modern-star-rating input[type="radio"] {
+    display: none;
+}
+.modern-star-rating label {
+    font-size: 32px;
+    color: #cbd5e1;
+    cursor: pointer;
+    margin: 0;
+    padding: 0 4px;
+    transition: color 0.15s ease;
+}
+.modern-star-rating label:hover,
+.modern-star-rating label:hover ~ label,
+.modern-star-rating input[type="radio"]:checked ~ label {
+    color: #fbbf24;
+}
