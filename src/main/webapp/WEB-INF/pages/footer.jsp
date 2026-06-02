@@ -21,13 +21,20 @@
 						style="position: absolute; left: 0; top: 3px; color: #333;"></i> <a
 						href="mailto:${cDetails.emailId}"
 						style="color: #666; text-decoration: none;"><span
-						style="display: block; text-align: left !important;">${cDetails.emailId}</span></a>
+							style="display: block; text-align: left !important;">${cDetails.emailId}</span></a>
 					</li>
 					<li
 						style="text-align: left !important; margin-bottom: 12px; color: #666; font-size: 14px; position: relative; padding-left: 25px;">
 						<i class="glyphicon glyphicon-earphone"
 						style="position: absolute; left: 0; top: 3px; color: #333;"></i> <span
 						style="display: block; text-align: left !important;">${cDetails.mobileNo}</span>
+					</li>
+					<li
+						style="text-align: left !important; margin-bottom: 12px; color: #666; font-size: 14px; position: relative; padding-left: 25px;">
+						<i class="fa fa-whatsapp"
+						style="position: absolute; left: 0; top: 3px; color: #25D366;"></i>
+						<span style="display: block; text-align: left !important;">
+							${cDetails.phone }</span>
 					</li>
 				</ul>
 			</div>
