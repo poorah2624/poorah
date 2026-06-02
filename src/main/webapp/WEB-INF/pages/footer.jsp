@@ -32,7 +32,7 @@
 					<li
 						style="text-align: left !important; margin-bottom: 12px; color: #666; font-size: 14px; position: relative; padding-left: 25px;">
 						<i class="bi bi-whatsapp"
-						style="position: absolute; left: 0; top: 3px; color: #25D366;"></i>
+						style="position: absolute; left: 0; top: 3px; color: #000;"></i>
 						<span style="display: block; text-align: left !important;">
 							${cDetails.phone }</span>
 					</li>

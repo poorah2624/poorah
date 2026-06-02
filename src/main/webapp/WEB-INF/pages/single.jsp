@@ -28,7 +28,6 @@ body {
 	margin-bottom: 30px;
 }
 
-
 .gallery-wrapper {
 	position: relative;
 	border: 1px solid #f0f0f0;
@@ -36,25 +35,26 @@ body {
 	background: #fff;
 	overflow: hidden;
 }
+
 #productFlexSlider .slides li {
-    height: 600px !important; 
-    background: #fff !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+	height: 600px !important;
+	background: #fff !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
 }
 
 #productFlexSlider .slides li img {
 	width: 100% !important;
 	height: 100% !important;
-	object-fit: cover !important; 
+	object-fit: cover !important;
 	margin: 0 auto !important;
 	display: block !important;
 }
 
 .thumb-image {
 	width: 100% !important;
-	height: 100% !important; 
+	height: 100% !important;
 	display: flex !important;
 	align-items: center !important;
 	justify-content: center !important;
@@ -64,38 +64,36 @@ body {
 
 #mainProductImg {
 	width: auto !important;
-	height: 100% !important; 
+	height: 100% !important;
 	max-height: 100% !important;
-	object-fit: cover !important; 
+	object-fit: cover !important;
 	margin: 0 auto;
 	display: block;
 }
+
 .flex-control-nav.flex-control-thumbs li {
-   
-    width: 60px !important; 
-    margin: 8px 4px 0 4px !important;
+	width: 60px !important;
+	margin: 8px 4px 0 4px !important;
 }
 
 .flex-control-nav.flex-control-thumbs img {
-   
-    height: 75px !important; 
-    object-fit: cover !important;
-    border-radius: 6px !important;
-    transition: all 0.2s ease;
+	height: 75px !important;
+	object-fit: cover !important;
+	border-radius: 6px !important;
+	transition: all 0.2s ease;
 }
 
 .flex-control-nav.flex-control-thumbs img.flex-active {
-    border: 2px solid #ff9b05 !important; /* Active indicator grid */
+	border: 2px solid #ff9b05 !important; /* Active indicator grid */
 }
 
 .zoomImg {
 	background-color: #fff !important;
 	width: auto !important;
 	height: auto !important;
-	max-width: none !important; 
+	max-width: none !important;
 	max-height: none !important;
 	object-fit: scale-down !important;
-	
 }
 
 .imagezoom-viewer {
@@ -310,35 +308,34 @@ body {
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 /* 📱 --- Dedicated Responsive Breakpoint for Mobile Overrides --- */
-@media (max-width: 767px) {
-    .single .product-container-card {
-        padding: 15px 0 !important; 
-    }   
-    .single-left {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin-bottom: 20px;
-    }
-    .gallery-wrapper {
-        border: none !important;
-        border-radius: 0 !important;
-    }
-    #productFlexSlider .slides li {
-        height: 500px !important; 
-    }
-    .thumb-image {
-        padding: 0 !important; 
-    }
-
-    #productFlexSlider .slides li img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-    }
-    .single-right {
-        padding-left: 20px !important;
-        padding-right: 20px !important;
-    }
+@media ( max-width : 767px) {
+	.single .product-container-card {
+		padding: 15px 0 !important;
+	}
+	.single-left {
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+		margin-bottom: 20px;
+	}
+	.gallery-wrapper {
+		border: none !important;
+		border-radius: 0 !important;
+	}
+	#productFlexSlider .slides li {
+		height: 500px !important;
+	}
+	.thumb-image {
+		padding: 0 !important;
+	}
+	#productFlexSlider .slides li img {
+		width: 100% !important;
+		height: 100% !important;
+		object-fit: cover !important;
+	}
+	.single-right {
+		padding-left: 20px !important;
+		padding-right: 20px !important;
+	}
 }
 </style>
 </head>
@@ -382,7 +379,8 @@ body {
 								<li data-thumb="${fn:split(item.itemImage, ',')[0]}"
 									id="mainDisplayLi">
 									<div class="thumb-image">
-										<img src="${fn:split(item.itemImage, ',')[0]}" id="mainProductImg" class="img-responsive">
+										<img src="${fn:split(item.itemImage, ',')[0]}"
+											id="mainProductImg" class="img-responsive">
 									</div>
 								</li>
 								<c:forEach var="img" items="${fn:split(item.itemImage, ',')}"
@@ -563,8 +561,11 @@ body {
 
 							<!-- Policy Guard Alert -->
 							<div class="trust-banner">
-								<b style="font-size: 15px;">↩️ 5 Days Easy Returns and Exchange Available</b>
-								<small style="display: block; color: #555; margin-top: 4px;">(Conditions apply. No return on products purchased with "No Return Discount".) </small>
+								<b style="font-size: 15px;">↩️ 5 Days Easy Returns and
+									Exchange Available</b> <small
+									style="display: block; color: #555; margin-top: 4px;">(Conditions
+									apply. No return on products purchased with "No Return
+									Discount".) </small>
 							</div>
 
 							<!-- Pincode Checker UI Section -->
@@ -618,6 +619,64 @@ body {
 	</div>
 
 	<%@include file="footer.jsp"%>
+
+	<div id="sizeChartModal" class="modal"
+		style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.5);">
+		<div class="modal-content"
+			style="background-color: #fff; margin: 10% auto; padding: 20px; border-radius: 12px; width: 90%; max-width: 500px; position: relative;">
+
+			<span onclick="closeSizeChart()"
+				style="position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa;">&times;</span>
+
+			<h3
+				style="margin-top: 0; font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff9b05; padding-bottom: 8px;">Size
+				Chart</h3>
+
+			<div style="overflow-x: auto; margin-top: 15px;">
+				<table class="table table-bordered text-center" style="width: 100%;">
+					<thead>
+						<tr style="background-color: #f8f9fa;">
+							<th>Size</th>
+							<th>Chest (Inches)</th>
+							<th>Front Length (Inches)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>S</b></td>
+							<td>40"</td>
+							<td>27"</td>
+						</tr>
+						<tr>
+							<td><b>M</b></td>
+							<td>42"</td>
+							<td>28"</td>
+						</tr>
+						<tr>
+							<td><b>L</b></td>
+							<td>44"</td>
+							<td>29"</td>
+						</tr>
+						<tr>
+							<td><b>XL</b></td>
+							<td>46"</td>
+							<td>30"</td>
+						</tr>
+						<tr>
+							<td><b>XXL</b></td>
+							<td>48"</td>
+							<td>31"</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<p style="font-size: 12px; color: #7f8c8d; margin-top: 10px;">*Note:
+				Measurements may vary slightly by 0.5 inches due to manual auditing.</p>
+		</div>
+	</div>
+	
+	
 
 	<script defer src="/js/jquery.flexslider.js"></script>
 	<!--  <script src="/js/imagezoom.js"></script> -->
@@ -696,6 +755,14 @@ body {
 		function goToCart(){ window.location.href = '/cart'; }
 		function openSizeChart() { document.getElementById("sizeChartModal").style.display = "block"; }
 		function closeSizeChart() { document.getElementById("sizeChartModal").style.display = "none"; }
+		
+		
+		window.onclick = function(event) {
+		    let modal = document.getElementById("sizeChartModal");
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
 
 		function checkDelivery(){
 			let pincode = document.getElementById("pincode").value;
