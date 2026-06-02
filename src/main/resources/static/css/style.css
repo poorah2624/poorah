@@ -6691,3 +6691,10 @@ table th, table td {
 .modern-star-rating input[type="radio"]:checked ~ label {
     color: #fbbf24;
 }
+
+.modern-star-rating label:hover,
+.modern-star-rating label:hover ~ label,
+.modern-star-rating input[type="radio"]:checked ~ label {
+    color: #fbbf24 !important;
+}
+

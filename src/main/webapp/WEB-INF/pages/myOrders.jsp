@@ -384,6 +384,14 @@ body {
 													pageContext.setAttribute("isExpired", isExpired);
 													%>
 
+													<c:if test="${item.order.status == 'Delivered'}">
+														<button type="button"
+															onclick="openOrderReviewModal('${item.item.itemId}', '${item.item.itemName}')"
+															class="btn btn-action-blue"
+															style="background: #27ae60; color: #fff; border: none; margin-bottom: 8px;">
+															⭐ Write a Review</button>
+													</c:if>
+
 													<!-- Return Button Check -->
 													<c:if
 														test="${!item.returnRequested && item.order.status == 'Delivered' && !item.noReturnOrder && !isExpired}">
@@ -501,6 +509,60 @@ body {
 		</div>
 	</div>
 
+	<div id="orderReviewModal"
+		style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 99999;">
+		<div class="modal-wrapper">
+			<h4 style="margin: 0 0 5px 0; font-weight: 700; color: #1a202c;">Rate
+				& Review Product</h4>
+			<p id="reviewProductName"
+				style="color: #ff9800; font-weight: 600; font-size: 14px; margin-bottom: 15px;"></p>
+
+			<form method="post" action="/addReview">
+				<input type="hidden" id="reviewItemId" name="itemId" />
+
+				<div class="form-group" style="margin-bottom: 15px;">
+					<label
+						style="font-weight: 600; font-size: 13px; color: #4a5568; display: block; margin-bottom: 5px;">Your
+						Rating *</label>
+					<div class="modern-star-rating"
+						style="direction: rtl; display: inline-block;">
+						<input type="radio" name="rating" id="mstar5" value="5" checked
+							style="display: none;" /><label for="mstar5"
+							style="font-size: 30px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+						<input type="radio" name="rating" id="mstar4" value="4"
+							style="display: none;" /><label for="mstar4"
+							style="font-size: 30px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+						<input type="radio" name="rating" id="mstar3" value="3"
+							style="display: none;" /><label for="mstar3"
+							style="font-size: 30px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+						<input type="radio" name="rating" id="mstar2" value="2"
+							style="display: none;" /><label for="mstar2"
+							style="font-size: 30px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+						<input type="radio" name="rating" id="mstar1" value="1"
+							style="display: none;" /><label for="mstar1"
+							style="font-size: 30px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label style="font-weight: 600; font-size: 13px; color: #4a5568;">Your
+						Comment *</label>
+					<textarea name="message"
+						placeholder="Share your experience with this product..." required
+						style="width: 100%; height: 90px; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e0; resize: none; margin-top: 5px;"></textarea>
+				</div>
+
+				<div class="modal-btn-group">
+					<button type="submit" class="btn btn-success"
+						style="flex: 1; font-weight: bold; background: #27ae60; color: #fff;">Submit
+						Review</button>
+					<button type="button" onclick="closeAllModals()"
+						class="btn btn-default" style="flex: 1; background: #edf2f7;">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
 	<%@include file="footer.jsp"%>
 
 	<script type="text/javascript">
@@ -516,6 +578,17 @@ body {
 		function closeModal() {
 			document.getElementById("returnModal").style.display = "none";
 			document.getElementById("exchangeModal").style.display = "none";
+		}
+		
+		function openOrderReviewModal(itemId, itemName) {
+		    document.getElementById("orderReviewModal").style.display = "block";
+		    document.getElementById("reviewItemId").value = itemId;
+		    document.getElementById("reviewProductName").innerText = itemName;
+		}
+
+		function closeAllModals() {
+		    closeModal(); // Purana cancel/exchange window close karne k liye
+		    document.getElementById("orderReviewModal").style.display = "none";
 		}
 	</script>
 </body>

@@ -430,67 +430,86 @@ body {
 								</c:if>
 
 								<div class="action-group">
-                                    <c:if test="${item.status == 'Pending' || item.status == 'Processing' || item.status == 'Packed'}">
-                                        <form method="post" action="/order/cancel-item">
-                                            <input type="hidden" name="orderItemId" value="${item.id}">
-                                            <button class="btn-action btn-cancel">Cancel Order</button>
-                                        </form>
-                                    </c:if>
+									<c:if
+										test="${item.status == 'Pending' || item.status == 'Processing' || item.status == 'Packed'}">
+										<form method="post" action="/order/cancel-item">
+											<input type="hidden" name="orderItemId" value="${item.id}">
+											<button class="btn-action btn-cancel">Cancel Order</button>
+										</form>
+									</c:if>
 
-                                    <c:if test="${item.status == 'Cancelled' && item.refundStatus != 'Processed' && item.order.status != 'Cancelled'}">
-                                        <form action="/order/revert-cancel" method="post">
-                                            <input type="hidden" name="orderItemId" value="${item.id}">
-                                            <button class="btn-action btn-undo">Undo Cancel</button>
-                                        </form>
-                                    </c:if>
+									<c:if
+										test="${item.status == 'Cancelled' && item.refundStatus != 'Processed' && item.order.status != 'Cancelled'}">
+										<form action="/order/revert-cancel" method="post">
+											<input type="hidden" name="orderItemId" value="${item.id}">
+											<button class="btn-action btn-undo">Undo Cancel</button>
+										</form>
+									</c:if>
 
-                                    <c:set var="deliveredTime" value="${item.order.deliveredDate}" />
-                                    <%
-                                        java.time.LocalDateTime dDate = (java.time.LocalDateTime) pageContext.getAttribute("deliveredTime");
-                                        boolean isExpired = false;
-                                        if(dDate != null) {
-                                            isExpired = dDate.plusDays(5).isBefore(java.time.LocalDateTime.now());
-                                        } else {
-                                            
-                                            isExpired = false;
-                                        }
-                                        pageContext.setAttribute("isExpired", isExpired);
-                                    %>
+									<c:set var="deliveredTime" value="${item.order.deliveredDate}" />
+									<%
+									java.time.LocalDateTime dDate = (java.time.LocalDateTime) pageContext.getAttribute("deliveredTime");
+									boolean isExpired = false;
+									if (dDate != null) {
+										isExpired = dDate.plusDays(5).isBefore(java.time.LocalDateTime.now());
+									} else {
 
-                                    <c:if test="${!item.returnRequested && item.order.status == 'Delivered' && !item.noReturnOrder && !isExpired}">
-                                        <button onclick="openReturnModal('${item.id}')" class="btn-action btn-return">Return Item</button>
-                                    </c:if>
+										isExpired = false;
+									}
+									pageContext.setAttribute("isExpired", isExpired);
+									%>
 
-                                    <c:if test="${item.noReturnOrder}">
-                                        <div class="alert-banner" style="background: #fff7e6; border-left: 4px solid #fa8c16;">
-                                            Extra 8% discount was applied. This item is not eligible for return.
-                                        </div>
-                                    </c:if>
+									<c:if test="${item.order.status == 'Delivered'}">
+										<button onclick="openOrderReviewModal('${item.item.itemId}')"
+											class="btn-action"
+											style="background: #27ae60; color: #fff; font-weight: 600;">⭐
+											Write a Review</button>
+									</c:if>
 
-                                    <c:if test="${item.returnStatus == 'Requested' || item.returnStatus == 'Approved'}">
-                                        <form action="/order/revert-return" method="post">
-                                            <input type="hidden" name="orderItemId" value="${item.id}">
-                                            <button class="btn-action btn-undo">Cancel Return Request</button>
-                                        </form>
-                                    </c:if>
+									<c:if
+										test="${!item.returnRequested && item.order.status == 'Delivered' && !item.noReturnOrder && !isExpired}">
+										<button onclick="openReturnModal('${item.id}')"
+											class="btn-action btn-return">Return Item</button>
+									</c:if>
 
-                                    <c:if test="${!item.exchangeRequested && item.order.status == 'Delivered' && !isExpired}">
-                                        <button onclick="openExchangeModal('${item.id}')" class="btn-action btn-exchange">Exchange Item</button>
-                                    </c:if>
+									<c:if test="${item.noReturnOrder}">
+										<div class="alert-banner"
+											style="background: #fff7e6; border-left: 4px solid #fa8c16;">
+											Extra 8% discount was applied. This item is not eligible for
+											return.</div>
+									</c:if>
 
-                                    <c:if test="${item.exchangeStatus == 'Requested' || item.exchangeStatus == 'Approved'}">
-                                        <form action="/order/revert-exchange" method="post">
-                                            <input type="hidden" name="orderItemId" value="${item.id}">
-                                            <button class="btn-action btn-undo">Cancel Exchange</button>
-                                        </form>
-                                    </c:if>
-                                    
-                                    <c:if test="${isExpired && item.order.status == 'Delivered' && !item.returnRequested && !item.exchangeRequested}">
-                                        <div class="alert-banner" style="background: #f5f5f5; border-left: 4px solid #8c8c8c; color: #555;">
-                                            ℹ️ The 5-day delivery window has passed, so this item can no longer be returned or exchanged.
-                                        </div>
-                                    </c:if>
-                                </div>
+									<c:if
+										test="${item.returnStatus == 'Requested' || item.returnStatus == 'Approved'}">
+										<form action="/order/revert-return" method="post">
+											<input type="hidden" name="orderItemId" value="${item.id}">
+											<button class="btn-action btn-undo">Cancel Return
+												Request</button>
+										</form>
+									</c:if>
+
+									<c:if
+										test="${!item.exchangeRequested && item.order.status == 'Delivered' && !isExpired}">
+										<button onclick="openExchangeModal('${item.id}')"
+											class="btn-action btn-exchange">Exchange Item</button>
+									</c:if>
+
+									<c:if
+										test="${item.exchangeStatus == 'Requested' || item.exchangeStatus == 'Approved'}">
+										<form action="/order/revert-exchange" method="post">
+											<input type="hidden" name="orderItemId" value="${item.id}">
+											<button class="btn-action btn-undo">Cancel Exchange</button>
+										</form>
+									</c:if>
+
+									<c:if
+										test="${isExpired && item.order.status == 'Delivered' && !item.returnRequested && !item.exchangeRequested}">
+										<div class="alert-banner"
+											style="background: #f5f5f5; border-left: 4px solid #8c8c8c; color: #555;">
+											ℹ️ The 5-day delivery window has passed, so this item can no
+											longer be returned or exchanged.</div>
+									</c:if>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -692,6 +711,55 @@ body {
 		</div>
 	</div>
 
+	<div id="orderReviewModal" class="custom-modal">
+		<div class="modal-content-card">
+			<h3>Product Experience Review</h3>
+			<p
+				style="color: #666; font-size: 13px; margin-top: -10px; margin-bottom: 15px;">${item.item.itemName}</p>
+
+			<form method="post" action="/addReview">
+				<input type="hidden" name="itemId" value="${item.item.itemId}">
+
+				<label
+					style="font-size: 13px; color: #555; display: block; margin-bottom: 5px;">Your
+					Rating *</label>
+				<div class="modern-star-rating"
+					style="direction: rtl; display: inline-block; margin-bottom: 15px;">
+					<input type="radio" name="rating" id="dstar5" value="5" checked
+						style="display: none;" /><label for="dstar5"
+						style="font-size: 32px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+					<input type="radio" name="rating" id="dstar4" value="4"
+						style="display: none;" /><label for="dstar4"
+						style="font-size: 32px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+					<input type="radio" name="rating" id="dstar3" value="3"
+						style="display: none;" /><label for="dstar3"
+						style="font-size: 32px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+					<input type="radio" name="rating" id="dstar2" value="2"
+						style="display: none;" /><label for="dstar2"
+						style="font-size: 32px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+					<input type="radio" name="rating" id="dstar1" value="1"
+						style="display: none;" /><label for="dstar1"
+						style="font-size: 32px; color: #cbd5e1; cursor: pointer; padding: 0 4px;">★</label>
+				</div>
+
+				<label
+					style="font-size: 13px; color: #555; display: block; margin-bottom: 8px;">Write
+					Your Review *</label>
+				<textarea name="message"
+					placeholder="Tell us what you liked or disliked about the fabric/fit..."
+					required></textarea>
+
+				<div class="modal-btn-row">
+					<button type="button" class="btn btn-default"
+						onclick="closeAllModals()">Cancel</button>
+					<button type="submit" class="btn btn-success"
+						style="font-weight: 600; background: #27ae60; color: #fff; border: none;">Submit
+						Review</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
 	<%@include file="footer.jsp"%>
 
 	<script>
@@ -720,6 +788,25 @@ body {
 			if (event.target == modal2) {
 				modal2.style.display = "none";
 			}
+		}
+		
+		function openOrderReviewModal(id) {
+		    document.getElementById("orderReviewModal").style.display = "block";
+		}
+
+		function closeAllModals() {
+		    closeModal();
+		    document.getElementById("orderReviewModal").style.display = "none";
+		}
+
+		// Global Document Context window clicks handlers overrides
+		window.onclick = function(event) {
+		    var modal1 = document.getElementById("returnModal");
+		    var modal2 = document.getElementById("exchangeModal");
+		    var modal3 = document.getElementById("orderReviewModal");
+		    if (event.target == modal1) modal1.style.display = "none";
+		    if (event.target == modal2) modal2.style.display = "none";
+		    if (event.target == modal3) modal3.style.display = "none";
 		}
 	</script>
 </body>
