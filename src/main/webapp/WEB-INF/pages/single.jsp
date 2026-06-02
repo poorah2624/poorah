@@ -617,9 +617,7 @@ body {
 
 		</div>
 	</div>
-
-	<%@include file="footer.jsp"%>
-
+	
 	<div class="product-container-card row"
 		style="margin-top: 20px; padding: 25px;">
 		<div class="col-xs-12">
@@ -736,6 +734,10 @@ body {
 
 		</div>
 	</div>
+
+	<%@include file="footer.jsp"%>
+
+	
 
 	<div id="sizeChartModal" class="modal"
 		style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.5);">
