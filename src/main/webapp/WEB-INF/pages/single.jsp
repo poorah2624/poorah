@@ -444,80 +444,85 @@ body {
 								</div>
 
 								<div class="size-options-container" style="margin-bottom: 25px;">
-									<c:forEach var="v" items="${item.variants}" varStatus="status">
-										<div id="sizeWrapper_${status.index}"
-											class="size-wrapper ${status.first ? 'active' : ''}">
+									
+									<c:choose>
+										<c:when test="${item.category.categoryName == 'Couple Wear'}">
+											<div class="couple-size-selector" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px dashed #ff9b05;">
+												
+												<div class="form-group" style="margin-bottom: 15px;">
+													<label style="font-weight: 600; color: #34495e; display: block; margin-bottom: 5px;">🧔 Men's T-Shirt Size:</label>
+													<select id="coupleMenSize" class="form-control" style="width: 100%; max-width: 200px; height: 38px; font-weight: 600;">
+														<option value="">-- Choose Size --</option>
+														<option value="S">S</option>
+														<option value="M">M</option>
+														<option value="L">L</option>
+														<option value="XL">XL</option>
+														<option value="XXL">XXL</option>
+													</select>
+												</div>
 
-											<c:set var="stockStr" value="${v.variantStock}" />
-											<c:set var="sQty"
-												value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
-											<c:set var="mQty"
-												value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
-											<c:set var="lQty"
-												value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
-											<c:set var="xlQty"
-												value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
-											<c:set var="xxlQty"
-												value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
+												<div class="form-group" style="margin-bottom: 5px;">
+													<label style="font-weight: 600; color: #34495e; display: block; margin-bottom: 5px;">👩 Women's T-Shirt Size:</label>
+													<select id="coupleWomenSize" class="form-control" style="width: 100%; max-width: 200px; height: 38px; font-weight: 600;">
+														<option value="">-- Choose Size --</option>
+														<option value="S">S</option>
+														<option value="M">M</option>
+														<option value="L">L</option>
+														<option value="XL">XL</option>
+														<option value="XXL">XXL</option>
+													</select>
+												</div>
+											</div>
+										</c:when>
 
-											<!-- S Size Card -->
-											<label
-												class="size-option-label ${sQty == '0' ? 'disabled-size' : ''}">
-												<input type="radio" name="selectedSize" value="S"
-												${sQty == '0' ? 'disabled' : ''}> <span
-												class="size-custom-box">S</span> <c:if
-													test="${sQty > 0 && sQty <= 5}">
-													<span class="stock-warning">${sQty} Left!</span>
-												</c:if>
-											</label>
+										<c:otherwise>
+											<c:forEach var="v" items="${item.variants}" varStatus="status">
+												<div id="sizeWrapper_${status.index}"
+													class="size-wrapper ${status.first ? 'active' : ''}">
 
-											<!-- M Size Card -->
-											<label
-												class="size-option-label ${mQty == '0' ? 'disabled-size' : ''}">
-												<input type="radio" name="selectedSize" value="M"
-												${mQty == '0' ? 'disabled' : ''}> <span
-												class="size-custom-box">M</span> <c:if
-													test="${mQty > 0 && mQty <= 5}">
-													<span class="stock-warning">${mQty} Left!</span>
-												</c:if>
-											</label>
+													<c:set var="stockStr" value="${v.variantStock}" />
+													<c:set var="sQty" value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
+													<c:set var="mQty" value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
+													<c:set var="lQty" value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
+													<c:set var="xlQty" value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
+													<c:set var="xxlQty" value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
 
-											<!-- L Size Card -->
-											<label
-												class="size-option-label ${lQty == '0' ? 'disabled-size' : ''}">
-												<input type="radio" name="selectedSize" value="L"
-												${lQty == '0' ? 'disabled' : ''}> <span
-												class="size-custom-box">L</span> <c:if
-													test="${lQty > 0 && lQty <= 5}">
-													<span class="stock-warning">${lQty} Left!</span>
-												</c:if>
-											</label>
+													<label class="size-option-label ${sQty == '0' ? 'disabled-size' : ''}">
+														<input type="radio" name="selectedSize" value="S" ${sQty == '0' ? 'disabled' : ''}> 
+														<span class="size-custom-box">S</span> 
+														<c:if test="${sQty > 0 && sQty <= 5}"><span class="stock-warning">${sQty} Left!</span></c:if>
+													</label>
 
-											<!-- XL Size Card -->
-											<label
-												class="size-option-label ${xlQty == '0' ? 'disabled-size' : ''}">
-												<input type="radio" name="selectedSize" value="XL"
-												${xlQty == '0' ? 'disabled' : ''}> <span
-												class="size-custom-box">XL</span> <c:if
-													test="${xlQty > 0 && xlQty <= 5}">
-													<span class="stock-warning">${xlQty} Left!</span>
-												</c:if>
-											</label>
+													<label class="size-option-label ${mQty == '0' ? 'disabled-size' : ''}">
+														<input type="radio" name="selectedSize" value="M" ${mQty == '0' ? 'disabled' : ''}> 
+														<span class="size-custom-box">M</span> 
+														<c:if test="${mQty > 0 && mQty <= 5}"><span class="stock-warning">${mQty} Left!</span></c:if>
+													</label>
 
-											<!-- XXL Size Card -->
-											<c:if test="${not empty xxlQty}">
-												<label
-													class="size-option-label ${xxlQty eq '0' ? 'disabled-size' : ''}">
-													<input type="radio" name="selectedSize" value="XXL"
-													${xxlQty eq '0' ? 'disabled' : ''}> <span
-													class="size-custom-box">XXL</span> <c:if
-														test="${xxlQty > 0 && xxlQty <= 5}">
-														<span class="stock-warning">${xxlQty} Left!</span>
+													<label class="size-option-label ${lQty == '0' ? 'disabled-size' : ''}">
+														<input type="radio" name="selectedSize" value="L" ${lQty == '0' ? 'disabled' : ''}> 
+														<span class="size-custom-box">L</span> 
+														<c:if test="${lQty > 0 && lQty <= 5}"><span class="stock-warning">${lQty} Left!</span></c:if>
+													</label>
+
+													<label class="size-option-label ${xlQty == '0' ? 'disabled-size' : ''}">
+														<input type="radio" name="selectedSize" value="XL" ${xlQty == '0' ? 'disabled' : ''}> 
+														<span class="size-custom-box">XL</span> 
+														<c:if test="${xlQty > 0 && xlQty <= 5}"><span class="stock-warning">${xlQty} Left!</span></c:if>
+													</label>
+
+													<c:if test="${not empty xxlQty}">
+														<label class="size-option-label ${xxlQty eq '0' ? 'disabled-size' : ''}">
+															<input type="radio" name="selectedSize" value="XXL" ${xxlQty eq '0' ? 'disabled' : ''}> 
+															<span class="size-custom-box">XXL</span> 
+															<c:if test="${xxlQty > 0 && xxlQty <= 5}"><span class="stock-warning">${xxlQty} Left!</span></c:if>
+														</label>
 													</c:if>
-												</label>
-											</c:if>
-										</div>
-									</c:forEach>
+												</div>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
+
 								</div>
 							</c:if>
 
@@ -836,10 +841,10 @@ body {
 		}
 
 		function handleCartAction(action, itemId, btn) {
-			let activeWrapper = $(".size-wrapper.active");
-			let selectedSize = activeWrapper.find('input[name="selectedSize"]:checked').val();
 			let activeColor = $(".color-swatch.active").text().trim();
-
+			let selectedSize = "";
+			
+			// Error Division Setup
 			let errorId = "cartError_" + itemId;
 			let errorDiv = document.getElementById(errorId);
 			if(!errorDiv){
@@ -852,14 +857,36 @@ body {
 			}
 			errorDiv.innerHTML = "";
 
-			if (activeWrapper.length > 0 && !selectedSize) {
-				errorDiv.innerHTML = "⚠️ Please select a size for the chosen color.";
-				return;
+			// Check if it's Couple Wear Category
+			let menSizeEl = document.getElementById("coupleMenSize");
+			let womenSizeEl = document.getElementById("coupleWomenSize");
+
+			if (menSizeEl && womenSizeEl) {
+				// Couple wear context verification
+				let mSize = menSizeEl.value;
+				let wSize = womenSizeEl.value;
+
+				if (!mSize || !wSize) {
+					errorDiv.innerHTML = "⚠️ Please select BOTH Men and Women sizes for Couple Wear.";
+					return;
+				}
+			
+				selectedSize = "Men:" + mSize + ",Women:" + wSize;
+			} else {
+				
+				let activeWrapper = $(".size-wrapper.active");
+				selectedSize = activeWrapper.find('input[name="selectedSize"]:checked').val();
+
+				if (activeWrapper.length > 0 && !selectedSize) {
+					errorDiv.innerHTML = "⚠️ Please select a size for the chosen color.";
+					return;
+				}
 			}
 
+			
 			let url = '/' + (action === 'add' ? 'addToCart' : 'buyNow') + '?itemId=' + itemId;
 			if(activeColor) { url += '&color=' + encodeURIComponent(activeColor); }
-			if(selectedSize) { url += '&size=' + selectedSize; }
+			if(selectedSize) { url += '&size=' + encodeURIComponent(selectedSize); }
 
 			if(action === 'add') {
 				fetch('https://www.poorah.com' + url)
