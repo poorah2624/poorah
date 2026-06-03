@@ -222,4 +222,12 @@ public class CartController {
 
 	    return "redirect:/cart";
 	}
+	
+	@GetMapping("/cart/checkout")
+	public String cartToCheckout(HttpSession session) {
+		
+		session.removeAttribute("buyNowItemId");
+		session.removeAttribute("buyNowSize");
+		return "redirect:/checkout";
+	}
 }

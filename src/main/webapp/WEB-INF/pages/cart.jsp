@@ -491,7 +491,7 @@ body {
 					</div>
 
 					<div class="checkout-actions">
-						<a href="/checkout" class="btn-checkout">Proceed to Checkout</a> <a
+						<a href="/cart/checkout" class="btn-checkout">Proceed to Checkout</a> <a
 							href="/products2" class="btn-continue"> <span
 							class="glyphicon glyphicon-menu-left"></span> Continue Shopping
 						</a>

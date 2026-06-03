@@ -50,39 +50,40 @@ public class CheckoutController {
 	    }
 		
 		List<Address> addresses = addressService.getByUser(user);
-		
 		model.addAttribute("addresses", addresses);
 		
 		Long buyNowItemId = (Long) session.getAttribute("buyNowItemId");
-		
-		List<Cart> cartItems = cartService.getCartByUser(user);
+		List<Cart> cartItems = new ArrayList<>();
 		
 		if(buyNowItemId != null){
-	        //  SINGLE PRODUCT checkout
+	      
 			String size = (String) session.getAttribute("buyNowSize");
 	        Cart temp = cartService.getTempCartItem(buyNowItemId, user, size);
 	        if(temp == null){
+	          
+	            session.removeAttribute("buyNowItemId");
+	            session.removeAttribute("buyNowSize");
 	            return "redirect:/cart";
 	        }
-	        cartItems = Arrays.asList(temp);
+	        cartItems.add(temp);
 	    } else {
-	        // normal cart
+	       
 	        cartItems = cartService.getCartByUser(user);
 	    }
 		
 	    model.addAttribute("cartItems", cartItems);
-	    
+	 
 	    BigDecimal grandTotal = BigDecimal.ZERO;
 
 	    for(Cart cart : cartItems){
 	    	if(cart.getTotalPrice() != null){
-	        grandTotal = grandTotal.add(cart.getTotalPrice());
+	            grandTotal = grandTotal.add(cart.getTotalPrice());
 	    	}
 	    }
 
 	    BigDecimal deliveryCharge = new BigDecimal("50");
 
-	    if(grandTotal.compareTo(new BigDecimal("500")) > 0){
+	    if(grandTotal.compareTo(new BigDecimal("500")) >= 0 || grandTotal.compareTo(BigDecimal.ZERO) == 0){
 	        deliveryCharge = BigDecimal.ZERO;
 	    }
 
@@ -93,7 +94,6 @@ public class CheckoutController {
 	    model.addAttribute("finalAmount", finalAmount);
 		
 		List<Category> categories = categoryService.getAllCategories();
-
 	    model.addAttribute("categories", categories);
 	    
 	    ContactDetails cDetails = cDetailsService.getContactDetails();
