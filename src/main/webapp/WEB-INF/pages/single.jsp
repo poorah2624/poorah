@@ -841,43 +841,79 @@ body {
 		}
 
 		function handleCartAction(action, itemId, btn) {
-			
-			let activeColor = $(".color-swatch.active").text().trim();
-			let selectedSize = "";
-			
-			let url = '/' + (action === 'add' ? 'addToCart' : 'buyNow') + '?itemId=' + itemId;
-			
-			if(activeColor && activeColor !== "") { 
-				url += '&color=' + encodeURIComponent(activeColor); 
-			}
-			if(selectedSize) { 
-				url += '&size=' + encodeURIComponent(selectedSize); 
-			}
+		    let activeColor = $(".color-swatch.active").text().trim();
+		    let selectedSize = "";
+		    
+		    let errorId = "cartError_" + itemId;
+		    let errorDiv = document.getElementById(errorId);
+		    if (!errorDiv) {
+		        errorDiv = document.createElement("div");
+		        errorDiv.id = errorId;
+		        errorDiv.style.color = "#e74c3c";
+		        errorDiv.style.fontWeight = "600";
+		        errorDiv.style.marginTop = "8px";
+		        btn.parentElement.appendChild(errorDiv);
+		    }
+		    errorDiv.innerHTML = ""; 
 
-			if(action === 'add') {
-				fetch(url)
-				.then(res => res.text()) 
-				.then(data => {
-					if(data === "SUCCESS") {
-						btn.innerText = "Go to Cart";
-						btn.className = "btn btn-custom btn-success-go";
-						btn.onclick = goToCart;
-					} else if(data === "LOGIN_REQUIRED") {
-						alert("Please login first to add products to your cart.");
-						window.location.href = "/login";
-					} else if(data === "SIZE_REQUIRED") {
-						errorDiv.innerHTML = "⚠️ Please select a valid size configuration.";
-					} else {
-						errorDiv.innerHTML = "⚠️ Something went wrong. Please try again.";
-					}
-				})
-				.catch(err => {
-					console.error(err);
-					errorDiv.innerHTML = "⚠️ Network error. Please check server logs.";
-				});
-			} else {
-				window.location.href = url;
-			}
+		    let menSizeEl = document.getElementById("coupleMenSize");
+		    let womenSizeEl = document.getElementById("coupleWomenSize");
+
+		    if (menSizeEl && womenSizeEl) {
+		       
+		        let mSize = menSizeEl.value;
+		        let wSize = womenSizeEl.value;
+
+		        if (!mSize || !wSize) {
+		            errorDiv.innerHTML = "⚠️ Please select BOTH Men and Women sizes for Couple Wear.";
+		            return;
+		        }
+		        selectedSize = "Men:" + mSize + ",Women:" + wSize;
+		    } else {
+		       
+		        let activeWrapper = $(".size-wrapper.active");
+		        selectedSize = activeWrapper.find('input[name="selectedSize"]:checked').val();
+
+		        if (activeWrapper.length > 0 && !selectedSize) {
+		            errorDiv.innerHTML = "⚠️ Please select a size for the chosen color.";
+		            return;
+		        }
+		    }
+
+		    let url = '/' + (action === 'add' ? 'addToCart' : 'buyNow') + '?itemId=' + itemId;
+		    
+		    if (activeColor && activeColor !== "") { 
+		        url += '&color=' + encodeURIComponent(activeColor); 
+		    }
+		    if (selectedSize) { 
+		        url += '&size=' + encodeURIComponent(selectedSize); 
+		    }
+
+		  
+		    if (action === 'add') {
+		        fetch(url)
+		        .then(res => res.text())
+		        .then(data => {
+		            if (data === "SUCCESS") {
+		                btn.innerText = "Go to Cart";
+		                btn.className = "btn btn-custom btn-success-go";
+		                btn.onclick = goToCart;
+		            } else if (data === "LOGIN_REQUIRED") {
+		                alert("Please login first to add products to your cart.");
+		                window.location.href = "/login";
+		            } else if (data === "SIZE_REQUIRED") {
+		                errorDiv.innerHTML = "⚠️ Please select size.";
+		            } else {
+		                errorDiv.innerHTML = "⚠️ Something went wrong. Please try again.";
+		            }
+		        })
+		        .catch(err => {
+		            console.error(err);
+		            errorDiv.innerHTML = "⚠️ Network error. Please check server logs.";
+		        });
+		    } else {
+		        window.location.href = url;
+		    }
 		}
 
 		function goToCart(){ window.location.href = '/cart'; }
