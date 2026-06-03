@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cloudinary.Cloudinary;
@@ -93,8 +94,10 @@ public class CartController {
 	}
 	
 	@GetMapping("/addToCart")
+	@ResponseBody
 	public String addToCart(@RequestParam Long itemId, 
 			@RequestParam(required = false) String size,
+			@RequestParam(required = false) String color,
             HttpSession session){
 
 	    User user = (User) session.getAttribute("LoggedInUser");
@@ -106,16 +109,17 @@ public class CartController {
 
 	    Item item = itemService.getItemById(itemId);
 	    
-	    if(item.getCategory().getCategoryName().equalsIgnoreCase("Clothing") 
-	            && (size == null || size.isEmpty())){
-	        return "Size required";
-	    }
+	    if((item.getCategory().getCategoryName().equalsIgnoreCase("Men") || 
+		        item.getCategory().getCategoryName().equalsIgnoreCase("Women") ||
+		        item.getCategory().getCategoryName().equalsIgnoreCase("Couple Wear")) 
+		        && (size == null || size.isEmpty())){
+		        return "SIZE_REQUIRED";
+		    }
 
-	    cartService.addToCart(user, item, size);
-	    
-	    
+		   
+		    cartService.addToCart(user, item, size);
 
-	    return "Success";
+		    return "SUCCESS";
 	}
 	
 	@PostMapping("/UpdateQuantity")
