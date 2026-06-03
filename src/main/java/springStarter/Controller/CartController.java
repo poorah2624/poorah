@@ -125,15 +125,16 @@ public class CartController {
 	@PostMapping("/UpdateQuantity")
 	public String updateQuantity(@RequestParam Long itemId,
 	                             @RequestParam int quantity,
+	                             @RequestParam(required = false) String size, 
 	                             HttpSession session){
 
 	    User user = (User) session.getAttribute("LoggedInUser");
 
 	    if(user == null){
-	        return "redirect:/userLogin";
+	        return "redirect:/userlogin";
 	    }
 
-	    cartService.updateQuantity(user, itemId, quantity);
+	    cartService.updateQuantity(user, itemId, quantity, size);
 
 	    return "redirect:/cart";
 	}

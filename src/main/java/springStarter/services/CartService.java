@@ -65,23 +65,25 @@ public class CartService {
 		return !carts.isEmpty();
 	}
 
-	public void updateQuantity(User user, Long itemId, int quantity) {
-
+	public void updateQuantity(User user, Long itemId, int quantity, String size) {
 		Item item = itemRepo.findById(itemId).orElse(null);
+		if (item == null) return;
 
-		List<Cart> carts = cartRepo.findByUserAndItem(user, item);
+		Cart cart = cartRepo.findByUserAndItemAndSize(user, item, size);
 
-		BigDecimal price = item.getItemPrice();
-		BigDecimal discount = item.getDiscount();
-		BigDecimal hundred = new BigDecimal("100");
-
-		BigDecimal finalPrice = price.subtract(price.multiply(discount).divide(hundred));
-
-		for (Cart cart : carts) {
+		if (cart != null) {
+			BigDecimal basePrice = item.getDiscountedPrice();
+			if (basePrice == null) {
+				BigDecimal price = item.getItemPrice();
+				BigDecimal discount = item.getDiscount();
+				BigDecimal hundred = new BigDecimal("100");
+				basePrice = price.subtract(price.multiply(discount).divide(hundred));
+			}
 
 			cart.setQuantity(quantity);
-
-			BigDecimal total = finalPrice.multiply(BigDecimal.valueOf(quantity));
+			
+			
+			BigDecimal total = basePrice.multiply(BigDecimal.valueOf(quantity));
 			cart.setTotalPrice(total);
 
 			cartRepo.save(cart);
