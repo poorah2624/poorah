@@ -889,14 +889,20 @@ body {
 			if(selectedSize) { url += '&size=' + encodeURIComponent(selectedSize); }
 
 			if(action === 'add') {
-				fetch('https://www.poorah.com' + url)
-				.then(() => {
-					btn.innerText = "Go to Cart";
-					btn.className = "btn btn-custom btn-success-go";
-					btn.onclick = goToCart;
-				})
-				.catch(err => console.log(err));
-			} else {
+			    fetch(url) 
+			    .then((response) => {
+			        if (!response.ok) {
+			            throw new Error("Network response was not ok");
+			        }
+			        btn.innerText = "Go to Cart";
+			        btn.className = "btn btn-custom btn-success-go";
+			        btn.onclick = goToCart;
+			    })
+			    .catch(err => {
+			        console.error(err);
+			        errorDiv.innerHTML = "⚠️ Failed to add product to cart. Please try again.";
+			    });
+			}else {
 				window.location.href = url;
 			}
 		}
@@ -917,7 +923,7 @@ body {
 			let pincode = document.getElementById("pincode").value;
 			if(pincode.length !== 6){ alert("Enter valid pincode"); return; }
 			document.getElementById("deliveryResult").innerText = "Checking...";
-			fetch('https://www.poorah.com/checkDelivery?pincode=' + pincode)
+			fetch('/checkDelivery?pincode=' + pincode)
 			.then(res => res.text())
 			.then(data => { document.getElementById("deliveryResult").innerText = data; })
 			.catch(err => console.log(err));
