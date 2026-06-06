@@ -7,8 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page isELIgnored="false" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,26 +23,16 @@
 
 <!-- Bootstrap core CSS -->
 
-<link
-	href="/admin/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="/admin/css/bootstrap.min.css" rel="stylesheet">
 
-<link
-	href="/admin/fonts/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="/admin/css/animate.min.css"
-	rel="stylesheet">
+<link href="/admin/fonts/css/font-awesome.min.css" rel="stylesheet">
+<link href="/admin/css/animate.min.css" rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<link href="/admin/css/custom.css"
-	rel="stylesheet">
-<link
-	href="/admin/css/icheck/flat/green.css"
-	rel="stylesheet">
+<link href="/admin/css/custom.css" rel="stylesheet">
+<link href="/admin/css/icheck/flat/green.css" rel="stylesheet">
 
-<link
-	href="/admin/js/datatables/jquery.dataTables.min.css"
+<link href="/admin/js/datatables/jquery.dataTables.min.css"
 	rel="stylesheet" type="text/css" />
 
 
@@ -96,8 +86,7 @@
 							<div class="row x_title">
 								<div class="col-md-6">
 									<h3>
-										Order Management<small><a
-											href="/order_History"><button
+										Order Management<small><a href="/order_History"><button
 													class="btn-lg btn btn-outline btn-success">Order
 													History</button></a></small>
 									</h3>
@@ -148,78 +137,104 @@
 
 
 											<tbody>
-
-												<c:forEach var="o" items="${orders }">
+												<c:forEach var="o" items="${orders}">
 													<c:forEach var="item" items="${o.items}">
 														<tr>
-															<td>${o.orderNumber }</td>
-															<td>${o.user.userName }</td>
-															<td>${o.user.userEmail }</td>
-															<td>${o.orderDate }</td>
+															<td>${o.orderNumber}</td>
+															<td>${o.user.userName}</td>
+															<td>${o.user.userEmail}</td>
+															<td>${o.orderDate}</td>
+
 															<c:choose>
 																<c:when test="${item.isCustom}">
-																	<td><img
-																		src="${fn:split(item.customImage, ',')[0]}"
-																		style="width: 60px; height: 70px; border-radius: 5px;" />
-																		<a
-																		href="${item.customImage}"
-																		download class="btn btn-success btn-sm"
-																		style="margin-top: 5px;"> ⬇ Download </a></td>
+																	<td><c:if test="${not empty item.customImage}">
+																			<img src="${fn:split(item.customImage, ',')[0]}"
+																				style="width: 60px; height: 70px; border-radius: 5px;" />
+																			<a href="${item.customImage}" download
+																				class="btn btn-success btn-sm"
+																				style="margin-top: 5px; display: block;"> ⬇
+																				Download </a>
+																		</c:if></td>
 																</c:when>
 																<c:otherwise>
-																	<td><img
-																		src="${fn:split(item.item.itemImage, ',')[0]}"
-																		style="width: 60px; height: 70px; border-radius: 5px;" />
+																	<td><c:if
+																			test="${not empty item.item && not empty item.item.itemImage}">
+																			<img src="${fn:split(item.item.itemImage, ',')[0]}"
+																				style="width: 60px; height: 70px; border-radius: 5px;" />
+																		</c:if></td>
+																</c:otherwise>
+															</c:choose>
+
+															<c:choose>
+																<c:when test="${item.isCustom}">
+																	<td><span class="label label-info">🎨
+																			Custom Design Order</span></td>
+																</c:when>
+																<c:otherwise>
+																	<td>${not empty item.item ? item.item.itemName : 'N/A Item Layout'}</td>
+																</c:otherwise>
+															</c:choose>
+
+															<td>${not empty item.size ? item.size : '-'}</td>
+															<td>${not empty item.tshirtType ? item.tshirtType : '-'}</td>
+															<td>${not empty item.color ? item.color : '-'}</td>
+															<td>${not empty item.gender ? item.gender : '-'}</td>
+
+															<c:choose>
+																<c:when test="${item.isCustom}">
+																	<td>&#8377; <fmt:formatNumber
+																			value="${not empty item.price ? item.price : 0}"
+																			type="number" maxFractionDigits="2" />/-
+																	</td>
+																</c:when>
+																<c:otherwise>
+																	<td>&#8377; <fmt:formatNumber
+																			value="${not empty item.item ? item.item.itemPrice : 0}"
+																			type="number" maxFractionDigits="2" />/-
 																	</td>
 																</c:otherwise>
 															</c:choose>
-															<td>${item.item.itemName }</td>
-															<td>${item.size }</td>
-															<td>${item.tshirtType }</td>
-															<td>${item.color }</td>
-															<td>${item.gender }</td>
-                                                            <c:choose>
-																<c:when test="${item.isCustom}">
-																<td>&#8377 <fmt:formatNumber
-																	value="${item.price }" type="number"
-																	maxFractionDigits="2" />/-
-															</td>
-																</c:when>
-																<c:otherwise>
-															<td>&#8377 <fmt:formatNumber
-																	value="${item.item.itemPrice }" type="number"
-																	maxFractionDigits="2" />/-
-															</td>
-															</c:otherwise>
-															</c:choose>
-															<td>${item.item.discount }%</td>
-															<td>${item.quantity }</td>
+
 															<c:choose>
 																<c:when test="${item.isCustom}">
-																<td><fmt:formatNumber
-																	value="${item.finalPrice }" type="number"
-																	maxFractionDigits="2" />/-</td>
+																	<td>0%</td>
 																</c:when>
 																<c:otherwise>
-															<td><fmt:formatNumber
-																	value="${item.item.discountedPrice }" type="number"
-																	maxFractionDigits="2" />/-</td>
-															</c:otherwise>
+																	<td>${not empty item.item ? item.item.discount : 0}%</td>
+																</c:otherwise>
 															</c:choose>
-															<td><fmt:formatNumber value="${o.totalAmount }"
-																	type="number" maxFractionDigits="2" />/-</td>
-															<td>${o.paymentStatus }</td>
-															<td>${o.paymentMethod }</td>
-															<td>${o.status }</td>
-															<td>${item.status }</td>
 
-															<td><a
-																href="/updateOrder?id=${o.id}"
-																class="btn btn-primary">Update</a></td>
+															<td>${item.quantity}</td>
+
+															<c:choose>
+																<c:when test="${item.isCustom}">
+																	<td>&#8377; <fmt:formatNumber
+																			value="${not empty item.finalPrice ? item.finalPrice : 0}"
+																			type="number" maxFractionDigits="2" />/-
+																	</td>
+																</c:when>
+																<c:otherwise>
+																	<td>&#8377; <fmt:formatNumber
+																			value="${not empty item.item && not empty item.item.discountedPrice ? item.item.discountedPrice : 0}"
+																			type="number" maxFractionDigits="2" />/-
+																	</td>
+																</c:otherwise>
+															</c:choose>
+
+															<td>&#8377; <fmt:formatNumber
+																	value="${not empty o.totalAmount ? o.totalAmount : 0}"
+																	type="number" maxFractionDigits="2" />/-
+															</td>
+															<td>${o.paymentStatus}</td>
+															<td>${o.paymentMethod}</td>
+															<td>${o.status}</td>
+															<td>${item.status}</td>
+
+															<td><a href="/updateOrder?id=${o.id}"
+																class="btn btn-primary btn-sm">Update</a></td>
 														</tr>
 													</c:forEach>
 												</c:forEach>
-
 											</tbody>
 										</table>
 									</div>
@@ -250,17 +265,13 @@
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	<script
-		src="/admin/js/bootstrap.min.js"></script>
+	<script src="/admin/js/bootstrap.min.js"></script>
 
 	<!-- bootstrap progress js -->
-	<script
-		src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
-	<script
-		src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
+	<script src="/admin/js/progressbar/bootstrap-progressbar.min.js"></script>
+	<script src="/admin/js/nicescroll/jquery.nicescroll.min.js"></script>
 	<!-- icheck -->
-	<script
-		src="/admin/js/icheck/icheck.min.js"></script>
+	<script src="/admin/js/icheck/icheck.min.js"></script>
 
 	<script src="/admin/js/custom.js"></script>
 
@@ -270,39 +281,24 @@
   <script src="js/datatables/tools/js/dataTables.tableTools.js"></script> -->
 
 	<!-- Datatables-->
-	<script
-		src="/admin/js/datatables/jquery.dataTables.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.bootstrap.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.buttons.min.js"></script>
-	<script
-		src="/admin/js/datatables/buttons.bootstrap.min.js"></script>
-	<script
-		src="/admin/js/datatables/jszip.min.js"></script>
-	<script
-		src="/admin/js/datatables/pdfmake.min.js"></script>
-	<script
-		src="/admin/js/datatables/vfs_fonts.js"></script>
-	<script
-		src="/admin/js/datatables/buttons.html5.min.js"></script>
-	<script
-		src="/admin/js/datatables/buttons.print.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.fixedHeader.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.keyTable.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.responsive.min.js"></script>
-	<script
-		src="/admin/js/datatables/responsive.bootstrap.min.js"></script>
-	<script
-		src="/admin/js/datatables/dataTables.scroller.min.js"></script>
+	<script src="/admin/js/datatables/jquery.dataTables.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.bootstrap.js"></script>
+	<script src="/admin/js/datatables/dataTables.buttons.min.js"></script>
+	<script src="/admin/js/datatables/buttons.bootstrap.min.js"></script>
+	<script src="/admin/js/datatables/jszip.min.js"></script>
+	<script src="/admin/js/datatables/pdfmake.min.js"></script>
+	<script src="/admin/js/datatables/vfs_fonts.js"></script>
+	<script src="/admin/js/datatables/buttons.html5.min.js"></script>
+	<script src="/admin/js/datatables/buttons.print.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.fixedHeader.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.keyTable.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.responsive.min.js"></script>
+	<script src="/admin/js/datatables/responsive.bootstrap.min.js"></script>
+	<script src="/admin/js/datatables/dataTables.scroller.min.js"></script>
 
 
 	<!-- pace -->
-	<script
-		src="/admin/js/pace/pace.min.js"></script>
+	<script src="/admin/js/pace/pace.min.js"></script>
 	<script>
 		var handleDataTableButtons = function() {
 			"use strict";
