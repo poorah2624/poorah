@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,56 +90,67 @@ public class PinController {
 	@GetMapping("/checkDelivery")
     @ResponseBody
     public String checkDelivery(@RequestParam String pincode) {
-       
+      
         if (pincode == null || !pincode.matches("^[1-9][0-9]{5}$")) {
             return "❌ Invalid Pincode. Please enter a valid 6-digit number.";
         }
 
         try {
-        
             String apiUrl = "https://api.postalpincode.in/pincode/" + pincode;
-        
-            PincodeApiResponse[] responseArray = restTemplate.getForObject(apiUrl, PincodeApiResponse[].class);
+            RestTemplate restTemplate = new RestTemplate();
 
-            if (responseArray == null || responseArray.length == 0 || !"Success".equalsIgnoreCase(responseArray[0].getStatus())) {
+           
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+
+           
+            ResponseEntity<String> responseEntity = restTemplate.exchange(apiUrl, HttpMethod.GET, entity, String.class);
+            String rawJsonResponse = responseEntity.getBody();
+
+            if (rawJsonResponse == null || rawJsonResponse.contains("\"Status\":\"Error\"") || rawJsonResponse.contains("\"PostOffice\":null")) {
                 return "❌ Delivery not available. This pincode does not exist in India Post records.";
             }
 
-            PostOfficeDetails details = responseArray[0].getPostOffice().get(0);
-            String city = details.getDistrict();
-            String state = details.getState();
-
+            // 5. Zone Mapping Algorithm Framework
             char zone = pincode.charAt(0);
             int days = 5; 
+            String regionInfo = "Standard Delivery Zone";
 
             if (zone == '8') { 
-                // Local Zone: Jharkhand & Bihar 
                 days = 3; 
+                regionInfo = "Local Home Zone (Jharkhand/Bihar)";
             } else if (zone == '1' || zone == '2') { 
-                // North/Central: Delhi NCR, UP, Haryana
                 days = 5; 
+                regionInfo = "North/Central Region";
             } else if (zone == '3' || zone == '4') { 
-                // West/Central: Mumbai, Maharashtra, Gujarat, MP
                 days = 6; 
+                regionInfo = "West & Central Grid";
             } else if (zone == '5' || zone == '6') { 
-                // South: Bengaluru, Hyderabad, Chennai
                 days = 7; 
+                regionInfo = "South Territory";
             } else if (zone == '7') { 
-                // East / North-East States (Kolkata, Assam)
                 days = pincode.startsWith("79") ? 9 : 6;
+                regionInfo = "East Line Hub";
             }
 
-            // 5. Live Date Formatter setup (e.g., "Monday, 08 Jun")
+           
             LocalDate deliveryDate = LocalDate.now().plusDays(days);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM");
             String formattedDate = deliveryDate.format(formatter);
 
-            return "✅ Serviceable to " + city + " (" + state + "). Delivery expected by " + formattedDate + " (" + days + " Days).";
+            return "✅ Serviceable Code. Delivery expected by " + formattedDate + " (" + days + " Days) via " + regionInfo;
 
         } catch (Exception e) {
-            e.printStackTrace();
+          
+            System.out.println("--- REAL SERVER ERROR PINCODE DIAGNOSIS ---");
+            e.printStackTrace(); 
+            
            
-            return "🚚 Delivery available at your location. Standard delivery takes 5-7 days.";
+            int fallbackDays = pincode.startsWith("8") ? 3 : 6;
+            LocalDate fallbackDate = LocalDate.now().plusDays(fallbackDays);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM");
+            return "🚚 Serviceable. Expected Delivery by " + fallbackDate.format(formatter) + " (" + fallbackDays + " Days).";
         }
     }
 
