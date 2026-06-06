@@ -1,6 +1,7 @@
 package springStarter.Controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -108,27 +109,58 @@ public class OrderController {
 	@GetMapping("/manage_order")
 	public String manage_order(HttpSession session, Model model) {
 		
-		
 		Admin admin = (Admin) session.getAttribute("LoggedInAdmin");
 	    if(admin == null){
 	        return "admin/adminLogin";
 	    }
 	    
-	    String category = (String) session.getAttribute("categoryAccess");
-	    List<Orders> orders;
-	    
-	    if("CLOTHING".equals(category)) {
-	        // Clothing admin = full access
-	        orders = orderRepo.findAllByOrderByOrderDateDesc();
-	    } 
-	    else if("ACCESSORIES".equals(category)) {
-	        // Accessories admin = restricted
-	        orders = orderRepo.findByCategoryOrderByOrderDateDesc("ACCESSORIES");
-	    } 
-	    else {
+	    // Dynamic authorization parsing
+	    Object catAccessObj = session.getAttribute("categoryAccess");
+	    if (catAccessObj == null) {
 	        return "error/403";
 	    }
-	    model.addAttribute("orders", orders);
+	    
+	    String category = catAccessObj.toString().trim().toUpperCase();
+	    List<Orders> ordersList = new ArrayList<>();
+	    
+	    try {
+	        if("CLOTHING".equals(category)) {	       
+	            List<Orders> rawOrders = orderRepo.findAllByOrderByOrderDateDesc();
+	            
+	            if (rawOrders != null) {
+	                for (Orders o : rawOrders) {
+	                    if (o.getItems() != null) {
+	                        o.getItems().size(); 
+	                    }
+	                    ordersList.add(o);
+	                }
+	            }
+	        } 
+	        else if("ACCESSORIES".equals(category)) {
+	            List<Orders> rawOrders = orderRepo.findByCategoryOrderByOrderDateDesc("ACCESSORIES");
+	            if (rawOrders != null) {
+	                for (Orders o : rawOrders) {
+	                    if (o.getItems() != null) {
+	                        o.getItems().size();
+	                    }
+	                    ordersList.add(o);
+	                }
+	            }
+	        } 
+	        else {
+	            return "error/403";
+	        }
+	        if(ordersList.isEmpty()) {
+	            model.addAttribute("orders", new ArrayList<Orders>());
+	        } else {
+	            model.addAttribute("orders", ordersList);
+	        }
+	        
+	    } catch (Exception e) {
+	        System.out.println("--- CRITICAL MANAGE ORDER CONTROLLER ERROR DIAGNOSIS ---");
+	        e.printStackTrace();
+	        model.addAttribute("orders", new ArrayList<Orders>()); 
+	    }
 	    		
 		return "admin/manage_order";
 	}
