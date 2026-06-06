@@ -136,8 +136,8 @@ public class OrderController {
 	                }
 	            }
 	        } 
-	        else if("ACCESSORIES".equals(category)) {
-	            List<Orders> rawOrders = orderRepo.findByCategoryOrderByOrderDateDesc("ACCESSORIES");
+	        else if("BEAUTY".equals(category)) {
+	            List<Orders> rawOrders = orderRepo.findByCategoryOrderByOrderDateDesc("BEAUTY");
 	            if (rawOrders != null) {
 	                for (Orders o : rawOrders) {
 	                    if (o.getItems() != null) {
