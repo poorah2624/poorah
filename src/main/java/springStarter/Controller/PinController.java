@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -138,31 +139,42 @@ public class PinController {
     }
 
 
-// 🌟 GOVERNMENT API DYNAMIC RESPONSE PARSING CLASSES 🌟
 	public static class PincodeApiResponse {
-    private String Message;
-    private String Status;
-    private List<PostOfficeDetails> PostOffice;
+	    @JsonProperty("Message") 
+	    private String message;
+	    
+	    @JsonProperty("Status")
+	    private String status;
+	    
+	    @JsonProperty("PostOffice")
+	    private List<PostOfficeDetails> postOffice;
 
-    public String getMessage() { return Message; }
-    public void setMessage(String Message) { this.Message = Message; }
-    public String getStatus() { return Status; }
-    public void setStatus(String Status) { this.Status = Status; }
-    public List<PostOfficeDetails> getPostOffice() { return PostOffice; }
-    public void setPostOffice(List<PostOfficeDetails> PostOffice) { this.PostOffice = PostOffice; }
-}
+	    // Getters and Setters
+	    public String getMessage() { return message; }
+	    public void setMessage(String message) { this.message = message; }
+	    public String getStatus() { return status; }
+	    public void setStatus(String status) { this.status = status; }
+	    public List<PostOfficeDetails> getPostOffice() { return postOffice; }
+	    public void setPostOffice(List<PostOfficeDetails> postOffice) { this.postOffice = postOffice; }
+	}
 
 	public static class PostOfficeDetails {
-    private String Name;
-    private String District;
-    private String State;
+	    @JsonProperty("Name")
+	    private String name;
+	    
+	    @JsonProperty("District")
+	    private String district;
+	    
+	    @JsonProperty("State")
+	    private String state;
 
-    public String getName() { return Name; }
-    public void setName(String Name) { this.Name = Name; }
-    public String getDistrict() { return District; }
-    public void setDistrict(String District) { this.District = District; }
-    public String getState() { return State; }
-    public void setState(String State) { this.State = State; }
-}
+	    // Getters and Setters
+	    public String getName() { return name; }
+	    public void setName(String name) { this.name = name; }
+	    public String getDistrict() { return district; }
+	    public void setDistrict(String district) { this.district = district; }
+	    public String getState() { return state; }
+	    public void setState(String state) { this.state = state; }
+	}
 
 }
