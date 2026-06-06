@@ -139,7 +139,7 @@ public class PinController {
 
 
 // 🌟 GOVERNMENT API DYNAMIC RESPONSE PARSING CLASSES 🌟
-class PincodeApiResponse {
+	public static class PincodeApiResponse {
     private String Message;
     private String Status;
     private List<PostOfficeDetails> PostOffice;
@@ -152,7 +152,7 @@ class PincodeApiResponse {
     public void setPostOffice(List<PostOfficeDetails> PostOffice) { this.PostOffice = PostOffice; }
 }
 
-class PostOfficeDetails {
+	public static class PostOfficeDetails {
     private String Name;
     private String District;
     private String State;
