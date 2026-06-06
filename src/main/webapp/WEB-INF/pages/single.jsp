@@ -929,13 +929,32 @@ body {
 		}
 
 		function checkDelivery(){
-			let pincode = document.getElementById("pincode").value;
-			if(pincode.length !== 6){ alert("Enter valid pincode"); return; }
-			document.getElementById("deliveryResult").innerText = "Checking...";
-			fetch('/checkDelivery?pincode=' + pincode)
-			.then(res => res.text())
-			.then(data => { document.getElementById("deliveryResult").innerText = data; })
-			.catch(err => console.log(err));
+		    let pincode = document.getElementById("pincode").value;
+		    
+		    if(pincode.length !== 6 || isNaN(pincode)){ 
+		        alert("Please enter a valid 6-digit pincode"); 
+		        return; 
+		    }
+		    
+		    document.getElementById("deliveryResult").innerText = "Checking availability...";
+		    document.getElementById("deliveryResult").style.color = "#7f8c8d";
+
+		    fetch('/checkDelivery?pincode=' + pincode)
+		    .then(res => res.text())
+		    .then(data => { 
+		        let resultElement = document.getElementById("deliveryResult");
+		        resultElement.innerText = data; 
+		      
+		        if(data.includes("❌")) {
+		            resultElement.style.color = "#e74c3c"; // Red for errors
+		        } else {
+		            resultElement.style.color = "#2c3e50"; // Dark for success delivery track
+		        }
+		    })
+		    .catch(err => {
+		        console.error(err);
+		        document.getElementById("deliveryResult").innerText = "⚠️ Error while fetching details.";
+		    });
 		}
 	</script>
 </body>

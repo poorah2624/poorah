@@ -12,5 +12,7 @@ import springStarter.models.Pin;
 public interface PinRepo extends JpaRepository<Pin, Long> {
 
 	Optional<Pin> findByPinId(Long pinId);
+	
+	Optional<Pin> findByPincode(String pincode);
 
 }

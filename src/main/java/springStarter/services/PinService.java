@@ -47,5 +47,9 @@ public class PinService {
 	public void deletePin(Long pinId) {
 	    pinRepo.deleteById(pinId);
 	}
+	
+	public boolean isPincodeServiceable(String pincode) {
+	    return pinRepo.findByPincode(pincode).isPresent();
+	}
 
 }
