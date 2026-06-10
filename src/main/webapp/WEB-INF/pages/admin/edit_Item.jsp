@@ -225,7 +225,6 @@
 
 														<c:set var="stockStr" value="${variant.variantStock}" />
 
-														<!-- Puraane variants ke liye dynamic parameters index: stockS_0, stockS_1... -->
 														<div>
 															<label>S</label> <input type="number"
 																name="stockS_${st.index}" class="form-control" min="0"
@@ -244,17 +243,17 @@
 														<div>
 															<label>XL</label> <input type="number"
 																name="stockXL_${st.index}" class="form-control" min="0"
-																value="${fn:contains(stockStr, 'XL:') ? fn:substringAfter(stockStr, 'XL:') : '0'}">
+																value="${fn:contains(stockStr, 'XL:') ? (fn:contains(stockStr, ',XXL:') ? fn:substringBefore(fn:substringAfter(stockStr, 'XL:'), ',XXL:') : fn:substringAfter(stockStr, 'XL:')) : '0'}">
 														</div>
 														<div>
 															<label>XXL</label> <input type="number"
 																name="stockXXL_${st.index}" class="form-control" min="0"
 																value="${fn:contains(stockStr, 'XXL:') ? fn:substringAfter(stockStr, 'XXL:') : '0'}">
 														</div>
-
 														<button type="button"
 															class="btn btn-danger btn-sm removeVariant"
 															style="margin-top: 10px;">Remove Color</button>
+
 													</div>
 												</c:forEach>
 
