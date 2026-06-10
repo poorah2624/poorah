@@ -313,7 +313,7 @@
 															</div>
 															<div>
 																<label> XXL </label> <input type="number"
-																	name="stockXL_0" placeholder="Stock for XL"
+																	name="stockXXL_0" placeholder="Stock for XXL"
 																	class="form-control" value="0" min="0">
 															</div>
 
@@ -771,48 +771,48 @@
 	
 	let variantCount = 1; 
 
-function addVariant(){
-    let html = `
-      <div class="colorBlock" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
-        <label>Color</label>
-        <input type="text" name="color[]" class="form-control" placeholder="Enter Color">
+	function addVariant(){
+	    let html = `
+	      <div class="colorBlock" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; background: #fafafa;">
+	        <label>Color</label>
+	        <input type="text" name="color[]" class="form-control" placeholder="Enter Color">
 
-     
-        <label style="margin-top: 10px;">Variant Image</label>
-        <input type="file" name="variantImage_\${variantCount}" id="vInput_\${variantCount}" class="form-control" multiple onchange="accumulateVariantFiles(this, \${variantCount})">
-        <div id="vPreview_\${variantCount}" style="margin-top: 5px; display: flex; gap: 5px; flex-wrap: wrap;"></div>
+	        <label style="margin-top: 10px;">Variant Image</label>
+	        <input type="file" name="variantImage_\${variantCount}" id="vInput_\${variantCount}" class="form-control" multiple onchange="accumulateVariantFiles(this, \${variantCount})">
+	        <div id="vPreview_\${variantCount}" style="margin-top: 5px; display: flex; gap: 5px; flex-wrap: wrap;"></div>
 
-        <hr>
-        <label>Sizes & Stock</label>
-        <div>
-          <label>S</label>
-          <input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0">
-        </div>
-        <div>
-          <label>M</label>
-          <input type="number" name="stockM_\${variantCount}" class="form-control" value="0" min="0">
-        </div>
-        <div>
-          <label>L</label>
-          <input type="number" name="stockL_\${variantCount}" class="form-control" value="0" min="0">
-        </div>
-        <div>
-          <label>XL</label>
-          <input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
-        </div>
-        <div>
-          <label>XXL</label>
-          <input type="number" name="stockXXL_\${variantCount}" class="form-control" value="0" min="0">
-        </div>
+	        <hr>
+	        <label>Sizes & Stock</label>
+	        <div>
+	          <label>S</label>
+	          <input type="number" name="stockS_\${variantCount}" class="form-control" value="0" min="0">
+	        </div>
+	        <div>
+	          <label>M</label>
+	          <input type="number" name="stockM_\${variantCount}" class="form-control" value="0" min="0">
+	        </div>
+	        <div>
+	          <label>L</label>
+	          <input type="number" name="stockL_\${variantCount}" class="form-control" value="0" min="0">
+	        </div>
+	        <div>
+	          <label>XL</label>
+	          <input type="number" name="stockXL_\${variantCount}" class="form-control" value="0" min="0">
+	        </div>
+	        <div>
+	          <!-- YAHAN CORRECTION KIYA HAI: name ko stockXXL aur placeholder ko XXL kiya -->
+	          <label>XXL</label>
+	          <input type="number" name="stockXXL_\${variantCount}" placeholder="Stock for XXL" class="form-control" value="0" min="0">
+	        </div>
 
-        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top: 10px;">
-          Remove Color
-        </button>
-      </div>
-    `;
-    document.getElementById("variantContainer").insertAdjacentHTML("beforeend", html);
-    variantCount++;
-}
+	        <button type="button" class="btn btn-danger btn-sm" onclick="removeVariant(this)" style="margin-top: 10px;">
+	          Remove Color
+	        </button>
+	      </div>
+	    `;
+	    document.getElementById("variantContainer").insertAdjacentHTML("beforeend", html);
+	    variantCount++;
+	}
 
 	function removeVariant(btn){
 	    btn.closest(".colorBlock").remove();
