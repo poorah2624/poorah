@@ -400,19 +400,33 @@ textarea.form-control {
 
 .design-overlay-preview {
 	position: absolute;
-	top: 30%; /* Shuruati position */
-	left: 35%; /* Shuruati position */
-	width: 120px; /* Default starting width */
+	top: 35%;
+	left: 35%;
+	width: 120px;
 	height: auto;
 	object-fit: contain;
-	touch-action: none; 
+	z-index: 10;
+	cursor: move;
+	border: 2px dashed #ff9800;
+	padding: 5px;
+	touch-action: none;
 	user-select: none;
-	border: 2px dashed rgba(255, 152, 0, 0.5); /* User ko pata chale ki isse chota-bada karna hai */
-	padding: 4px;
-	cursor: move; 
+}
+
+.resize-handle {
+	position: absolute;
+	width: 12px;
+	height: 12px;
+	background: #ff9800;
+	bottom: -6px;
+	right: -6px;
+	cursor: se-resize;
+	z-index: 11;
+	border-radius: 50%;
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 </head>
 
 <body>
@@ -451,12 +465,18 @@ textarea.form-control {
 						</label>
 					</div>
 
+
 					<div class="tshirt-canvas-wrapper">
 						<img
 							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880777/male_wqzxj0.png"
 							class="tshirt-base-img" id="tshirtImage" alt="Tshirt Vector Base">
-						<img id="designPreview" class="design-overlay-preview" src=""
-							alt="" style="display: none;" />
+
+						<div id="designWrapper" class="design-overlay-preview"
+							style="display: none;">
+							<img id="designPreview" src="" alt=""
+								style="width: 100%; height: 100%; object-fit: contain;" />
+							<div class="resize-handle" id="resizeHandle"></div>
+						</div>
 					</div>
 				</div>
 
@@ -492,12 +512,12 @@ textarea.form-control {
 
 						<!-- IS LINE KO UPDATE KAREIN -->
 						<div class="studio-group">
-							<label> <span>Color</span></label>
-						<select class="form-control" name="color" id="tshirtColorSelect"
-							onchange="changeTshirtColorGender()" required>
-							<option value="#ffffff">White</option>
-							<option value="#000000">Black</option>
-						</select>
+							<label> <span>Color</span></label> <select class="form-control"
+								name="color" id="tshirtColorSelect"
+								onchange="changeTshirtColorGender()" required>
+								<option value="#ffffff">White</option>
+								<option value="#000000">Black</option>
+							</select>
 						</div>
 						<br>
 
@@ -614,25 +634,107 @@ textarea.form-control {
             .catch(err => console.log(err));
         }
 
-     
         document.getElementById("designInput").addEventListener("change", function(event) {
             const file = event.target.files[0];
+            const wrapper = document.getElementById("designWrapper");
             const preview = document.getElementById("designPreview");
+            
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     preview.src = e.target.result;
-                    preview.style.display = "block";
+                    wrapper.style.display = "block"; 
                     
-                 
-                    preview.style.width = "120px";
-                    preview.style.transform = "translate(0px, 0px)";
-                    preview.setAttribute('data-x', 0);
-                    preview.setAttribute('data-y', 0);
+                    wrapper.style.width = "120px";
+                    wrapper.style.top = "35%";
+                    wrapper.style.left = "35%";
                 };
                 reader.readAsDataURL(file);
             }
         });
+
+       
+        const wrapper = document.getElementById("designWrapper");
+        let isDragging = false;
+        let startX, startY, initialLeft, initialTop;
+
+        wrapper.addEventListener('mousedown', function(e) {
+           
+            if (e.target.classList.contains('resize-handle')) return;
+            
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            initialLeft = wrapper.offsetLeft;
+            initialTop = wrapper.offsetTop;
+            
+            document.addEventListener('mousemove', mouseMoveHandler);
+            document.addEventListener('mouseup', mouseUpHandler);
+        });
+
+        function mouseMoveHandler(e) {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            
+            wrapper.style.left = (initialLeft + dx) + 'px';
+            wrapper.style.top = (initialTop + dy) + 'px';
+        }
+
+        function mouseUpHandler() {
+            isDragging = false;
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+        }
+
+       
+        const handle = document.getElementById("resizeHandle");
+        let isResizing = false;
+        let initialWidth, initialHeight;
+
+        handle.addEventListener('mousedown', function(e) {
+            e.stopPropagation(); // Dragging event ko rokne ke liye
+            isResizing = true;
+            startX = e.clientX;
+            initialWidth = wrapper.offsetWidth;
+            
+            document.addEventListener('mousemove', resizeMoveHandler);
+            document.addEventListener('mouseup', resizeUpHandler);
+        });
+
+        function resizeMoveHandler(e) {
+            if (!isResizing) return;
+            const dx = e.clientX - startX;
+            const newWidth = initialWidth + dx;
+            
+            
+            if (newWidth > 50 && newWidth < 250) {
+                wrapper.style.width = newWidth + 'px';
+            }
+        }
+
+        function resizeUpHandler() {
+            isResizing = false;
+            document.removeEventListener('mousemove', resizeMoveHandler);
+            document.removeEventListener('mouseup', resizeUpHandler);
+        }
+
+        wrapper.addEventListener('touchstart', function(e) {
+            if (e.target.classList.contains('resize-handle')) return;
+            isDragging = true;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            initialLeft = wrapper.offsetLeft;
+            initialTop = wrapper.offsetTop;
+        });
+        wrapper.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            const dx = e.touches[0].clientX - startX;
+            const dy = e.touches[0].clientY - startY;
+            wrapper.style.left = (initialLeft + dx) + 'px';
+            wrapper.style.top = (initialTop + dy) + 'px';
+        });
+        wrapper.addEventListener('touchend', function() { isDragging = false; });
 
     
         document.querySelectorAll('input[name="gender"]').forEach(radio => {
@@ -744,6 +846,6 @@ textarea.form-control {
           });
 	</script>
 
-	
+
 </body>
 </html>
