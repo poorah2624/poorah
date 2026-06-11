@@ -178,7 +178,7 @@ public class CartController {
 	        @RequestParam String size,
 	        @RequestParam String color,
 	        @RequestParam String tshirtType,
-	        @RequestParam String gender,
+	        @RequestParam(required = false, defaultValue = "male") String gender, 
 	        @RequestParam(required = false) String customNote,
 	        HttpSession session) {
 

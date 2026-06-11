@@ -448,6 +448,7 @@ textarea.form-control {
 				<div class="studio-form-card">
 					<form action="/addCustomToCart" method="post"
 						enctype="multipart/form-data">
+						<input type="hidden" name="gender" id="hiddenGender" value="male">
 
 						<h3>Create Your Custom T-Shirt 🎨</h3>
 
@@ -623,8 +624,13 @@ textarea.form-control {
         function changeTshirtColorGender() {
             const selectedColor = document.getElementById("tshirtColorSelect").value;
             const currentGender = document.querySelector('input[name="gender"]:checked').value;
+            
+            
+            document.getElementById("hiddenGender").value = currentGender;
+
             const tshirt = document.getElementById("tshirtImage");
             const preview = document.getElementById("designPreview");
+           
 
             if (currentGender === "male") {
                 if (selectedColor === "#000000") { // Black selected
