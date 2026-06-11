@@ -397,22 +397,8 @@ textarea.form-control {
 		position: static;
 	}
 }
-
-.design-overlay-preview {
-	position: absolute;
-	top: 30%; /* Shuruati position */
-	left: 35%; /* Shuruati position */
-	width: 120px; /* Default starting width */
-	height: auto;
-	object-fit: contain;
-	touch-action: none; 
-	user-select: none;
-	border: 2px dashed rgba(255, 152, 0, 0.5); /* User ko pata chale ki isse chota-bada karna hai */
-	padding: 4px;
-	cursor: move; 
-}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+
 </head>
 
 <body>
@@ -614,7 +600,7 @@ textarea.form-control {
             .catch(err => console.log(err));
         }
 
-     
+        // Live Graphic Image File Upload Reader Sync Engine
         document.getElementById("designInput").addEventListener("change", function(event) {
             const file = event.target.files[0];
             const preview = document.getElementById("designPreview");
@@ -622,13 +608,7 @@ textarea.form-control {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     preview.src = e.target.result;
-                    preview.style.display = "block";
-                    
-                 
-                    preview.style.width = "120px";
-                    preview.style.transform = "translate(0px, 0px)";
-                    preview.setAttribute('data-x', 0);
-                    preview.setAttribute('data-y', 0);
+                    preview.style.display = "block"; // Image uploaded, show layer
                 };
                 reader.readAsDataURL(file);
             }
@@ -685,62 +665,6 @@ textarea.form-control {
             let modal = document.getElementById("sizeChartModal");
             if (event.target == modal) { modal.style.display = "none"; }
         }
-     
-        interact('.design-overlay-preview')
-          .resizable({
-           
-            edges: { left: true, right: true, bottom: true, top: true },
-            listeners: {
-              move (event) {
-                var target = event.target;
-                var x = (parseFloat(target.getAttribute('data-x')) || 0);
-                var y = (parseFloat(target.getAttribute('data-y')) || 0);
-
-                target.style.width = event.rect.width + 'px';
-                target.style.height = event.rect.height + 'px';
-
-                x += event.deltaRect.left;
-                y += event.deltaRect.top;
-
-                target.style.transform = 'translate(' + x + 'px,' + y + 'px)';
-
-                target.setAttribute('data-x', x);
-                target.setAttribute('data-y', y);
-              }
-            },
-            modifiers: [
-            
-              interact.modifiers.restrictSize({
-                min: { width: 50, height: 50 },
-                max: { width: 250, height: 250 }
-              })
-            ],
-            inertia: true
-          })
-          .draggable({
-            listeners: {
-              move (event) {
-                var target = event.target;
-            
-                var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
-                var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
-
-               
-                target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-
-                target.setAttribute('data-x', x);
-                target.setAttribute('data-y', y);
-              }
-            },
-            inertia: true,
-            modifiers: [
-              
-              interact.modifiers.restrictRect({
-                restriction: '.tshirt-canvas-wrapper',
-                endOnly: true
-              })
-            ]
-          });
 	</script>
 
 	
