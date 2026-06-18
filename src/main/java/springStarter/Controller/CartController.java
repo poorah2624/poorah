@@ -212,8 +212,10 @@ public class CartController {
 	        }
 
 	        System.out.println("✅ File saved at: " + imageUrl);
+	        
+	        java.math.BigDecimal customPrice = new java.math.BigDecimal("239");
 
-	        cartService.addCustomToCart(user, imageUrl, size, color, tshirtType, gender, customNote);
+	        cartService.addCustomToCart(user, imageUrl, size, color, tshirtType, gender, customNote, customPrice);
 
 	    } catch (Exception e) {
 	        e.printStackTrace();

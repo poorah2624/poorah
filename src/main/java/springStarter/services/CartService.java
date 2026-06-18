@@ -128,7 +128,7 @@ public class CartService {
 	}
 
 	public void addCustomToCart(User user, String image, String size, String color, String type, String gender,
-			String customNote) {
+			String customNote, java.math.BigDecimal price) {
 
 		Cart cart = new Cart();
 		cart.setUser(user);
@@ -143,6 +143,8 @@ public class CartService {
 		cart.setCustomNote(customNote);
 
 		cart.setQuantity(1);
+		
+		cart.setTotalPrice(price);
 
 		BigDecimal basePrice = new BigDecimal("499"); 
 		BigDecimal printCharge = new BigDecimal("100"); 
