@@ -321,17 +321,22 @@ public class OrderService {
 
 	        boolean allItemsDone = order.getItems().stream()
 	                .allMatch(i -> i.getIsCancelled() || "Returned".equals(i.getStatus()) || i.getId().equals(item.getId()));
-
+            
+	        String currentStatus = order.getStatus();
+	       
+	        boolean isNotShippedYet = !"Shipped".equalsIgnoreCase(currentStatus) 
+	                               && !"Delivered".equalsIgnoreCase(currentStatus) 
+	                               && !"Out for delivery".equalsIgnoreCase(currentStatus);
 	     
 	        if ("ONLINE".equalsIgnoreCase(order.getPaymentMethod()) || "UPI".equalsIgnoreCase(order.getPaymentMethod())) {
-	            if (allItemsDone) {
+	            if (allItemsDone && isNotShippedYet) {
 	                refundAmount = order.getTotalAmount(); 
 	            } else {
 	                refundAmount = item.getFinalPrice(); 
 	            }
 	        } 
 	        else if ("PARTIAL_COD".equalsIgnoreCase(order.getPaymentMethod())) {
-	            if (allItemsDone) {
+	            if (allItemsDone && isNotShippedYet) {
 	                refundAmount = order.getTotalAmount().multiply(new BigDecimal("0.4")); 
 	            } else {
 	                refundAmount = item.getFinalPrice().multiply(new BigDecimal("0.4")); 
@@ -377,6 +382,12 @@ public class OrderService {
 
 		Order_item item = optionalItem.get();
 		if (!item.getOrder().getUser().getId().equals(userId)) return false;
+		
+		String orderStatus = item.getOrder().getStatus();
+	    if ("Shipped".equalsIgnoreCase(orderStatus) || "Delivered".equalsIgnoreCase(orderStatus) || "Out for delivery".equalsIgnoreCase(orderStatus)) {
+	        System.out.println("⚠️ Item cannot be cancelled as the order is already: " + orderStatus);
+	        return false;
+	    }
 
 		if (!item.getStatus().equals("Pending") && !item.getStatus().equals("Processing") && !item.getStatus().equals("Packed")) {
 			return false;
