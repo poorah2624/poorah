@@ -367,7 +367,7 @@ body {
 							<c:when test="${c.isCustom}">
 								<div class="custom-cart-card">
 									<div class="custom-img">
-										<img src="${c.customImage}" alt="Custom Design" /> <span
+										<img src="${fn:split(c.customImage, ',')[0]}" alt="Custom Design" /> <span
 											class="custom-badge">Your Design 🎨</span>
 									</div>
 

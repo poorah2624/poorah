@@ -67,7 +67,15 @@ public class ShiprocketService {
                 }
                 itemJson.put("sku", "SKU_" + item.getId());
                 itemJson.put("units", item.getQuantity());
-                itemJson.put("selling_price", item.getFinalPrice());
+            
+                if (item.getFinalPrice() != null) {
+                  
+                    BigDecimal unitPrice = item.getFinalPrice().divide(BigDecimal.valueOf(item.getQuantity()), 0, RoundingMode.HALF_UP);
+                    itemJson.put("selling_price", unitPrice.toPlainString());
+                } else {
+                    itemJson.put("selling_price", "499"); 
+                }
+                
                 items.put(itemJson);
             }
 

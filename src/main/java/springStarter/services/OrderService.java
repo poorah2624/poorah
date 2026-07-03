@@ -111,6 +111,7 @@ public class OrderService {
 	    List<Order_item> orderItems = new ArrayList<>();
 	    int totalQty = 0;
 	    String category = null;
+	    boolean hasCustomItem = false;
 
 	    // ✅ ITEMS LOOP
 	    for (int i = 0; i < cartItems.size(); i++) {
@@ -133,6 +134,9 @@ public class OrderService {
 	        item.setIsCancelled(false);
 	        item.setRefundStatus("None");
 	        
+	        BigDecimal basePrice = BigDecimal.ZERO;
+	        BigDecimal discountPercent = BigDecimal.ZERO;
+	        
 	        if (cart.getIsCustom() != null && cart.getIsCustom()) {
 	            item.setIsCustom(true);
 	            item.setItem(null);
@@ -141,25 +145,33 @@ public class OrderService {
 	            item.setTshirtType(cart.getTshirtType());
 	            item.setGender(cart.getGender());
 	            item.setCustomNote(cart.getCustomNote());
+	            hasCustomItem = true;
+	            
+	            basePrice = cart.getTotalPrice(); 
+	            discountPercent = BigDecimal.ZERO;
 	        } else {
 	            item.setIsCustom(false);
 	            item.setItem(cart.getItem());
+	            basePrice = cart.getItem().getItemPrice();
+	            discountPercent = cart.getItem().getDiscount();
 	        }
 	        
-	        BigDecimal basePrice = (cart.getIsCustom() != null && cart.getIsCustom()) ? cart.getTotalPrice() : cart.getItem().getItemPrice();
+	        //BigDecimal basePrice = (cart.getIsCustom() != null && cart.getIsCustom()) ? cart.getTotalPrice() : cart.getItem().getItemPrice();
 	        BigDecimal quantity = BigDecimal.valueOf(cart.getQuantity());  
-	        BigDecimal discountPercent = (cart.getIsCustom() != null && cart.getIsCustom()) ? new BigDecimal("10") : cart.getItem().getDiscount();
+	        //BigDecimal discountPercent = (cart.getIsCustom() != null && cart.getIsCustom()) ? new BigDecimal("10") : cart.getItem().getDiscount();
 
 	      
 	        BigDecimal discountAmount = basePrice.multiply(discountPercent).divide(BigDecimal.valueOf(100));
 	        BigDecimal finalPriceBeforeNoReturn = basePrice.subtract(discountAmount);
 
 	        boolean isItemNoReturn = false;
-	        if (i < discountFlags.length && "YES".equalsIgnoreCase(discountFlags[i].trim())) {
+	        if (cart.getIsCustom() == null || !cart.getIsCustom()) {
+	          if (i < discountFlags.length && "YES".equalsIgnoreCase(discountFlags[i].trim())) {
 	            isItemNoReturn = true;
 	            BigDecimal noReturnDiscountAmt = finalPriceBeforeNoReturn.multiply(new BigDecimal("8")).divide(BigDecimal.valueOf(100));
 	            discountAmount = discountAmount.add(noReturnDiscountAmt);
 	            finalPriceBeforeNoReturn = finalPriceBeforeNoReturn.subtract(noReturnDiscountAmt);
+	          }
 	        }
 	        item.setNoReturnOrder(isItemNoReturn);
 
@@ -176,7 +188,14 @@ public class OrderService {
 	    }
 
 	    // ✅ DELIVERY CHARGE LOGIC
-	    BigDecimal deliveryCharge = total.compareTo(BigDecimal.valueOf(500)) > 0 ? BigDecimal.ZERO : BigDecimal.valueOf(50);
+	    //BigDecimal deliveryCharge = total.compareTo(BigDecimal.valueOf(500)) > 0 ? BigDecimal.ZERO : BigDecimal.valueOf(50);
+	    BigDecimal deliveryCharge = BigDecimal.ZERO;
+
+	    if (!hasCustomItem) {
+	    	deliveryCharge = total.compareTo(BigDecimal.valueOf(500)) > 0 ? BigDecimal.ZERO : BigDecimal.valueOf(50);
+	    } else {
+	        deliveryCharge = BigDecimal.ZERO;
+	    }
 	    BigDecimal finalAmount = total.add(deliveryCharge).setScale(0, RoundingMode.HALF_UP); 
 
 	    // ✅ SET ORDER VALUES
