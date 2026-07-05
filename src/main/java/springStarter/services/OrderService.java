@@ -396,46 +396,101 @@ public class OrderService {
 	}
 
 	public boolean cancelOrderItem(Long orderItemId, Long userId) {
-		Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
-		if (!optionalItem.isPresent()) return false;
+	    Optional<Order_item> optionalItem = orderItemRepo.findById(orderItemId);
+	    if (!optionalItem.isPresent()) return false;
 
-		Order_item item = optionalItem.get();
-		if (!item.getOrder().getUser().getId().equals(userId)) return false;
-		
-		String orderStatus = item.getOrder().getStatus();
-	    if ("Shipped".equalsIgnoreCase(orderStatus) || "Delivered".equalsIgnoreCase(orderStatus) || "Out for delivery".equalsIgnoreCase(orderStatus)) {
-	        System.out.println("⚠️ Item cannot be cancelled as the order is already: " + orderStatus);
+	    Order_item item = optionalItem.get();
+	    if (!item.getOrder().getUser().getId().equals(userId)) return false;
+
+	    Orders order = item.getOrder();
+	    String orderStatus = order.getStatus();
+
+	    if ("Shipped".equalsIgnoreCase(orderStatus) || "Delivered".equalsIgnoreCase(orderStatus) || "Out for Delivery".equalsIgnoreCase(orderStatus)) {
+	        System.out.println("⚠️ Cannot cancel item. Order is already shipped/delivered.");
 	        return false;
 	    }
 
-		if (!item.getStatus().equals("Pending") && !item.getStatus().equals("Processing") && !item.getStatus().equals("Packed")) {
-			return false;
-		}
+	    if (!item.getStatus().equals("Pending") && !item.getStatus().equals("Processing") && !item.getStatus().equals("Packed")) {
+	        return false;
+	    }
 
-		Orders order = item.getOrder();
-		item.setRefundStatus(!"COD".equals(order.getPaymentMethod()) ? "Pending" : "Not Required");
-		if (!"COD".equals(order.getPaymentMethod())) item.setCancelledAt(LocalDateTime.now());
+	    item.setStatus("Cancelled");
+	    item.setIsCancelled(true);
+	    item.setCancelledAt(LocalDateTime.now());
+	    
+	    if ("COD".equals(order.getPaymentMethod())) {
+	        item.setRefundStatus("Not Required");
+	    } else {
+	        item.setRefundStatus("Pending");
+	    }
+	    
+	    orderItemRepo.save(item);
 
-		item.setStatus("Cancelled");
-		item.setIsCancelled(true);
-		orderItemRepo.save(item);
+	    if (!"COD".equals(order.getPaymentMethod()) && order.getPayment() != null) {
+	        try {
+	            RazorpayClient client = new RazorpayClient("rzp_live_SjF1cX3eDU1byW", "xkrdODrz7yDiFbYeczBOTHgl");
+	            JSONObject refundRequest = new JSONObject();
+	            BigDecimal refundAmount = BigDecimal.ZERO;
 
-		processRefund(item, order, order.getPayment());
-		updateOrderStatusAfterItemChange(order);
-		try {
-	         boolean isWholeOrderCancelled = order.getItems().stream()
+	            boolean allItemsCancelled = order.getItems().stream()
+	                    .allMatch(i -> i.getIsCancelled() || "Returned".equals(i.getStatus()) || i.getId().equals(item.getId()));
+
+	            if ("ONLINE".equalsIgnoreCase(order.getPaymentMethod()) || "UPI".equalsIgnoreCase(order.getPaymentMethod())) {
+	                if (allItemsCancelled) {
+	                   
+	                    refundAmount = order.getTotalAmount(); 
+	                } else {
+	                  
+	                    refundAmount = item.getFinalPrice(); 
+	                }
+	            } 
+	            else if ("PARTIAL_COD".equalsIgnoreCase(order.getPaymentMethod())) {
+	                if (allItemsCancelled) { 
+	                    refundAmount = order.getTotalAmount().multiply(new BigDecimal("0.4")); 
+	                } else {
+	                    refundAmount = item.getFinalPrice().multiply(new BigDecimal("0.4")); 
+	                }
+	            }
+
+	            BigDecimal refundAmountRounded = refundAmount.setScale(0, RoundingMode.HALF_UP);
+	            BigDecimal paidAmountRounded = order.getPayment().getAmount().setScale(0, RoundingMode.HALF_UP);
+
+	            if (refundAmountRounded.compareTo(paidAmountRounded) > 0) {
+	                refundAmountRounded = paidAmountRounded; 
+	            }
+
+	            if (refundAmountRounded.compareTo(BigDecimal.ZERO) > 0) {
+	                refundRequest.put("amount", refundAmountRounded.multiply(new BigDecimal(100)).intValue());
+	             
+	                client.payments.refund(order.getPayment().getRazorpayPaymentId(), refundRequest);
+	                item.setRefundStatus("Processed");
+	                System.out.println("⚡ Instant Refund Processed Successfully via Razorpay for Item ID: " + item.getId());
+	            } else {
+	                item.setRefundStatus("Not Required");
+	            }
+
+	        } catch (Exception e) {
+	            System.out.println("❌ Instant Razorpay Refund Failed during User Cancel: " + e.getMessage());
+	            item.setRefundStatus("Pending"); 
+	        }
+	        orderItemRepo.save(item);
+	    }
+
+	    updateOrderStatusAfterItemChange(order);
+
+	    try {
+	        boolean isWholeOrderCancelled = order.getItems().stream()
 	                .allMatch(i -> "Cancelled".equalsIgnoreCase(i.getStatus()));
 
 	        if (isWholeOrderCancelled) {
 	            shiprocketService.cancelOrderInShiprocket(order);
 	            System.out.println("🛑 All items cancelled by user. Order " + order.getOrderNumber() + " cancelled in Shiprocket.");
-	        } else {
-	            System.out.println("ℹ️ Partial cancellation done. Shiprocket order kept active for remaining items.");
 	        }
 	    } catch (Exception e) {
-	        System.out.println("⚠️ Shiprocket item cancellation sync failed: " + e.getMessage());
+	        System.out.println("⚠️ Shiprocket cancellation sync error: " + e.getMessage());
 	    }
-		return true;
+
+	    return true;
 	}
 
 	private void updateOrderStatusAfterItemChange(Orders order) {
