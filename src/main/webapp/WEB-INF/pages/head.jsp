@@ -51,6 +51,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       
  <link rel="icon" href="/Logo.png" type="image/png">
  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+ <link rel="shortcut icon" href="/favicon.ico">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
