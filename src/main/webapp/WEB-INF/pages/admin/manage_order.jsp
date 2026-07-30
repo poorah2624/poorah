@@ -146,7 +146,7 @@
 															<td>${o.user.userEmail}</td>
 															<td><c:choose>
 																	<c:when test="${not empty o.address}">
-            ${o.address.street}, ${o.address.city}, ${o.address.state} - ${o.address.pincode}
+            ${o.address.houseNo}, ${o.address.area }, ${o.address.landmark }, ${o.address.city}, ${o.address.state} - ${o.address.pincode}
             <br />
 																		<small><b>Phone:</b> ${o.address.phone}</small>
 																	</c:when>
