@@ -148,7 +148,7 @@
 																	<c:when test="${not empty o.address}">
             ${o.address.houseNo}, ${o.address.area }, ${o.address.landmark }, ${o.address.city}, ${o.address.state} - ${o.address.pincode}
             <br />
-																		<small><b>Phone:</b> ${o.address.phone}</small>
+																		<small><b>Phone:</b> ${o.address.mobile}</small>
 																	</c:when>
 																	<c:otherwise>
 																		<span class="label label-default">N/A</span>
