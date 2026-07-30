@@ -18,7 +18,9 @@ public interface ItemRepo extends JpaRepository<Item, Long>  {
 	
 	boolean existsBySkuId(String skuId);
 	
-	List<Item> findByStatus(String status);
+	//List<Item> findByStatus(String status);
+	
+	List<Item> findByStatusOrderByItemIdDesc(String status);
 	
 	List<Item> findByGenderAndCategory_CategoryNameAndStatus(String gender, String categoryName, String status);
 	

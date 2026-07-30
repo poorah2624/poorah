@@ -115,6 +115,7 @@
 													<th>Order Id</th>
 													<th>Buyer Name</th>
 													<th>Buyer Email</th>
+													<th>Shipping Address</th>
 													<th>Order date</th>
 													<th>Image</th>
 													<th>Product Name</th>
@@ -143,6 +144,16 @@
 															<td>${o.orderNumber}</td>
 															<td>${o.user.userName}</td>
 															<td>${o.user.userEmail}</td>
+															<td><c:choose>
+																	<c:when test="${not empty o.address}">
+            ${o.address.street}, ${o.address.city}, ${o.address.state} - ${o.address.pincode}
+            <br />
+																		<small><b>Phone:</b> ${o.address.phone}</small>
+																	</c:when>
+																	<c:otherwise>
+																		<span class="label label-default">N/A</span>
+																	</c:otherwise>
+																</c:choose></td>
 															<td>${o.orderDate}</td>
 
 															<c:choose>

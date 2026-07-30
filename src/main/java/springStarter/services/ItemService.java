@@ -177,7 +177,7 @@ public class ItemService {
 	}
 	
 	public List<Item> getActiveItems(){
-	    return itemRepo.findByStatus("active");
+	    return itemRepo.findByStatusOrderByItemIdDesc("active");
 	}
 	
 
