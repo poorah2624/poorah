@@ -37,8 +37,11 @@ public class TeamService {
         return teamRepo.findById(teamId).orElse(null);
     }
 
+    /* @Autowired
+	private Cloudinary cloudinary; */
+    
     @Autowired
-	private Cloudinary cloudinary;
+   	private R2StorageService r2StorageService;
 
     public void save(Team team, MultipartFile file) throws IOException {
 
@@ -46,12 +49,14 @@ public class TeamService {
         /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
     	if (file != null && !file.isEmpty()) {
     	    try {
-    	        Map uploadResult = cloudinary.uploader().upload(
+    	       /* Map uploadResult = cloudinary.uploader().upload(
     	                file.getBytes(),
     	                ObjectUtils.asMap("folder", "poorah/team")
     	        );
 
-    	        String imageUrl = (String) uploadResult.get("secure_url");
+    	        String imageUrl = (String) uploadResult.get("secure_url");*/
+    	    	
+    	    	String imageUrl = r2StorageService.uploadImage(file, "poorah/team");
 
     	        team.settImage(imageUrl); 
 

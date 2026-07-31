@@ -25,6 +25,9 @@ public class AboutUsService {
 
 	    @Autowired
 	    private AboutUsRepo aboutRepo;
+	    
+	    @Autowired
+		private R2StorageService r2StorageService;
 
 	    public AboutUs getAboutUs() {
 	        //return aboutRepo.findAll().stream().findFirst().orElse(new AboutUs());
@@ -66,12 +69,14 @@ public class AboutUsService {
 
 	        	 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
 	        	try {
-	        	    Map uploadResult = cloudinary.uploader().upload(
+	        	    /* Map uploadResult = cloudinary.uploader().upload(
 	        	            file.getBytes(),
 	        	            ObjectUtils.asMap("folder", "poorah/about")
 	        	    );
 
-	        	    String imageUrl = (String) uploadResult.get("secure_url");
+	        	    String imageUrl = (String) uploadResult.get("secure_url");*/
+	        		
+	        		String imageUrl = r2StorageService.uploadImage(file, "poorah/about");
 
 	        	    existing.setaImage(imageUrl);   
 

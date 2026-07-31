@@ -22,8 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
+
 
 import springStarter.models.Banner;
 import springStarter.models.Category;
@@ -38,6 +37,7 @@ import springStarter.services.CategoryService;
 import springStarter.services.ContactDetailsService;
 import springStarter.services.GalleryService;
 import springStarter.services.ItemService;
+import springStarter.services.R2StorageService;
 import springStarter.services.SocialLinkService;
 import springStarter.services.SubCategoryService;
 import springStarter.services.UserService;
@@ -381,8 +381,11 @@ public class HomeController {
 		return "customDesign";
 	}
 
+	/* @Autowired
+	private Cloudinary cloudinary; */
+	
 	@Autowired
-	private Cloudinary cloudinary;
+	private R2StorageService r2StorageService;
 
 	@PostMapping("/custom-order")
 	public String customOrder(@RequestParam("designImage") MultipartFile file, @RequestParam String size,
@@ -392,10 +395,12 @@ public class HomeController {
 		try {
 			String imageUrl = null;
 
-			Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
+			/* Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
 					ObjectUtils.asMap("folder", "poorah/custom-orders", "resource_type", "auto"));
 
-			imageUrl = (String) uploadResult.get("secure_url");
+			imageUrl = (String) uploadResult.get("secure_url"); */
+			
+			imageUrl = r2StorageService.uploadImage(file, "poorah/custom-orders");
 
 			// TODO: save in DB (CustomOrder entity)
 

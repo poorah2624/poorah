@@ -42,8 +42,11 @@ public class BannerService {
                 .orElseThrow(() -> new RuntimeException("Banner not found"));
     }
     
+    /* @Autowired
+	private Cloudinary cloudinary; */
+    
     @Autowired
-	private Cloudinary cloudinary;
+	private R2StorageService r2StorageService;
     
 //  delete banner
     public void deleteBanner(Long bannerId) {
@@ -51,27 +54,17 @@ public class BannerService {
         Banner banner = bannerRepo.findByBannerId(bannerId)
                 .orElseThrow(() -> new RuntimeException("Banner not found"));
 
-        // delete image file
-        /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
         try {
 
-            String imagePath = banner.getBannerName();
-
-            if (imagePath != null) {
-
-                File file = new File("/var/www/html" + imagePath);
-
-                if (file.exists()) {
-                    file.delete();
-                    System.out.println("File deleted: " + file.getAbsolutePath());
-                }
+            if (banner.getBannerName() != null && !banner.getBannerName().isEmpty()) {
+                r2StorageService.deleteImage(banner.getBannerName());
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        bannerRepo.deleteById(bannerId);
+        bannerRepo.delete(banner);
     }
 
 

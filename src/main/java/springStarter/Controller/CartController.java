@@ -18,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
-
 import springStarter.models.Cart;
 import springStarter.models.Category;
 import springStarter.models.ContactDetails;
@@ -30,6 +27,7 @@ import springStarter.services.CartService;
 import springStarter.services.CategoryService;
 import springStarter.services.ContactDetailsService;
 import springStarter.services.ItemService;
+import springStarter.services.R2StorageService;
 
 @Controller
 public class CartController {
@@ -169,8 +167,11 @@ public class CartController {
 	    return "redirect:/checkout";
 	}
 	
+	/* @Autowired
+	private Cloudinary cloudinary; */
+	
 	@Autowired
-	private Cloudinary cloudinary;
+	private R2StorageService r2StorageService;
 	
 	@PostMapping("/addCustomToCart")
 	public String addCustomToCart(
@@ -197,21 +198,25 @@ public class CartController {
 	        String imageUrl = null;
 
 	        try {
-	            Map uploadResult = cloudinary.uploader().upload(
+	            /* Map uploadResult = cloudinary.uploader().upload(
 	                    file.getBytes(),
 	                    ObjectUtils.asMap("resource_type", "auto") // important for all file types
 	            );
 
 	            imageUrl = (String) uploadResult.get("secure_url");
 
-	            System.out.println("✅ Uploaded to Cloudinary: " + imageUrl);
+	            System.out.println("✅ Uploaded to Cloudinary: " + imageUrl); */
+	        	
+	        	imageUrl = r2StorageService.uploadImage(file, "poorah/custom");
+
+	        	System.out.println("Uploaded to R2: " + imageUrl);
 
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            return "redirect:/customDesign";
 	        }
 
-	        System.out.println("✅ File saved at: " + imageUrl);
+	        System.out.println("File saved at: " + imageUrl);
 	        
 	        java.math.BigDecimal customPrice = new java.math.BigDecimal("239");
 

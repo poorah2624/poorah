@@ -35,8 +35,11 @@ public class GalleryService {
                 .orElseThrow(() -> new RuntimeException("Gallery not found"));
     }
     
+    /* @Autowired
+	private Cloudinary cloudinary; */
+    
     @Autowired
-	private Cloudinary cloudinary;
+	private R2StorageService r2StorageService;
     
 //  delete banner
     public void deleteGallery(Long galleryId) {
@@ -46,7 +49,7 @@ public class GalleryService {
 
         // delete image file
         /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
-        try {
+        /* try {
             String imageUrl = gallery.getGalleryName();
 
             if (imageUrl != null && imageUrl.contains("/upload/")) {
@@ -59,6 +62,16 @@ public class GalleryService {
                 cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
 
                 System.out.println("Deleted from Cloudinary: " + publicId);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        
+        try {
+
+            if (gallery.getGalleryName() != null && !gallery.getGalleryName().isEmpty()) {
+                r2StorageService.deleteImage(gallery.getGalleryName());
             }
 
         } catch (Exception e) {

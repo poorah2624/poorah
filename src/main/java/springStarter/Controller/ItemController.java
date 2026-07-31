@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 
 import springStarter.models.Item;
 import springStarter.models.ItemVariant;
 import springStarter.services.CategoryService;
 import springStarter.services.ItemService;
+import springStarter.services.R2StorageService;
 import springStarter.services.SubCategoryService;
 
 @Controller
@@ -37,8 +36,11 @@ public class ItemController {
 	@Autowired
 	private SubCategoryService subCategoryService;
 
+	/* @Autowired
+	private Cloudinary cloudinary; */
+	
 	@Autowired
-	private Cloudinary cloudinary;
+	private R2StorageService r2StorageService;
 
 	@GetMapping("/Add_Item")
 	public String addItem(Model model) {
@@ -66,9 +68,13 @@ public class ItemController {
 		StringBuilder imageUrls = new StringBuilder();
 		for (MultipartFile file : files) {
 			if (file != null && !file.isEmpty()) {
-				Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
+				/* Map uploadResult = cloudinary.uploader().upload(file.getBytes(),
 						ObjectUtils.asMap("folder", "poorah/products"));
-				imageUrls.append(uploadResult.get("secure_url")).append(",");
+				imageUrls.append(uploadResult.get("secure_url")).append(","); */
+				
+				String imageUrl = r2StorageService.uploadImage(file, "poorah/products");
+
+		        imageUrls.append(imageUrl).append(",");
 			}
 		}
 		String finalImages = imageUrls.toString().replaceAll(",$", "");
@@ -105,9 +111,10 @@ public class ItemController {
 				// FIX: Target specific file map dynamically
 				MultipartFile vFile = multiRequest.getFile("variantImage_" + i);
 				if (vFile != null && !vFile.isEmpty()) {
-					Map uploadResult = cloudinary.uploader().upload(vFile.getBytes(),
+					/* Map uploadResult = cloudinary.uploader().upload(vFile.getBytes(),
 							ObjectUtils.asMap("folder", "poorah/variants"));
-					imageUrl = (String) uploadResult.get("secure_url");
+					imageUrl = (String) uploadResult.get("secure_url"); */
+					imageUrl = r2StorageService.uploadImage(vFile, "poorah/variants");
 				}
 
 				String sStock = request.getParameter("stockS_" + i);
@@ -201,8 +208,13 @@ public class ItemController {
 	    if (files != null) {
 	        for (MultipartFile file : files) {
 	            if (!file.isEmpty()) {
-	                Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("folder", "poorah/products"));
-	                newUploadsBuilder.append(uploadResult.get("secure_url")).append(",");
+	                /* Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("folder", "poorah/products"));
+	                newUploadsBuilder.append(uploadResult.get("secure_url")).append(","); */
+	            	
+	            	String imageUrl = r2StorageService.uploadImage(file, "poorah/products");
+
+	            	newUploadsBuilder.append(imageUrl).append(",");
+	            	
 	            }
 	        }
 	    }
@@ -255,8 +267,12 @@ public class ItemController {
 	            String imageUrl = "";
 	            MultipartFile vFile = multiRequest.getFile("variantImage_" + i);
 	            if (vFile != null && !vFile.isEmpty()) {
-	                Map uploadResult = cloudinary.uploader().upload(vFile.getBytes(), ObjectUtils.asMap("folder", "poorah/variants"));
-	                imageUrl = (String) uploadResult.get("secure_url");
+	                /* Map uploadResult = cloudinary.uploader().upload(vFile.getBytes(), ObjectUtils.asMap("folder", "poorah/variants"));
+	                imageUrl = (String) uploadResult.get("secure_url"); */
+	            	
+	            	imageUrl = r2StorageService.uploadImage(vFile, "poorah/variants");
+
+	            	newUploadsBuilder.append(imageUrl).append(",");
 	            } else {
 	                if (variantIds != null && variantIds.size() > i && variantIds.get(i) != null) {
 	                    for (ItemVariant oldV : existingItem.getVariants()) {

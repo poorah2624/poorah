@@ -3,7 +3,6 @@ package springStarter.Controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 
 import springStarter.models.Banner;
 import springStarter.services.BannerService;
+import springStarter.services.R2StorageService;
 
 @Controller
 public class BannerController {
@@ -27,8 +25,11 @@ public class BannerController {
 	@Autowired
 	private BannerService bannerService;
 	
+	/*@Autowired
+	private Cloudinary cloudinary; */
+	
 	@Autowired
-	private Cloudinary cloudinary;
+	private R2StorageService r2StorageService;
 	
 	@GetMapping("/Add_Banner")
 	public String Add_Banner() {
@@ -55,7 +56,7 @@ public class BannerController {
 	    	);
 	        String imageUrl = (String) uploadResult.get("secure_url");*/
 	    	
-	    	String uploadDir = "/opt/uploads/banner/";
+	    	/* String uploadDir = "/opt/uploads/banner/";
 
 	    	File dir = new File(uploadDir);
 
@@ -69,7 +70,9 @@ public class BannerController {
 
 	    	file.transferTo(dest);
 
-	    	String imageUrl = "/uploads/banner/" + fileName;
+	    	String imageUrl = "/uploads/banner/" + fileName;  */
+	    	
+	    	String imageUrl = r2StorageService.uploadImage(file, "poorah/banner");
 
 	        if(imageUrl == null){
 	            model.addAttribute("Error","Upload failed (no URL)");
@@ -135,7 +138,7 @@ public class BannerController {
 
 	    	    String imageUrl = (String) uploadResult.get("secure_url");*/
 	    		
-	    		String uploadDir = "/opt/uploads/banner/";
+	    		/*String uploadDir = "/opt/uploads/banner/";
 
 	    		File dir = new File(uploadDir);
 
@@ -151,6 +154,9 @@ public class BannerController {
 
 	    		String imageUrl = "/uploads/banner/" + fileName;
 
+	    		existingBanner.setBannerName(imageUrl);  */
+	    		
+	    		String imageUrl = r2StorageService.uploadImage(file, "poorah/banner");
 	    		existingBanner.setBannerName(imageUrl);
 
 	    	} catch (Exception e) {
@@ -163,6 +169,7 @@ public class BannerController {
 
 	    bannerService.saveBanner(existingBanner);
 	    model.addAttribute("msg","Banner edited successfully");
+	    
 	    return "redirect:/view_Banner";
 	}
 	

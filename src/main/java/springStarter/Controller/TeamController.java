@@ -18,6 +18,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
 import springStarter.models.Team;
+import springStarter.services.R2StorageService;
 import springStarter.services.TeamService;
 
 @Controller
@@ -25,6 +26,9 @@ public class TeamController {
 	
 	@Autowired
 	private TeamService teamService;
+	
+	@Autowired
+	private R2StorageService r2StorageService;
 	
 	@GetMapping("/Add_team")
 	public String add_team() {
@@ -54,8 +58,8 @@ public class TeamController {
 	        return "admin/editTeam";
 	    }
 	  
-	  @Autowired
-		private Cloudinary cloudinary;
+	  /* @Autowired
+		private Cloudinary cloudinary; */
 	  
 	  @PostMapping("/editTeam")
 		public String updateTeam(
@@ -75,12 +79,14 @@ public class TeamController {
 
 		    	 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
 		    	try {
-		    	    Map uploadResult = cloudinary.uploader().upload(
+		    	    /* Map uploadResult = cloudinary.uploader().upload(
 		    	            file.getBytes(),
 		    	            ObjectUtils.asMap("folder", "poorah/team")
 		    	    );
 
-		    	    String imageUrl = (String) uploadResult.get("secure_url");
+		    	    String imageUrl = (String) uploadResult.get("secure_url"); */
+		    		
+		    		String imageUrl = r2StorageService.uploadImage(file, "poorah/team");
 
 		    	    existingTeam.settImage(imageUrl);   
 

@@ -19,6 +19,7 @@ import com.cloudinary.utils.ObjectUtils;
 
 import springStarter.models.Gallery;
 import springStarter.services.GalleryService;
+import springStarter.services.R2StorageService;
 
 @Controller
 public class GalleryController {
@@ -26,8 +27,11 @@ public class GalleryController {
 	@Autowired
 	private GalleryService galleryService;
 	
+	/* @Autowired
+	private Cloudinary cloudinary;*/
+	
 	@Autowired
-	private Cloudinary cloudinary;
+	private R2StorageService r2StorageService;
 	
 	@GetMapping("/Add_Gallery")
 	public String Add_Gallery() {
@@ -49,12 +53,14 @@ public class GalleryController {
 	    String imageUrl = null;
 
 	    try {
-	        Map uploadResult = cloudinary.uploader().upload(
+	        /* Map uploadResult = cloudinary.uploader().upload(
 	                file.getBytes(),
 	                ObjectUtils.asMap("folder", "poorah/gallery") 
 	        );
 
-	        imageUrl = (String) uploadResult.get("secure_url");
+	        imageUrl = (String) uploadResult.get("secure_url");*/
+	    	
+	    	imageUrl = r2StorageService.uploadImage(file, "poorah/gallery");
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -104,12 +110,15 @@ public class GalleryController {
 
 	    	 /*String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/uploads";*/
 	    	try {
-	    	    Map uploadResult = cloudinary.uploader().upload(
+	    	   /* Map uploadResult = cloudinary.uploader().upload(
 	    	            file.getBytes(),
 	    	            ObjectUtils.asMap("folder", "poorah/gallery") 
 	    	    );
 
-	    	    String imageUrl = (String) uploadResult.get("secure_url");
+	    	    String imageUrl = (String) uploadResult.get("secure_url");*/
+	    		
+	    		String imageUrl = r2StorageService.uploadImage(file, "poorah/gallery");
+
 
 	    	    existingGallery.setGalleryName(imageUrl);  
 

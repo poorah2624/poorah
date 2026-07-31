@@ -1,8 +1,7 @@
 package springStarter.Controller;
 
-import java.io.File;
+
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -18,18 +17,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
+
 
 import springStarter.models.Admin;
 import springStarter.services.AdminService;
+import springStarter.services.R2StorageService;
 import springStarter.services.UserService;
 
 @Controller
 public class AdminController {
 	
+	/* @Autowired
+	private Cloudinary cloudinary;*/
+	
 	@Autowired
-	private Cloudinary cloudinary;
+	private R2StorageService r2StorageService;
 
 	@GetMapping("/adminLogin")
 	public String adminLogin() {
@@ -73,12 +75,14 @@ public class AdminController {
 
 		if (!file.isEmpty()) {
 		    try {
-		        Map uploadResult = cloudinary.uploader().upload(
+		        /* Map uploadResult = cloudinary.uploader().upload(
 		                file.getBytes(),
 		                ObjectUtils.asMap("folder", "poorah/admin")
 		        );
 
-		        imageUrl = (String) uploadResult.get("secure_url");
+		        imageUrl = (String) uploadResult.get("secure_url"); */
+		    	
+		    	imageUrl = r2StorageService.uploadImage(file);
 
 		    } catch (Exception e) {
 		        e.printStackTrace();
@@ -192,14 +196,16 @@ public class AdminController {
 	   
 	    if (file != null && !file.isEmpty()) {
 	        try {
-	            Map uploadResult = cloudinary.uploader().upload(
+	            /* Map uploadResult = cloudinary.uploader().upload(
 	                    file.getBytes(),
 	                    ObjectUtils.asMap("folder", "poorah/admin")
 	            );
 
 	            String imageUrl = (String) uploadResult.get("secure_url");
 
-	            admin.setImage(imageUrl);  
+	            admin.setImage(imageUrl);  */
+	        	
+	        	admin.setImage(r2StorageService.uploadImage(file));
 
 	        } catch (Exception e) {
 	            e.printStackTrace();
