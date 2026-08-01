@@ -6440,8 +6440,8 @@ input[type="radio"]:invalid {
 
 .overlay-content {
 	position: absolute;
-	bottom: 30px; /* 👈 safe positioning */
-	left: 50%;
+	bottom: 158px; /* 👈 safe positioning */
+	left: 19%;
 	transform: translateX(-50%);
 	text-align: center;
 	color: #fff;
