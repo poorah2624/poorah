@@ -100,8 +100,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="overlay-content">
 
 
-						<a href="/customDesign">
-							<button class="upload-btn">Upload Design</button>
+						<a href="/customDesign" class="upload-area">
+							<!-- <button class="upload-btn">Upload Design</button> -->
 						</a>
 					</div>
 

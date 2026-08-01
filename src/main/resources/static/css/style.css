@@ -6429,6 +6429,21 @@ input[type="radio"]:invalid {
 	object-fit: cover;
 }
 
+.upload-area{
+    position: absolute;
+
+    left: 60px;
+    top: 250px;
+
+    width: 420px;
+    height: 230px;
+
+    z-index: 10;
+    cursor: pointer;
+
+    background: transparent;
+}
+
 .overlay2 {
 	position: absolute;
 	top: 0;
