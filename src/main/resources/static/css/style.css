@@ -835,15 +835,13 @@ ul.multi-column-dropdown h6 {
 }
 
 .video-img {
+	position: relative;
 	background:
 		url(https://res.cloudinary.com/dqufjiuzx/image/upload/v1777320333/ChatGPT_Image_Apr_28_2026_01_34_21_AM_teciug.png)
 		no-repeat center;
-	-webkit-background-size: cover;
-	background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	-ms-background-size: cover;
-	min-height: 455px;
+	
+    background-size: cover;
+    min-height: 455px;
 }
 
 .video-img1 {
@@ -6430,18 +6428,13 @@ input[type="radio"]:invalid {
 }
 
 .upload-area{
-    position: absolute;
-
-    left: 60px;
-    top: 250px;
-
-    width: 420px;
-    height: 230px;
-
-    z-index: 10;
-    cursor: pointer;
-
-    background: transparent;
+    position:absolute;
+    left:8%;
+    top:44%;
+    width:38%;
+    height:32%;
+    z-index:100;
+    cursor:pointer;
 }
 
 .overlay2 {

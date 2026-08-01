@@ -97,13 +97,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="category-box2">
 				<div class="video-img custom-upload-box">
 					<div class="overlay2"></div>
-					<div class="overlay-content">
+					
 
 
 						<a href="/customDesign" class="upload-area">
 							<!-- <button class="upload-btn">Upload Design</button> -->
 						</a>
-					</div>
+					
 
 				</div>
 
