@@ -34,7 +34,13 @@ public class R2StorageService {
 
     public String uploadImage(MultipartFile file, String folder) throws IOException {
 
-        String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        //String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+    	String original = file.getOriginalFilename()
+    	        .replaceAll("\\s+", "_")
+    	        .replaceAll(",", "")
+    	        .replaceAll("[^a-zA-Z0-9._-]", "");
+
+    	String fileName = UUID.randomUUID() + "_" + original;
         String key = folder + "/" + fileName;
 
         PutObjectRequest request = PutObjectRequest.builder()
