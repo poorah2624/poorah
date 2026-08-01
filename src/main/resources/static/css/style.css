@@ -6430,9 +6430,9 @@ input[type="radio"]:invalid {
 .upload-area{
     position:absolute;
     left:8%;
-    top:44%;
+    top:39%;
     width:38%;
-    height:32%;
+    height:37%;
     z-index:100;
     cursor:pointer;
 }
