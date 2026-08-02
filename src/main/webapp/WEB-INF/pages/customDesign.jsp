@@ -490,8 +490,9 @@ textarea.form-control {
 						<div class="studio-group">
 							<label>T-Shirt Fit Type</label>
 							<div class="type-chips-group">
-								<label><input type="radio" name="tshirtType"
-									value="Regular" checked><span>Regular Fit</span></label> <label><input
+								<!--  <label><input type="radio" name="tshirtType"
+									value="Regular" checked><span>Regular Fit</span></label> -->
+								<label><input
 									type="radio" name="tshirtType" value="Oversize"><span>Oversize
 										Fit</span></label>
 							</div>
@@ -554,28 +555,28 @@ textarea.form-control {
 				<tbody>
 					<tr>
 						<td>S</td>
-						<td>36</td>
-						<td>26</td>
-					</tr>
-					<tr>
-						<td>M</td>
-						<td>38</td>
+						<td>40</td>
 						<td>27</td>
 					</tr>
 					<tr>
-						<td>L</td>
-						<td>40</td>
+						<td>M</td>
+						<td>42</td>
 						<td>28</td>
 					</tr>
 					<tr>
-						<td>XL</td>
-						<td>42</td>
+						<td>L</td>
+						<td>44</td>
 						<td>29</td>
 					</tr>
 					<tr>
-						<td>XXL</td>
-						<td>44</td>
+						<td>XL</td>
+						<td>46</td>
 						<td>30</td>
+					</tr>
+					<tr>
+						<td>XXL</td>
+						<td>48</td>
+						<td>31</td>
 					</tr>
 				</tbody>
 			</table>
