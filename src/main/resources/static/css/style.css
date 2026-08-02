@@ -841,7 +841,7 @@ ul.multi-column-dropdown h6 {
 		no-repeat center;
 	
     background-size: cover;
-    min-height: 455px;
+    min-height: 550px;
 }
 
 .video-img1 {
@@ -6327,7 +6327,7 @@ input[type="radio"]:invalid {
 
     .video-img,
     .custom-upload-box{
-        height: 300px !important;
+        height: 400px !important;
         background-size: cover !important;
         background-position: center !important;
     }
