@@ -505,7 +505,7 @@ textarea.form-control {
 
 						<div class="studio-price-block">
 							<div class="price-wrapper">
-								<div class="final-price">₹ 699</div>
+								<div class="final-price">₹ 599</div>
 								<!--  <span class="old-price">₹ 399</span> <span class="discount">20%
 									OFF</span> -->
 							</div>

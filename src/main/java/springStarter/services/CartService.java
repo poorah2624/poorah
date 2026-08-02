@@ -146,7 +146,7 @@ public class CartService {
 		
 		cart.setTotalPrice(price);
 
-		BigDecimal basePrice = new BigDecimal("599"); 
+		BigDecimal basePrice = new BigDecimal("499"); 
 		BigDecimal printCharge = new BigDecimal("100"); 
 		
 		if ("XL".equals(size) || "XXL".equals(size)) {
