@@ -436,22 +436,29 @@ body {
 
 								<!-- 2. SIZE SELECTION SECTION -->
 								<div style="margin-bottom: 15px;">
-									<span class="section-title">Select Size</span> <a
-										href="javascript:void(0);" class="size-chart-link"
-										onclick="openSizeChart()"> <span
-										class="glyphicon glyphicon-list-alt"></span> Size Chart
+									<span class="section-title">Select Size</span>
+									<c:set var="isPolo"
+										value="${fn:containsIgnoreCase(item.itemName, 'Polo')}" />
+
+									<a href="javascript:void(0);" class="size-chart-link"
+										onclick="openSizeChart('${not empty item.subCategory ? item.subCategory.subCategoryName : item.subCategoryName}')">
+										<span class="glyphicon glyphicon-list-alt"></span> Size Chart
 									</a>
 								</div>
 
 								<div class="size-options-container" style="margin-bottom: 25px;">
-									
+
 									<c:choose>
 										<c:when test="${item.category.categoryName == 'Couple Wear'}">
-											<div class="couple-size-selector" style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px dashed #ff9b05;">
-												
+											<div class="couple-size-selector"
+												style="background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px dashed #ff9b05;">
+
 												<div class="form-group" style="margin-bottom: 15px;">
-													<label style="font-weight: 600; color: #34495e; display: block; margin-bottom: 5px;">🧔 Men's T-Shirt Size:</label>
-													<select id="coupleMenSize" class="form-control" style="width: 100%; max-width: 200px; height: 38px; font-weight: 600;">
+													<label
+														style="font-weight: 600; color: #34495e; display: block; margin-bottom: 5px;">🧔
+														Men's T-Shirt Size:</label> <select id="coupleMenSize"
+														class="form-control"
+														style="width: 100%; max-width: 200px; height: 38px; font-weight: 600;">
 														<option value="">-- Choose Size --</option>
 														<option value="S">S</option>
 														<option value="M">M</option>
@@ -462,8 +469,11 @@ body {
 												</div>
 
 												<div class="form-group" style="margin-bottom: 5px;">
-													<label style="font-weight: 600; color: #34495e; display: block; margin-bottom: 5px;">👩 Women's T-Shirt Size:</label>
-													<select id="coupleWomenSize" class="form-control" style="width: 100%; max-width: 200px; height: 38px; font-weight: 600;">
+													<label
+														style="font-weight: 600; color: #34495e; display: block; margin-bottom: 5px;">👩
+														Women's T-Shirt Size:</label> <select id="coupleWomenSize"
+														class="form-control"
+														style="width: 100%; max-width: 200px; height: 38px; font-weight: 600;">
 														<option value="">-- Choose Size --</option>
 														<option value="S">S</option>
 														<option value="M">M</option>
@@ -476,46 +486,66 @@ body {
 										</c:when>
 
 										<c:otherwise>
-											<c:forEach var="v" items="${item.variants}" varStatus="status">
+											<c:forEach var="v" items="${item.variants}"
+												varStatus="status">
 												<div id="sizeWrapper_${status.index}"
 													class="size-wrapper ${status.first ? 'active' : ''}">
 
 													<c:set var="stockStr" value="${v.variantStock}" />
-													<c:set var="sQty" value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
-													<c:set var="mQty" value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
-													<c:set var="lQty" value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
-													<c:set var="xlQty" value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
-													<c:set var="xxlQty" value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
+													<c:set var="sQty"
+														value="${fn:contains(stockStr,'S:') ? fn:substringBefore(fn:substringAfter(stockStr,'S:'),',M:') : ''}" />
+													<c:set var="mQty"
+														value="${fn:contains(stockStr,'M:') ? fn:substringBefore(fn:substringAfter(stockStr,'M:'),',L:') : ''}" />
+													<c:set var="lQty"
+														value="${fn:contains(stockStr,'L:') ? fn:substringBefore(fn:substringAfter(stockStr,'L:'),',XL:') : ''}" />
+													<c:set var="xlQty"
+														value="${fn:contains(stockStr,'XL:') ? (fn:contains(stockStr,'XXL:') ? fn:substringBefore(fn:substringAfter(stockStr,'XL:'),',XXL:') : fn:substringAfter(stockStr,'XL:')) : ''}" />
+													<c:set var="xxlQty"
+														value="${fn:contains(stockStr,'XXL:') ? fn:substringAfter(stockStr,'XXL:') : ''}" />
 
-													<label class="size-option-label ${sQty == '0' ? 'disabled-size' : ''}">
-														<input type="radio" name="selectedSize" value="S" ${sQty == '0' ? 'disabled' : ''}> 
-														<span class="size-custom-box">S</span> 
-														<c:if test="${sQty > 0 && sQty <= 5}"><span class="stock-warning">${sQty} Left!</span></c:if>
-													</label>
-
-													<label class="size-option-label ${mQty == '0' ? 'disabled-size' : ''}">
-														<input type="radio" name="selectedSize" value="M" ${mQty == '0' ? 'disabled' : ''}> 
-														<span class="size-custom-box">M</span> 
-														<c:if test="${mQty > 0 && mQty <= 5}"><span class="stock-warning">${mQty} Left!</span></c:if>
-													</label>
-
-													<label class="size-option-label ${lQty == '0' ? 'disabled-size' : ''}">
-														<input type="radio" name="selectedSize" value="L" ${lQty == '0' ? 'disabled' : ''}> 
-														<span class="size-custom-box">L</span> 
-														<c:if test="${lQty > 0 && lQty <= 5}"><span class="stock-warning">${lQty} Left!</span></c:if>
-													</label>
-
-													<label class="size-option-label ${xlQty == '0' ? 'disabled-size' : ''}">
-														<input type="radio" name="selectedSize" value="XL" ${xlQty == '0' ? 'disabled' : ''}> 
-														<span class="size-custom-box">XL</span> 
-														<c:if test="${xlQty > 0 && xlQty <= 5}"><span class="stock-warning">${xlQty} Left!</span></c:if>
+													<label
+														class="size-option-label ${sQty == '0' ? 'disabled-size' : ''}">
+														<input type="radio" name="selectedSize" value="S"
+														${sQty == '0' ? 'disabled' : ''}> <span
+														class="size-custom-box">S</span> <c:if
+															test="${sQty > 0 && sQty <= 5}">
+															<span class="stock-warning">${sQty} Left!</span>
+														</c:if>
+													</label> <label
+														class="size-option-label ${mQty == '0' ? 'disabled-size' : ''}">
+														<input type="radio" name="selectedSize" value="M"
+														${mQty == '0' ? 'disabled' : ''}> <span
+														class="size-custom-box">M</span> <c:if
+															test="${mQty > 0 && mQty <= 5}">
+															<span class="stock-warning">${mQty} Left!</span>
+														</c:if>
+													</label> <label
+														class="size-option-label ${lQty == '0' ? 'disabled-size' : ''}">
+														<input type="radio" name="selectedSize" value="L"
+														${lQty == '0' ? 'disabled' : ''}> <span
+														class="size-custom-box">L</span> <c:if
+															test="${lQty > 0 && lQty <= 5}">
+															<span class="stock-warning">${lQty} Left!</span>
+														</c:if>
+													</label> <label
+														class="size-option-label ${xlQty == '0' ? 'disabled-size' : ''}">
+														<input type="radio" name="selectedSize" value="XL"
+														${xlQty == '0' ? 'disabled' : ''}> <span
+														class="size-custom-box">XL</span> <c:if
+															test="${xlQty > 0 && xlQty <= 5}">
+															<span class="stock-warning">${xlQty} Left!</span>
+														</c:if>
 													</label>
 
 													<c:if test="${not empty xxlQty}">
-														<label class="size-option-label ${xxlQty eq '0' ? 'disabled-size' : ''}">
-															<input type="radio" name="selectedSize" value="XXL" ${xxlQty eq '0' ? 'disabled' : ''}> 
-															<span class="size-custom-box">XXL</span> 
-															<c:if test="${xxlQty > 0 && xxlQty <= 5}"><span class="stock-warning">${xxlQty} Left!</span></c:if>
+														<label
+															class="size-option-label ${xxlQty eq '0' ? 'disabled-size' : ''}">
+															<input type="radio" name="selectedSize" value="XXL"
+															${xxlQty eq '0' ? 'disabled' : ''}> <span
+															class="size-custom-box">XXL</span> <c:if
+																test="${xxlQty > 0 && xxlQty <= 5}">
+																<span class="stock-warning">${xxlQty} Left!</span>
+															</c:if>
 														</label>
 													</c:if>
 												</div>
@@ -755,11 +785,107 @@ body {
 			<span onclick="closeSizeChart()"
 				style="position: absolute; right: 20px; top: 15px; font-size: 28px; font-weight: bold; cursor: pointer; color: #aaa;">&times;</span>
 
-			<h3
+			<h3 id="sizeChartTitle"
 				style="margin-top: 0; font-weight: 700; color: #2c3e50; border-bottom: 2px solid #ff9b05; padding-bottom: 8px;">Size
 				Chart</h3>
 
-			<div style="overflow-x: auto; margin-top: 15px;">
+			<!-- 1. POLO WEAR SIZE CHART -->
+			<div id="poloSizeChart"
+				style="display: none; overflow-x: auto; margin-top: 15px;">
+				<table class="table table-bordered text-center" style="width: 100%;">
+					<thead>
+						<tr style="background-color: #f8f9fa;">
+							<th>Size</th>
+							<th>Chest (Inches)</th>
+							<th>Length (Inches)</th>
+							<th>Shoulder (Inches)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>S</b></td>
+							<td>38"</td>
+							<td>26.5"</td>
+							<td>16.5"</td>
+						</tr>
+						<tr>
+							<td><b>M</b></td>
+							<td>40"</td>
+							<td>27.5"</td>
+							<td>17.5"</td>
+						</tr>
+						<tr>
+							<td><b>L</b></td>
+							<td>42"</td>
+							<td>28.5"</td>
+							<td>18.5"</td>
+						</tr>
+						<tr>
+							<td><b>XL</b></td>
+							<td>44"</td>
+							<td>29.5"</td>
+							<td>19.5"</td>
+						</tr>
+						<tr>
+							<td><b>XXL</b></td>
+							<td>46"</td>
+							<td>30.5"</td>
+							<td>20.5"</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- 2. OVERSIZED WEAR SIZE CHART -->
+			<div id="oversizedSizeChart"
+				style="display: none; overflow-x: auto; margin-top: 15px;">
+				<table class="table table-bordered text-center" style="width: 100%;">
+					<thead>
+						<tr style="background-color: #f8f9fa;">
+							<th>Size</th>
+							<th>Chest (Inches)</th>
+							<th>Length (Inches)</th>
+							<th>Drop Shoulder (Inches)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>S</b></td>
+							<td>42"</td>
+							<td>28"</td>
+							<td>20"</td>
+						</tr>
+						<tr>
+							<td><b>M</b></td>
+							<td>44"</td>
+							<td>29"</td>
+							<td>21"</td>
+						</tr>
+						<tr>
+							<td><b>L</b></td>
+							<td>46"</td>
+							<td>30"</td>
+							<td>22"</td>
+						</tr>
+						<tr>
+							<td><b>XL</b></td>
+							<td>48"</td>
+							<td>31"</td>
+							<td>23"</td>
+						</tr>
+						<tr>
+							<td><b>XXL</b></td>
+							<td>50"</td>
+							<td>32"</td>
+							<td>24"</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<!-- 3. REGULAR / DEFAULT SIZE CHART -->
+			<div id="regularSizeChart"
+				style="display: none; overflow-x: auto; margin-top: 15px;">
 				<table class="table table-bordered text-center" style="width: 100%;">
 					<thead>
 						<tr style="background-color: #f8f9fa;">
@@ -917,7 +1043,32 @@ body {
 		}
 
 		function goToCart(){ window.location.href = '/cart'; }
-		function openSizeChart() { document.getElementById("sizeChartModal").style.display = "block"; }
+		function openSizeChart(subCatName) {
+		    let modal = document.getElementById("sizeChartModal");
+		    let poloChart = document.getElementById("poloSizeChart");
+		    let oversizedChart = document.getElementById("oversizedSizeChart");
+		    let regularChart = document.getElementById("regularSizeChart");
+		    let title = document.getElementById("sizeChartTitle");
+
+		   
+		    poloChart.style.display = "none";
+		    oversizedChart.style.display = "none";
+		    regularChart.style.display = "none";
+
+		    
+		    if (subCatName && subCatName.toLowerCase().includes("polo")) {
+		        title.innerText = "Polo Wear Size Chart";
+		        poloChart.style.display = "block";
+		    } else if (subCatName && subCatName.toLowerCase().includes("oversized")) {
+		        title.innerText = "Oversized Wear Size Chart";
+		        oversizedChart.style.display = "block";
+		    } else {
+		        title.innerText = "Standard Size Chart";
+		        regularChart.style.display = "block";
+		    }
+
+		    modal.style.display = "block";
+		}
 		function closeSizeChart() { document.getElementById("sizeChartModal").style.display = "none"; }
 		
 		
