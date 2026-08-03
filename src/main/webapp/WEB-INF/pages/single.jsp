@@ -851,32 +851,32 @@ body {
 					<tbody>
 						<tr>
 							<td><b>S</b></td>
-							<td>42"</td>
-							<td>28"</td>
+							<td>40"</td>
+							<td>27"</td>
 							<td>20"</td>
 						</tr>
 						<tr>
 							<td><b>M</b></td>
-							<td>44"</td>
-							<td>29"</td>
+							<td>42"</td>
+							<td>28"</td>
 							<td>21"</td>
 						</tr>
 						<tr>
 							<td><b>L</b></td>
-							<td>46"</td>
-							<td>30"</td>
+							<td>44"</td>
+							<td>29"</td>
 							<td>22"</td>
 						</tr>
 						<tr>
 							<td><b>XL</b></td>
-							<td>48"</td>
-							<td>31"</td>
+							<td>46"</td>
+							<td>30"</td>
 							<td>23"</td>
 						</tr>
 						<tr>
 							<td><b>XXL</b></td>
-							<td>50"</td>
-							<td>32"</td>
+							<td>48"</td>
+							<td>31"</td>
 							<td>24"</td>
 						</tr>
 					</tbody>
