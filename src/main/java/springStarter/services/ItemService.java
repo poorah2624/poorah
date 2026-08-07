@@ -176,9 +176,7 @@ public class ItemService {
 	    return itemRepo.existsBySkuId(skuId);
 	}
 	
-	public List<Item> getActiveItems(){
-	    return itemRepo.findByStatusOrderByItemIdDesc("active");
-	}
+	public List<Item> getActiveItems() { return itemRepo.findByStatusOrderByCreatedAtDesc("active"); }
 	
 
 }
