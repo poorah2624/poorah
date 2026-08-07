@@ -188,7 +188,7 @@
 	        "responsive": true,
 	        "stateSave": false,
 	        
-	        "order": [[ 0, "desc" ]] 
+	        "order": []
 	    });
 	});
 	</script>
