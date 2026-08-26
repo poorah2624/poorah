@@ -93,7 +93,7 @@
 						<ul class="nav navbar-nav">
 							<li class="desktop-logo-item"><a href="/home"
 								style="padding: 10px 15px;"> <img
-									src="hhttps://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/brand_image.png"
+									src="https://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/brand_image.png"
 									alt="PooRah Logo" class="site-logo">
 							</a></li>
 							<li class="active"><a href="/home" class="act">Home</a></li>
