@@ -27,7 +27,7 @@
 						</button>
 
 						<a href="/home" class="mobile-logo"> <img
-							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
+							src="https://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/brand_image.png"
 							alt="PooRah Logo" class="site-logo">
 						</a>
 

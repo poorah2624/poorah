@@ -47,7 +47,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<!-- MEN -->
 			<div class="category-box3">
 				<a href="/products/gender/MEN/Men"> <img
-					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1780295386/11_hcxvip.jpg"
+					src="https://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/11_hcxvip.jpeg"
 					alt="Men">
 					<div class="overlay1">
 						<h2>Men Collection</h2>
@@ -58,7 +58,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<!-- WOMEN -->
 			<div class="category-box4">
 				<a href="/products/gender/WOMEN/Women"> <img
-					src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1780295400/22_pgeccl.jpg"
+					src="https://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/22_pgeccl.jpeg"
 					alt="Women">
 					<div class="overlay1">
 						<h2>Women Collection</h2>
@@ -77,7 +77,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="category-box1">
 				<div class="video-img1">
 					<a href="/products3/category/5"> <img
-						src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1778178794/WhatsApp_Image_2026-05-07_at_23.23.06_oykhj5.jpg"
+						src="https://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/korean_banner.jpeg"
 						alt="Korean">
 
 					</a>
