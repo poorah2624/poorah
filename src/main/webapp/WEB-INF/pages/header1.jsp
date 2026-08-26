@@ -14,7 +14,7 @@
 
 					<div class="navbar-header nav_2">
 						<a href="/home" class="mobile-brand-logo-link"> <img
-							src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
+							src="https://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/brand_image.png"
 							alt="PooRah Logo" class="mobile-brand-logo">
 						</a>
 
@@ -31,7 +31,7 @@
 						<ul class="nav navbar-nav">
 							<li class="desktop-logo-item"><a href="/home"
 								style="padding: 10px 15px;"> <img
-									src="https://res.cloudinary.com/dqufjiuzx/image/upload/v1776880803/brand_image_t93n6o.png"
+									src="https://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/brand_image.png"
 									alt="PooRah Logo" class="site-logo">
 							</a></li>
 							<li class="active"><a href="/home" class="act">Home</a></li>
