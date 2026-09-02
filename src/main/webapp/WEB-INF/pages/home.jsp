@@ -94,9 +94,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<a href="/products/16" class="banner-link link3"
 						aria-label="Pendant"></a>
 
-					<!-- 4. Layered Bracelet -->
-					<a href="/products/17" class="banner-link link4"
-						aria-label="Layered Bracelet"></a>
 
 				</div>
 			</div>

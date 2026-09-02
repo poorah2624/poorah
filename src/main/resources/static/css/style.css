@@ -6294,36 +6294,22 @@ input[type="radio"]:invalid {
     z-index: 10;
 }
 
-/* First panel - Korean Earrings */
+/* First card - Earring */
 .link1 {
-    left: 0%;
-    top: 0%;
-    width: 25%;
-    height: 100%;
+    left: 0;
+    width: 33.33%;
 }
 
-/* Second panel - Flower Bracelet */
+/* Second card - Bracelet */
 .link2 {
-    left: 25%;
-    top: 0%;
-    width: 25%;
-    height: 100%;
+    left: 33.33%;
+    width: 33.33%;
 }
 
-/* Third panel - Pendant */
+/* Third card - Necklace */
 .link3 {
-    left: 50%;
-    top: 0%;
-    width: 25%;
-    height: 100%;
-}
-
-/* Fourth panel - Layered Bracelet */
-.link4 {
-    left: 75%;
-    top: 0%;
-    width: 25%;
-    height: 100%;
+    left: 66.66%;
+    width: 33.34%;
 }
 
 
