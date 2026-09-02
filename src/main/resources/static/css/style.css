@@ -6289,9 +6289,12 @@ input[type="radio"]:invalid {
     display: block;
 }
 .banner-link {
-    position: absolute;
-    display: block;
-    z-index: 10;
+    position: absolute !important;
+    top: 0 !important;
+    height: 100% !important;
+    display: block !important;
+    z-index: 10 !important;
+    cursor: pointer;
 }
 
 /* First card - Earring */
