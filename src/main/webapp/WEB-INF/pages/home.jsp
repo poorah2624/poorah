@@ -65,31 +65,43 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				</a>
 			</div>
-		
+
 
 		</div>
 
 
 		<!-- banner-bottom -->
 		<br>
+
 		
 		<div class="category-section1">
 			<div class="category-box1">
 				<div class="video-img1">
-					<a href="/products3/category/5"> <img
-						src="https://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/korean_banner.jpeg"
-						alt="Korean">
 
-					</a>
+					<img
+						src="https://pub-f72b42c19b69475d89c86633058f5a7c.r2.dev/korean_banner.jpeg"
+						alt="Jewelry">
+
+					<!-- 1. Korean Earrings -->
+					<a href="/products/10" class="banner-link link1"
+						aria-label="Korean Earrings"></a>
+
+					<!-- 2. Flower Bracelet -->
+					<a href="/products/17" class="banner-link link2"
+						aria-label="Flower Bracelet"></a>
+
+					<!-- 3. Pendant -->
+					<a href="/products/16" class="banner-link link3"
+						aria-label="Pendant"></a>
+
+					<!-- 4. Layered Bracelet -->
+					<a href="/products/18" class="banner-link link4"
+						aria-label="Layered Bracelet"></a>
 
 				</div>
-
-
-
 			</div>
-
 		</div>
-		
+
 		<div class="clearfix"></div>
 
 		<div class="category-section2">
@@ -97,13 +109,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="category-box2">
 				<div class="video-img custom-upload-box">
 					<div class="overlay2"></div>
-					
 
 
-						<a href="/customDesign" class="upload-area">
-							<!-- <button class="upload-btn">Upload Design</button> -->
-						</a>
-					
+
+					<a href="/customDesign" class="upload-area"> <!-- <button class="upload-btn">Upload Design</button> -->
+					</a>
+
 
 				</div>
 

@@ -6288,7 +6288,43 @@ input[type="radio"]:invalid {
     height: auto !important;
     display: block;
 }
+.banner-link {
+    position: absolute;
+    display: block;
+    z-index: 10;
+}
 
+/* First panel - Korean Earrings */
+.link1 {
+    left: 0%;
+    top: 0%;
+    width: 25%;
+    height: 100%;
+}
+
+/* Second panel - Flower Bracelet */
+.link2 {
+    left: 25%;
+    top: 0%;
+    width: 25%;
+    height: 100%;
+}
+
+/* Third panel - Pendant */
+.link3 {
+    left: 50%;
+    top: 0%;
+    width: 25%;
+    height: 100%;
+}
+
+/* Fourth panel - Layered Bracelet */
+.link4 {
+    left: 75%;
+    top: 0%;
+    width: 25%;
+    height: 100%;
+}
 
 
 @media (max-width: 800px) {
