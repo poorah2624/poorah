@@ -6318,24 +6318,30 @@ input[type="radio"]:invalid {
 
 @media (max-width: 800px) {
 
-    .category-section1{
-       height: 250px;
-        display: block !important;
+    .category-section1 {
+        height: auto !important;
         margin-bottom: clamp(10px, 2vw, 20px) !important;
     }
-
-    .category-box1{
+   .category-box1 {
         width: 100% !important;
-        height: 250px;
+        height: auto !important;
     }
-    .video-img1{
-    height: 250px;
+    .video-img1 {
+        width: 100% !important;
+        height: auto !important;
+        position: relative !important;
     }
 
-    .category-box1 img{
+   .category-box1 img {
         width: 100% !important;
         height: auto !important;
         display: block !important;
+    }
+    .banner-link {
+        position: absolute !important;
+        top: 0 !important;
+        height: 100% !important;
+        z-index: 999 !important;
     }
 
     /* SECTION 2 */
