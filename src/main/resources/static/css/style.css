@@ -6320,28 +6320,36 @@ input[type="radio"]:invalid {
 
     .category-section1 {
         height: auto !important;
-        margin-bottom: clamp(10px, 2vw, 20px) !important;
-    }
-   .category-box1 {
-        width: 100% !important;
-        height: auto !important;
-    }
-    .video-img1 {
-        width: 100% !important;
-        height: auto !important;
-        position: relative !important;
+        min-height: 0 !important;
+        margin-bottom: 10px !important;
+        padding: 0 !important;
     }
 
-   .category-box1 img {
+    .category-box1 {
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    .video-img1 {
+        height: auto !important;
+        min-height: 0 !important;
+        background: none !important;
+        background-image: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .video-img1 img {
         width: 100% !important;
         height: auto !important;
         display: block !important;
     }
+
     .banner-link {
         position: absolute !important;
         top: 0 !important;
         height: 100% !important;
-        z-index: 999 !important;
+        z-index: 9999 !important;
     }
 
     /* SECTION 2 */
