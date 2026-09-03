@@ -6364,11 +6364,15 @@ input[type="radio"]:invalid {
         height: auto !important;
         margin: 0 !important;
         padding: 0 !important;
+        margin-top : 0 !important;
+        margin-bottom: 0 !important;
     }
 
     .category-box2 {
         width: 100% !important;
         height: auto !important;
+        margin-top : 0 !important;
+        margin-bottom: 0 !important;
     }
 
     .video-img,
