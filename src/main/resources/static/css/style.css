@@ -6201,53 +6201,61 @@ input[type="radio"]:invalid {
 @media (max-width:800px){
 
     .category-section{
-        display:flex;
-        flex-direction:column;
-        height:auto !important;
-        gap:10px;
-        margin:0;
-        padding:0;
+       display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        gap: 5px !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .category-box3,
     .category-box4{
-        width:100%;
-        height:auto !important;
-        margin:0;
-        padding:0;
+        width: 50% !important;
+        flex: 1 1 50% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
     }
     
-    .category-box4{
-    margin-bottom: clamp(10px, 2vw, 20px) !important;
-  }
+  .category-box3 a,
+    .category-box4 a {
+        display: block;
+        width: 100%;
+    }
+  
 
     .category-box3 img,
     .category-box4 img{
-        width:100%;
-        height:auto !important;
-        display:block;
+         width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        object-fit: cover;
     }
 
     .clearfix{
         display:none;
     }
-    .overlay1{
-        position:absolute;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        text-align:center;
+    .overlay1 {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 
-    .overlay h2{
-        font-size:22px;
-        color:#fff;
-        margin:0;
+    .overlay1 h2 {
+        font-size: 18px !important;
+        color: #fff;
+        margin: 0;
     }
+
 }
 
 
