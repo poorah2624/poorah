@@ -6323,11 +6323,15 @@ input[type="radio"]:invalid {
         min-height: 0 !important;
         margin-bottom: 10px !important;
         padding: 0 !important;
+        margin-top:0 !important;
+        padding-top: 0 !important;
     }
 
     .category-box1 {
         height: auto !important;
         min-height: 0 !important;
+        margin-top:0 !important;
+        padding-top: 0 !important;
     }
 
     .video-img1 {
@@ -6337,6 +6341,8 @@ input[type="radio"]:invalid {
         background-image: none !important;
         padding: 0 !important;
         margin: 0 !important;
+        margin-top:0 !important;
+        padding-top: 0 !important;
     }
 
     .video-img1 img {
