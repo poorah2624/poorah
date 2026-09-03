@@ -26,16 +26,12 @@
 			</c:forEach>
 
 		</div>
-		<!-- LEFT ARROW -->
 		<a class="carousel-control-prev" href="#customCarousel1" role="button"
-			data-slide="prev"> <span class="carousel-control-prev-icon"
-			aria-hidden="true"></span> <span class="sr-only">Previous</span>
-		</a>
-
-		<!-- RIGHT ARROW -->
-		<a class="carousel-control-next" href="#customCarousel1" role="button"
-			data-slide="next"> <span class="carousel-control-next-icon"
-			aria-hidden="true"></span> <span class="sr-only">Next</span>
+			data-slide="prev"> <span class="my-arrow">&larr;</span> <span
+			class="sr-only">Previous</span>
+		</a> <a class="carousel-control-next" href="#customCarousel1"
+			role="button" data-slide="next"> <span class="my-arrow">&rarr;</span>
+			<span class="sr-only">Next</span>
 		</a>
 
 		<!-- DOTS -->
