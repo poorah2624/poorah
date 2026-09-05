@@ -6472,18 +6472,7 @@ input[type="radio"]:invalid {
         overflow: hidden !important;
     }
 
-    .overlay2 {
-        position: absolute !important;
-        inset: 0 !important;
-    }
-
-    .overlay-content {
-        width: 90% !important;
-        left: 50% !important;
-        bottom: 20px !important;
-        transform: translateX(-50%) !important;
-        text-align: center !important;
-    }
+   
 
    .upload-area {
     position: absolute !important;
