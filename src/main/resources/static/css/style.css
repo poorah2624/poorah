@@ -6485,12 +6485,16 @@ input[type="radio"]:invalid {
         text-align: center !important;
     }
 
-    .upload-area {
-        left: 0 !important;
-        top: 20% !important;
-        width: 100% !important;
-        height: 60% !important;
-    }
+   .upload-area {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 9999 !important;
+    display: block !important;
+    cursor: pointer !important;
+}
     
 }
 
