@@ -6462,7 +6462,7 @@ input[type="radio"]:invalid {
     .custom-upload-box {
         width: 100% !important;
         height: 300px !important;
-
+        position: relative !important;
         background-size: contain !important;
         background-repeat: no-repeat !important;
         background-position: center !important;
@@ -6476,6 +6476,7 @@ input[type="radio"]:invalid {
 
    .upload-area {
     position: absolute !important;
+    inset: 0 !important;
     left: 0 !important;
     top: 0 !important;
     width: 100% !important;
